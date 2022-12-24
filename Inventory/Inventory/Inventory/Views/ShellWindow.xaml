@@ -6,6 +6,20 @@
         xmlns:core="clr-namespace:Inventory.Core;assembly=Inventory.Core"
         Title="{Binding Title}" Height="350" Width="525" >
     <Grid>
-        <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <ContentControl Grid.Row="0" Grid.ColumnSpan="2"
+            prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" />
+        <ContentControl Grid.Row="1" Grid.Column="0"
+            prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" />
+        <ContentControl Grid.Row="1" Grid.ColumnSpan="1"
+            prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
     </Grid>
 </Window>
