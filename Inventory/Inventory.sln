@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory", "Inventory\Inve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Core", "Inventory\Inventory.Core\Inventory.Core.csproj", "{BFEE5BAE-8163-48B5-925A-B552BA38D800}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Modules.Regions", "Inventory.Modules.Regions\Inventory.Modules.Regions.csproj", "{F033C8BA-9EB4-4CF7-A054-9273A1355B05}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{BFEE5BAE-8163-48B5-925A-B552BA38D800}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFEE5BAE-8163-48B5-925A-B552BA38D800}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BFEE5BAE-8163-48B5-925A-B552BA38D800}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F033C8BA-9EB4-4CF7-A054-9273A1355B05}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F033C8BA-9EB4-4CF7-A054-9273A1355B05}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F033C8BA-9EB4-4CF7-A054-9273A1355B05}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F033C8BA-9EB4-4CF7-A054-9273A1355B05}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -60,6 +66,7 @@ Global
 		{C6FCEE5B-9451-464B-A827-F02B0057ACA8} = {54152245-7F06-4627-BC5C-5483FCB7E142}
 		{27825F82-22E5-4AAE-8EB0-1676886043FE} = {13D51196-AAC7-4C81-8A77-0320FC8DE29C}
 		{B699EBAF-F595-4BBF-8D11-5129E3EF082A} = {13D51196-AAC7-4C81-8A77-0320FC8DE29C}
+		{F033C8BA-9EB4-4CF7-A054-9273A1355B05} = {54152245-7F06-4627-BC5C-5483FCB7E142}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {40258CAE-068E-4997-B0A4-5989EBCB5D52}

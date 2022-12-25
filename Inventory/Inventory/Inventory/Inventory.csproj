@@ -8,6 +8,7 @@
     <PackageReference Include="Prism.DryIoc" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Inventory.Modules.Regions\Inventory.Modules.Regions.csproj" />
     <ProjectReference Include="..\Inventory.Core\Inventory.Core.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.ModuleName\Inventory.Modules.ModuleName.csproj" />
     <ProjectReference Include="..\Services\Inventory.Services.Interfaces\Inventory.Services.Interfaces.csproj" />

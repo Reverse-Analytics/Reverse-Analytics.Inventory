@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Inventory.Views
+namespace Inventory.Modules.Regions.Views
 {
     /// <summary>
-    /// Interaction logic for Menu.xaml
+    /// Interaction logic for ViewA.xaml
     /// </summary>
-    public partial class Menu : UserControl
+    public partial class ViewA : UserControl
     {
-        public Menu()
+        public ViewA()
         {
             InitializeComponent();
         }
