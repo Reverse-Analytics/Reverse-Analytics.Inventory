@@ -1,22 +1,21 @@
-﻿using Inventory.Core;
-using Inventory.Modules.ModuleName;
+﻿using Inventory.Modules.ModuleName;
 using Inventory.Modules.Regions;
 using Inventory.Services;
 using Inventory.Services.Interfaces;
 using Inventory.Views;
-using Prism.DryIoc;
 using Prism.Ioc;
 using Prism.Modularity;
-using Prism.Regions;
 using System.Windows;
 
 namespace Inventory
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App
     {
+        public App()
+        {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("ODE1Mjg2QDMyMzAyZTM0MmUzMGIyekp1VGJuc1RXK2ovWUJHK3V2RStZVFR0WkU4M1Q1a2JjRGs2VzcyWVE9");
+        }
+
         protected override Window CreateShell()
         {
             return Container.Resolve<ShellWindow>();

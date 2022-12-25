@@ -4,13 +4,66 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Icons\black_analytics_icon.png" />
+    <None Remove="Resources\Icons\black_close_icon.png" />
+    <None Remove="Resources\Icons\black_customers_icon.png" />
+    <None Remove="Resources\Icons\black_debt_icon.png" />
+    <None Remove="Resources\Icons\black_inventory_icon.png" />
+    <None Remove="Resources\Icons\black_minimize_icon.png" />
     <None Remove="Resources\Icons\black_notification_icon.png" />
+    <None Remove="Resources\Icons\black_product_icon.png" />
+    <None Remove="Resources\Icons\black_reports_icon.png" />
+    <None Remove="Resources\Icons\black_restore_icon.png" />
+    <None Remove="Resources\Icons\black_sale_icon.png" />
+    <None Remove="Resources\Icons\black_settings_icon.png" />
+    <None Remove="Resources\Icons\black_suppliers_icon.png" />
+    <None Remove="Resources\Icons\black_supply_icon.png" />
+    <None Remove="Resources\Icons\notifications_icon.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\black_notification_icon.png">
+    <Resource Include="Resources\Icons\black_analytics_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_close_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_customers_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_debt_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_inventory_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_minimize_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_product_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_reports_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_restore_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_sale_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_settings_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_suppliers_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\black_supply_icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\notifications_icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>

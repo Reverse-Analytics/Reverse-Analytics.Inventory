@@ -6,6 +6,8 @@
   <ItemGroup>
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="20.4.0.38" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventory\Inventory.Core\Inventory.Core.csproj" />
