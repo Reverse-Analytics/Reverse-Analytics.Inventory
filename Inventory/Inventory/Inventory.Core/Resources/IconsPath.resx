@@ -117,10 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Exit" xml:space="preserve">
-    <value />
+  <data name="Analytics" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_analytics_icon.png</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_close_icon.png</value>
+  </data>
+  <data name="Customers" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_customers_icon.png</value>
+  </data>
+  <data name="Debts" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_debt_icon.png</value>
+  </data>
+  <data name="Inventory" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_inventory_icon.png</value>
+  </data>
+  <data name="Minimize" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_minimize_icon.png</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/black_notification_icon.png</value>
+    <value>/Inventory.Core;Component/Resources/Icons/notifications_icon.png</value>
+  </data>
+  <data name="Products" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_product_icon.png</value>
+  </data>
+  <data name="Reports" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_reports_icon.png</value>
+  </data>
+  <data name="Restore" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_restore_icon.png</value>
+  </data>
+  <data name="Sales" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_sale_icon.png</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_settings_icon.png</value>
+  </data>
+  <data name="Suppliers" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_suppliers_icon.png</value>
+  </data>
+  <data name="Supplies" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/black_supply_icon.png</value>
   </data>
 </root>

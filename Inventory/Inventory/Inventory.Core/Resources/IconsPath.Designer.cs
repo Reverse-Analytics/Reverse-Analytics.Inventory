@@ -61,20 +61,128 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_analytics_icon.png.
         /// </summary>
-        public static string Exit {
+        public static string Analytics {
             get {
-                return ResourceManager.GetString("Exit", resourceCulture);
+                return ResourceManager.GetString("Analytics", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_notification_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_close_icon.png.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_customers_icon.png.
+        /// </summary>
+        public static string Customers {
+            get {
+                return ResourceManager.GetString("Customers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_debt_icon.png.
+        /// </summary>
+        public static string Debts {
+            get {
+                return ResourceManager.GetString("Debts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_inventory_icon.png.
+        /// </summary>
+        public static string Inventory {
+            get {
+                return ResourceManager.GetString("Inventory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_minimize_icon.png.
+        /// </summary>
+        public static string Minimize {
+            get {
+                return ResourceManager.GetString("Minimize", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/notifications_icon.png.
         /// </summary>
         public static string Notifications {
             get {
                 return ResourceManager.GetString("Notifications", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_product_icon.png.
+        /// </summary>
+        public static string Products {
+            get {
+                return ResourceManager.GetString("Products", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_reports_icon.png.
+        /// </summary>
+        public static string Reports {
+            get {
+                return ResourceManager.GetString("Reports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_restore_icon.png.
+        /// </summary>
+        public static string Restore {
+            get {
+                return ResourceManager.GetString("Restore", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_sale_icon.png.
+        /// </summary>
+        public static string Sales {
+            get {
+                return ResourceManager.GetString("Sales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_settings_icon.png.
+        /// </summary>
+        public static string Settings {
+            get {
+                return ResourceManager.GetString("Settings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_suppliers_icon.png.
+        /// </summary>
+        public static string Suppliers {
+            get {
+                return ResourceManager.GetString("Suppliers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_supply_icon.png.
+        /// </summary>
+        public static string Supplies {
+            get {
+                return ResourceManager.GetString("Supplies", resourceCulture);
             }
         }
     }

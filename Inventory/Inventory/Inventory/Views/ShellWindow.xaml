@@ -4,7 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:core="clr-namespace:Inventory.Core;assembly=Inventory.Core"
-        Title="{Binding Title}" Height="350" Width="525" >
+        Title="{Binding Title}" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
