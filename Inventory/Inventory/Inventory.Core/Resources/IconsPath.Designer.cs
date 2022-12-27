@@ -61,7 +61,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_analytics_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/analytics.ico.
         /// </summary>
         public static string Analytics {
             get {
@@ -70,7 +70,61 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_close_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/arrow_down.ico.
+        /// </summary>
+        public static string ArrowDown {
+            get {
+                return ResourceManager.GetString("ArrowDown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/arrow_left.ico.
+        /// </summary>
+        public static string ArrowLeft {
+            get {
+                return ResourceManager.GetString("ArrowLeft", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/arrow_right.ico.
+        /// </summary>
+        public static string ArrowRight {
+            get {
+                return ResourceManager.GetString("ArrowRight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/arrow_up.ico.
+        /// </summary>
+        public static string ArrowUp {
+            get {
+                return ResourceManager.GetString("ArrowUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/catalog.ico.
+        /// </summary>
+        public static string Catalog {
+            get {
+                return ResourceManager.GetString("Catalog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/category.ico.
+        /// </summary>
+        public static string Category {
+            get {
+                return ResourceManager.GetString("Category", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/close.ico.
         /// </summary>
         public static string Close {
             get {
@@ -79,7 +133,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_customers_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/customers.ico.
         /// </summary>
         public static string Customers {
             get {
@@ -88,7 +142,16 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_debt_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard.ico.
+        /// </summary>
+        public static string Dashboard {
+            get {
+                return ResourceManager.GetString("Dashboard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/debts.ico.
         /// </summary>
         public static string Debts {
             get {
@@ -97,7 +160,25 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_inventory_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dropdown.ico.
+        /// </summary>
+        public static string Dropdown {
+            get {
+                return ResourceManager.GetString("Dropdown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dropup.ico.
+        /// </summary>
+        public static string Dropup {
+            get {
+                return ResourceManager.GetString("Dropup", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/inventory.ico.
         /// </summary>
         public static string Inventory {
             get {
@@ -106,7 +187,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_minimize_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/minimize.ico.
         /// </summary>
         public static string Minimize {
             get {
@@ -115,7 +196,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/notifications_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/notifications.ico.
         /// </summary>
         public static string Notifications {
             get {
@@ -124,16 +205,16 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_product_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/production.ico.
         /// </summary>
-        public static string Products {
+        public static string Production {
             get {
-                return ResourceManager.GetString("Products", resourceCulture);
+                return ResourceManager.GetString("Production", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_reports_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/reports.ico.
         /// </summary>
         public static string Reports {
             get {
@@ -142,7 +223,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_restore_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/restore.ico.
         /// </summary>
         public static string Restore {
             get {
@@ -151,7 +232,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_sale_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/sale.ico.
         /// </summary>
         public static string Sales {
             get {
@@ -160,7 +241,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_settings_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/settings.ico.
         /// </summary>
         public static string Settings {
             get {
@@ -169,7 +250,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_suppliers_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/suppliers.ico.
         /// </summary>
         public static string Suppliers {
             get {
@@ -178,7 +259,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/black_supply_icon.png.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/supplies.ico.
         /// </summary>
         public static string Supplies {
             get {

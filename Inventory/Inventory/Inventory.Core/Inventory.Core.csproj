@@ -4,10 +4,22 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Fonts\Inter-Black.ttf" />
+    <None Remove="Resources\Icons\Aline-logo.png" />
+    <None Remove="Resources\Icons\analytics.ico" />
+    <None Remove="Resources\Icons\arrow_down.ico" />
+    <None Remove="Resources\Icons\arrow_left.ico" />
+    <None Remove="Resources\Icons\arrow_right.ico" />
+    <None Remove="Resources\Icons\arrow_up.ico" />
     <None Remove="Resources\Icons\black_analytics_icon.png" />
+    <None Remove="Resources\Icons\black_catalog_icon.png" />
+    <None Remove="Resources\Icons\black_category_icon.png" />
     <None Remove="Resources\Icons\black_close_icon.png" />
     <None Remove="Resources\Icons\black_customers_icon.png" />
+    <None Remove="Resources\Icons\black_dashboard_icon.png" />
     <None Remove="Resources\Icons\black_debt_icon.png" />
+    <None Remove="Resources\Icons\black_dropdown_icon.png" />
+    <None Remove="Resources\Icons\black_dropup_icon.png" />
     <None Remove="Resources\Icons\black_inventory_icon.png" />
     <None Remove="Resources\Icons\black_minimize_icon.png" />
     <None Remove="Resources\Icons\black_notification_icon.png" />
@@ -15,59 +27,119 @@
     <None Remove="Resources\Icons\black_reports_icon.png" />
     <None Remove="Resources\Icons\black_restore_icon.png" />
     <None Remove="Resources\Icons\black_sale_icon.png" />
+    <None Remove="Resources\Icons\black_settings_icon.ico" />
     <None Remove="Resources\Icons\black_settings_icon.png" />
     <None Remove="Resources\Icons\black_suppliers_icon.png" />
     <None Remove="Resources\Icons\black_supply_icon.png" />
+    <None Remove="Resources\Icons\blue_analytics_icon.png" />
+    <None Remove="Resources\Icons\blue_catalog_icon.png" />
+    <None Remove="Resources\Icons\blue_category_icon.png" />
+    <None Remove="Resources\Icons\blue_customers_icon.png" />
+    <None Remove="Resources\Icons\blue_dashboard_icon.png" />
+    <None Remove="Resources\Icons\blue_debts_icon.png" />
+    <None Remove="Resources\Icons\blue_dropdown_icon.png" />
+    <None Remove="Resources\Icons\blue_dropup_icon.png" />
+    <None Remove="Resources\Icons\blue_inventory_icon.png" />
+    <None Remove="Resources\Icons\blue_products_icon.png" />
+    <None Remove="Resources\Icons\blue_reports_icon.png" />
+    <None Remove="Resources\Icons\blue_sales_icon.png" />
+    <None Remove="Resources\Icons\blue_settings_icon.png" />
+    <None Remove="Resources\Icons\blue_suppliers_icon.png" />
+    <None Remove="Resources\Icons\blue_supplies_icon.png" />
+    <None Remove="Resources\Icons\category.ico" />
+    <None Remove="Resources\Icons\close.ico" />
+    <None Remove="Resources\Icons\customers.ico" />
+    <None Remove="Resources\Icons\dashboard.ico" />
+    <None Remove="Resources\Icons\debts.ico" />
+    <None Remove="Resources\Icons\inventory.ico" />
+    <None Remove="Resources\Icons\minimize.ico" />
+    <None Remove="Resources\Icons\notifications.ico" />
     <None Remove="Resources\Icons\notifications_icon.png" />
+    <None Remove="Resources\Icons\production.ico" />
+    <None Remove="Resources\Icons\products.ico" />
+    <None Remove="Resources\Icons\restore.ico" />
+    <None Remove="Resources\Icons\sales.ico" />
+    <None Remove="Resources\Icons\settings.ico" />
+    <None Remove="Resources\Icons\suppliers.ico" />
+    <None Remove="Resources\Icons\supplies.ico" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Resources\Icons\black_analytics_icon.png">
+    <Resource Include="Resources\Fonts\Inter-Black.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_close_icon.png">
+    <Resource Include="Resources\Icons\Aline-logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_customers_icon.png">
+    <Resource Include="Resources\Icons\analytics.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_debt_icon.png">
+    <Resource Include="Resources\Icons\arrow_down.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_inventory_icon.png">
+    <Resource Include="Resources\Icons\arrow_left.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_minimize_icon.png">
+    <Resource Include="Resources\Icons\arrow_right.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_product_icon.png">
+    <Resource Include="Resources\Icons\arrow_up.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_reports_icon.png">
+    <Resource Include="Resources\Icons\category.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_restore_icon.png">
+    <Resource Include="Resources\Icons\close.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_sale_icon.png">
+    <Resource Include="Resources\Icons\customers.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_settings_icon.png">
+    <Resource Include="Resources\Icons\dashboard.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_suppliers_icon.png">
+    <Resource Include="Resources\Icons\debts.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\black_supply_icon.png">
+    <Resource Include="Resources\Icons\inventory.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\notifications_icon.png">
+    <Resource Include="Resources\Icons\minimize.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\notifications.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\production.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\products.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\restore.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\sales.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\settings.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\suppliers.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\supplies.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Resources\FontsPath.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>FontsPath.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\IconsPath.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -75,6 +147,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\FontsPath.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>FontsPath.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\IconsPath.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>IconsPath.Designer.cs</LastGenOutput>

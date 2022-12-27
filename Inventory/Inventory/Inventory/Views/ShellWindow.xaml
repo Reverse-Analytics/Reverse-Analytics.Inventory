@@ -4,6 +4,7 @@
         xmlns:prism="http://prismlibrary.com/"
         prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:core="clr-namespace:Inventory.Core;assembly=Inventory.Core"
+                     UseLayoutRounding="True"
         Title="{Binding Title}" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize">
     <Grid>
         <Grid.RowDefinitions>
@@ -15,9 +16,9 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.ColumnSpan="2"
+        <ContentControl Grid.Row="0" Grid.Column="1"
             prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" />
-        <ContentControl Grid.Row="1" Grid.Column="0"
+        <ContentControl Grid.RowSpan="2" Grid.Column="0"
             prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" />
         <ContentControl Grid.Row="1" Grid.ColumnSpan="1"
             prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />

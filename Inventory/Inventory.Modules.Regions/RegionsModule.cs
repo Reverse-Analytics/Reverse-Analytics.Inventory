@@ -18,11 +18,13 @@ namespace Inventory.Modules.Regions
         public void OnInitialized(IContainerProvider containerProvider)
         {
             _regionManager.RequestNavigate(RegionNames.MenuRegion, "MenuView");
+            _regionManager.RequestNavigate(RegionNames.NavigationRegion, "SidebarView");
         }
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<MenuView>();
+            containerRegistry.RegisterForNavigation<SidebarView>();
         }
     }
 }

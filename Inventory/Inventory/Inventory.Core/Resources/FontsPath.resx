@@ -117,73 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Analytics" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/analytics.ico</value>
-  </data>
-  <data name="ArrowDown" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/arrow_down.ico</value>
-  </data>
-  <data name="ArrowLeft" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/arrow_left.ico</value>
-  </data>
-  <data name="ArrowRight" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/arrow_right.ico</value>
-  </data>
-  <data name="ArrowUp" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/arrow_up.ico</value>
-  </data>
-  <data name="Catalog" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/catalog.ico</value>
-  </data>
-  <data name="Category" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/category.ico</value>
-  </data>
-  <data name="Close" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/close.ico</value>
-  </data>
-  <data name="Customers" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/customers.ico</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/dashboard.ico</value>
-  </data>
-  <data name="Debts" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/debts.ico</value>
-  </data>
-  <data name="Dropdown" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/dropdown.ico</value>
-  </data>
-  <data name="Dropup" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/dropup.ico</value>
-  </data>
-  <data name="Inventory" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/inventory.ico</value>
-  </data>
-  <data name="Minimize" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/minimize.ico</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/notifications.ico</value>
-  </data>
-  <data name="Production" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/production.ico</value>
-  </data>
-  <data name="Reports" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/reports.ico</value>
-  </data>
-  <data name="Restore" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/restore.ico</value>
-  </data>
-  <data name="Sales" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/sale.ico</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/settings.ico</value>
-  </data>
-  <data name="Suppliers" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/suppliers.ico</value>
-  </data>
-  <data name="Supplies" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/supplies.ico</value>
+  <data name="Inter" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Fonts/Inter-Black.tff</value>
   </data>
 </root>
