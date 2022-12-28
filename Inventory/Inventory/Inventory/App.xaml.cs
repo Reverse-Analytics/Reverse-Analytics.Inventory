@@ -1,4 +1,4 @@
-﻿using Inventory.Modules.ModuleName;
+﻿using Inventory.Modules.Dashboard;
 using Inventory.Modules.Regions;
 using Inventory.Services;
 using Inventory.Services.Interfaces;
@@ -33,8 +33,8 @@ namespace Inventory
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
-            moduleCatalog.AddModule<ModuleNameModule>();
             moduleCatalog.AddModule<RegionsModule>();
+            moduleCatalog.AddModule<DashboardModule>();
         }
     }
 }

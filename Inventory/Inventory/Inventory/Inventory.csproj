@@ -9,9 +9,9 @@
     <PackageReference Include="Syncfusion.Licensing" Version="20.4.0.38" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\Inventory.Modules.Regions\Inventory.Modules.Regions.csproj" />
     <ProjectReference Include="..\Inventory.Core\Inventory.Core.csproj" />
-    <ProjectReference Include="..\Modules\Inventory.Modules.ModuleName\Inventory.Modules.ModuleName.csproj" />
+    <ProjectReference Include="..\Modules\Inventory.Modules.Dashboard\Inventory.Modules.Dashboard.csproj" />
+    <ProjectReference Include="..\Modules\Inventory.Modules.Regions\Inventory.Modules.Regions.csproj" />
     <ProjectReference Include="..\Services\Inventory.Services.Interfaces\Inventory.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Services\Inventory.Services\Inventory.Services.csproj" />
   </ItemGroup>

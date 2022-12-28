@@ -1,26 +1,33 @@
 ﻿<Window x:Class="Inventory.Views.ShellWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
         xmlns:core="clr-namespace:Inventory.Core;assembly=Inventory.Core"
-                     UseLayoutRounding="True"
-        Title="{Binding Title}" WindowState="Maximized" WindowStyle="None" ResizeMode="NoResize">
+        xmlns:prism="http://prismlibrary.com/"
+        Title="{Binding Title}"
+        prism:ViewModelLocator.AutoWireViewModel="True"
+        ResizeMode="NoResize"
+        UseLayoutRounding="True"
+        WindowState="Maximized"
+        WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <ContentControl Grid.Row="0" Grid.Column="1"
-            prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" />
-        <ContentControl Grid.RowSpan="2" Grid.Column="0"
-            prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" />
-        <ContentControl Grid.Row="1" Grid.ColumnSpan="1"
-            prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
+        <ContentControl Grid.Row="0"
+                        Grid.Column="1"
+                        prism:RegionManager.RegionName="{x:Static core:RegionNames.MenuRegion}" />
+        <ContentControl Grid.RowSpan="2"
+                        Grid.Column="0"
+                        prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" />
+        <ContentControl Grid.Row="1"
+                        Grid.Column="1"
+                        prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"
+                        Background="#f5f6f9" />
     </Grid>
 </Window>
