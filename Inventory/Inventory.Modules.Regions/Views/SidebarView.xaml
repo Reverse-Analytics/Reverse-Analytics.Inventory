@@ -46,7 +46,10 @@
                 BorderBrush="LightGray"
                 BorderThickness="0.5">
             <StackPanel>
-                <Image Margin="0,10,0,0" Source="C:\Projects\Reverse-Analytics.Inventory\Inventory\Inventory\Inventory.Core\Resources\Icons\Aline-logo.png" />
+                <Image Width="75"
+                       Height="75"
+                       Margin="0,25,0,0"
+                       Source="C:\Projects\Reverse-Analytics.Inventory\Inventory\Inventory\Inventory.Core\Resources\Icons\logo-default.png" />
 
                 <Button x:Name="dashboardButton" Margin="0,50,0,0">
                     <DockPanel Width="240" Margin="5">
@@ -54,11 +57,11 @@
                                       Margin="10,0,0,0"
                                       VerticalAlignment="Center"
                                       DockPanel.Dock="Left"
-                                      FontSize="30"
+                                      FontSize="25"
                                       Icon="ThLarge" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Dashboard" />
                     </DockPanel>
@@ -69,18 +72,18 @@
                         <fa:IconBlock x:Name="productionIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="30"
+                                      FontSize="25"
                                       Icon="Box" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Production" />
                         <fa:IconBlock x:Name="productionCaret"
                                       Margin="0,0,25,0"
                                       HorizontalAlignment="Right"
                                       DockPanel.Dock="Right"
-                                      FontSize="20"
+                                      FontSize="16"
                                       Icon="CaretRight" />
                     </DockPanel>
                 </Button>
@@ -89,12 +92,12 @@
                     <Button x:Name="catalogButton">
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="catalogIcon"
-                                          FontSize="25"
+                                          FontSize="20"
                                           Icon="FileAlt" />
                             <TextBlock Margin="20,0,0,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="16"
                                        FontWeight="Medium"
                                        Text="Catalog" />
                         </StackPanel>
@@ -104,11 +107,11 @@
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="categoriesIcon"
                                           Margin="10,0,0,0"
-                                          FontSize="25"
+                                          FontSize="20"
                                           Icon="Tag" />
                             <TextBlock Margin="20,0,0,0"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="16"
                                        FontWeight="Medium"
                                        Text="Category"
                                        TextAlignment="Left" />
@@ -121,11 +124,11 @@
                         <fa:IconBlock x:Name="customersIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="22"
+                                      FontSize="20"
                                       Icon="Users" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Customers"
                                    TextAlignment="Left" />
@@ -133,7 +136,7 @@
                                       Margin="0,0,25,0"
                                       HorizontalAlignment="Right"
                                       DockPanel.Dock="Right"
-                                      FontSize="20"
+                                      FontSize="16"
                                       Icon="CaretRight" />
                     </DockPanel>
                 </Button>
@@ -144,12 +147,12 @@
                     <Button x:Name="salesButton">
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="salesIcon"
-                                          FontSize="25"
+                                          FontSize="20"
                                           Icon="SackDollar" />
                             <TextBlock Margin="20,0,0,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="16"
                                        FontWeight="Medium"
                                        Text="Sales" />
                         </StackPanel>
@@ -158,12 +161,12 @@
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="customerDebtsIcon"
                                           Margin="5,0,0,0"
-                                          FontSize="25"
+                                          FontSize="20"
                                           Icon="FileInvoiceDollar" />
                             <TextBlock Margin="24,0,0,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="16"
                                        FontWeight="Medium"
                                        Text="Debts" />
                         </StackPanel>
@@ -174,11 +177,11 @@
                     <DockPanel Width="240" Margin="5">
                         <fa:IconBlock x:Name="suppliersIcon"
                                       Margin="10,0,0,0"
-                                      FontSize="22"
+                                      FontSize="20"
                                       Icon="UserFriends" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Suppliers"
                                    TextAlignment="Left" />
@@ -186,21 +189,21 @@
                                       Margin="0,0,25,0"
                                       HorizontalAlignment="Right"
                                       DockPanel.Dock="Right"
-                                      FontSize="20"
+                                      FontSize="16"
                                       Icon="CaretRight" />
                     </DockPanel>
                 </Button>
 
                 <StackPanel x:Name="suppliersChildStackPanel" Visibility="Collapsed">
                     <Button x:Name="suppliesButton">
-                        <StackPanel Margin="10" Orientation="Horizontal">
+                        <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="suppliesIcon"
                                           Margin="5,0,0,0"
-                                          FontSize="22"
+                                          FontSize="20"
                                           Icon="Truck" />
                             <TextBlock Margin="20,0,0,0"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="16"
                                        FontWeight="Medium"
                                        Text="Supplies"
                                        TextAlignment="Left" />
@@ -208,15 +211,15 @@
                     </Button>
 
                     <Button x:Name="supplierDebtsButton">
-                        <StackPanel Margin="10" Orientation="Horizontal">
+                        <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="supplierDebtsIcon"
-                                          Margin="0,0,10,0"
-                                          FontSize="25"
+                                          Margin="10,0,5,0"
+                                          FontSize="20"
                                           Icon="FileInvoiceDollar" />
                             <TextBlock Margin="20,0,10,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
-                                       FontSize="18"
+                                       FontSize="17"
                                        FontWeight="Medium"
                                        Text="Debts" />
                         </StackPanel>
@@ -232,7 +235,7 @@
                                       Icon="BoxesPacking" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Inventory" />
                     </DockPanel>
@@ -243,11 +246,11 @@
                         <fa:IconBlock x:Name="analyticsIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="30"
+                                      FontSize="25"
                                       Icon="ChartSimple" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Analytics" />
                     </DockPanel>
@@ -258,12 +261,12 @@
                         <fa:IconBlock x:Name="reportsIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="30"
+                                      FontSize="25"
                                       Icon="FileInvoice" />
                         <TextBlock Margin="25,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Reports" />
                     </DockPanel>
@@ -274,12 +277,12 @@
                         <fa:IconBlock x:Name="settingsIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="30"
+                                      FontSize="25"
                                       Icon="Gear" />
                         <TextBlock Margin="20,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
-                                   FontSize="18"
+                                   FontSize="17"
                                    FontWeight="Medium"
                                    Text="Settings" />
                     </DockPanel>
