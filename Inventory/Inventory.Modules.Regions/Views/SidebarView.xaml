@@ -88,13 +88,13 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="productionChildStackPanel" Visibility="{Binding ProductionChildrenVisibility}">
+                <StackPanel x:Name="productionChildStackPanel">
                     <Button x:Name="catalogButton">
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="catalogIcon"
                                           FontSize="20"
                                           Icon="FileAlt" />
-                            <TextBlock Margin="20,0,0,0"
+                            <TextBlock Margin="20,0,30,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="16"
@@ -109,7 +109,7 @@
                                           Margin="10,0,0,0"
                                           FontSize="20"
                                           Icon="Tag" />
-                            <TextBlock Margin="20,0,0,0"
+                            <TextBlock Margin="20,0,30,0"
                                        VerticalAlignment="Center"
                                        FontSize="16"
                                        FontWeight="Medium"
@@ -124,7 +124,7 @@
                         <fa:IconBlock x:Name="customersIcon"
                                       Margin="10,0,0,0"
                                       DockPanel.Dock="Left"
-                                      FontSize="20"
+                                      FontSize="18"
                                       Icon="Users" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
@@ -141,15 +141,13 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="customersChildStackPanel"
-                            Margin="0,0,20,0"
-                            Visibility="Collapsed">
+                <StackPanel x:Name="customersChildStackPanel" Visibility="Collapsed">
                     <Button x:Name="salesButton">
                         <StackPanel Margin="5" Orientation="Horizontal">
                             <fa:IconBlock x:Name="salesIcon"
                                           FontSize="20"
                                           Icon="SackDollar" />
-                            <TextBlock Margin="20,0,0,0"
+                            <TextBlock Margin="20,0,55,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="16"
@@ -163,7 +161,7 @@
                                           Margin="5,0,0,0"
                                           FontSize="20"
                                           Icon="FileInvoiceDollar" />
-                            <TextBlock Margin="24,0,0,0"
+                            <TextBlock Margin="24,0,55,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="16"
@@ -177,7 +175,7 @@
                     <DockPanel Width="240" Margin="5">
                         <fa:IconBlock x:Name="suppliersIcon"
                                       Margin="10,0,0,0"
-                                      FontSize="20"
+                                      FontSize="18"
                                       Icon="UserFriends" />
                         <TextBlock Margin="20,0,0,0"
                                    VerticalAlignment="Center"
@@ -201,7 +199,7 @@
                                           Margin="5,0,0,0"
                                           FontSize="20"
                                           Icon="Truck" />
-                            <TextBlock Margin="20,0,0,0"
+                            <TextBlock Margin="20,0,15,0"
                                        VerticalAlignment="Center"
                                        FontSize="16"
                                        FontWeight="Medium"
@@ -216,7 +214,7 @@
                                           Margin="10,0,5,0"
                                           FontSize="20"
                                           Icon="FileInvoiceDollar" />
-                            <TextBlock Margin="20,0,10,0"
+                            <TextBlock Margin="20,0,35,0"
                                        HorizontalAlignment="Left"
                                        VerticalAlignment="Center"
                                        FontSize="17"
