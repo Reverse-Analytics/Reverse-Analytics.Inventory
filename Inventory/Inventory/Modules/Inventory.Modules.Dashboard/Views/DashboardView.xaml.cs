@@ -24,5 +24,9 @@ namespace Inventory.Modules.Dashboard.Views
         {
             InitializeComponent();
         }
+
+        public void onClick()
+        {
+        }
     }
 }
