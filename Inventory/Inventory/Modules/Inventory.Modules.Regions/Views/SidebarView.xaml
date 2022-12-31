@@ -294,6 +294,8 @@
                     </DockPanel>
                 </Button>
             </StackPanel>
+
+
         </Border>
     </Grid>
 </UserControl>
