@@ -1,0 +1,168 @@
+﻿<UserControl x:Class="Inventory.Modules.Dashboard.Views.SalesCardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:res="clr-namespace:Inventory.Core.Resources;assembly=Inventory.Core"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             mc:Ignorable="d">
+    <Grid>
+        <md:Card Margin="40"
+                 Background="White"
+                 BorderThickness="1"
+                 UniformCornerRadius="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0"
+                           Margin="20"
+                           VerticalAlignment="Center"
+                           FontSize="20"
+                           Text="Sales Overview" />
+
+                <fa:IconBlock Grid.Column="2"
+                              Margin="20"
+                              HorizontalAlignment="Right"
+                              VerticalAlignment="Center"
+                              Cursor="Hand"
+                              FontSize="20"
+                              Icon="EllipsisV" />
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="0"
+                            Margin="20,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Border Background="#e0f4fd" CornerRadius="10">
+                        <fa:IconImage Width="30"
+                                      Height="30"
+                                      Margin="13"
+                                      Foreground="#0caafd"
+                                      Source="{Binding Source={x:Static res:IconsPath.DashboardSales}}" />
+                    </Border>
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="18"
+                                   Foreground="LightSlateGray"
+                                   Text="Total Sales" />
+                        <TextBlock FontSize="20"
+                                   FontWeight="Bold"
+                                   Text="786" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Rectangle Grid.Row="1"
+                           Grid.Column="1"
+                           Width="1"
+                           Height="50"
+                           Margin="0,20,0,20"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Stretch"
+                           Stroke="LightGray" />
+
+                <StackPanel Grid.Row="1"
+                            Grid.Column="2"
+                            Margin="70,0,0,0"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Border Background="#fff4de" CornerRadius="10">
+                        <fa:IconImage Width="30"
+                                      Height="30"
+                                      Margin="13"
+                                      Source="{Binding Source={x:Static res:IconsPath.DashboardRevenue}}" />
+                    </Border>
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="18"
+                                   Foreground="LightSlateGray"
+                                   Text="Revenue" />
+                        <TextBlock FontSize="20"
+                                   FontWeight="Bold"
+                                   Text="1.500" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator Grid.Row="2"
+                           Grid.Column="0"
+                           Width="100"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           Background="LightGray" />
+
+                <StackPanel Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="20,10,0,20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Border Background="#fff1ee" CornerRadius="10">
+                        <fa:IconImage Width="30"
+                                      Height="30"
+                                      Margin="13"
+                                      Foreground="#0caafd"
+                                      Source="{Binding Source={x:Static res:IconsPath.DashboardCost}}" />
+                    </Border>
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="18"
+                                   Foreground="LightSlateGray"
+                                   Text="Cost" />
+                        <TextBlock FontSize="20"
+                                   FontWeight="Bold"
+                                   Text="786" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Rectangle Grid.Row="3"
+                           Grid.Column="1"
+                           Width="1"
+                           Height="50"
+                           Margin="0,20,0,20"
+                           HorizontalAlignment="Right"
+                           VerticalAlignment="Stretch"
+                           Stroke="LightGray" />
+
+                <StackPanel Grid.Row="3"
+                            Grid.Column="2"
+                            Margin="70,10,0,20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                    <Border Background="#e6f2f2" CornerRadius="10">
+                        <fa:IconImage Width="30"
+                                      Height="30"
+                                      Margin="13"
+                                      Source="{Binding Source={x:Static res:IconsPath.DashboardProfit}}" />
+                    </Border>
+                    <StackPanel Margin="15,0,0,0" VerticalAlignment="Center">
+                        <TextBlock FontSize="18"
+                                   Foreground="LightSlateGray"
+                                   Text="Profit" />
+                        <TextBlock FontSize="20"
+                                   FontWeight="Bold"
+                                   Text="1.500" />
+                    </StackPanel>
+                </StackPanel>
+
+                <Separator Grid.Row="2"
+                           Grid.Column="3"
+                           Width="100"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           Background="LightGray" />
+            </Grid>
+        </md:Card>
+    </Grid>
+</UserControl>
