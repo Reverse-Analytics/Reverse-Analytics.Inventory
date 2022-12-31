@@ -5,6 +5,7 @@
         xmlns:prism="http://prismlibrary.com/"
         Title="{Binding Title}"
         prism:ViewModelLocator.AutoWireViewModel="True"
+        FontFamily="{DynamicResource MaterialDesignFont}"
         ResizeMode="NoResize"
         UseLayoutRounding="True"
         WindowState="Maximized"
@@ -25,9 +26,12 @@
         <ContentControl Grid.RowSpan="2"
                         Grid.Column="0"
                         prism:RegionManager.RegionName="{x:Static core:RegionNames.NavigationRegion}" />
-        <ContentControl Grid.Row="1"
-                        Grid.Column="1"
-                        prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}"
-                        Background="#f5f6f9" />
+
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="1"
+                    Background="#f5f6f9">
+            <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
+        </StackPanel>
     </Grid>
 </Window>
