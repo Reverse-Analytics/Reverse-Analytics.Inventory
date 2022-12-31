@@ -151,6 +151,69 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_cancels.ico.
+        /// </summary>
+        public static string DashboardCancels {
+            get {
+                return ResourceManager.GetString("DashboardCancels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_cost.ico.
+        /// </summary>
+        public static string DashboardCost {
+            get {
+                return ResourceManager.GetString("DashboardCost", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_profit.ico.
+        /// </summary>
+        public static string DashboardProfit {
+            get {
+                return ResourceManager.GetString("DashboardProfit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_purchases.ico.
+        /// </summary>
+        public static string DashboardPurchases {
+            get {
+                return ResourceManager.GetString("DashboardPurchases", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_returns.ico.
+        /// </summary>
+        public static string DashboardReturns {
+            get {
+                return ResourceManager.GetString("DashboardReturns", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_revenue.ico.
+        /// </summary>
+        public static string DashboardRevenue {
+            get {
+                return ResourceManager.GetString("DashboardRevenue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_sales.ico.
+        /// </summary>
+        public static string DashboardSales {
+            get {
+                return ResourceManager.GetString("DashboardSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/debts.ico.
         /// </summary>
         public static string Debts {

@@ -49,9 +49,20 @@
     <None Remove="Resources\Icons\category.ico" />
     <None Remove="Resources\Icons\close.ico" />
     <None Remove="Resources\Icons\customers.ico" />
+    <None Remove="Resources\Icons\dashbard_revenue.ico" />
     <None Remove="Resources\Icons\dashboard.ico" />
+    <None Remove="Resources\Icons\dashboard_cancels.ico" />
+    <None Remove="Resources\Icons\dashboard_cost.ico" />
+    <None Remove="Resources\Icons\dashboard_profit.ico" />
+    <None Remove="Resources\Icons\dashboard_purchases.ico" />
+    <None Remove="Resources\Icons\dashboard_returns.ico" />
+    <None Remove="Resources\Icons\dashboard_revenue.ico" />
+    <None Remove="Resources\Icons\dashboard_revenue.png" />
+    <None Remove="Resources\Icons\dashboard_sales.ico" />
+    <None Remove="Resources\Icons\dashobard_revenue.ico" />
     <None Remove="Resources\Icons\debts.ico" />
     <None Remove="Resources\Icons\inventory.ico" />
+    <None Remove="Resources\Icons\logo-default.png" />
     <None Remove="Resources\Icons\minimize.ico" />
     <None Remove="Resources\Icons\notifications.ico" />
     <None Remove="Resources\Icons\notifications_icon.png" />
@@ -100,10 +111,37 @@
     <Resource Include="Resources\Icons\dashboard.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\dashboard_cancels.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_cost.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_profit.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_purchases.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_returns.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_revenue.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_revenue.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\dashboard_sales.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\debts.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\inventory.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\logo-default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\minimize.ico">
