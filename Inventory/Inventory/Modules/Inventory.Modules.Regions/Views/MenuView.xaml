@@ -1,60 +1,88 @@
-﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<UserControl x:Class="Inventory.Modules.Regions.Views.MenuView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:res="clr-namespace:Inventory.Core.Resources;assembly=Inventory.Core"
-             x:Class="Inventory.Modules.Regions.Views.MenuView"
              mc:Ignorable="d">
     <UserControl.Resources>
-        <Image x:Key="NotificationsIcon" Source="{Binding Source={x:Static res:IconsPath.Notifications}}" Margin="8"/>
-        <Image x:Key="CloseIcon" Source="{Binding Source={x:Static res:IconsPath.Close}}" Margin="12" />
-        <Image x:Key="RestoreIcon" Source="{Binding Source={x:Static res:IconsPath.Restore}}" Margin="12"/>
-        <Image x:Key="MinimizeIcon" Source="{Binding Source={x:Static res:IconsPath.Minimize}}" Margin="12"/>
+        <Image x:Key="NotificationsIcon"
+               Margin="8"
+               Source="{Binding Source={x:Static res:IconsPath.Notifications}}" />
+        <Image x:Key="CloseIcon"
+               Margin="12"
+               Source="{Binding Source={x:Static res:IconsPath.Close}}" />
+        <Image x:Key="RestoreIcon"
+               Margin="12"
+               Source="{Binding Source={x:Static res:IconsPath.Restore}}" />
+        <Image x:Key="MinimizeIcon"
+               Margin="12"
+               Source="{Binding Source={x:Static res:IconsPath.Minimize}}" />
     </UserControl.Resources>
 
     <Grid>
-        <Border Margin="0" BorderBrush="LightGray" Background="Transparent" BorderThickness="0.5">
-            <StackPanel Orientation="Horizontal" 
-                        HorizontalAlignment="Right" 
-                        Cursor="Hand">
-                <Viewbox Width="30" Height="30" Margin="0,0,10,0">
+        <Border Margin="0"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="0.5">
+            <StackPanel HorizontalAlignment="Right"
+                        Cursor="Hand"
+                        Orientation="Horizontal">
+                <Viewbox Width="30"
+                         Height="30"
+                         Margin="0,0,10,0">
                     <Grid Width="32" Height="32">
-                        <Ellipse Fill="Orange"/>
-                        <TextBlock HorizontalAlignment="Center" Text="БС" TextAlignment="Center" VerticalAlignment="Center" FontSize="16" FontWeight="Bold" Foreground="#28282e"/>
+                        <Ellipse Fill="Orange" />
+                        <TextBlock HorizontalAlignment="Center"
+                                   VerticalAlignment="Center"
+                                   FontSize="16"
+                                   FontWeight="Bold"
+                                   Foreground="#28282e"
+                                   Text="БС"
+                                   TextAlignment="Center" />
                     </Grid>
                 </Viewbox>
 
-                <Button Margin="0,0,10,0"
-                        Width="45" Height="45" 
-                        BorderBrush="Transparent" 
-                        BorderThickness="0" 
+                <Button Width="45"
+                        Height="45"
+                        Margin="0,0,10,0"
                         Background="Transparent"
-                        Cursor="Hand"
-                        Content="{StaticResource NotificationsIcon}" />
-
-                <Button Margin="0,0,10,0"
-                        Width="45" Height="45"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
-                        FontSize="12" Foreground="White"
-                        Background="Transparent"
-                        Cursor="Hand"
-                        Content="{StaticResource MinimizeIcon}" />
+                        Content="{StaticResource NotificationsIcon}"
+                        Cursor="Hand" />
 
-                <Button Margin="0,0,10,0"
-                        Width="45" Height="45"
-                        BorderThickness="0"
-                        FontSize="12" Foreground="White"
+                <Button Width="45"
+                        Height="45"
+                        Margin="0,0,10,0"
                         Background="Transparent"
+                        BorderThickness="0"
+                        Content="{StaticResource MinimizeIcon}"
                         Cursor="Hand"
-                        Content="{StaticResource RestoreIcon}" />
+                        FontSize="12"
+                        Foreground="White" />
 
-                <Button Margin="0,0,0,0"
-                        Width="45" Height="45"
-                        BorderThickness="0"
-                        FontSize="18" Foreground="White"
+                <Button Width="45"
+                        Height="45"
+                        Margin="0,0,10,0"
                         Background="Transparent"
+                        BorderThickness="0"
+                        Content="{StaticResource RestoreIcon}"
                         Cursor="Hand"
-                        Content="{StaticResource CloseIcon}"/>
+                        FontSize="12"
+                        Foreground="White" />
+
+                <Button Width="45"
+                        Height="45"
+                        Margin="0,0,0,0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="CloseButton_Click"
+                        Content="{StaticResource CloseIcon}"
+                        Cursor="Hand"
+                        FontSize="18"
+                        Foreground="White" />
             </StackPanel>
         </Border>
     </Grid>

@@ -92,7 +92,7 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="productionChildStackPanel">
+                <StackPanel x:Name="productionChildStackPanel" Visibility="Collapsed">
                     <Button x:Name="catalogButton"
                             Command="{Binding NavigateToCommand}"
                             CommandParameter="{x:Static viewNames:ViewNames.Catalog}">
