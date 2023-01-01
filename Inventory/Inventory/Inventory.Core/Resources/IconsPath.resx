@@ -159,6 +159,9 @@
   <data name="DashboardPurchases" xml:space="preserve">
     <value>/Inventory.Core;Component/Resources/Icons/dashboard_purchases.ico</value>
   </data>
+  <data name="DashboardQuantityInHand" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/dashboard_quantity_in_hand.ico</value>
+  </data>
   <data name="DashboardReturns" xml:space="preserve">
     <value>/Inventory.Core;Component/Resources/Icons/dashboard_returns.ico</value>
   </data>
@@ -167,6 +170,15 @@
   </data>
   <data name="DashboardSales" xml:space="preserve">
     <value>/Inventory.Core;Component/Resources/Icons/dashboard_sales.ico</value>
+  </data>
+  <data name="DashboardSuppliesToReceive" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/dashboard_supplies_to_receive.ico</value>
+  </data>
+  <data name="DashboardTotalCustomers" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/dashboard_total_customers.ico</value>
+  </data>
+  <data name="DashboardTotalSuppliers" xml:space="preserve">
+    <value>/Inventory.Core;Component/Resources/Icons/dashboard_total_supplierss.ico</value>
   </data>
   <data name="Debts" xml:space="preserve">
     <value>/Inventory.Core;Component/Resources/Icons/debts.ico</value>

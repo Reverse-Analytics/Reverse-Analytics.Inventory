@@ -187,6 +187,15 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_quantity_in_hand.ico.
+        /// </summary>
+        public static string DashboardQuantityInHand {
+            get {
+                return ResourceManager.GetString("DashboardQuantityInHand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_returns.ico.
         /// </summary>
         public static string DashboardReturns {
@@ -210,6 +219,33 @@ namespace Inventory.Core.Resources {
         public static string DashboardSales {
             get {
                 return ResourceManager.GetString("DashboardSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_supplies_to_receive.ico.
+        /// </summary>
+        public static string DashboardSuppliesToReceive {
+            get {
+                return ResourceManager.GetString("DashboardSuppliesToReceive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_total_customers.ico.
+        /// </summary>
+        public static string DashboardTotalCustomers {
+            get {
+                return ResourceManager.GetString("DashboardTotalCustomers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_total_supplierss.ico.
+        /// </summary>
+        public static string DashboardTotalSuppliers {
+            get {
+                return ResourceManager.GetString("DashboardTotalSuppliers", resourceCulture);
             }
         }
         

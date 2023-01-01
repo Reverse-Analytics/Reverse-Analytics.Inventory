@@ -24,10 +24,12 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0"
-              Grid.ColumnSpan="4"
+              Grid.ColumnSpan="6"
               Background="White">
             <TextBlock Margin="40,10,10,10"
                        VerticalAlignment="Center"
@@ -51,11 +53,25 @@
 
         <local:SalesCardView Grid.Row="1"
                              Grid.Column="0"
-                             Grid.ColumnSpan="2" />
+                             Grid.ColumnSpan="3" />
 
         <local:SuppliesCardView Grid.Row="1"
-                                Grid.Column="2"
-                                Grid.ColumnSpan="2" />
+                                Grid.Column="3"
+                                Grid.ColumnSpan="3" />
+
+
+        <local:InventorySummaryWidgetView Grid.Row="2"
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2"
+                                          Margin="40,0,0,0" />
+        <local:InventorySummaryWidgetView Grid.Row="2"
+                                          Grid.Column="2"
+                                          Grid.ColumnSpan="2"
+                                          Margin="20,0,20,0" />
+        <local:InventorySummaryWidgetView Grid.Row="2"
+                                          Grid.Column="4"
+                                          Grid.ColumnSpan="2"
+                                          Margin="0,0,40,0" />
 
     </Grid>
 </UserControl>
