@@ -68,10 +68,10 @@
                                         Grid.Column="2"
                                         Grid.ColumnSpan="2"
                                         Margin="20,0,20,0" />
-        <local:InventorySummaryWidgetView Grid.Row="2"
-                                          Grid.Column="4"
-                                          Grid.ColumnSpan="2"
-                                          Margin="0,0,40,0" />
+        <local:PartnersOverviewWidget Grid.Row="2"
+                                      Grid.Column="4"
+                                      Grid.ColumnSpan="2"
+                                      Margin="0,0,40,0" />
 
     </Grid>
 </UserControl>

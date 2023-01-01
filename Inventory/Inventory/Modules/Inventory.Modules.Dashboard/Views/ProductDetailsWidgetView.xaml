@@ -12,7 +12,6 @@
     <md:Card Background="White"
              BorderThickness="1"
              UniformCornerRadius="10">
-
         <StackPanel Margin="20">
             <DockPanel>
                 <TextBlock HorizontalAlignment="Left"

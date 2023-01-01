@@ -241,7 +241,7 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_total_supplierss.ico.
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/dashboard_total_suppliers.ico.
         /// </summary>
         public static string DashboardTotalSuppliers {
             get {

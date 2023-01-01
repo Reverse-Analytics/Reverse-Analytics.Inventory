@@ -178,7 +178,7 @@
     <value>/Inventory.Core;Component/Resources/Icons/dashboard_total_customers.ico</value>
   </data>
   <data name="DashboardTotalSuppliers" xml:space="preserve">
-    <value>/Inventory.Core;Component/Resources/Icons/dashboard_total_supplierss.ico</value>
+    <value>/Inventory.Core;Component/Resources/Icons/dashboard_total_suppliers.ico</value>
   </data>
   <data name="Debts" xml:space="preserve">
     <value>/Inventory.Core;Component/Resources/Icons/debts.ico</value>
