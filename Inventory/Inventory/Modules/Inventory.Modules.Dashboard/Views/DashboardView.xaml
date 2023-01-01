@@ -64,10 +64,10 @@
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2"
                                           Margin="40,0,0,0" />
-        <local:InventorySummaryWidgetView Grid.Row="2"
-                                          Grid.Column="2"
-                                          Grid.ColumnSpan="2"
-                                          Margin="20,0,20,0" />
+        <local:ProductDetailsWidgetView Grid.Row="2"
+                                        Grid.Column="2"
+                                        Grid.ColumnSpan="2"
+                                        Margin="20,0,20,0" />
         <local:InventorySummaryWidgetView Grid.Row="2"
                                           Grid.Column="4"
                                           Grid.ColumnSpan="2"

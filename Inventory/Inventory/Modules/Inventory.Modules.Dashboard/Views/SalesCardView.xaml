@@ -30,6 +30,7 @@
                        Margin="20"
                        VerticalAlignment="Center"
                        FontSize="20"
+                       FontWeight="SemiBold"
                        Text="Sales Overview" />
 
             <fa:IconBlock Grid.Column="2"
