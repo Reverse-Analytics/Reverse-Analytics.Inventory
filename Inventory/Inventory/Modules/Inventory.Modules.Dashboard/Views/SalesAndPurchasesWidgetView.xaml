@@ -1,0 +1,257 @@
+﻿<UserControl x:Class="Inventory.Modules.Dashboard.Views.SalesAndPurchasesWidgetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:chart="http://schemas.syncfusion.com/wpf"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Dashboard.Views"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450"
+             d:DesignWidth="800"
+             mc:Ignorable="d">
+    <md:Card Background="White"
+             BorderThickness="1"
+             UniformCornerRadius="10">
+        <StackPanel>
+            <chart:SfChart x:Name="AreaChart"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           Header="Server Performance"
+                           Palette="Elite">
+
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis LabelPlacement="BetweenTicks" ShowGridLines="False" />
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Maximum="80" Minimum="0" />
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:SfChart.Legend>
+                    <chart:ChartLegend DockPosition="Bottom" />
+                </chart:SfChart.Legend>
+
+                <chart:AreaSeries EnableAnimation="True"
+                                  ItemsSource="{Binding Performance}"
+                                  Label="Automation"
+                                  Opacity="0.3"
+                                  ShowTooltip="True"
+                                  XBindingPath="Load"
+                                  YBindingPath="Server1" />
+
+                <chart:AreaSeries EnableAnimation="True"
+                                  ItemsSource="{Binding Performance}"
+                                  Label="Application"
+                                  Opacity="0.3"
+                                  ShowTooltip="True"
+                                  XBindingPath="Load"
+                                  YBindingPath="Server2" />
+
+                <chart:AreaSeries EnableAnimation="True"
+                                  ItemsSource="{Binding Performance}"
+                                  Label="Web"
+                                  Opacity="0.3"
+                                  ShowTooltip="True"
+                                  XBindingPath="Load"
+                                  YBindingPath="Server3" />
+            </chart:SfChart>
+
+            <chart:SfChart x:Name="lineChart"
+                           Margin="10"
+                           Header="Efficiency of oil-fired power production"
+                           Palette="Elite">
+
+                <chart:SfChart.Legend>
+                    <chart:ChartLegend HorizontalContentAlignment="Center" DockPosition="Bottom" />
+                </chart:SfChart.Legend>
+
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis Header="Year"
+                                        LabelFormat="yyyy"
+                                        LabelPlacement="BetweenTicks"
+                                        PlotOffset="15"
+                                        ShowGridLines="False"
+                                        ShowTrackBallInfo="True" />
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis HorizontalAlignment="Center"
+                                         Header="Efficiency"
+                                         Interval="10"
+                                         Maximum="60"
+                                         Minimum="0" />
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:LineSeries EnableAnimation="True"
+                                  ItemsSource="{Binding DataPoints}"
+                                  Label="Germany"
+                                  ShowTooltip="True"
+                                  XBindingPath="Year"
+                                  YBindingPath="Germany">
+                    <chart:LineSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo ShowMarker="True" Symbol="Ellipse" />
+                    </chart:LineSeries.AdornmentsInfo>
+                </chart:LineSeries>
+                <chart:LineSeries EnableAnimation="True"
+                                  ItemsSource="{Binding DataPoints}"
+                                  Label="England"
+                                  ShowTooltip="True"
+                                  XBindingPath="Year"
+                                  YBindingPath="England">
+                    <chart:LineSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo ShowMarker="True" Symbol="Ellipse" />
+                    </chart:LineSeries.AdornmentsInfo>
+                </chart:LineSeries>
+
+            </chart:SfChart>
+
+            <chart:SfChart x:Name="SplineChart"
+                           Margin="10"
+                           Header="Average High/Low temperature"
+                           Palette="Elite">
+
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis Header="Months"
+                                        LabelFormat="yyyy"
+                                        PlotOffset="30"
+                                        ShowGridLines="False"
+                                        ShowTrackBallInfo="True" />
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Header="Temperature (In Fahrenheit)"
+                                         Interval="10"
+                                         LabelExtent="30"
+                                         LabelFormat="0°F"
+                                         Maximum="80"
+                                         Minimum="30" />
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:SfChart.Legend>
+                    <chart:ChartLegend DockPosition="Bottom" />
+                </chart:SfChart.Legend>
+
+                <chart:SplineSeries EnableAnimation="True"
+                                    ItemsSource="{Binding List}"
+                                    Label="India"
+                                    ShowTooltip="True"
+                                    XBindingPath="XValue"
+                                    YBindingPath="YValue1">
+                    <chart:SplineSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo Symbol="Ellipse" />
+                    </chart:SplineSeries.AdornmentsInfo>
+                </chart:SplineSeries>
+                <chart:SplineSeries EnableAnimation="True"
+                                    ItemsSource="{Binding List}"
+                                    Label="Germany"
+                                    ShowTooltip="True"
+                                    XBindingPath="XValue"
+                                    YBindingPath="YValue2">
+                    <chart:SplineSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo Symbol="Ellipse" />
+                    </chart:SplineSeries.AdornmentsInfo>
+                </chart:SplineSeries>
+            </chart:SfChart>
+
+            <chart:SfChart x:Name="SplineAreaChart"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           Header="Server Performance"
+                           Palette="Elite">
+
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis LabelPlacement="BetweenTicks" ShowGridLines="False" />
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Minimum="0" RangePadding="Round" />
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:SfChart.Legend>
+                    <chart:ChartLegend DockPosition="Bottom" />
+                </chart:SfChart.Legend>
+
+                <chart:SplineAreaSeries EnableAnimation="True"
+                                        ItemsSource="{Binding Performance}"
+                                        Label="Automation"
+                                        Opacity="0.3"
+                                        ShowTooltip="True"
+                                        XBindingPath="Load"
+                                        YBindingPath="Server1" />
+
+                <chart:SplineAreaSeries EnableAnimation="True"
+                                        ItemsSource="{Binding Performance}"
+                                        Label="Application"
+                                        Opacity="0.3"
+                                        ShowTooltip="True"
+                                        XBindingPath="Load"
+                                        YBindingPath="Server2" />
+
+                <chart:SplineAreaSeries EnableAnimation="True"
+                                        ItemsSource="{Binding Performance}"
+                                        Label="Web"
+                                        Opacity="0.3"
+                                        ShowTooltip="True"
+                                        XBindingPath="Load"
+                                        YBindingPath="Server3" />
+            </chart:SfChart>
+
+            <chart:SfChart x:Name="SplineRangeAreaChart"
+                           Margin="10"
+                           HorizontalAlignment="Center"
+                           Header="Wheat Production - 2017"
+                           Palette="Elite">
+
+                <chart:SfChart.PrimaryAxis>
+                    <chart:CategoryAxis Header="Month"
+                                        LabelPlacement="BetweenTicks"
+                                        ShowGridLines="False" />
+                </chart:SfChart.PrimaryAxis>
+
+                <chart:SfChart.SecondaryAxis>
+                    <chart:NumericalAxis Header="Production (In metric tons)"
+                                         Interval="30"
+                                         Maximum="100"
+                                         Minimum="10"
+                                         ShowGridLines="False" />
+                </chart:SfChart.SecondaryAxis>
+
+                <chart:SplineRangeAreaSeries x:Name="SplineRangeAreaSeries"
+                                             High="HighMetric"
+                                             ItemsSource="{Binding Products}"
+                                             Label="Expenditures"
+                                             Low="LowMetric"
+                                             XBindingPath="Month">
+                    <chart:SplineRangeAreaSeries.AdornmentsInfo>
+                        <chart:ChartAdornmentInfo HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  AdornmentsPosition="TopAndBottom"
+                                                  ShowLabel="True"
+                                                  Symbol="Ellipse">
+                            <chart:ChartAdornmentInfo.LabelTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Ellipse Width="30"
+                                                 Height="30"
+                                                 HorizontalAlignment="Left"
+                                                 VerticalAlignment="Top"
+                                                 Fill="White"
+                                                 StrokeThickness="2" />
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontFamily="Segoe UI"
+                                                   FontSize="12"
+                                                   Foreground="#FF585858"
+                                                   Text="{Binding}"
+                                                   TextWrapping="Wrap" />
+                                    </Grid>
+                                </DataTemplate>
+                            </chart:ChartAdornmentInfo.LabelTemplate>
+                        </chart:ChartAdornmentInfo>
+                    </chart:SplineRangeAreaSeries.AdornmentsInfo>
+                </chart:SplineRangeAreaSeries>
+
+            </chart:SfChart>
+        </StackPanel>
+    </md:Card>
+</UserControl>

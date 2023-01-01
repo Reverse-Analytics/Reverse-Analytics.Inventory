@@ -73,5 +73,9 @@
                                       Grid.ColumnSpan="2"
                                       Margin="0,0,40,0" />
 
+        <local:SalesAndPurchasesWidgetView Grid.Row="3"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="6"
+                                           Margin="40" />
     </Grid>
 </UserControl>
