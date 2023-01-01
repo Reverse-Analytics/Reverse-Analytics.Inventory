@@ -41,7 +41,8 @@
             <StackPanel Grid.Row="1"
                         Grid.Column="0"
                         Margin="10">
-                <Border Padding="20"
+                <Border Margin="5"
+                        Padding="20"
                         Background="#f8f8f8"
                         BorderThickness="0"
                         CornerRadius="15">
@@ -52,7 +53,7 @@
                                       Source="{Binding Source={x:Static res:IconsPath.DashboardTotalCustomers}}" />
                         <TextBlock Margin="0,10,0,0"
                                    FontSize="16"
-                                   Text="No of Customers" />
+                                   Text="Total Customers" />
                         <TextBlock Margin="0,10,0,0"
                                    FontSize="18"
                                    FontWeight="Bold"
@@ -64,7 +65,8 @@
             <StackPanel Grid.Row="1"
                         Grid.Column="1"
                         Margin="10">
-                <Border Padding="20"
+                <Border Margin="5"
+                        Padding="20"
                         Background="#f8f8f8"
                         BorderThickness="0"
                         CornerRadius="15">
@@ -75,7 +77,7 @@
                                       Source="{Binding Source={x:Static res:IconsPath.DashboardTotalSuppliers}}" />
                         <TextBlock Margin="0,10,0,0"
                                    FontSize="16"
-                                   Text="No of Suppliers" />
+                                   Text="Total Suppliers" />
                         <TextBlock Margin="0,10,0,0"
                                    FontSize="18"
                                    FontWeight="Bold"

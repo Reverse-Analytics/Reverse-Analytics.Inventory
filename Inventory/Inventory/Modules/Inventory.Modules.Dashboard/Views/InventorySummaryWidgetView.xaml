@@ -41,7 +41,8 @@
             <StackPanel Grid.Row="1"
                         Grid.Column="0"
                         Margin="10">
-                <Border Padding="20"
+                <Border Margin="5"
+                        Padding="20"
                         Background="#f8f8f8"
                         BorderThickness="0"
                         CornerRadius="15">
@@ -64,7 +65,8 @@
             <StackPanel Grid.Row="1"
                         Grid.Column="1"
                         Margin="10">
-                <Border Padding="20"
+                <Border Margin="5"
+                        Padding="20"
                         Background="#f8f8f8"
                         BorderThickness="0"
                         CornerRadius="15">
