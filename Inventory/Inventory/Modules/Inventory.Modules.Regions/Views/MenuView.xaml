@@ -4,22 +4,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:res="clr-namespace:Inventory.Core.Resources;assembly=Inventory.Core"
              mc:Ignorable="d">
-    <UserControl.Resources>
-        <Image x:Key="NotificationsIcon"
-               Margin="8"
-               Source="{Binding Source={x:Static res:IconsPath.Notifications}}" />
-        <Image x:Key="CloseIcon"
-               Margin="12"
-               Source="{Binding Source={x:Static res:IconsPath.Close}}" />
-        <Image x:Key="RestoreIcon"
-               Margin="12"
-               Source="{Binding Source={x:Static res:IconsPath.Restore}}" />
-        <Image x:Key="MinimizeIcon"
-               Margin="12"
-               Source="{Binding Source={x:Static res:IconsPath.Minimize}}" />
-    </UserControl.Resources>
 
     <Grid>
         <Border Margin="0"
@@ -50,39 +37,47 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         BorderThickness="0"
-                        Content="{StaticResource NotificationsIcon}"
-                        Cursor="Hand" />
+                        Cursor="Hand"
+                        Style="{StaticResource MaterialDesignIconForegroundButton}">
+                    <md:PackIcon Kind="Notifications" />
+                </Button>
 
                 <Button Width="45"
                         Height="45"
                         Margin="0,0,10,0"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
-                        Content="{StaticResource MinimizeIcon}"
                         Cursor="Hand"
                         FontSize="12"
-                        Foreground="White" />
+                        Style="{StaticResource MaterialDesignIconForegroundButton}">
+                    <md:PackIcon Kind="WindowMinimize" />
+                </Button>
 
                 <Button Width="45"
                         Height="45"
                         Margin="0,0,10,0"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
-                        Content="{StaticResource RestoreIcon}"
                         Cursor="Hand"
                         FontSize="12"
-                        Foreground="White" />
+                        Style="{StaticResource MaterialDesignIconForegroundButton}">
+                    <md:PackIcon Kind="WindowRestore" />
+                </Button>
 
                 <Button Width="45"
                         Height="45"
-                        Margin="0,0,0,0"
+                        Margin="0,0,10,0"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         BorderThickness="0"
                         Click="CloseButton_Click"
-                        Content="{StaticResource CloseIcon}"
                         Cursor="Hand"
-                        FontSize="18"
-                        Foreground="White" />
+                        FontSize="12"
+                        Style="{StaticResource MaterialDesignIconForegroundButton}">
+                    <md:PackIcon Kind="Close" />
+                </Button>
             </StackPanel>
         </Border>
     </Grid>
