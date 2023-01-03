@@ -4,6 +4,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:viewNames="clr-namespace:Inventory.Core;assembly=Inventory.Core"
              Width="250"
              mc:Ignorable="d">
@@ -11,6 +12,7 @@
         <BooleanToVisibilityConverter x:Key="BoolToVis" />
         <Style TargetType="Button">
             <Setter Property="OverridesDefaultStyle" Value="True" />
+            <Setter Property="Margin" Value="5" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
@@ -18,19 +20,20 @@
                                 Padding="5"
                                 Background="{TemplateBinding Background}"
                                 BorderBrush="Transparent"
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                         </Border>
 
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#e6f7ff" />
-                                <Setter Property="TextBlock.Foreground" Value="#188fff" />
+                                <Setter Property="Background" Value="#ebebeb" />
+                                <Setter Property="TextBlock.Foreground" Value="#121314" />
                                 <Setter Property="Cursor" Value="Hand" />
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="False">
                                 <Setter Property="Background" Value="Transparent" />
-                                <Setter Property="TextBlock.Foreground" Value="#070707" />
+                                <Setter Property="TextBlock.Foreground" Value="#121314" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -54,6 +57,7 @@
 
                 <Button x:Name="dashboardButton"
                         Margin="0,50,0,0"
+                        Click="DashboardButton_Click"
                         Command="{Binding NavigateToCommand}"
                         CommandParameter="{x:Static viewNames:ViewNames.Dashboard}">
                     <DockPanel Width="240" Margin="5">
@@ -92,40 +96,33 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="productionChildStackPanel" Visibility="Collapsed">
-                    <Button x:Name="catalogButton"
-                            Command="{Binding NavigateToCommand}"
-                            CommandParameter="{x:Static viewNames:ViewNames.Catalog}">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="catalogIcon"
-                                          FontSize="20"
-                                          Icon="FileAlt" />
-                            <TextBlock Margin="20,0,30,0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       Text="Catalog" />
-                        </StackPanel>
-                    </Button>
+                <Border x:Name="productionsChildContent" Background="#fafafa">
+                    <StackPanel x:Name="productionsChildInnerContent">
+                        <Button x:Name="catalogButton"
+                                Click="CatalogButton_Click"
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static viewNames:ViewNames.Catalog}">
+                            <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,45,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Catalog" />
+                            </StackPanel>
+                        </Button>
 
-                    <Button x:Name="categoriesButton"
-                            Command="{Binding NavigateToCommand}"
-                            CommandParameter="{x:Static viewNames:ViewNames.Categories}">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="categoriesIcon"
-                                          Margin="10,0,0,0"
-                                          FontSize="20"
-                                          Icon="Tag" />
-                            <TextBlock Margin="20,0,30,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       Text="Category"
-                                       TextAlignment="Left" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                        <Button x:Name="categoriesButton"
+                                Click="CategoriesButton_Click"
+                                Command="{Binding NavigateToCommand}"
+                                CommandParameter="{x:Static viewNames:ViewNames.Categories}">
+                            <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,20,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Categories" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
 
                 <Button x:Name="customersButton" Click="CustomersButton_Click">
                     <DockPanel Width="240" Margin="5">
@@ -149,35 +146,26 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="customersChildStackPanel" Visibility="Collapsed">
-                    <Button x:Name="salesButton">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="salesIcon"
-                                          FontSize="20"
-                                          Icon="SackDollar" />
-                            <TextBlock Margin="20,0,55,0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       Text="Sales" />
-                        </StackPanel>
-                    </Button>
-                    <Button x:Name="customerDebtsButton">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="customerDebtsIcon"
-                                          Margin="5,0,0,0"
-                                          FontSize="20"
-                                          Icon="FileInvoiceDollar" />
-                            <TextBlock Margin="24,0,55,0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       Text="Debts" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                <Border x:Name="customersChildContent">
+                    <StackPanel x:Name="customersChildInnerContent">
+                        <Button x:Name="salesButton">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock Margin="0,0,60,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Sales" />
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="customerDebtsButton">
+                            <StackPanel Margin="5" Orientation="Horizontal">
+                                <TextBlock Margin="0,0,55,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Debts" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
 
                 <Button x:Name="suppliersButton" Click="SuppliersButton_Click">
                     <DockPanel Width="240" Margin="5">
@@ -200,39 +188,30 @@
                     </DockPanel>
                 </Button>
 
-                <StackPanel x:Name="suppliersChildStackPanel" Visibility="Collapsed">
-                    <Button x:Name="suppliesButton">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="suppliesIcon"
-                                          Margin="5,0,0,0"
-                                          FontSize="20"
-                                          Icon="Truck" />
-                            <TextBlock Margin="20,0,15,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="16"
-                                       FontWeight="Medium"
-                                       Text="Supplies"
-                                       TextAlignment="Left" />
-                        </StackPanel>
-                    </Button>
+                <Border x:Name="suppliersChildContent">
+                    <StackPanel x:Name="suppliersChildInnerContent">
+                        <Button x:Name="suppliesButton" Click="SuppliesButton_Click">
+                            <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,40,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Supplies"
+                                           TextAlignment="Left" />
+                            </StackPanel>
+                        </Button>
 
-                    <Button x:Name="supplierDebtsButton">
-                        <StackPanel Margin="5" Orientation="Horizontal">
-                            <fa:IconBlock x:Name="supplierDebtsIcon"
-                                          Margin="10,0,5,0"
-                                          FontSize="20"
-                                          Icon="FileInvoiceDollar" />
-                            <TextBlock Margin="20,0,35,0"
-                                       HorizontalAlignment="Left"
-                                       VerticalAlignment="Center"
-                                       FontSize="17"
-                                       FontWeight="Medium"
-                                       Text="Debts" />
-                        </StackPanel>
-                    </Button>
-                </StackPanel>
+                        <Button x:Name="supplierDebtsButton" Click="SupplierDebtsButton_Click">
+                            <StackPanel Margin="5">
+                                <TextBlock Margin="0,0,55,0"
+                                           FontSize="17"
+                                           FontWeight="Medium"
+                                           Text="Debts" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Border>
 
-                <Button x:Name="inventoryButton">
+                <Button x:Name="inventoryButton" Click="InventoryButton_Click">
                     <DockPanel Width="240" Margin="5">
                         <fa:IconBlock x:Name="inventoryIcon"
                                       Width="30"
@@ -247,7 +226,7 @@
                     </DockPanel>
                 </Button>
 
-                <Button x:Name="analyticsButton">
+                <Button x:Name="analyticsButton" Click="AnalyticsButton_Click">
                     <DockPanel Width="240" Margin="5">
                         <fa:IconBlock x:Name="analyticsIcon"
                                       Margin="10,0,0,0"
@@ -262,13 +241,16 @@
                     </DockPanel>
                 </Button>
 
-                <Button x:Name="reportsButton">
+                <Button x:Name="reportsButton" Click="ReportsButton_Click">
                     <DockPanel Width="240" Margin="5">
-                        <fa:IconBlock x:Name="reportsIcon"
-                                      Margin="10,0,0,0"
-                                      DockPanel.Dock="Left"
-                                      FontSize="25"
-                                      Icon="FileInvoice" />
+                        <Viewbox Width="16"
+                                 Height="16"
+                                 Margin="10,0,0,0"
+                                 DockPanel.Dock="Left">
+                            <Path x:Name="reportsIcon"
+                                  Data="M12.8748 11.3755H2.12476V1.62549C2.12476 1.55674 2.06851 1.50049 1.99976 1.50049H1.12476C1.05601 1.50049 0.999756 1.55674 0.999756 1.62549V12.3755C0.999756 12.4442 1.05601 12.5005 1.12476 12.5005H12.8748C12.9435 12.5005 12.9998 12.4442 12.9998 12.3755V11.5005C12.9998 11.4317 12.9435 11.3755 12.8748 11.3755ZM3.77788 8.96455C3.82632 9.01299 3.90444 9.01299 3.95444 8.96455L6.11538 6.81455L8.10913 8.8208C8.15757 8.86924 8.23726 8.86924 8.28569 8.8208L12.5888 4.51924C12.6373 4.4708 12.6373 4.39111 12.5888 4.34268L11.9701 3.72393C11.9466 3.70066 11.9149 3.68761 11.8818 3.68761C11.8487 3.68761 11.817 3.70066 11.7935 3.72393L8.19976 7.31611L6.20913 5.31299C6.18564 5.28973 6.15391 5.27668 6.12085 5.27668C6.08779 5.27668 6.05606 5.28973 6.03257 5.31299L3.16069 8.16768C3.13743 8.19117 3.12438 8.2229 3.12438 8.25596C3.12438 8.28902 3.13743 8.32075 3.16069 8.34424L3.77788 8.96455Z"
+                                  Fill="#2D2E2E" />
+                        </Viewbox>
                         <TextBlock Margin="25,0,0,0"
                                    HorizontalAlignment="Left"
                                    VerticalAlignment="Center"
@@ -278,7 +260,7 @@
                     </DockPanel>
                 </Button>
 
-                <Button x:Name="settingsButton">
+                <Button x:Name="settingsButton" Click="SettingsButton_Click">
                     <DockPanel Width="240" Margin="5">
                         <fa:IconBlock x:Name="settingsIcon"
                                       Margin="10,0,0,0"

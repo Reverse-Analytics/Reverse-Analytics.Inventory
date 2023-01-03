@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
+using System.Windows.Shapes;
 
 namespace Inventory.Modules.Regions.Views
 {
@@ -16,22 +19,38 @@ namespace Inventory.Modules.Regions.Views
         private bool customersChildVisible = false;
         private bool suppliersChildVisible = false;
 
+        private readonly Duration _openCloseDuration = new Duration(TimeSpan.FromSeconds(0.5));
+
         public SidebarView()
         {
             InitializeComponent();
+
+            productionsChildContent.Height = 0;
+            customersChildContent.Height = 0;
+            suppliersChildContent.Height = 0;
+        }
+
+        private void DashboardButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private void ProductionButton_Click(object sender, RoutedEventArgs e)
         {
             if (productionChildVisible)
             {
-                productionChildStackPanel.Visibility = Visibility.Collapsed;
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
+                productionsChildContent.BeginAnimation(HeightProperty, heightAnimation);
                 productionCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
+                productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             }
             else
             {
-                productionChildStackPanel.Visibility = Visibility.Visible;
+                productionsChildInnerContent.Measure(new Size(productionsChildInnerContent.MaxWidth, productionsChildInnerContent.MaxHeight));
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, productionsChildInnerContent.DesiredSize.Height, _openCloseDuration);
+                productionsChildContent.BeginAnimation(HeightProperty, heightAnimation);
                 productionCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
+                productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             }
 
             productionChildVisible = !productionChildVisible;
@@ -41,12 +60,17 @@ namespace Inventory.Modules.Regions.Views
         {
             if (customersChildVisible)
             {
-                customersChildStackPanel.Visibility = Visibility.Collapsed;
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
+                customersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+                
                 customersCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
             }
             else
             {
-                customersChildStackPanel.Visibility = Visibility.Visible;
+                customersChildInnerContent.Measure(new Size(customersChildInnerContent.MaxWidth, customersChildInnerContent.MaxHeight));
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, customersChildInnerContent.DesiredSize.Height, _openCloseDuration);
+                customersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+                
                 customersCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
             }
 
@@ -57,15 +81,61 @@ namespace Inventory.Modules.Regions.Views
         {
             if (suppliersChildVisible)
             {
-                suppliersChildStackPanel.Visibility = Visibility.Collapsed;
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
+                suppliersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+
                 suppliersCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
             }
             else
             {
-                suppliersChildStackPanel.Visibility = Visibility.Visible;
+                suppliersChildInnerContent.Measure(new Size(suppliersChildInnerContent.MaxWidth, suppliersChildInnerContent.MaxHeight));
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, suppliersChildInnerContent.DesiredSize.Height, _openCloseDuration);
+                suppliersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+
                 suppliersCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
             }
+
             suppliersChildVisible = !suppliersChildVisible;
+        }
+
+        private void CatalogButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CategoriesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SuppliesButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SupplierDebtsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void InventoryButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AnalyticsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ReportsButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
