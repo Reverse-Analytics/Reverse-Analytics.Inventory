@@ -42,7 +42,7 @@ namespace Inventory.Modules.Regions.Views
                 DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
                 productionsChildContent.BeginAnimation(HeightProperty, heightAnimation);
                 productionCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
-                productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+                // productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             }
             else
             {
@@ -50,7 +50,7 @@ namespace Inventory.Modules.Regions.Views
                 DoubleAnimation heightAnimation = new DoubleAnimation(0, productionsChildInnerContent.DesiredSize.Height, _openCloseDuration);
                 productionsChildContent.BeginAnimation(HeightProperty, heightAnimation);
                 productionCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
-                productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+                // productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             }
 
             productionChildVisible = !productionChildVisible;
