@@ -49,8 +49,10 @@
     <None Remove="Resources\Icons\category.ico" />
     <None Remove="Resources\Icons\close.ico" />
     <None Remove="Resources\Icons\customers.ico" />
+    <None Remove="Resources\Icons\Customers.svg" />
     <None Remove="Resources\Icons\dashbard_revenue.ico" />
     <None Remove="Resources\Icons\dashboard.ico" />
+    <None Remove="Resources\Icons\Dashboard.svg" />
     <None Remove="Resources\Icons\dashboard_cancels.ico" />
     <None Remove="Resources\Icons\dashboard_cost.ico" />
     <None Remove="Resources\Icons\dashboard_profit.ico" />
@@ -66,17 +68,24 @@
     <None Remove="Resources\Icons\dashobard_revenue.ico" />
     <None Remove="Resources\Icons\debts.ico" />
     <None Remove="Resources\Icons\inventory.ico" />
+    <None Remove="Resources\Icons\Inventory.svg" />
     <None Remove="Resources\Icons\logo-default.png" />
     <None Remove="Resources\Icons\minimize.ico" />
     <None Remove="Resources\Icons\notifications.ico" />
     <None Remove="Resources\Icons\notifications_icon.png" />
     <None Remove="Resources\Icons\production.ico" />
+    <None Remove="Resources\Icons\Production.svg" />
     <None Remove="Resources\Icons\products.ico" />
+    <None Remove="Resources\Icons\Reports.svg" />
     <None Remove="Resources\Icons\restore.ico" />
     <None Remove="Resources\Icons\sales.ico" />
+    <None Remove="Resources\Icons\Sales.svg" />
     <None Remove="Resources\Icons\settings.ico" />
+    <None Remove="Resources\Icons\settings.svg" />
     <None Remove="Resources\Icons\suppliers.ico" />
+    <None Remove="Resources\Icons\Suppliers.svg" />
     <None Remove="Resources\Icons\supplies.ico" />
+    <None Remove="Resources\Icons\Supplies.svg" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
@@ -112,7 +121,13 @@
     <Resource Include="Resources\Icons\customers.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Customers.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\dashboard.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Dashboard.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\dashboard_cancels.ico">
@@ -157,6 +172,9 @@
     <Resource Include="Resources\Icons\inventory.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Inventory.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\logo-default.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -169,7 +187,13 @@
     <Resource Include="Resources\Icons\production.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Production.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\products.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Reports.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\restore.ico">
@@ -178,13 +202,25 @@
     <Resource Include="Resources\Icons\sales.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Sales.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\settings.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\settings.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\suppliers.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\Suppliers.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\supplies.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\Supplies.svg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
