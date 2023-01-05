@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,6 +22,9 @@ namespace Inventory.Modules.Regions.Views
         private bool customersChildVisible = false;
         private bool suppliersChildVisible = false;
 
+        Dictionary<string, List<Button>> navigationButtons = new Dictionary<string, List<Button>>();
+        Dictionary<string, Path> navigationButtonIcons = new Dictionary<string, Path>();
+
         private readonly Duration _openCloseDuration = new Duration(TimeSpan.FromSeconds(0.5));
 
         public SidebarView()
@@ -28,11 +34,148 @@ namespace Inventory.Modules.Regions.Views
             productionsChildContent.Height = 0;
             customersChildContent.Height = 0;
             suppliersChildContent.Height = 0;
+
+            InitializeNavigationButtonsDictionary();
+            InitializeNavigationButtonIconsDictionary();
+        }
+
+        private void InitializeNavigationButtonsDictionary()
+        {
+            navigationButtons.Add(dashboardButton.Name, new List<Button>
+            {
+                dashboardButton
+            });
+            navigationButtons.Add(productionButton.Name, new List<Button>
+            {
+                productionButton,
+                catalogButton,
+                categoriesButton
+            });
+            navigationButtons.Add(customersButton.Name, new List<Button> 
+            {
+                customersButton,
+                customersListButton,
+                customerDebtsButton
+            });
+            navigationButtons.Add(salesButton.Name, new List<Button> 
+            {
+                salesButton
+            });
+            navigationButtons.Add(suppliersButton.Name, new List<Button> 
+            {
+                suppliersButton,
+                suppliersListButton,
+                supplierDebtsButton
+            });
+            navigationButtons.Add(suppliesButton.Name, new List<Button> 
+            {
+                suppliesButton
+            });
+            navigationButtons.Add(inventoryButton.Name, new List<Button> 
+            {
+                inventoryButton
+            });
+            navigationButtons.Add(reportsButton.Name, new List<Button> 
+            {
+                reportsButton
+            });
+            navigationButtons.Add(settingsButton.Name, new List<Button> 
+            {
+                settingsButton
+            });
+        }
+
+        private void InitializeNavigationButtonIconsDictionary()
+        {
+            navigationButtonIcons.Add(dashboardButton.Name, dashboardIcon);
+            navigationButtonIcons.Add(productionButton.Name, productionsIcon);
+            navigationButtonIcons.Add(customersButton.Name, customersIcon);
+            navigationButtonIcons.Add(salesButton.Name, salesIcon);
+            navigationButtonIcons.Add(suppliersButton.Name, suppliersIcon);
+            navigationButtonIcons.Add(suppliesButton.Name, suppliesIcon);
+            navigationButtonIcons.Add(inventoryButton.Name, inventoriesIcon);
+            navigationButtonIcons.Add(reportsButton.Name, reportsIcon);
+            navigationButtonIcons.Add(settingsButton.Name, settingsIcon);
+        }
+
+        private void ResetButtonsToDefaultStateExceptSelected(string selectedButtonName)
+        {
+            var allButtonsExceptSelected = navigationButtons.Where(nb => nb.Key != selectedButtonName).Select(nb => nb.Value).ToList();
+            foreach(var buttonsList in allButtonsExceptSelected) 
+            {
+                foreach(var button in buttonsList)
+                {
+                    button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
+                }
+            }
+
+            var allButtonIconsExceptSelected = navigationButtonIcons.Where(nb => nb.Key != selectedButtonName).Select(nb => nb.Value).ToList();
+            foreach(var icon in allButtonIconsExceptSelected)
+            {
+                icon.Fill = new SolidColorBrush(Color.FromRgb(45, 46, 46));
+            }
         }
 
         private void DashboardButton_Click(object sender, RoutedEventArgs e)
         {
+            dashboardIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            dashboardButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
+            ResetButtonsToDefaultStateExceptSelected(dashboardButton.Name);
+        }
+
+        private void ProductionInnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedButton = (sender as Button);
+
+            productionButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            selectedButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            productionsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+
+            var allButtonsExceptSelected = navigationButtons[productionButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != productionButton.Name));
+
+            foreach(var button in allButtonsExceptSelected)
+            {
+                button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
+            }
+
+            ResetButtonsToDefaultStateExceptSelected(productionButton.Name);
+        }
+
+        private void CustomersInnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedButton = (sender as Button);
+
+            customersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            customersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            selectedButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+
+
+            var allButtonsExceptSelected = navigationButtons[customersButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != customersButton.Name));
+
+            foreach (var button in allButtonsExceptSelected)
+            {
+                button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
+            }
+
+            ResetButtonsToDefaultStateExceptSelected(customersButton.Name);
+        }
+
+        private void SuppliersInnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedButton = (sender as Button);
+
+            suppliersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            selectedButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            var allButtonsExceptSelected = navigationButtons[suppliersButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != suppliersButton.Name));
+
+            foreach (var button in allButtonsExceptSelected)
+            {
+                button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
+            }
+
+            ResetButtonsToDefaultStateExceptSelected(suppliersButton.Name);
         }
 
         private void ProductionButton_Click(object sender, RoutedEventArgs e)
@@ -77,6 +220,14 @@ namespace Inventory.Modules.Regions.Views
             customersChildVisible = !customersChildVisible;
         }
 
+        private void SalesButton_Click(object sender, RoutedEventArgs e)
+        {
+            salesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            salesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+
+            ResetButtonsToDefaultStateExceptSelected(salesButton.Name);
+        }
+
         private void SuppliersButton_Click(object sender, RoutedEventArgs e)
         {
             if (suppliersChildVisible)
@@ -98,44 +249,36 @@ namespace Inventory.Modules.Regions.Views
             suppliersChildVisible = !suppliersChildVisible;
         }
 
-        private void CatalogButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void CategoriesButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void SuppliesButton_Click(object sender, RoutedEventArgs e)
         {
+            suppliesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
-        }
-
-        private void SupplierDebtsButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            ResetButtonsToDefaultStateExceptSelected(suppliesButton.Name);
         }
 
         private void InventoryButton_Click(object sender, RoutedEventArgs e)
         {
+            inventoriesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            inventoryButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
-        }
-
-        private void AnalyticsButton_Click(object sender, RoutedEventArgs e)
-        {
-
+            ResetButtonsToDefaultStateExceptSelected(inventoryButton.Name);
         }
 
         private void ReportsButton_Click(object sender, RoutedEventArgs e)
         {
+            reportsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            reportsButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
+            ResetButtonsToDefaultStateExceptSelected(reportsButton.Name);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
+            settingsIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            settingsButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
+            ResetButtonsToDefaultStateExceptSelected(settingsButton.Name);
         }
     }
 }

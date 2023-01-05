@@ -19,7 +19,7 @@ namespace Inventory.Modules.Regions.ViewModels
 
         private void OnNavigateTo(string viewName)
         {
-            if (string.IsNullOrEmpty(viewName) || !viewName.ToLower().Contains("dashboard")) return;
+            if (string.IsNullOrEmpty(viewName)) return;
 
             RegionManager.RequestNavigate(RegionNames.ContentRegion, viewName);
         }
