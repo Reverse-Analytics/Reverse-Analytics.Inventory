@@ -286,6 +286,15 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/error.ic.
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to M11.9996 0H1.99963C1.72307 0 1.49963 0.223437 1.49963 0.5V13.5C1.49963 13.7766 1.72307 14 1.99963 14H11.9996C12.2762 14 12.4996 13.7766 12.4996 13.5V0.5C12.4996 0.223437 12.2762 0 11.9996 0ZM11.3746 12.875H2.62463V9.73438H4.15432C4.33557 10.2469 4.65432 10.7078 5.07776 11.0578C5.61682 11.5031 6.29963 11.75 6.99963 11.75C7.69963 11.75 8.38245 11.5047 8.92151 11.0578C9.34495 10.7078 9.6637 10.2469 9.84495 9.73438H11.3746V8.75H9.05588L8.97464 9.13594C8.78714 10.0703 7.95588 10.75 6.99963 10.75C6.04338 10.75 5. [rest of string was truncated]&quot;;.
         /// </summary>
         public static string Inventory {
@@ -381,6 +390,15 @@ namespace Inventory.Core.Resources {
         public static string Supplies {
             get {
                 return ResourceManager.GetString("Supplies", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/warning.ico.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
     }

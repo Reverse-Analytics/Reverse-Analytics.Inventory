@@ -67,6 +67,7 @@
     <None Remove="Resources\Icons\dashboard_total_suppliers.ico" />
     <None Remove="Resources\Icons\dashobard_revenue.ico" />
     <None Remove="Resources\Icons\debts.ico" />
+    <None Remove="Resources\Icons\error.ico" />
     <None Remove="Resources\Icons\inventory.ico" />
     <None Remove="Resources\Icons\Inventory.svg" />
     <None Remove="Resources\Icons\logo-default.png" />
@@ -86,8 +87,11 @@
     <None Remove="Resources\Icons\Suppliers.svg" />
     <None Remove="Resources\Icons\supplies.ico" />
     <None Remove="Resources\Icons\Supplies.svg" />
+    <None Remove="Resources\Icons\warning.ico" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.2.1" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
   <ItemGroup>
@@ -169,6 +173,9 @@
     <Resource Include="Resources\Icons\debts.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icons\error.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Icons\inventory.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -221,6 +228,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\Supplies.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\warning.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
