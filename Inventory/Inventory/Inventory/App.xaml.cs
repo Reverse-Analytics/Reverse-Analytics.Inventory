@@ -1,4 +1,5 @@
 ﻿using Inventory.Modules.Dashboard;
+using Inventory.Modules.Dialogs;
 using Inventory.Modules.Production;
 using Inventory.Modules.Regions;
 using Inventory.Services;
@@ -29,7 +30,7 @@ namespace Inventory
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            containerRegistry.RegisterSingleton<IMessageService, MessageService>();
+            containerRegistry.RegisterSingleton<IDialogService, DialogService>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
@@ -37,6 +38,7 @@ namespace Inventory
             moduleCatalog.AddModule<RegionsModule>();
             moduleCatalog.AddModule<DashboardModule>();
             moduleCatalog.AddModule<ProductionModule>();
+            moduleCatalog.AddModule<DialogsModule>();
         }
     }
 }
