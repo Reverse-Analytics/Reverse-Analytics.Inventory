@@ -16,7 +16,7 @@ namespace Inventory.Modules.Production
         {
             containerRegistry.RegisterForNavigation<CategoriesView>();
             containerRegistry.RegisterForNavigation<CatalogView>();
-            containerRegistry.RegisterForNavigation<AddCategoryDialogView>();
+            containerRegistry.RegisterForNavigation<CategoriesFormDialogView>();
         }
     }
 }
