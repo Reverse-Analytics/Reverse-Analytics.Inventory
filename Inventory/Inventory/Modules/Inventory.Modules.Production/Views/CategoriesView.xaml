@@ -9,9 +9,22 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:res="clr-namespace:Inventory.Core.Resources;assembly=Inventory.Core"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Style="{StaticResource Page_Style}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style x:Key="headerStyle" TargetType="DataGridRowHeader">
+            <Setter Property="Background" Value="Green" />
+        </Style>
+
+        <Style TargetType="sf:GridCell">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style TargetType="sf:GridHeaderCellControl">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -30,15 +43,19 @@
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    Text="{Binding Title}" />
 
-        <StackPanel Grid.Column="1" Orientation="Horizontal">
-            <Border VerticalAlignment="Center"
+        <StackPanel Grid.Column="1"
+                    Margin="0,0,50,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <Border Margin="0,0,25,0"
+                    VerticalAlignment="Center"
                     Background="White"
                     BorderBrush="LightGray"
                     BorderThickness="2"
                     CornerRadius="5">
                 <StackPanel Orientation="Horizontal">
 
-                    <TextBox Width="200"
+                    <TextBox Width="250"
                              Height="35"
                              Margin="20,2,2,2"
                              HorizontalAlignment="Stretch"
@@ -63,14 +80,10 @@
                 </StackPanel>
             </Border>
 
-            <ComboBox x:Name="OutlinedComboBox"
-                      Width="150"
-                      Height="45"
-                      Margin="25"
-                      ItemsSource="{Binding ShortStringList}"
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
             <Button Width="150"
                     Height="40"
+                    HorizontalAlignment="Right"
                     md:ButtonAssist.CornerRadius="5"
                     Background="#1890ff"
                     Command="{Binding AddCategoryCommand}"
@@ -78,6 +91,81 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <TextBlock Text="Add category" />
             </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="50,80,50,50">
+
+            <sf:SfDataGrid HorizontalAlignment="Stretch"
+                           VerticalAlignment="Center"
+                           AllowSorting="True"
+                           Background="White"
+                           BorderBrush="LightGray"
+                           BorderThickness="1"
+                           CanUseViewFilter="True"
+                           CurrentCellBorderThickness="0"
+                           FontSize="14"
+                           GridLinesVisibility="Horizontal"
+                           HeaderLinesVisibility="Horizontal"
+                           HeaderRowHeight="40"
+                           IsManipulationEnabled="False"
+                           ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
+                           RowHeight="35"
+                           RowSelectionBrush="#ebebeb"
+                           SelectionMode="Single"
+                           SelectionUnit="Row">
+                <sf:SfDataGrid.HeaderStyle>
+                    <Style TargetType="sf:GridHeaderCellControl">
+                        <Setter Property="Background" Value="#fafafa" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Style>
+                </sf:SfDataGrid.HeaderStyle>
+                <sf:SfDataGrid.Columns>
+                    <sf:GridNumericColumn Width="200"
+                                          HeaderText="Category ID"
+                                          MappingName="Id"
+                                          NumberDecimalDigits="0"
+                                          TextAlignment="Center" />
+                    <sf:GridTextColumn Width="350"
+                                       VerticalAlignment="Center"
+                                       HeaderText="Category Name"
+                                       MappingName="Name"
+                                       TextAlignment="Center" />
+                    <sf:GridNumericColumn Width="200"
+                                          HeaderText="Number of items"
+                                          MappingName="NumberOfItems"
+                                          NumberDecimalDigits="0"
+                                          TextAlignment="Center" />
+                    <sf:GridTemplateColumn Width="415" AllowSorting="False">
+                        <sf:GridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                                    <Button Margin="10,0,10,0"
+                                            VerticalContentAlignment="Center"
+                                            Content="Edit"
+                                            Foreground="#5d758f"
+                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
+                                    <Button Margin="10,0,10,0"
+                                            Content="Delete"
+                                            Foreground="#f78c16"
+                                            Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
+                                    <Button Margin="10,0,10,0"
+                                            Content="Archive"
+                                            Foreground="#f7430a"
+                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </sf:GridTemplateColumn.CellTemplate>
+                    </sf:GridTemplateColumn>
+                </sf:SfDataGrid.Columns>
+            </sf:SfDataGrid>
+
+            <sf:SfDataPager x:Name="dataPager"
+                            Grid.Row="1"
+                            PageSize="5"
+                            Source="{Binding CategoriesList}" />
         </StackPanel>
     </Grid>
 </UserControl>
