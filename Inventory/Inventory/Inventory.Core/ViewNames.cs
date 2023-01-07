@@ -9,8 +9,14 @@
 
     public static class CategoryDialogNames
     {
-        public const string AddCategory = "AddCategoryDialogView";
+        public const string AddCategory = "CategoriesFormDialogView";
         public const string UpdateCategory = "UpdateCategoryDialogView";
         public const string CategoryDetail = "CategoryDetailsDialogView";
+    }
+
+    public static class DialogNames
+    {
+        public const string ConfirmationDialog = "ConfirmationDialog";
+        public const string WarningDialog = "WarningDialog";
     }
 }
