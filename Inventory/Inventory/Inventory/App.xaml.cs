@@ -2,6 +2,7 @@
 using Inventory.Modules.Dialogs;
 using Inventory.Modules.Production;
 using Inventory.Modules.Regions;
+using Inventory.RestClient;
 using Inventory.Services;
 using Inventory.Services.Interfaces;
 using Inventory.Views;
@@ -31,6 +32,8 @@ namespace Inventory
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IDialogService, DialogService>();
+            containerRegistry.RegisterScoped<ICategorySerivce, CategoryService>();
+            containerRegistry.RegisterSingleton<RestClientBase>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
