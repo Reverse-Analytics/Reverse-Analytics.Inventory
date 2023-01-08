@@ -86,7 +86,7 @@
                     HorizontalAlignment="Right"
                     md:ButtonAssist.CornerRadius="5"
                     Background="#1890ff"
-                    Command="{Binding AddCategoryCommand}"
+                    Command="{Binding AddCommand}"
                     Foreground="White"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <TextBlock Text="Add category" />
@@ -131,11 +131,11 @@
                     <sf:GridTextColumn Width="350"
                                        VerticalAlignment="Center"
                                        HeaderText="Category Name"
-                                       MappingName="Name"
+                                       MappingName="CategoryName"
                                        TextAlignment="Center" />
                     <sf:GridNumericColumn Width="200"
                                           HeaderText="Number of items"
-                                          MappingName="NumberOfItems"
+                                          MappingName="Id"
                                           NumberDecimalDigits="0"
                                           TextAlignment="Center" />
                     <sf:GridTemplateColumn Width="415" AllowSorting="False">
@@ -144,14 +144,20 @@
                                 <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
                                     <Button Margin="10,0,10,0"
                                             VerticalContentAlignment="Center"
+                                            Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                             Content="Edit"
                                             Foreground="#5d758f"
                                             Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
                                     <Button Margin="10,0,10,0"
+                                            Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                            CommandParameter="{Binding Id}"
                                             Content="Delete"
                                             Foreground="#f78c16"
                                             Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
                                     <Button Margin="10,0,10,0"
+                                            Command="{Binding ArchiveCommand}"
+                                            CommandParameter="{Binding Id}"
                                             Content="Archive"
                                             Foreground="#f7430a"
                                             Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
@@ -164,8 +170,8 @@
 
             <sf:SfDataPager x:Name="dataPager"
                             Grid.Row="1"
-                            PageSize="5"
-                            Source="{Binding CategoriesList}" />
+                            PageSize="15"
+                            Source="{Binding Categories}" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -1,23 +1,33 @@
-﻿using Inventory.Modules.Production.Views.CategoryDialogs;
+﻿using Inventory.Core.Dialogs;
+using Inventory.Modules.Production.ViewModels.CategoryDialogs;
+using Inventory.Modules.Production.Views.CategoryDialogs;
+using Inventory.Services;
+using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Services.Dialogs;
+using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
+using System.Printing;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 using System.Windows.Input;
 using dialogNames = Inventory.Core.CategoryDialogNames;
+using IDialogService = Prism.Services.Dialogs.IDialogService;
 
 namespace Inventory.Modules.Production.ViewModels
 {
     public class CategoriesViewModel : BindableBase
     {
-        private readonly IDialogService _dialogService;
+        private readonly ICategorySerivce _categoryService;
 
         private string _title;
         public string Title
@@ -26,64 +36,104 @@ namespace Inventory.Modules.Production.ViewModels
             set => SetProperty(ref _title, value);
         }
 
+        private List<ProductCategoryDto> _categoriesList;
+        public ObservableCollection<ProductCategoryDto> Categories { get; set; }
 
-        public ICommand AddCategoryCommand { get; }
-        private Visibility _addCategoryModalVisibility = Visibility.Collapsed;
-        public Visibility AddCategoryModalVisibility 
-        {
-            get => _addCategoryModalVisibility;
-            set => SetProperty(ref _addCategoryModalVisibility, value);
-        }
+        public ICommand AddCommand { get; }
+        public ICommand EditCommand { get; }
+        public ICommand DeleteCommand { get; }
+        public ICommand ArchiveCommand { get; }
 
-        public List<string> ShortStringList { get; } = new List<string>
-        {
-            "Item 1",
-            "Item 2",
-            "Item 3",
-            "Item 4",
-            "Item 5",
-            "Item 6",
-            "Item 7",
-            "Item 8",
-            "Item 9",
-            "Item 10",
-            "Item 12",
-            "Item 13",
-            "Item 14",
-            "Item 15",
-            "Item 16",
-            "Item 17",
-            "Item 18",
-            "Item 19",
-        };
-
-        public CategoriesViewModel(IDialogService dialogService)
+        public CategoriesViewModel(ICategorySerivce categorySerivce)
         {
             Title = "Categories";
+            Categories = new ObservableCollection<ProductCategoryDto>();
 
-            _dialogService = dialogService;
+            _categoryService = categorySerivce;
 
-            AddCategoryCommand = new DelegateCommand(OnAddCategory);
+            AddCommand = new DelegateCommand(OnAddCategory);
+            EditCommand = new DelegateCommand<ProductCategoryDto>(OnEdit);
+            DeleteCommand = new DelegateCommand<int?>(OnDelete);
+            ArchiveCommand = new DelegateCommand(OnArchive);
+
+            InitializeCollections();
+        }
+
+        private async void InitializeCollections() 
+        {
+            var categories = await _categoryService.GetCategoriesAsync();
+            _categoriesList = new List<ProductCategoryDto>(categories);
+
+            Categories.AddRange(categories);
         }
 
         private async void OnAddCategory()
         {
-            // _dialogService.ShowDialog(dialogNames.AddCategory);
-            //if(AddCategoryModalVisibility == Visibility.Collapsed)
-            //{
-            //    AddCategoryModalVisibility = Visibility.Visible;
-            //}
-            //else
-            //{
-            //    AddCategoryModalVisibility = Visibility.Collapsed;
-            //}
+            var view = new CategoriesFormDialogView();
 
-            var view = new AddCategoryDialogView()
+            var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+
+            if (result is null && result is not ProductCategoryForCreateDto)
             {
-                DataContext = this
+                return;
+            }
+
+            var category = result as ProductCategoryForCreateDto;
+            var createdCategory = await _categoryService.CreateCategoryAsync(category);
+
+            if (createdCategory is not null)
+            {
+                Categories.Add(createdCategory);
+            }
+        }
+
+        private async void OnEdit(ProductCategoryDto selectedCategory)
+        {
+            var view = new CategoriesFormDialogView()
+            {
+                DataContext = new CategoriesFormDialogViewModel(selectedCategory)
             };
 
             var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
+
+            if (result is not null && result is ProductCategoryForUpdateDto)
+            {
+                var category = result as ProductCategoryForUpdateDto;
+                await _categoryService.UpdateCategoryAsync(category);
+
+                await Task.Run(() =>
+                {
+                    selectedCategory.CategoryName = category.CategoryName;
+                    Categories.Clear();
+                    Categories.AddRange(_categoriesList);
+                });
+            }
+        }
+
+        private async void OnDelete(int? id)
+        {
+            if (!id.HasValue)
+            {
+                return;
+            }
+
+            var selectedCategory = Categories.FirstOrDefault(c => c.Id == id);
+            var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete Category: {selectedCategory.CategoryName}?");
+
+            var result = await DialogHost.Show(view, "RootDialog");
+            bool? isConfirm = result as bool?;
+
+            if (isConfirm.HasValue && isConfirm.Value)
+            {
+                await _categoryService.DeleteCategoryAsync(id.Value);
+
+                Categories.Remove(selectedCategory);
+            }
+        }
+
+        private async void OnArchive()
+        {
+
         }
 
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)
