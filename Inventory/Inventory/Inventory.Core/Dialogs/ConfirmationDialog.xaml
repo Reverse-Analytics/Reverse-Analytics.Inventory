@@ -42,6 +42,7 @@
                         Margin="10"
                         HorizontalAlignment="Stretch"
                         Background="#ec3d78"
+                        BorderBrush="#ec3d78"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
                         Content="Accept"
                         Foreground="White"
