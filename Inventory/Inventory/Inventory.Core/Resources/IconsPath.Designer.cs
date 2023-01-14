@@ -304,6 +304,15 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/logo-default.png.
+        /// </summary>
+        public static string Logo {
+            get {
+                return ResourceManager.GetString("Logo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/minimize.ico.
         /// </summary>
         public static string Minimize {
