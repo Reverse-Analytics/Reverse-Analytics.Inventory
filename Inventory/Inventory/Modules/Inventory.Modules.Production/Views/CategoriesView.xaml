@@ -152,17 +152,17 @@
                                             Foreground="#5d758f"
                                             Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
                                     <Button Margin="10,0,10,0"
-                                            Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding Id}"
-                                            Content="Delete"
-                                            Foreground="#f78c16"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
-                                    <Button Margin="10,0,10,0"
                                             Command="{Binding ArchiveCommand}"
                                             CommandParameter="{Binding Id}"
                                             Content="Archive"
-                                            Foreground="#f7430a"
+                                            Foreground="#f78c16"
                                             Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
+                                    <Button Margin="10,0,10,0"
+                                            Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                            CommandParameter="{Binding Id}"
+                                            Content="Delete"
+                                            Foreground="#f7430a"
+                                            Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
                                 </StackPanel>
                             </DataTemplate>
                         </sf:GridTemplateColumn.CellTemplate>
