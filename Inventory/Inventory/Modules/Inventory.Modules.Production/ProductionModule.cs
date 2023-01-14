@@ -1,6 +1,5 @@
 ﻿using Inventory.Modules.Production.Views;
 using Inventory.Modules.Production.Views.CategoryDialogs;
-using Inventory.Modules.Production.Views.Products;
 using Prism.Ioc;
 using Prism.Modularity;
 
