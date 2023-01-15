@@ -148,7 +148,7 @@
                                        TextAlignment="Center" />
                     <sf:GridNumericColumn Width="150"
                                           HeaderText="Income price"
-                                          MappingName="PurchasePrice"
+                                          MappingName="SupplyPrice"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Center" />
                     <sf:GridNumericColumn Width="150"
