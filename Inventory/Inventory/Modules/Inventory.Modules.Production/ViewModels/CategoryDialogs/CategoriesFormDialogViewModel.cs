@@ -8,7 +8,7 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
 {
     public class CategoriesFormDialogViewModel : ViewModelBase
     {
-        private readonly bool isEditingMode;
+        private readonly bool isEditingMode = false;
         private readonly int id;
 
         private string _title = "Add Category";
@@ -47,7 +47,7 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
         {
             CategoryName = categoryToUpdate.CategoryName;
             id = categoryToUpdate.Id;
-            isEditingMode = true;
+            isEditingMode = !string.IsNullOrEmpty(categoryToUpdate.CategoryName);
         }
 
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)

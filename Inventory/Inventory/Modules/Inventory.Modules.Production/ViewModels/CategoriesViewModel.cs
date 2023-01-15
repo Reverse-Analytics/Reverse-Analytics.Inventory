@@ -69,11 +69,14 @@ namespace Inventory.Modules.Production.ViewModels
 
         private async void OnAddCategory()
         {
-            var view = new CategoriesFormDialogView();
+            var view = new CategoriesFormDialogView()
+            {
+                DataContext = new CategoriesFormDialogViewModel()
+            };
 
             var result = await DialogHost.Show(view, "RootDialog", ClosingEventHandler);
 
-            if (result is null && result is not ProductCategoryForCreateDto)
+            if (result is null || result is not ProductCategoryForCreateDto)
             {
                 return;
             }
@@ -101,12 +104,9 @@ namespace Inventory.Modules.Production.ViewModels
                 var category = result as ProductCategoryForUpdateDto;
                 await _categoryService.UpdateCategoryAsync(category);
 
-                await Task.Run(() =>
-                {
-                    selectedCategory.CategoryName = category.CategoryName;
-                    Categories.Clear();
-                    Categories.AddRange(_categoriesList);
-                });
+                selectedCategory.CategoryName = category.CategoryName;
+                Categories.Clear();
+                Categories.AddRange(_categoriesList);
             }
         }
 
@@ -118,7 +118,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
 
             var selectedCategory = Categories.FirstOrDefault(c => c.Id == id);
-            var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete Category: {selectedCategory.CategoryName}?");
+            var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete: {selectedCategory.CategoryName}?");
 
             var result = await DialogHost.Show(view, "RootDialog");
             bool? isConfirm = result as bool?;
