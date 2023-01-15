@@ -87,6 +87,7 @@
                     HorizontalAlignment="Right"
                     md:ButtonAssist.CornerRadius="5"
                     Background="#1890ff"
+                    BorderThickness="0"
                     Command="{Binding AddCommand}"
                     Foreground="White"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">

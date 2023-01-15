@@ -38,11 +38,13 @@
                 <Button Width="125"
                         HorizontalAlignment="Left"
                         md:DialogHost.DialogClosingAttached="{Binding ClosingCommand}"
+                        BorderThickness="0"
                         Command="{Binding SaveCommand}"
                         Content="Save" />
                 <Button Width="125"
                         HorizontalAlignment="Right"
                         Background="#ae3c5b"
+                        BorderThickness="0"
                         Command="{Binding CancelCommand}"
                         Content="Cancel" />
             </Grid>
