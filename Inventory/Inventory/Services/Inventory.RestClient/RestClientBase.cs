@@ -5,7 +5,7 @@ namespace Inventory.RestClient
 {
     public class RestClientBase
     {
-        private const string urlBase = "https://localhost:7231/api";
+        private const string urlBase = "https://wpqmn9m6-7231.euw.devtunnels.ms/api";
         private readonly HttpClient client;
 
         public RestClientBase()
