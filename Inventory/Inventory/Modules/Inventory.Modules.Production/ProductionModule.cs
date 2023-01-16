@@ -1,5 +1,6 @@
 ﻿using Inventory.Modules.Production.Views;
 using Inventory.Modules.Production.Views.CategoryDialogs;
+using Inventory.Modules.Production.Views.Forms;
 using Prism.Ioc;
 using Prism.Modularity;
 
@@ -17,6 +18,7 @@ namespace Inventory.Modules.Production
             containerRegistry.RegisterForNavigation<CategoriesView>();
             containerRegistry.RegisterForNavigation<ProductsView>();
             containerRegistry.RegisterForNavigation<CategoriesFormDialogView>();
+            containerRegistry.RegisterForNavigation<ProductForm>();
         }
     }
 }
