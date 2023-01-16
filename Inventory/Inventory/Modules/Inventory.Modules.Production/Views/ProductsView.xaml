@@ -132,11 +132,10 @@
                     </Style>
                 </sf:SfDataGrid.HeaderStyle>
                 <sf:SfDataGrid.Columns>
-                    <sf:GridNumericColumn Width="150"
-                                          HeaderText="Product ID"
-                                          MappingName="Id"
-                                          NumberDecimalDigits="0"
-                                          TextAlignment="Center" />
+                    <sf:GridTextColumn Width="150"
+                                       HeaderText="Product ID"
+                                       MappingName="ProductCode"
+                                       TextAlignment="Center" />
                     <sf:GridTextColumn Width="250"
                                        VerticalAlignment="Center"
                                        HeaderText="Product Name"
@@ -175,7 +174,7 @@
                                             Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
                                     <Button Margin="10,0,10,0"
                                             Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding Id}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                             Content="Delete"
                                             Foreground="#f7430a"
                                             Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
