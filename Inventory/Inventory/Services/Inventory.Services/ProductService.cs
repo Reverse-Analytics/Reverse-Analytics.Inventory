@@ -65,7 +65,7 @@ namespace Inventory.Services
         public async Task UpdateProductAsync(ProductForUpdateDto productToUpdate)
         {
             var json = JsonConvert.SerializeObject(productToUpdate);
-            var response = await _client.Put("products", json);
+            var response = await _client.Put($"products/{productToUpdate.Id}", json);
 
             if(response is null || !response.IsSuccessStatusCode)
             {
