@@ -32,7 +32,7 @@
                        Text="Please, confirm your action."
                        TextWrapping="Wrap" />
 
-            <Grid Margin="25">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition />
                     <ColumnDefinition />
