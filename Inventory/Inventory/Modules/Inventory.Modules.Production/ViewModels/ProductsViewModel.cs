@@ -1,4 +1,8 @@
-﻿using Inventory.Services.Interfaces;
+﻿using Inventory.Core.Dialogs;
+using Inventory.Modules.Production.ViewModels.Forms;
+using Inventory.Modules.Production.Views.Forms;
+using Inventory.Services.Interfaces;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.Product;
@@ -51,7 +55,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             AddCommand = new DelegateCommand(OnAddProduct);
             EditCommand = new DelegateCommand<ProductDto>(OnUpdateProduct);
-            DeleteCommand = new DelegateCommand<int?>(OnDeleteProduct);
+            DeleteCommand = new DelegateCommand<ProductDto>(OnDeleteProduct);
             ArchiveCommand = new DelegateCommand<int?>(OnArchiveProduct);
             ShowDetailsCommand = new DelegateCommand<int?>(OnShowDetails);
 
@@ -84,19 +88,61 @@ namespace Inventory.Modules.Production.ViewModels
             FilteredProducts.AddRange(products);
         }
 
-        private void OnAddProduct()
+        private async void OnAddProduct()
         {
+            var view = new ProductForm()
+            {
+                DataContext = new ProductFormViewModel(_categoryService)
+            };
 
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            if(result is ProductForCreateDto)
+            {
+                var product = result as ProductForCreateDto;
+
+                var createdProduct = await _productService.CreateProductAsync(product);
+
+                Products.Add(createdProduct);
+                FilteredProducts.Add(createdProduct);
+            }
         }
 
-        private void OnUpdateProduct(ProductDto product)
+        private async void OnUpdateProduct(ProductDto product)
         {
+            var view = new ProductForm()
+            {
+                DataContext = new ProductFormViewModel(_categoryService, product)
+            };
 
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            if (result is ProductForUpdateDto)
+            {
+                var productToUpdate = result as ProductForUpdateDto;
+
+                await _productService.UpdateProductAsync(productToUpdate);
+            }
         }
 
-        private void OnDeleteProduct(int? id)
+        private async void OnDeleteProduct(ProductDto product)
         {
+            if(product is null)
+            {
+                return;
+            }
 
+            var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete: {product.ProductName}?");
+
+            var result = await DialogHost.Show(view, "RootDialog");
+            bool? isConfirm = result as bool?;
+
+            if (isConfirm.HasValue && isConfirm.Value)
+            {
+                await _productService.DeleteProductAsync(product.Id);
+
+                FilteredProducts.Remove(product);
+            }
         }
 
         private void OnArchiveProduct(int? id)
