@@ -156,7 +156,10 @@
 
                     <Border x:Name="customersChildContent">
                         <StackPanel x:Name="customersChildInnerContent">
-                            <Button x:Name="customersListButton" Click="CustomersInnerButton_Click">
+                            <Button x:Name="customersListButton"
+                                    Click="CustomersInnerButton_Click"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="{x:Static viewNames:ViewNames.Customers}">
                                 <StackPanel Margin="5" Orientation="Horizontal">
                                     <TextBlock Margin="0,0,70,0"
                                                FontSize="17"

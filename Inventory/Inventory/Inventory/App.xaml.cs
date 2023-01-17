@@ -1,4 +1,5 @@
-﻿using Inventory.Modules.Dashboard;
+﻿using Inventory.Modules.Customers;
+using Inventory.Modules.Dashboard;
 using Inventory.Modules.Dialogs;
 using Inventory.Modules.Production;
 using Inventory.Modules.Regions;
@@ -42,6 +43,7 @@ namespace Inventory
             moduleCatalog.AddModule<RegionsModule>();
             moduleCatalog.AddModule<DashboardModule>();
             moduleCatalog.AddModule<ProductionModule>();
+            moduleCatalog.AddModule<CustomersModule>();
             moduleCatalog.AddModule<DialogsModule>();
         }
     }

@@ -13,6 +13,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Inventory.Core\Inventory.Core.csproj" />
+    <ProjectReference Include="..\Modules\Inventory.Modules.Customers\Inventory.Modules.Customers.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.Dashboard\Inventory.Modules.Dashboard.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.Dialogs\Inventory.Modules.Dialogs.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.Production\Inventory.Modules.Production.csproj" />
