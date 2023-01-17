@@ -54,19 +54,6 @@
                 </TextBox>
                 <TextBox Width="300"
                          Margin="0,25,0,0"
-                         md:HintAssist.Hint="Enter unit of measurement"
-                         md:ValidationAssist.HasError="{Binding IsUnitOfMeasurementValid}"
-                         Style="{StaticResource MaterialDesignOutlinedTextBox}">
-                    <TextBox.Text>
-                        <Binding Path="UnitOfMeasurement" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Width="300"
-                         Margin="0,25,0,0"
                          md:HintAssist.Hint="Enter volume"
                          md:ValidationAssist.HasError="{Binding IsVolumeValid}"
                          Style="{StaticResource MaterialDesignOutlinedTextBox}">
