@@ -5,6 +5,7 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels
 {
-    public class ProductsViewModel : BindableBase
+    public class ProductsViewModel : BindableBase, IRegionMemberLifetime
     {
         private readonly ICategorySerivce _categoryService;
         private readonly IProductService _productService;
@@ -43,6 +44,8 @@ namespace Inventory.Modules.Production.ViewModels
         public ICommand EditCommand { get; }
         public ICommand ArchiveCommand { get; }
         public ICommand ShowDetailsCommand { get; }
+
+        public bool KeepAlive => false;
 
         public ProductsViewModel(ICategorySerivce categoryService, IProductService productService)
         {
