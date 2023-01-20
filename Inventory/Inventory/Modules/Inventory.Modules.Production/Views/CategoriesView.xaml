@@ -44,7 +44,7 @@
                    Text="{Binding Title}" />
 
         <StackPanel Grid.Column="1"
-                    Margin="0,0,50,0"
+                    Margin="0,25,0,25"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <Border Margin="0,0,25,0"
@@ -57,7 +57,7 @@
 
                     <TextBox x:Name="searchTextBox"
                              Width="250"
-                             Height="35"
+                             Height="25"
                              Margin="20,2,2,2"
                              HorizontalAlignment="Stretch"
                              VerticalContentAlignment="Center"
@@ -82,8 +82,9 @@
             </Border>
 
 
-            <Button Width="150"
-                    Height="40"
+            <Button Width="135"
+                    Height="30"
+                    Margin="0,0,25,0"
                     HorizontalAlignment="Right"
                     md:ButtonAssist.CornerRadius="5"
                     Background="#1890ff"
@@ -98,7 +99,7 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="50,80,50,50">
+                    Margin="50">
 
             <sf:SfDataGrid x:Name="categoriesDataGrid"
                            HorizontalAlignment="Stretch"

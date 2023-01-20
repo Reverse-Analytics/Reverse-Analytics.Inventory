@@ -51,7 +51,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBox x:Name="searchTextBox"
                              Width="250"
-                             Height="35"
+                             Height="25"
                              Margin="20,2,2,2"
                              HorizontalAlignment="Stretch"
                              VerticalContentAlignment="Center"
@@ -63,7 +63,8 @@
                     <Border Width="30"
                             Background="LightGray"
                             BorderBrush="LightGray"
-                            BorderThickness="1">
+                            BorderThickness="1"
+                            Cursor="Hand">
                         <Viewbox>
                             <Path Width="14"
                                   Height="14"
@@ -75,20 +76,21 @@
                 </StackPanel>
             </Border>
             <ComboBox x:Name="OutlinedComboBox"
-                      Width="170"
-                      Height="40"
+                      Width="150"
+                      Height="30"
                       Margin="0,0,25,0"
-                      Padding="12"
+                      Padding="10,7,10,7"
                       md:HintAssist.Hint="Select category"
                       md:TextFieldAssist.HasClearButton="True"
+                      Cursor="Hand"
                       DisplayMemberPath="CategoryName"
                       IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                       ItemsSource="{Binding Categories}"
                       SelectedValue="{Binding SelectedCategory}"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-            <Button Width="120"
-                    Height="40"
+            <Button Width="135"
+                    Height="30"
                     Margin="0,0,25,0"
                     HorizontalAlignment="Right"
                     md:ButtonAssist.CornerRadius="5"
@@ -102,7 +104,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1"
-                    Margin="25,50,25,50"
+                    Margin="25,50"
                     VerticalAlignment="Top">
 
             <sf:SfDataGrid x:Name="productsDataGrid"
@@ -127,7 +129,7 @@
                            SelectionUnit="Row">
                 <sf:SfDataGrid.HeaderStyle>
                     <Style TargetType="sf:GridHeaderCellControl">
-                        <Setter Property="Background" Value="#fafafa" />
+                        <Setter Property="Background" Value="#f7f7f7" />
                         <Setter Property="Foreground" Value="Black" />
                     </Style>
                 </sf:SfDataGrid.HeaderStyle>
