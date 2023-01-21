@@ -1,4 +1,7 @@
-﻿using Inventory.Services.Interfaces;
+﻿using Inventory.Modules.Customers.ViewModels.Forms;
+using Inventory.Modules.Customers.Views.Forms;
+using Inventory.Services.Interfaces;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
@@ -63,9 +66,19 @@ namespace Inventory.Modules.Customers.ViewModels
             Companies.AddRange(companies);
         }
 
-        private void OnAddCustomer()
+        private async void OnAddCustomer()
         {
+            var view = new CustomerForm()
+            {
+                DataContext = new CustomerFormViewModel()
+            };
 
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            if (result is null)
+            {
+                return;
+            }
         }
 
         private void OnUpdateCustomer(CustomerDto selectedCustomer)
