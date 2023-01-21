@@ -5,7 +5,6 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:rules="clr-namespace:Inventory.Core.ValidationRules;assembly=Inventory.Core"
-             Style="{StaticResource Page_Style}"
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="{x:Type TextBox}">
@@ -28,14 +27,12 @@
                                       Size=18}"
                 Foreground="White" />
         <StackPanel Margin="25">
-
             <TextBlock Padding="0,16"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        FontWeight="DemiBold"
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                        Text="New Product" />
-
             <StackPanel Margin="0,40,0,0" HorizontalAlignment="Center">
                 <ComboBox x:Name="OutlinedComboBox"
                           Width="350"

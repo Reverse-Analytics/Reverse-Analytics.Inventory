@@ -8,6 +8,7 @@
              xmlns:res="clr-namespace:Inventory.Core.Resources;assembly=Inventory.Core"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              prism:ViewModelLocator.AutoWireViewModel="True"
+             Style="{StaticResource Page_Style}"
              mc:Ignorable="d">
     <UserControl.Resources>
 
