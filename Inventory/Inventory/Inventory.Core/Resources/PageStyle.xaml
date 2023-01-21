@@ -8,11 +8,8 @@
         </Setter>
 
         <Style.Triggers>
-
             <Trigger Property="Visibility" Value="Collapsed">
-
                 <Setter Property="Opacity" Value="0" />
-
             </Trigger>
 
             <EventTrigger RoutedEvent="Loaded">
@@ -30,8 +27,6 @@
                     </Storyboard>
                 </BeginStoryboard>
             </EventTrigger>
-
         </Style.Triggers>
-
     </Style>
 </ResourceDictionary>
