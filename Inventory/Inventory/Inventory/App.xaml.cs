@@ -35,6 +35,7 @@ namespace Inventory
             containerRegistry.RegisterSingleton<IDialogService, DialogService>();
             containerRegistry.RegisterScoped<ICategorySerivce, CategoryService>();
             containerRegistry.RegisterScoped<IProductService, ProductService>();
+            containerRegistry.RegisterScoped<ICustomerService, CustomerService>();
             containerRegistry.RegisterSingleton<RestClientBase>();
         }
 
