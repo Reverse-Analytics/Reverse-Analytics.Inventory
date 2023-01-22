@@ -14,7 +14,7 @@
             <Setter Property="OverridesDefaultStyle" Value="True" />
         </Style>
     </UserControl.Resources>
-    <Grid Width="800">
+    <Grid Width="900">
         <Button HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 md:ElevationAssist.Elevation="Dp0"
@@ -25,8 +25,8 @@
                 Content="{md:PackIcon Kind=Close,
                                       Size=18}"
                 Foreground="White" />
-        <StackPanel Margin="25">
 
+        <StackPanel Margin="25">
             <TextBlock Padding="0,15"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -35,64 +35,77 @@
                        Text="Add New Customer" />
 
             <StackPanel HorizontalAlignment="Center">
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter name">
-                    <TextBox.Text>
-                        <Binding Path="FullName" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter company">
-                    <TextBox.Text>
-                        <Binding Path="CompanyName" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter address">
-                    <TextBox.Text>
-                        <Binding Path="Address" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter phone number">
-                    <TextBox.Text>
-                        <Binding Path="PhoneNumber" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter balance">
-                    <TextBox.Text>
-                        <Binding Path="Balance" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter discount">
-                    <TextBox.Text>
-                        <Binding Path="Discount" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="Account" />
+                    <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter name">
+                        <TextBox.Text>
+                            <Binding Path="FullName" UpdateSourceTrigger="LostFocus">
+                                <Binding.ValidationRules>
+                                    <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="OfficeBuilding" />
+                    <TextBox Padding="15,10,15,10"
+                             md:HintAssist.Hint="Enter company"
+                             Text="{Binding CompanyName}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="AddressMarker" />
+                    <TextBox Padding="15,10,15,10"
+                             md:HintAssist.Hint="Enter address"
+                             Text="{Binding Address}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="Phone" />
+                    <TextBox Padding="15,10,15,10"
+                             md:HintAssist.Hint="Enter phone number"
+                             Text="{Binding PhoneNumber}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="AccountBalanceWallet" />
+                    <TextBox Padding="15,10,15,10"
+                             md:HintAssist.Hint="Enter balance"
+                             Text="{Binding Balance}" />
+                </StackPanel>
+                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
+                    <md:PackIcon Width="20"
+                                 Height="20"
+                                 Margin="0,35,10,0"
+                                 VerticalAlignment="Center"
+                                 Kind="DiscountCircle" />
+                    <TextBox Padding="15,10,15,10"
+                             md:HintAssist.Hint="Enter discount"
+                             Text="{Binding Discount}" />
+                </StackPanel>
+
             </StackPanel>
 
             <Button Width="350"
-                    Margin="0,50,0,0"
+                    Margin="0,50,0,50"
                     Background="#1890ff"
                     BorderThickness="0"
                     Command="{Binding SaveCommand}"
