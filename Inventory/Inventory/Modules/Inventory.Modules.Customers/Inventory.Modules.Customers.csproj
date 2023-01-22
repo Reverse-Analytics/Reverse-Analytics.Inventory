@@ -18,7 +18,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="ReverseAnalytics.Domain">
-      <HintPath>..\..\Services\Inventory.Services.Interfaces\ReverseAnalytics.Domain.dll</HintPath>
+      <HintPath>..\..\Inventory.Core\Libs\ReverseAnalytics.Domain.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
