@@ -136,6 +136,10 @@
                 <sf:SfDataGrid.Columns>
                     <sf:GridTextColumn Width="150"
                                        HeaderText="Product ID"
+                                       MappingName="Id"
+                                       TextAlignment="Center" />
+                    <sf:GridTextColumn Width="150"
+                                       HeaderText="Product Code"
                                        MappingName="ProductCode"
                                        TextAlignment="Center" />
                     <sf:GridTextColumn Width="250"
