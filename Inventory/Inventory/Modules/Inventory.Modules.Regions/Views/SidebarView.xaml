@@ -53,7 +53,7 @@
                 <Image Width="75"
                        Height="75"
                        Margin="0,25,0,0"
-                       Source="C:\Projects\Reverse-Analytics.Inventory\Inventory\Inventory\Inventory.Core\Resources\Icons\logo-default.png" />
+                       Source="{Binding Source={x:Static res:IconsPath.Logo}}" />
 
                 <StackPanel Margin="0,50,0,0">
                     <Button x:Name="dashboardButton"
@@ -154,7 +154,7 @@
                         </DockPanel>
                     </Button>
 
-                    <Border x:Name="customersChildContent">
+                    <Border x:Name="customersChildContent" Background="#fafafa">
                         <StackPanel x:Name="customersChildInnerContent">
                             <Button x:Name="customersListButton"
                                     Click="CustomersInnerButton_Click"
@@ -222,7 +222,7 @@
                         </DockPanel>
                     </Button>
 
-                    <Border x:Name="suppliersChildContent">
+                    <Border x:Name="suppliersChildContent" Background="#fafafa">
                         <StackPanel x:Name="suppliersChildInnerContent">
                             <Button x:Name="suppliersListButton" Click="SuppliersInnerButton_Click">
                                 <StackPanel Margin="5">
@@ -319,9 +319,8 @@
                         </DockPanel>
                     </Button>
                 </StackPanel>
+
             </StackPanel>
-
-
         </Border>
     </Grid>
 </UserControl>
