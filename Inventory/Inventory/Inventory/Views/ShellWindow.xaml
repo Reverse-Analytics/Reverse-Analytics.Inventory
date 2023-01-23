@@ -35,10 +35,7 @@
                       md:ScrollViewerAssist.IsAutoHideEnabled="True"
                       Background="#f5f6f9"
                       VerticalScrollBarVisibility="Hidden">
-            <md:DialogHost CloseOnClickAway="True"
-                           DialogClosed="DialogHost_DialogClosed"
-                           DialogOpened="DialogHost_DialogOpened"
-                           Identifier="RootDialog">
+            <md:DialogHost CloseOnClickAway="True" Identifier="RootDialog">
                 <ContentControl prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
             </md:DialogHost>
         </ScrollViewer>
