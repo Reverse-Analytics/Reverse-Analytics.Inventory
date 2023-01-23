@@ -35,72 +35,30 @@
                        Text="Add New Customer" />
 
             <StackPanel HorizontalAlignment="Center">
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="Account" />
-                    <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter name">
-                        <TextBox.Text>
-                            <Binding Path="FullName" UpdateSourceTrigger="LostFocus">
-                                <Binding.ValidationRules>
-                                    <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="OfficeBuilding" />
-                    <TextBox Padding="15,10,15,10"
-                             md:HintAssist.Hint="Enter company"
-                             Text="{Binding CompanyName}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="AddressMarker" />
-                    <TextBox Padding="15,10,15,10"
-                             md:HintAssist.Hint="Enter address"
-                             Text="{Binding Address}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="Phone" />
-                    <TextBox Padding="15,10,15,10"
-                             md:HintAssist.Hint="Enter phone number"
-                             Text="{Binding PhoneNumber}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="AccountBalanceWallet" />
-                    <TextBox Padding="15,10,15,10"
-                             md:HintAssist.Hint="Enter balance"
-                             Text="{Binding Balance}" />
-                </StackPanel>
-                <StackPanel Margin="0,0,30,0" Orientation="Horizontal">
-                    <md:PackIcon Width="20"
-                                 Height="20"
-                                 Margin="0,35,10,0"
-                                 VerticalAlignment="Center"
-                                 Kind="DiscountCircle" />
-                    <TextBox Padding="15,10,15,10"
-                             md:HintAssist.Hint="Enter discount"
-                             Text="{Binding Discount}" />
-                </StackPanel>
+                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter name">
+                    <TextBox.Text>
+                        <Binding Path="FullName" UpdateSourceTrigger="LostFocus">
+                            <Binding.ValidationRules>
+                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <TextBox Padding="15,10,15,10"
+                         md:HintAssist.Hint="Enter company"
+                         Text="{Binding CompanyName}" />
+                <TextBox Padding="15,10,15,10"
+                         md:HintAssist.Hint="Enter address"
+                         Text="{Binding Address}" />
+                <TextBox Padding="15,10,15,10"
+                         md:HintAssist.Hint="Enter phone number"
+                         Text="{Binding PhoneNumber}" />
+                <TextBox Padding="15,10,15,10"
+                         md:HintAssist.Hint="Enter balance"
+                         Text="{Binding Balance}" />
+                <TextBox Padding="15,10,15,10"
+                         md:HintAssist.Hint="Enter discount"
+                         Text="{Binding Discount}" />
 
             </StackPanel>
 
