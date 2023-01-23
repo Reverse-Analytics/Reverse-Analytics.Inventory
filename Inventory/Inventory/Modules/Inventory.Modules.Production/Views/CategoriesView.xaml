@@ -67,13 +67,13 @@
                              FontSize="14"
                              Text="{Binding SearchText}" />
                     <Border Width="30"
-                            Background="LightGray"
+                            Background="Transparent"
                             BorderBrush="LightGray"
-                            BorderThickness="1">
+                            BorderThickness="1,0,0,0">
                         <Viewbox>
-                            <Path Width="14"
-                                  Height="14"
-                                  Margin="5"
+                            <Path Width="15"
+                                  Height="15"
+                                  Margin="8"
                                   Data="{Binding Source={x:Static res:IconsPath.Search}}"
                                   Fill="Black" />
                         </Viewbox>

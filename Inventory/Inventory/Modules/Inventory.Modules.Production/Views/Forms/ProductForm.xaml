@@ -8,24 +8,14 @@
              mc:Ignorable="d">
     <UserControl.Resources>
         <Style BasedOn="{StaticResource MaterialDesignOutlinedTextBox}" TargetType="{x:Type TextBox}">
-            <Setter Property="Width" Value="350" />
-            <Setter Property="Height" Value="35" />
+            <Setter Property="Width" Value="400" />
+            <Setter Property="Height" Value="32" />
             <Setter Property="Margin" Value="0,35,0,0" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
         </Style>
     </UserControl.Resources>
 
     <Grid Width="800">
-        <Button HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                md:ElevationAssist.Elevation="Dp0"
-                Background="#ae3c5b"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding CancelCommand}"
-                Content="{md:PackIcon Kind=Close,
-                                      Size=18}"
-                Foreground="White" />
         <StackPanel Margin="25">
             <TextBlock Padding="0,16"
                        HorizontalAlignment="Center"
@@ -35,24 +25,15 @@
                        Text="New Product" />
             <StackPanel Margin="0,40,0,0" HorizontalAlignment="Center">
                 <ComboBox x:Name="OutlinedComboBox"
-                          Width="350"
-                          Height="35"
-                          Padding="15,10,15,10"
+                          Width="400"
+                          Height="30"
+                          Padding="15,8,15,7"
                           md:HintAssist.Hint="Select category"
                           DisplayMemberPath="CategoryName"
                           ItemsSource="{Binding Categories}"
                           SelectedValue="{Binding SelectedCategory}"
                           Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter code">
-                    <TextBox.Text>
-                        <Binding Path="Code" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter name">
+                <TextBox Padding="15,8,15,8" md:HintAssist.Hint="Enter name">
                     <TextBox.Text>
                         <Binding Path="Name" UpdateSourceTrigger="LostFocus">
                             <Binding.ValidationRules>
@@ -61,50 +42,52 @@
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <TextBox Padding="15,10,0,0" md:HintAssist.Hint="Enter volume">
+                <TextBox Padding="15,8,15,8" md:HintAssist.Hint="Enter code">
                     <TextBox.Text>
-                        <Binding Path="Volume" UpdateSourceTrigger="PropertyChanged">
+                        <Binding Path="Code" UpdateSourceTrigger="LostFocus">
                             <Binding.ValidationRules>
                                 <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
                             </Binding.ValidationRules>
                         </Binding>
                     </TextBox.Text>
                 </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter weight">
-                    <TextBox.Text>
-                        <Binding Path="Weight" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,0" md:HintAssist.Hint="Enter income price">
-                    <TextBox.Text>
-                        <Binding Path="IncomePrice" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
-                <TextBox Padding="15,10,15,10" md:HintAssist.Hint="Enter sale price">
-                    <TextBox.Text>
-                        <Binding Path="SalePrice" UpdateSourceTrigger="LostFocus">
-                            <Binding.ValidationRules>
-                                <rules:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                <TextBox Padding="15,8,15,8"
+                         md:HintAssist.Hint="Enter volume"
+                         Text="{Binding Volume}" />
+                <TextBox Padding="15,8,15,8"
+                         md:HintAssist.Hint="Enter weight"
+                         Text="{Binding Weight}" />
+                <TextBox Padding="15,8,15,8"
+                         md:HintAssist.Hint="Enter income price"
+                         Text="{Binding IncomePrice}" />
+                <TextBox Padding="15,8,15,8"
+                         md:HintAssist.Hint="Enter sale price"
+                         Text="{Binding SalePrice}" />
             </StackPanel>
 
-            <Button Width="350"
-                    Margin="0,50,0,0"
-                    Background="#1890ff"
-                    BorderThickness="0"
-                    Command="{Binding SaveCommand}"
-                    Content="Save" />
+            <StackPanel Margin="0,45,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Width="192"
+                        Height="40"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1"
+                        Command="{Binding CancelCommand}"
+                        Content="Cancel"
+                        Foreground="#070707" />
+
+                <Button Width="192"
+                        Height="40"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Top"
+                        Background="#1890ff"
+                        BorderThickness="0"
+                        Command="{Binding SaveCommand}"
+                        Content="Save" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

@@ -56,7 +56,7 @@ namespace Inventory.Modules.Production.ViewModels
             DeleteCommand = new DelegateCommand<int?>(OnDelete);
             ArchiveCommand = new DelegateCommand(OnArchive);
 
-            InitializeCollections();
+            // InitializeCollections();
         }
 
         private async void InitializeCollections() 
