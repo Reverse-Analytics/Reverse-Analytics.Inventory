@@ -5,22 +5,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
+             Width="800"
+             Height="300"
              prism:ViewModelLocator.AutoWireViewModel="True"
              Style="{StaticResource Page_Style}"
              mc:Ignorable="d">
-    <Grid Width="600">
-        <Button HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                md:ElevationAssist.Elevation="Dp0"
-                Background="#ae3c5b"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                Command="{Binding CancelCommand}"
-                Content="{md:PackIcon Kind=Close,
-                                      Size=18}"
-                Foreground="White" />
+    <Grid>
         <StackPanel Margin="50">
-
             <TextBlock Padding="0,10"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Center"
@@ -28,9 +19,10 @@
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
                        Text="Add New Category" />
 
-            <TextBox Width="350"
-                     Height="35"
-                     Padding="15,10,15,10"
+            <TextBox Width="400"
+                     Height="30"
+                     Margin="0,24,0,0"
+                     Padding="15,7,15,7"
                      VerticalAlignment="Top"
                      md:HintAssist.Hint="Enter category name"
                      md:ValidationAssist.HasError="{Binding IsCategoryNameInvalid}"
@@ -40,12 +32,29 @@
                      Text="{Binding Path=CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      TextWrapping="Wrap" />
 
-            <Button Width="350"
-                    Margin="0,45,0,0"
-                    Background="#1890ff"
-                    BorderThickness="0"
-                    Command="{Binding SaveCommand}"
-                    Content="Save" />
+            <StackPanel Margin="0,45,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                <Button Width="192"
+                        Height="40"
+                        Margin="0,0,8,0"
+                        VerticalAlignment="Top"
+                        Background="Transparent"
+                        BorderBrush="DarkGray"
+                        BorderThickness="1"
+                        Command="{Binding CancelCommand}"
+                        Content="Cancel"
+                        Foreground="#070707" />
+
+                <Button Width="192"
+                        Height="40"
+                        Margin="8,0,0,0"
+                        VerticalAlignment="Top"
+                        Background="#1890ff"
+                        BorderThickness="0"
+                        Command="{Binding SaveCommand}"
+                        Content="Save" />
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
