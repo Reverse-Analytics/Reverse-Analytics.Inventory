@@ -1,0 +1,112 @@
+﻿<UserControl x:Class="Inventory.Modules.Customers.Views.Forms.CustomerDetailsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Customers.Views.Forms"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             Width="1100"
+             Height="700"
+             mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel Margin="50">
+            <TextBlock Text="{Binding CustomerName}" />
+
+            <TabControl>
+                <TabItem Margin="10"
+                         Cursor="Hand"
+                         Header="Tab 1">
+                    <StackPanel Margin="0,25,0,0" Cursor="Arrow">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Full name" />
+                            </Border>
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Company name" />
+                            </Border>
+                            <Border Width="345"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Phone number" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Full name" />
+                            </Border>
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Ice Cream business" />
+                            </Border>
+                            <Border Width="345"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="+998997674777" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="1000"
+                                    Padding="15"
+                                    Background="#e6e6e6"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Address" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="1000"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Full name" />
+                            </Border>
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </TabItem>
+                <TabItem Cursor="Hand" Header="Tab 2">
+                    <Border Background="Gray">
+                        <TextBlock FontSize="20" Text="Full s" />
+                    </Border>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
