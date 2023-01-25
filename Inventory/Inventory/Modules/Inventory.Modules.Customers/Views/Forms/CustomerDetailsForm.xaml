@@ -5,8 +5,8 @@
              xmlns:local="clr-namespace:Inventory.Modules.Customers.Views.Forms"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             Width="1100"
-             Height="700"
+             Width="1105"
+             Height="640"
              mc:Ignorable="d">
     <Grid Background="White">
         <StackPanel Margin="50">
@@ -15,12 +15,13 @@
             <TabControl>
                 <TabItem Margin="10"
                          Cursor="Hand"
-                         Header="Tab 1">
+                         Header="Details">
                     <StackPanel Margin="0,25,0,0" Cursor="Arrow">
+                        <!--  1st row header  -->
                         <StackPanel Orientation="Horizontal">
                             <Border Width="330"
                                     Padding="15"
-                                    Background="#FAFAFA "
+                                    Background="#FAFAFA"
                                     BorderBrush="LightGray"
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
@@ -54,7 +55,7 @@
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Full name" />
+                                           Text="{Binding FullName}" />
                             </Border>
                             <Border Width="330"
                                     Padding="15"
@@ -63,7 +64,7 @@
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Ice Cream business" />
+                                           Text="{Binding CompanyName}" />
                             </Border>
                             <Border Width="345"
                                     Padding="15"
@@ -72,13 +73,15 @@
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="+998997674777" />
+                                           Text="{Binding PhoneNumber}" />
                             </Border>
                         </StackPanel>
+
+                        <!--  2nd row header  -->
                         <StackPanel Orientation="Horizontal">
                             <Border Width="1000"
                                     Padding="15"
-                                    Background="#e6e6e6"
+                                    Background="#FAFAFA"
                                     BorderBrush="LightGray"
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
@@ -94,14 +97,66 @@
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Full name" />
+                                           Text="{Binding Address}" />
                             </Border>
 
                         </StackPanel>
+
+                        <!--  3rd row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Balance" />
+                            </Border>
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Discount" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Balance}" />
+                            </Border>
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Discount}" />
+                            </Border>
+                        </StackPanel>
+
+                        <Button Width="115"
+                                Height="40"
+                                Margin="0,25,0,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                BorderBrush="Gray"
+                                Content="Close"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
 
                 </TabItem>
-                <TabItem Cursor="Hand" Header="Tab 2">
+                <TabItem Cursor="Hand" Header="Consolidated report">
                     <Border Background="Gray">
                         <TextBlock FontSize="20" Text="Full s" />
                     </Border>
