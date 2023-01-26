@@ -39,12 +39,12 @@
                         Height="40"
                         Margin="0,0,8,0"
                         VerticalAlignment="Top"
-                        Background="Transparent"
                         BorderBrush="DarkGray"
                         BorderThickness="1"
                         Command="{Binding CancelCommand}"
                         Content="Cancel"
-                        Foreground="#070707" />
+                        Foreground="#070707"
+                        Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
 
                 <Button Width="192"
                         Height="40"
