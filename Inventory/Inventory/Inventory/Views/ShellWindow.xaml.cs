@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Media.Effects;
 
 namespace Inventory.Views
 {
@@ -14,12 +15,12 @@ namespace Inventory.Views
 
         private void DialogHost_DialogClosed(object sender, MaterialDesignThemes.Wpf.DialogClosedEventArgs eventArgs)
         {
-            this.IsEnabled = true;
+            sideBarRegion.IsEnabled= true;
         }
 
         private void DialogHost_DialogOpened(object sender, MaterialDesignThemes.Wpf.DialogOpenedEventArgs eventArgs)
         {
-            this.IsEnabled = false;
+            sideBarRegion.IsEnabled = true;
         }
     }
 }
