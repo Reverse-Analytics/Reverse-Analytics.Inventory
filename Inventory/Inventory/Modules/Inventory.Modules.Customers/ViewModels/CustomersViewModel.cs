@@ -1,18 +1,19 @@
-﻿using Inventory.Modules.Customers.ViewModels.Forms;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
+using Inventory.Modules.Customers.ViewModels.Forms;
 using Inventory.Modules.Customers.Views.Forms;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
+using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
 
 namespace Inventory.Modules.Customers.ViewModels
 {
-    public class CustomersViewModel : BindableBase
+    public class CustomersViewModel : BindableBase, IRegionMemberLifetime
     {
         private readonly ICustomerService _customerService;
 
@@ -31,6 +32,8 @@ namespace Inventory.Modules.Customers.ViewModels
         private readonly List<CustomerDto> customers;
         public ObservableCollection<CustomerDto> FilteredCustomers { get; private set; }
         public ObservableCollection<string> Companies { get; private set; }
+
+        public bool KeepAlive => true;
 
         public CustomersViewModel(ICustomerService customerService)
         {
@@ -81,9 +84,19 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private void OnUpdateCustomer(CustomerDto selectedCustomer)
+        private async void OnUpdateCustomer(CustomerDto selectedCustomer)
         {
+            var view = new CustomerForm()
+            {
+                DataContext = new CustomerFormViewModel(selectedCustomer)
+            };
 
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            if (result is null)
+            {
+                return;
+            }
         }
 
         private void OnArchiveCustomer()
