@@ -94,13 +94,24 @@
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <TextBlock Text="Add customer" />
             </Button>
+
+            <md:PopupBox Padding="2,0,2,0"
+                         HorizontalAlignment="Center"
+                         VerticalAlignment="Center"
+                         sf:FocusManagerHelper.FocusedElement="True"
+                         GotFocus="PopupBox_GotFocus"
+                         LostFocus="PopupBox_LostFocus">
+                <StackPanel>
+                    <Button Content="More" />
+                    <Button Content="Options" />
+                </StackPanel>
+            </md:PopupBox>
         </StackPanel>
 
         <StackPanel Grid.Row="1"
                     Margin="25,50"
                     VerticalAlignment="Top">
-
-            <sf:SfDataGrid x:Name="productsDataGrid"
+            <sf:SfDataGrid x:Name="customersDataGrid"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
                            AllowSorting="True"
@@ -114,10 +125,10 @@
                            GridLinesVisibility="Horizontal"
                            HeaderLinesVisibility="Horizontal"
                            HeaderRowHeight="40"
-                           IsManipulationEnabled="False"
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
                            RowSelectionBrush="#ebebeb"
+                           SelectionChanged="customersDataGrid_SelectionChanged"
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.HeaderStyle>
@@ -136,43 +147,35 @@
                                        HeaderText="Name"
                                        MappingName="FullName"
                                        TextAlignment="Center" />
-                    <sf:GridTextColumn Width="200"
+                    <sf:GridTextColumn Width="250"
                                        HeaderText="Phone number"
                                        MappingName="ContactPersonPhone"
                                        TextAlignment="Center" />
-                    <sf:GridNumericColumn Width="150"
+                    <sf:GridNumericColumn Width="200"
                                           HeaderText="Balance"
                                           MappingName="Balance"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Center" />
-                    <sf:GridTextColumn Width="150"
+                    <sf:GridTextColumn Width="300"
                                        HeaderText="Company"
                                        MappingName="CompanyName"
                                        TextAlignment="Center" />
-                    <sf:GridTemplateColumn Width="330" AllowSorting="False">
+                    <sf:GridTemplateColumn Width="85"
+                                           AllowFocus="True"
+                                           AllowSorting="False"
+                                           HeaderText="Actions">
                         <sf:GridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                    <Button Margin="10,0,10,0"
-                                            VerticalContentAlignment="Center"
-                                            Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                            Content="Edit"
-                                            Foreground="#5d758f"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
-                                    <Button Margin="10,0,10,0"
-                                            Command="{Binding ArchiveCommand}"
-                                            CommandParameter="{Binding Id}"
-                                            Content="Archive"
-                                            Foreground="#f78c16"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
-                                    <Button Margin="10,0,10,0"
-                                            Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                            Content="Delete"
-                                            Foreground="#f7430a"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
-                                </StackPanel>
+                                <md:PopupBox Padding="2,0,2,0"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             GotFocus="PopupBox_GotFocus"
+                                             LostFocus="PopupBox_LostFocus">
+                                    <StackPanel>
+                                        <Button Content="More" />
+                                        <Button Content="Options" />
+                                    </StackPanel>
+                                </md:PopupBox>
                             </DataTemplate>
                         </sf:GridTemplateColumn.CellTemplate>
                     </sf:GridTemplateColumn>

@@ -1,5 +1,9 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using Syncfusion.UI.Xaml.Grid;
+using Syncfusion.UI.Xaml.Grid.Cells;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,9 +24,28 @@ namespace Inventory.Modules.Customers.Views
     /// </summary>
     public partial class CustomersView : UserControl
     {
+        PopupBox selectedPopupBox;
         public CustomersView()
         {
             InitializeComponent();
+        }
+
+        private void PopupBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var popupBox = sender as PopupBox;
+
+            selectedPopupBox = popupBox;
+
+            popupBox.IsPopupOpen = true;
+        }
+
+        private void customersDataGrid_SelectionChanged(object sender, Syncfusion.UI.Xaml.Grid.GridSelectionChangedEventArgs e)
+        {
+            if (selectedPopupBox != null)
+            {
+                selectedPopupBox.Focus();
+                selectedPopupBox.IsPopupOpen= true;
+            }
         }
     }
 }
