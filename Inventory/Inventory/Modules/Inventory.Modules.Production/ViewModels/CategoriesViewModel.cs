@@ -1,31 +1,21 @@
 ﻿using Inventory.Core.Dialogs;
 using Inventory.Modules.Production.ViewModels.CategoryDialogs;
 using Inventory.Modules.Production.Views.CategoryDialogs;
-using Inventory.Services;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
-using Prism.Services.Dialogs;
+using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
-using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Printing;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
 using System.Windows.Input;
-using dialogNames = Inventory.Core.CategoryDialogNames;
-using IDialogService = Prism.Services.Dialogs.IDialogService;
 
 namespace Inventory.Modules.Production.ViewModels
 {
-    public class CategoriesViewModel : BindableBase
+    public class CategoriesViewModel : BindableBase, IRegionMemberLifetime
     {
         private readonly ICategorySerivce _categoryService;
 
@@ -44,6 +34,8 @@ namespace Inventory.Modules.Production.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand ArchiveCommand { get; }
 
+        public bool KeepAlive => false;
+
         public CategoriesViewModel(ICategorySerivce categorySerivce)
         {
             Title = "Categories";
@@ -56,7 +48,7 @@ namespace Inventory.Modules.Production.ViewModels
             DeleteCommand = new DelegateCommand<int?>(OnDelete);
             ArchiveCommand = new DelegateCommand(OnArchive);
 
-            // InitializeCollections();
+            InitializeCollections();
         }
 
         private async void InitializeCollections() 
