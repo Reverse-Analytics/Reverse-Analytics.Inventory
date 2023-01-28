@@ -11,7 +11,6 @@ using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Documents;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels
@@ -100,7 +99,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, "RootDialog");
 
-            if(result is ProductForCreateDto)
+            if (result is ProductForCreateDto)
             {
                 var product = result as ProductForCreateDto;
 
@@ -130,7 +129,7 @@ namespace Inventory.Modules.Production.ViewModels
 
         private async void OnDeleteProduct(ProductDto product)
         {
-            if(product is null)
+            if (product is null)
             {
                 return;
             }
