@@ -58,8 +58,8 @@ namespace Inventory.Modules.Production.ViewModels
             AddCommand = new DelegateCommand(OnAddProduct);
             EditCommand = new DelegateCommand<ProductDto>(OnUpdateProduct);
             DeleteCommand = new DelegateCommand<ProductDto>(OnDeleteProduct);
-            ArchiveCommand = new DelegateCommand<int?>(OnArchiveProduct);
-            ShowDetailsCommand = new DelegateCommand<int?>(OnShowDetails);
+            ArchiveCommand = new DelegateCommand<ProductDto>(OnArchiveProduct);
+            ShowDetailsCommand = new DelegateCommand<ProductDto>(OnShowDetails);
 
             LoadCollections();
         }
@@ -147,12 +147,12 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private void OnArchiveProduct(int? id)
+        private void OnArchiveProduct(ProductDto selectedProduct)
         {
 
         }
 
-        private void OnShowDetails(int? id)
+        private void OnShowDetails(ProductDto selectedProduct)
         {
 
         }
