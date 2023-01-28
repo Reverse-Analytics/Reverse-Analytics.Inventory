@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MaterialDesignThemes.Wpf;
+using Syncfusion.UI.Xaml.Grid;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Inventory.Modules.Production.Views
 {
@@ -20,9 +10,28 @@ namespace Inventory.Modules.Production.Views
     /// </summary>
     public partial class ProductsView : UserControl
     {
+        PopupBox selectedPopupBox;
         public ProductsView()
         {
             InitializeComponent();
+        }
+
+        private void PopupBox_GotFocus(object sender, RoutedEventArgs e)
+        {
+            var popupBox = sender as PopupBox;
+
+            selectedPopupBox = popupBox;
+
+            popupBox.IsPopupOpen = true;
+        }
+
+        private void ProductsDataGrid_SelectionChanged(object sender, GridSelectionChangedEventArgs e)
+        {
+            if (selectedPopupBox != null)
+            {
+                selectedPopupBox.Focus();
+                selectedPopupBox.IsPopupOpen = true;
+            }
         }
     }
 }
