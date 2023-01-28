@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
+﻿using Inventory.Core.Dialogs;
 using Inventory.Modules.Customers.ViewModels.Forms;
 using Inventory.Modules.Customers.Views.Forms;
 using Inventory.Services.Interfaces;
@@ -10,6 +7,10 @@ using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Inventory.Modules.Customers.ViewModels
 {
@@ -18,12 +19,13 @@ namespace Inventory.Modules.Customers.ViewModels
         private readonly ICustomerService _customerService;
 
         private string _selectedCompany;
-        public string SelectedCompany 
+        public string SelectedCompany
         {
             get => _selectedCompany;
             set => SetProperty(ref _selectedCompany, value);
         }
 
+        public ICommand DetailsCommand { get; }
         public ICommand AddCommand { get; }
         public ICommand UpdateCommand { get; }
         public ICommand ArchiveCommand { get; }
@@ -39,6 +41,7 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             _customerService = customerService;
 
+            DetailsCommand = new DelegateCommand<CustomerDto>(OnShowDetails);
             AddCommand = new DelegateCommand(OnAddCustomer);
             UpdateCommand = new DelegateCommand<CustomerDto>(OnUpdateCustomer);
             ArchiveCommand = new DelegateCommand(OnArchiveCustomer);
@@ -55,7 +58,7 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             var result = await _customerService.GetCustomersAsync();
 
-            if(result == null || !result.Any())
+            if (result == null || !result.Any())
             {
                 return;
             }
@@ -67,6 +70,16 @@ namespace Inventory.Modules.Customers.ViewModels
             customers.AddRange(result);
             FilteredCustomers.AddRange(result);
             Companies.AddRange(companies);
+        }
+
+        private async void OnShowDetails(CustomerDto customerDto)
+        {
+            var view = new CustomerDetailsForm()
+            {
+                DataContext = new CustomerFormViewModel(customerDto)
+            };
+
+            await DialogHost.Show(view, "RootDialog");
         }
 
         private async void OnAddCustomer()
@@ -104,9 +117,11 @@ namespace Inventory.Modules.Customers.ViewModels
 
         }
 
-        private void OnDeleteCustomer(CustomerDto selectedCustomer)
+        private async void OnDeleteCustomer(CustomerDto selectedCustomer)
         {
+            var view = new ConfirmationDialog("Confirm action", $"Are you sure you want to delete customer: {selectedCustomer.FullName}?");
 
+            var result = await DialogHost.Show(view, "RootDialog");
         }
     }
 }
