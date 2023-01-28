@@ -2,20 +2,18 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
-             xmlns:local="clr-namespace:Inventory.Core.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:res="clr-namespace:Inventory.Core.Resources"
              d:DesignHeight="450"
              d:DesignWidth="800"
              mc:Ignorable="d">
-    <Grid Width="350">
+    <Grid Width="415">
         <StackPanel Margin="16">
             <StackPanel Orientation="Horizontal">
-                <fa:IconImage Width="25"
-                              Height="25"
-                              Source="{Binding Source={x:Static res:IconsPath.Warning}}" />
+                <md:PackIcon Width="25"
+                             Height="25"
+                             Foreground="#faad14"
+                             Kind="InfoOutline" />
 
                 <TextBlock x:Name="title"
                            Margin="15,0,0,0"
@@ -27,19 +25,13 @@
 
 
             <TextBlock x:Name="description"
-                       Margin="43,15,15,15"
+                       Margin="43,10,15,25"
                        FontSize="14"
                        Text="Please, confirm your action."
                        TextWrapping="Wrap" />
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <Button Grid.Column="0"
-                        Margin="10"
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                <Button Width="75"
                         HorizontalAlignment="Stretch"
                         Background="#ec3d78"
                         BorderBrush="#ec3d78"
@@ -54,20 +46,21 @@
                         </system:Boolean>
                     </Button.CommandParameter>
                 </Button>
-                <Button Grid.Column="1"
+                <Button Width="75"
                         Margin="10"
-                        HorizontalAlignment="Stretch"
+                        BorderBrush="Gray"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
                         Content="Cancel"
+                        Foreground="Black"
                         IsCancel="True"
-                        Style="{StaticResource MaterialDesignPaperDarkButton}">
+                        Style="{StaticResource MaterialDesignOutlinedDarkButton}">
                     <Button.CommandParameter>
                         <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
                             False
                         </system:Boolean>
                     </Button.CommandParameter>
                 </Button>
-            </Grid>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>
