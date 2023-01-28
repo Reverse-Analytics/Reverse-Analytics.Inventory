@@ -177,14 +177,14 @@
                                        TextAlignment="Center" />
                     <sf:GridTemplateColumn Width="85"
                                            AllowFocus="True"
-                                           AllowSorting="False"
-                                           HeaderText="Actions">
+                                           AllowSorting="False">
                         <sf:GridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <md:PopupBox Padding="2,0,2,0"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             GotFocus="PopupBox_GotFocus">
+                                             GotFocus="PopupBox_GotFocus"
+                                             ToolTip="More options">
                                     <StackPanel Width="133">
                                         <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
