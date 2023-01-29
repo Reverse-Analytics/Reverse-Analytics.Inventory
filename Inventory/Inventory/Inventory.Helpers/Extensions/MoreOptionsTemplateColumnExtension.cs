@@ -2,9 +2,8 @@
 using Syncfusion.UI.Xaml.Grid.Cells;
 using System.Windows;
 
-namespace Inventory.Controls
+namespace Inventory.Helpers.Extensions
 {
-    // Create Grid template column extension and specify it's cell type
     public class MoreOptionsTemplateColumnExtension : GridTemplateColumn
     {
         public MoreOptionsTemplateColumnExtension()

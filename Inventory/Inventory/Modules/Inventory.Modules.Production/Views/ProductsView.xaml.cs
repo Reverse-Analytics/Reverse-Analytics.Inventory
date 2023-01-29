@@ -1,4 +1,4 @@
-﻿using Inventory.Controls;
+﻿using Inventory.Helpers.Extensions;
 using System.Windows.Controls;
 
 namespace Inventory.Modules.Production.Views
