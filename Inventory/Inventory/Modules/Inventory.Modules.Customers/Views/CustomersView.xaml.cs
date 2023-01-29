@@ -1,6 +1,4 @@
-﻿using MaterialDesignThemes.Wpf;
-using Syncfusion.UI.Xaml.Grid;
-using System.Windows;
+﻿using Inventory.Controls;
 using System.Windows.Controls;
 
 namespace Inventory.Modules.Customers.Views
@@ -10,28 +8,12 @@ namespace Inventory.Modules.Customers.Views
     /// </summary>
     public partial class CustomersView : UserControl
     {
-        PopupBox selectedPopupBox;
         public CustomersView()
         {
             InitializeComponent();
-        }
 
-        private void PopupBox_GotFocus(object sender, RoutedEventArgs e)
-        {
-            var popupBox = sender as PopupBox;
-
-            selectedPopupBox = popupBox;
-
-            popupBox.IsPopupOpen = true;
-        }
-
-        private void CustomersDataGrid_SelectionChanged(object sender, GridSelectionChangedEventArgs e)
-        {
-            if (selectedPopupBox != null)
-            {
-                selectedPopupBox.Focus();
-                selectedPopupBox.IsPopupOpen = true;
-            }
+            customersDataGrid.CellRenderers.Remove("TemplateExt");
+            customersDataGrid.CellRenderers.Add("TemplateExt", new GridCellTemplateExtension());
         }
     }
 }
