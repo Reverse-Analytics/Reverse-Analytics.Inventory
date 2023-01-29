@@ -9,6 +9,8 @@
   <ItemGroup>
     <PackageReference Include="Syncfusion.Grid.WPF" Version="20.4.0.38" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="20.4.0.38" />
   </ItemGroup>
 
 </Project>
