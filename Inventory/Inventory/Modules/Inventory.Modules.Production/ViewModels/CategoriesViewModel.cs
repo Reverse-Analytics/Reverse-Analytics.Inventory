@@ -10,7 +10,6 @@ using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels
@@ -30,9 +29,10 @@ namespace Inventory.Modules.Production.ViewModels
         public ObservableCollection<ProductCategoryDto> Categories { get; set; }
 
         public ICommand AddCommand { get; }
-        public ICommand EditCommand { get; }
+        public ICommand UpdateCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand ArchiveCommand { get; }
+        public ICommand ShowDetailsCommand { get; }
 
         public bool KeepAlive => false;
 
@@ -44,14 +44,15 @@ namespace Inventory.Modules.Production.ViewModels
             _categoryService = categorySerivce;
 
             AddCommand = new DelegateCommand(OnAddCategory);
-            EditCommand = new DelegateCommand<ProductCategoryDto>(OnEdit);
-            DeleteCommand = new DelegateCommand<int?>(OnDelete);
-            ArchiveCommand = new DelegateCommand(OnArchive);
+            UpdateCommand = new DelegateCommand<ProductCategoryDto>(OnEdit);
+            DeleteCommand = new DelegateCommand<ProductCategoryDto>(OnDelete);
+            ArchiveCommand = new DelegateCommand<ProductCategoryDto>(OnArchive);
+            ShowDetailsCommand = new DelegateCommand<ProductCategoryDto>(OnShowDetails);
 
             InitializeCollections();
         }
 
-        private async void InitializeCollections() 
+        private async void InitializeCollections()
         {
             var categories = await _categoryService.GetCategoriesAsync();
             _categoriesList = new List<ProductCategoryDto>(categories);
@@ -102,14 +103,13 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnDelete(int? id)
+        private async void OnDelete(ProductCategoryDto selectedCategory)
         {
-            if (!id.HasValue)
+            if (selectedCategory == null)
             {
                 return;
             }
 
-            var selectedCategory = Categories.FirstOrDefault(c => c.Id == id);
             var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete: {selectedCategory.CategoryName}?");
 
             var result = await DialogHost.Show(view, "RootDialog");
@@ -117,13 +117,18 @@ namespace Inventory.Modules.Production.ViewModels
 
             if (isConfirm.HasValue && isConfirm.Value)
             {
-                await _categoryService.DeleteCategoryAsync(id.Value);
+                await _categoryService.DeleteCategoryAsync(selectedCategory.Id);
 
                 Categories.Remove(selectedCategory);
             }
         }
 
-        private async void OnArchive()
+        private async void OnArchive(ProductCategoryDto selectedCategory)
+        {
+
+        }
+
+        private async void OnShowDetails(ProductCategoryDto selectedCategory)
         {
 
         }
