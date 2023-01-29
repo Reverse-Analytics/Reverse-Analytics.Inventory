@@ -13,6 +13,7 @@
     <PackageReference Include="Syncfusion.Shared.WPF" Version="20.4.0.38" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Inventory.Controls\Inventory.Controls.csproj" />
     <ProjectReference Include="..\..\Inventory.Core\Inventory.Core.csproj" />
     <ProjectReference Include="..\..\Services\Inventory.Services.Interfaces\Inventory.Services.Interfaces.csproj" />
   </ItemGroup>
