@@ -15,13 +15,15 @@ namespace Inventory.Core.Dialogs
         public ErrorDialog(string message)
             : this()
         {
-            this.description.Text = message;
+            if (!string.IsNullOrEmpty(message))
+                this.message.Text = message;
         }
 
         public ErrorDialog(string title, string message)
             : this(message)
         {
-            this.title.Text = title;
+            if (!string.IsNullOrEmpty(title))
+                this.title.Text = title;
         }
     }
 }
