@@ -4,10 +4,8 @@ using Prism.Commands;
 using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
-using Syncfusion.Windows.Tools.Controls;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
@@ -31,7 +29,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         public int categoryId;
 
         private string _code;
-        public string Code 
+        public string Code
         {
             get => _code;
             set
@@ -42,7 +40,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         }
 
         private string _name;
-        public string Name 
+        public string Name
         {
             get => _name;
             set
@@ -53,28 +51,28 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         }
 
         private double _volume;
-        public double Volume 
+        public double Volume
         {
             get => _volume;
             set => SetProperty(ref _volume, value);
         }
 
         private double _weight;
-        public double Weight 
+        public double Weight
         {
             get => _weight;
             set => SetProperty(ref _weight, value);
         }
 
         private decimal _incomePrice;
-        public decimal IncomePrice 
+        public decimal IncomePrice
         {
             get => _incomePrice;
             set => SetProperty(ref _incomePrice, value);
         }
 
         private decimal _salePrice;
-        public decimal SalePrice 
+        public decimal SalePrice
         {
             get => _salePrice;
             set => SetProperty(ref _salePrice, value);
@@ -101,7 +99,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             : this(categorySerivce)
         {
             IsEditingMode = productToUpdate.ProductName is not null;
-            
+
             productId = productToUpdate.Id;
             Name = productToUpdate.ProductName;
             Code = productToUpdate.ProductCode;
