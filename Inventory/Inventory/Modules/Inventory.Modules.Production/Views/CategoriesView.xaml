@@ -24,6 +24,33 @@
         <Style TargetType="sf:GridHeaderCellControl">
             <Setter Property="BorderThickness" Value="0,0,0,1" />
         </Style>
+
+        <Style x:Key="MoreOptionsButton" TargetType="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e6f7ff" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -118,6 +145,7 @@
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
                            RowSelectionBrush="#ebebeb"
+                           SelectionChanged="CategoriesDataGrid_SelectionChanged"
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.HeaderStyle>
@@ -145,27 +173,65 @@
                     <sf:GridTemplateColumn Width="415" AllowSorting="False">
                         <sf:GridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                                    <Button Margin="10,0,10,0"
-                                            VerticalContentAlignment="Center"
-                                            Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                            Content="Edit"
-                                            Foreground="#5d758f"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
-                                    <Button Margin="10,0,10,0"
-                                            Command="{Binding ArchiveCommand}"
-                                            CommandParameter="{Binding Id}"
-                                            Content="Archive"
-                                            Foreground="#f78c16"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryButton}" />
-                                    <Button Margin="10,0,10,0"
-                                            Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                            CommandParameter="{Binding Id}"
-                                            Content="Delete"
-                                            Foreground="#f7430a"
-                                            Style="{StaticResource MaterialDesignFlatSecondaryLightButton}" />
-                                </StackPanel>
+                                <md:PopupBox Padding="2,0,2,0"
+                                             HorizontalAlignment="Center"
+                                             VerticalAlignment="Center"
+                                             GotFocus="PopupBox_GotFocus"
+                                             ToolTip="More options">
+                                    <StackPanel Width="133">
+                                        <Button Command="{Binding Path=DataContext.ShowDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="InformationOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Details" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="PencilOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Edit" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.ArchiveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="ArchiveOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Archive" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Foreground="#f7430a"
+                                                             Kind="DeleteOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Foreground="#f7430a"
+                                                           Text="Delete" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </md:PopupBox>
                             </DataTemplate>
                         </sf:GridTemplateColumn.CellTemplate>
                     </sf:GridTemplateColumn>

@@ -1,10 +1,8 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Inventory.Controls;
 using Syncfusion.UI.Xaml.Grid;
-using Syncfusion.Windows.Controls.Grid;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace Inventory.Modules.Production.Views
 {
@@ -16,9 +14,12 @@ namespace Inventory.Modules.Production.Views
         public CategoriesView()
         {
             InitializeComponent();
-            this.categoriesDataGrid.SearchHelper = new SearchHelperExt(this.categoriesDataGrid);
-            this.searchTextBox.TextChanged += TextBox_TextChanged;
-            this.searchTextBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+            categoriesDataGrid.SearchHelper = new SearchHelperExt(this.categoriesDataGrid);
+            searchTextBox.TextChanged += TextBox_TextChanged;
+            searchTextBox.PreviewKeyDown += TextBox_PreviewKeyDown;
+
+            categoriesDataGrid.CellRenderers.Remove("TemplateExt");
+            categoriesDataGrid.CellRenderers.Add("TemplateExt", new GridCellTemplateExtension());
         }
 
         private void TextBox_TextChanged(object sender, RoutedEventArgs e)
@@ -34,14 +35,14 @@ namespace Inventory.Modules.Production.Views
 
         private void PerformSearch()
         {
-            if (this.categoriesDataGrid.SearchHelper.SearchText.Equals(this.searchTextBox.Text))
+            if (categoriesDataGrid.SearchHelper.SearchText.Equals(searchTextBox.Text))
                 return;
 
             var text = searchTextBox.Text;
-            this.categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = true;
-            this.categoriesDataGrid.SearchHelper.SearchType = SearchType.StartsWith;
-            this.categoriesDataGrid.SearchHelper.AllowFiltering = true;
-            this.categoriesDataGrid.SearchHelper.Search(text);
+            categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = true;
+            categoriesDataGrid.SearchHelper.SearchType = SearchType.StartsWith;
+            categoriesDataGrid.SearchHelper.AllowFiltering = true;
+            categoriesDataGrid.SearchHelper.Search(text);
         }
     }
 
