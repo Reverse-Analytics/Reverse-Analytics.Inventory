@@ -145,7 +145,6 @@
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
                            RowSelectionBrush="#ebebeb"
-                           SelectionChanged="CategoriesDataGrid_SelectionChanged"
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.HeaderStyle>
@@ -176,7 +175,6 @@
                                 <md:PopupBox Padding="2,0,2,0"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             GotFocus="PopupBox_GotFocus"
                                              ToolTip="More options">
                                     <StackPanel Width="133">
                                         <Button Command="{Binding Path=DataContext.ShowDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
