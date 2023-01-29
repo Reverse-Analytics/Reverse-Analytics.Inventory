@@ -29,7 +29,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Modules.Dialogs",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.RestClient", "Inventory\Services\Inventory.RestClient\Inventory.RestClient.csproj", "{301DF9A7-C579-488A-AA7E-234DAB8FB1E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Modules.Customers", "Inventory\Modules\Inventory.Modules.Customers\Inventory.Modules.Customers.csproj", "{8F149B3C-9108-478E-98A1-C180C7D9163C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Inventory.Modules.Customers", "Inventory\Modules\Inventory.Modules.Customers\Inventory.Modules.Customers.csproj", "{8F149B3C-9108-478E-98A1-C180C7D9163C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Helpers", "Inventory\Inventory.Helpers\Inventory.Helpers.csproj", "{639DEE25-CF83-4BE5-8E74-AD4D54FFE1F8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Inventory.Controls", "Inventory\Inventory.Controls\Inventory.Controls.csproj", "{33F1047F-8A0A-417D-8DC2-C8FE962C6EB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +85,14 @@ Global
 		{8F149B3C-9108-478E-98A1-C180C7D9163C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F149B3C-9108-478E-98A1-C180C7D9163C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F149B3C-9108-478E-98A1-C180C7D9163C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{639DEE25-CF83-4BE5-8E74-AD4D54FFE1F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{639DEE25-CF83-4BE5-8E74-AD4D54FFE1F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{639DEE25-CF83-4BE5-8E74-AD4D54FFE1F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{639DEE25-CF83-4BE5-8E74-AD4D54FFE1F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33F1047F-8A0A-417D-8DC2-C8FE962C6EB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33F1047F-8A0A-417D-8DC2-C8FE962C6EB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33F1047F-8A0A-417D-8DC2-C8FE962C6EB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33F1047F-8A0A-417D-8DC2-C8FE962C6EB1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
