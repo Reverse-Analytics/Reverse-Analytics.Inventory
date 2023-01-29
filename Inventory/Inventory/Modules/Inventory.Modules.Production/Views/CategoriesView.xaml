@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:categoryDialogs="clr-namespace:Inventory.Modules.Production.Views.CategoryDialogs"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:Inventory.Helpers.Extensions;assembly=Inventory.Helpers"
              xmlns:local="clr-namespace:Inventory.Modules.Production.Views"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -129,7 +130,7 @@
                     Margin="50">
 
             <sf:SfDataGrid x:Name="categoriesDataGrid"
-                           HorizontalAlignment="Stretch"
+                           HorizontalAlignment="Center"
                            VerticalAlignment="Center"
                            AllowSorting="True"
                            Background="White"
@@ -154,7 +155,7 @@
                     </Style>
                 </sf:SfDataGrid.HeaderStyle>
                 <sf:SfDataGrid.Columns>
-                    <sf:GridNumericColumn Width="200"
+                    <sf:GridNumericColumn Width="350"
                                           HeaderText="Category ID"
                                           MappingName="Id"
                                           NumberDecimalDigits="0"
@@ -164,13 +165,13 @@
                                        HeaderText="Category Name"
                                        MappingName="CategoryName"
                                        TextAlignment="Center" />
-                    <sf:GridNumericColumn Width="200"
+                    <sf:GridNumericColumn Width="350"
                                           HeaderText="Number of items"
                                           MappingName="Id"
                                           NumberDecimalDigits="0"
                                           TextAlignment="Center" />
-                    <sf:GridTemplateColumn Width="415" AllowSorting="False">
-                        <sf:GridTemplateColumn.CellTemplate>
+                    <extensions:MoreOptionsTemplateColumnExtension Width="85" AllowSorting="False">
+                        <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
                                 <md:PopupBox Padding="2,0,2,0"
                                              HorizontalAlignment="Center"
@@ -231,13 +232,15 @@
                                     </StackPanel>
                                 </md:PopupBox>
                             </DataTemplate>
-                        </sf:GridTemplateColumn.CellTemplate>
-                    </sf:GridTemplateColumn>
+                        </extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
+                    </extensions:MoreOptionsTemplateColumnExtension>
                 </sf:SfDataGrid.Columns>
             </sf:SfDataGrid>
 
             <sf:SfDataPager x:Name="dataPager"
                             Grid.Row="1"
+                            Margin="0,15,0,0"
+                            HorizontalAlignment="Center"
                             PageSize="15"
                             Source="{Binding Categories}" />
         </StackPanel>

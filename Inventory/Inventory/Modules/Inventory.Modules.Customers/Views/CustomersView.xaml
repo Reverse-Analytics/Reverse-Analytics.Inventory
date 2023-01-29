@@ -1,8 +1,8 @@
 ﻿<UserControl x:Class="Inventory.Modules.Customers.Views.CustomersView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:conrols="clr-namespace:Inventory.Controls;assembly=Inventory.Controls"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:Inventory.Helpers.Extensions;assembly=Inventory.Helpers"
              xmlns:local="clr-namespace:Inventory.Modules.Customers.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -179,10 +179,10 @@
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="CompanyName"
                                        TextAlignment="Left" />
-                    <conrols:MoreOptionsTemplateColumnExtension Width="85"
-                                                                AllowFocus="True"
-                                                                AllowSorting="False">
-                        <conrols:MoreOptionsTemplateColumnExtension.CellTemplate>
+                    <extensions:MoreOptionsTemplateColumnExtension Width="85"
+                                                                   AllowFocus="True"
+                                                                   AllowSorting="False">
+                        <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
                                 <md:PopupBox Margin="5"
                                              Padding="2,0,2,0"
@@ -245,8 +245,8 @@
                                     </StackPanel>
                                 </md:PopupBox>
                             </DataTemplate>
-                        </conrols:MoreOptionsTemplateColumnExtension.CellTemplate>
-                    </conrols:MoreOptionsTemplateColumnExtension>
+                        </extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
+                    </extensions:MoreOptionsTemplateColumnExtension>
                 </sf:SfDataGrid.Columns>
             </sf:SfDataGrid>
 
