@@ -44,7 +44,7 @@ namespace Inventory.Modules.Production.ViewModels
             _categoryService = categorySerivce;
 
             AddCommand = new DelegateCommand(OnAddCategory);
-            UpdateCommand = new DelegateCommand<ProductCategoryDto>(OnEdit);
+            UpdateCommand = new DelegateCommand<ProductCategoryDto>(OnUpdate);
             DeleteCommand = new DelegateCommand<ProductCategoryDto>(OnDelete);
             ArchiveCommand = new DelegateCommand<ProductCategoryDto>(OnArchive);
             ShowDetailsCommand = new DelegateCommand<ProductCategoryDto>(OnShowDetails);
@@ -83,7 +83,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnEdit(ProductCategoryDto selectedCategory)
+        private async void OnUpdate(ProductCategoryDto selectedCategory)
         {
             var view = new CategoriesFormDialogView()
             {

@@ -32,21 +32,6 @@
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
                 <Button Width="75"
-                        HorizontalAlignment="Stretch"
-                        Background="#ec3d78"
-                        BorderBrush="#ec3d78"
-                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
-                        Content="Accept"
-                        Foreground="White"
-                        IsDefault="True"
-                        Style="{StaticResource MaterialDesignRaisedSecondaryLightButton}">
-                    <Button.CommandParameter>
-                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
-                            True
-                        </system:Boolean>
-                    </Button.CommandParameter>
-                </Button>
-                <Button Width="75"
                         Margin="10"
                         BorderBrush="Gray"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
@@ -57,6 +42,21 @@
                     <Button.CommandParameter>
                         <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
                             False
+                        </system:Boolean>
+                    </Button.CommandParameter>
+                </Button>
+                <Button Width="75"
+                        HorizontalAlignment="Stretch"
+                        Background="#ec3d78"
+                        BorderBrush="#ec3d78"
+                        Command="{x:Static md:DialogHost.CloseDialogCommand}"
+                        Content="Accept"
+                        Foreground="White"
+                        IsDefault="True"
+                        Style="{StaticResource MaterialDesignFlatDarkBgButton}">
+                    <Button.CommandParameter>
+                        <system:Boolean xmlns:system="clr-namespace:System;assembly=mscorlib">
+                            True
                         </system:Boolean>
                     </Button.CommandParameter>
                 </Button>

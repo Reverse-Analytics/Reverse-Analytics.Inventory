@@ -111,7 +111,7 @@
                     Height="30"
                     Margin="0,0,25,0"
                     HorizontalAlignment="Right"
-                    md:ButtonAssist.CornerRadius="5"
+                    md:ButtonAssist.CornerRadius="2"
                     Background="#1890ff"
                     BorderThickness="0"
                     Command="{Binding AddCommand}"
@@ -173,6 +173,7 @@
                                 <md:PopupBox Padding="2,0,2,0"
                                              HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
+                                             Foreground="#2d2e2e"
                                              ToolTip="More options">
                                     <StackPanel Width="133">
                                         <Button Command="{Binding Path=DataContext.ShowDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
@@ -188,7 +189,7 @@
                                                            Text="Details" />
                                             </StackPanel>
                                         </Button>
-                                        <Button Command="{Binding Path=DataContext.EditCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">

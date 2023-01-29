@@ -186,10 +186,9 @@
                             <DataTemplate>
                                 <md:PopupBox Margin="5"
                                              Padding="2,0,2,0"
-                                             HorizontalAlignment="Center"
                                              VerticalAlignment="Center"
-                                             Foreground="DarkSlateGray"
-                                             PopupMode="Click">
+                                             Foreground="#2d2e2e"
+                                             ToolTip="More options">
                                     <StackPanel Width="133">
                                         <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
