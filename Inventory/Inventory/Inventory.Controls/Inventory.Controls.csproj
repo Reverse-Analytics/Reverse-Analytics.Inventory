@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.4.0.38" />
+  </ItemGroup>
+
+</Project>
