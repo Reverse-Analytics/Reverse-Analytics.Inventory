@@ -43,5 +43,12 @@
                 <ContentControl x:Name="contentRegion" prism:RegionManager.RegionName="{x:Static core:RegionNames.ContentRegion}" />
             </md:DialogHost>
         </ScrollViewer>
+
+        <md:DialogHost Grid.Row="1"
+                       Grid.Column="1"
+                       CloseOnClickAway="False"
+                       DialogClosed="DialogHost_DialogClosed"
+                       DialogOpened="DialogHost_DialogOpened"
+                       Identifier="NotificationDialog" />
     </Grid>
 </Window>
