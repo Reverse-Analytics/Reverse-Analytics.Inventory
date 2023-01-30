@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="Inventory.Modules.Production.Views.CategoriesView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:busy="clr-namespace:Syncfusion;assembly=Syncfusion.SfBusyIndicator.WPF"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:extensions="clr-namespace:Inventory.Helpers.Extensions;assembly=Inventory.Helpers"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -20,7 +21,11 @@
             <Setter Property="BorderThickness" Value="0,0,0,1" />
         </Style>
         <Style TargetType="sf:GridHeaderCellControl">
+            <Setter Property="Background" Value="#fafafa" />
+            <Setter Property="Foreground" Value="Black" />
             <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="Cursor" Value="Hand" />
         </Style>
 
         <Style x:Key="MoreOptionsButton" TargetType="Button">
@@ -49,7 +54,23 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <Style TargetType="sf:SfDataGrid">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="AllowSorting" Value="True" />
+            <Setter Property="Background" Value="White" />
+            <Setter Property="BorderBrush" Value="LightGray" />
+            <Setter Property="CurrentCellBorderThickness" Value="0" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="GridLinesVisibility" Value="Horizontal" />
+            <Setter Property="HeaderLinesVisibility" Value="Horizontal" />
+            <Setter Property="HeaderRowHeight" Value="40" />
+            <Setter Property="RowHeight" Value="35" />
+            <Setter Property="RowSelectionBrush" Value="#ebebeb" />
+        </Style>
     </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -59,7 +80,6 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-
 
         <TextBlock Grid.Column="0"
                    Margin="40,25,0,25"
@@ -126,31 +146,7 @@
                     Grid.ColumnSpan="2"
                     Margin="50">
 
-            <sf:SfDataGrid x:Name="categoriesDataGrid"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           AllowSorting="True"
-                           Background="White"
-                           BorderBrush="LightGray"
-                           BorderThickness="1"
-                           CanUseViewFilter="True"
-                           CurrentCellBorderThickness="0"
-                           FontSize="14"
-                           GridLinesVisibility="Horizontal"
-                           HeaderLinesVisibility="Horizontal"
-                           HeaderRowHeight="40"
-                           IsManipulationEnabled="False"
-                           ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
-                           RowHeight="35"
-                           RowSelectionBrush="#ebebeb"
-                           SelectionMode="Single"
-                           SelectionUnit="Row">
-                <sf:SfDataGrid.HeaderStyle>
-                    <Style TargetType="sf:GridHeaderCellControl">
-                        <Setter Property="Background" Value="#fafafa" />
-                        <Setter Property="Foreground" Value="Black" />
-                    </Style>
-                </sf:SfDataGrid.HeaderStyle>
+            <sf:SfDataGrid x:Name="categoriesDataGrid" ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}">
                 <sf:SfDataGrid.Columns>
                     <sf:GridNumericColumn Width="350"
                                           HeaderText="Category ID"

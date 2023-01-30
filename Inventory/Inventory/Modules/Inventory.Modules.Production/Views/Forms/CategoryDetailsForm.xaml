@@ -1,0 +1,86 @@
+﻿<UserControl x:Class="Inventory.Modules.Production.Views.Forms.CategoryDetailsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Production.Views.Forms"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel Margin="50">
+            <TextBlock Margin="0,0,0,25"
+                       FontSize="25"
+                       FontWeight="SemiBold"
+                       Text="Category Details" />
+
+            <StackPanel Orientation="Horizontal">
+                <Border Width="330"
+                        Padding="15"
+                        Background="#FAFAFA"
+                        BorderBrush="LightGray"
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="Id" />
+                </Border>
+                <Border Width="330"
+                        Padding="15"
+                        Background="#FAFAFA "
+                        BorderBrush="LightGray "
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="Category name" />
+                </Border>
+                <Border Width="345"
+                        Padding="15"
+                        Background="#FAFAFA "
+                        BorderBrush="LightGray "
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="Number of products" />
+                </Border>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Border Width="330"
+                        Padding="15"
+                        Background="Transparent"
+                        BorderBrush="LightGray"
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="{Binding Id}" />
+                </Border>
+                <Border Width="330"
+                        Padding="15"
+                        Background="Transparent"
+                        BorderBrush="LightGray"
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="{Binding CategoryName}" />
+                </Border>
+                <Border Width="345"
+                        Padding="15"
+                        Background="Transparent"
+                        BorderBrush="LightGray"
+                        BorderThickness="1">
+                    <TextBlock FontSize="14"
+                               Foreground="#2d2e2e"
+                               Text="{Binding NumberOfItems}" />
+                </Border>
+            </StackPanel>
+
+            <Button Width="115"
+                    Height="40"
+                    Margin="0,25,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Gray"
+                    Command="{Binding CloseCommand}"
+                    Content="Close"
+                    Foreground="Black"
+                    Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
