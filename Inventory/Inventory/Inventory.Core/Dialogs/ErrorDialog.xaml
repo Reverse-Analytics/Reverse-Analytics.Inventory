@@ -31,6 +31,7 @@
             <Button Margin="10"
                     HorizontalAlignment="Right"
                     Background="#1890ff"
+                    BorderThickness="0"
                     Command="{x:Static md:DialogHost.CloseDialogCommand}"
                     Content="Done"
                     IsCancel="True"
