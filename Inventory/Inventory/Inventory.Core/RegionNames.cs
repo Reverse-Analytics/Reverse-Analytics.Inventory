@@ -7,5 +7,6 @@
         public const string NavigationRegion = "NavigationRegion";
         public const string DialogRegion = "RootDialog";
         public const string NotificationRegion = "NotificationDialog";
+        public const string ProgressRegion = "ProgressDialog";
     }
 }
