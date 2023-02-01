@@ -26,7 +26,7 @@
                      VerticalAlignment="Top"
                      md:HintAssist.Hint="Enter category name"
                      md:ValidationAssist.HasError="{Binding IsCategoryNameInvalid}"
-                     AcceptsReturn="True"
+                     AcceptsReturn="False"
                      Background="Transparent"
                      Style="{StaticResource MaterialDesignOutlinedTextBox}"
                      Text="{Binding Path=CategoryName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -41,7 +41,7 @@
                         VerticalAlignment="Top"
                         BorderBrush="DarkGray"
                         BorderThickness="1"
-                        Command="{Binding CancelCommand}"
+                        Command="{Binding CloseCommand}"
                         Content="Cancel"
                         Foreground="#070707"
                         Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
