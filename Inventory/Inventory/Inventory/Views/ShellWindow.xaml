@@ -49,6 +49,14 @@
                        CloseOnClickAway="False"
                        DialogClosed="DialogHost_DialogClosed"
                        DialogOpened="DialogHost_DialogOpened"
+                       Identifier="ProgressDialog" />
+
+        <md:DialogHost Grid.Row="1"
+                       Grid.Column="1"
+                       CloseOnClickAway="True"
+                       DialogClosed="DialogHost_DialogClosed"
+                       DialogOpened="DialogHost_DialogOpened"
                        Identifier="NotificationDialog" />
+
     </Grid>
 </Window>
