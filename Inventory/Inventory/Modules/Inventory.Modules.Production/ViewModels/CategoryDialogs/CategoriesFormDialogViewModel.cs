@@ -19,7 +19,7 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
         }
 
         private string _categoryName;
-        public string CategoryName 
+        public string CategoryName
         {
             get => _categoryName;
             set
@@ -32,14 +32,12 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
         public bool IsCategoryNameInvalid => CanSave();
 
         public DelegateCommand SaveCommand { get; }
-        public DelegateCommand CancelCommand { get; }
-        public DialogClosingEventHandler ClosingCommand { get; }
+        public DelegateCommand CloseCommand { get; }
 
         public CategoriesFormDialogViewModel()
         {
             SaveCommand = new DelegateCommand(OnSave, CanSave);
-            CancelCommand = new DelegateCommand(OnCancel);
-            ClosingCommand = ClosingEventHandler;
+            CloseCommand = new DelegateCommand(OnClose);
         }
 
         public CategoriesFormDialogViewModel(ProductCategoryDto categoryToUpdate)
@@ -72,7 +70,7 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
             return !string.IsNullOrEmpty(CategoryName);
         }
 
-        private void OnCancel()
+        private void OnClose()
         {
             DialogHost.Close("RootDialog");
         }
