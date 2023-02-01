@@ -15,13 +15,19 @@ namespace Inventory.Core.Dialogs
         public ConfirmationDialog(string message)
             : this()
         {
-            this.description.Text = message;
+            if (!string.IsNullOrEmpty(message))
+            {
+                this.description.Text = message;
+            }
         }
 
         public ConfirmationDialog(string title, string message)
             : this(message)
         {
-            this.title.Text = title;
+            if (!string.IsNullOrEmpty(title))
+            {
+                this.title.Text = title;
+            }
         }
     }
 }
