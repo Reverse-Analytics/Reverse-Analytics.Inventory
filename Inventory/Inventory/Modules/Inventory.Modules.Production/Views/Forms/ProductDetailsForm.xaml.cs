@@ -20,9 +20,9 @@ namespace Inventory.Modules.Production.Views.Forms
         {
             if (e.Key == Key.Escape)
             {
-                var vm = DataContext as CategoryDetailsFormViewModel;
+                var vm = DataContext as ProductDetailsFormViewModel;
 
-                vm?.OnClose();
+                vm?.CloseCommand?.Execute();
             }
         }
     }

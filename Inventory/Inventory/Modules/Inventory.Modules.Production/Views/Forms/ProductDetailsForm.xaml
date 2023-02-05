@@ -154,7 +154,7 @@
                             BorderThickness="1">
                         <TextBlock FontSize="14"
                                    Foreground="#2d2e2e"
-                                   Text="{Binding CategoryName}" />
+                                   Text="{Binding NumberOfItems}" />
                     </Border>
                 </StackPanel>
             </StackPanel>

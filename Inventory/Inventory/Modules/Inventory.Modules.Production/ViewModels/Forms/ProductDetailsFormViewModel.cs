@@ -3,7 +3,6 @@ using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using ReverseAnalytics.Domain.DTOs.Product;
-using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
@@ -26,7 +25,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         public ProductDto Product { get; set; }
 
-        public ICommand CloseCommand { get; }
+        public DelegateCommand CloseCommand { get; }
 
         public ProductDetailsFormViewModel(ProductDto product)
         {
