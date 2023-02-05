@@ -1,0 +1,211 @@
+﻿<UserControl x:Class="Inventory.Modules.Production.Views.Forms.ProductDetailsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             MinWidth="1105"
+             mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel Margin="50">
+            <TextBlock Margin="0,0,0,25"
+                       FontSize="25"
+                       FontWeight="SemiBold"
+                       Text="Product Details" />
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="330"
+                            Padding="15"
+                            Background="#FAFAFA"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Id" />
+                    </Border>
+                    <Border Width="330"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Product name" />
+                    </Border>
+                    <Border Width="345"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Category" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="330"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding Id}" />
+                    </Border>
+                    <Border Width="330"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding ProductName}" />
+                    </Border>
+                    <Border Width="345"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding CategoryName}" />
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="500"
+                            Padding="15"
+                            Background="#FAFAFA"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Volume" />
+                    </Border>
+                    <Border Width="505"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Weight" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="500"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   IsEnabled="False"
+                                   Text="{Binding Volume}" />
+                    </Border>
+                    <Border Width="505"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding Weight}" />
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="330"
+                            Padding="15"
+                            Background="#FAFAFA"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Unit of measurement" />
+                    </Border>
+                    <Border Width="330"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Product code" />
+                    </Border>
+                    <Border Width="345"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Number of items" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="330"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding Id}" />
+                    </Border>
+                    <Border Width="330"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding ProductName}" />
+                    </Border>
+                    <Border Width="345"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding CategoryName}" />
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="500"
+                            Padding="15"
+                            Background="#FAFAFA"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Income price" />
+                    </Border>
+                    <Border Width="505"
+                            Padding="15"
+                            Background="#FAFAFA "
+                            BorderBrush="LightGray "
+                            BorderThickness="1">
+                        <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Sale price" />
+                    </Border>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="500"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding IncomePrice}" />
+                    </Border>
+                    <Border Width="505"
+                            Padding="15"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <TextBlock FontSize="14"
+                                   Foreground="#2d2e2e"
+                                   Text="{Binding SalePrice}" />
+                    </Border>
+                </StackPanel>
+            </StackPanel>
+            <Button Width="115"
+                    Height="40"
+                    Margin="0,25,0,0"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    BorderBrush="Gray"
+                    Command="{Binding CloseCommand}"
+                    Content="Close"
+                    Foreground="Black"
+                    Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
