@@ -1,4 +1,5 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core;
+using Inventory.Core.Mvvm;
 using Inventory.Modules.Customers.ViewModels.Forms;
 using Inventory.Modules.Customers.Views.Forms;
 using Inventory.Services.Interfaces;
@@ -114,18 +115,21 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             try
             {
-                var view = new CustomerForm()
+                var result = await ShowAddCustomerForm();
+
+                if (result is null) return;
+
+                IsBusy = true;
+
+                await Task.Run(async () =>
                 {
-                    DataContext = new CustomerFormViewModel()
-                };
+                    var createdCustomer = await _customerService.CreateCustomerAsync(result);
 
-                var result = await DialogHost.Show(view, "RootDialog");
+                    FilteredCustomers.Add(createdCustomer);
+                    customers.Add(createdCustomer);
+                });
 
-                if (result is null)
-                {
-                    return;
-                }
-
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
@@ -142,17 +146,45 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             try
             {
-                var view = new CustomerForm()
-                {
-                    DataContext = new CustomerFormViewModel(selectedCustomer)
-                };
+                var customer = FilteredCustomers.FirstOrDefault(x => x.Id == selectedCustomer.Id);
+                var result = await ShowUpdateCustomerForm(customer);
 
-                var result = await DialogHost.Show(view, "RootDialog");
+                if (result is null) return;
 
-                if (result is null)
+                IsBusy = true;
+
+                await Task.Run(async () =>
                 {
-                    return;
-                }
+                    await _customerService.UpdateCustomerAsync(result);
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void OnDeleteCustomer(CustomerDto selectedCustomer)
+        {
+            try
+            {
+                bool isConfirm = await _dialogService.ShowConfirmation();
+
+                if (!isConfirm) return;
+
+                IsBusy = true;
+
+                await Task.Run(async () =>
+                {
+                    await _customerService.DeleteCustomerAsync(selectedCustomer.Id);
+
+                    FilteredCustomers.Remove(selectedCustomer);
+                });
             }
             catch (Exception ex)
             {
@@ -188,33 +220,42 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnDeleteCustomer(CustomerDto selectedCustomer)
-        {
-            try
-            {
-                bool isConfirm = await _dialogService.ShowConfirmation();
-
-                if (!isConfirm) return;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await _dialogService.ShowError();
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
         private async void OnShowDetails(CustomerDto customerDto)
         {
             var view = new CustomerDetailsForm()
             {
-                DataContext = new CustomerFormViewModel(customerDto)
+                DataContext = new CustomerDetailsFormViewModel()
             };
 
             await DialogHost.Show(view, "RootDialog");
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        public async Task<CustomerForCreateDto> ShowAddCustomerForm()
+        {
+            var view = new CustomerForm()
+            {
+                DataContext = new CustomerFormViewModel()
+            };
+
+            var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+            return result as CustomerForCreateDto;
+        }
+
+        private async Task<CustomerForUpdateDto> ShowUpdateCustomerForm(CustomerDto customer)
+        {
+            var view = new CustomerForm()
+            {
+                DataContext = new CustomerFormViewModel(customer)
+            };
+
+            var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+            return result as CustomerForUpdateDto;
         }
 
         #endregion
