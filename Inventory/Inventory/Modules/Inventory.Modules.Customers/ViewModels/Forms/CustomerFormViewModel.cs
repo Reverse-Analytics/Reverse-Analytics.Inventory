@@ -1,89 +1,32 @@
-﻿using MaterialDesignThemes.Wpf;
+﻿using Inventory.Core.Mvvm;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
-using ReverseAnalytics.Domain.Entities;
+using System;
 using System.Linq;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
 {
-    public class CustomerFormViewModel : BindableBase
+    public class CustomerFormViewModel : ViewModelBase
     {
         private readonly bool isEditingMode;
 
         public DelegateCommand CancelCommand { get; private set; }
-        public DelegateCommand SaveCommand { get; private set;  }
+        public DelegateCommand SaveCommand { get; private set; }
 
-        private string _fullName;
-        public string FullName 
-        { 
-            get => _fullName;
-            set
-            {
-                _fullName = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string _companyName;
-        public string CompanyName
-        {
-            get => _companyName;
-            set
-            {
-                _companyName = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string _address;
-        public string Address 
-        {
-            get => _address;
-            set
-            {
-                _address = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private string _phoneNumber;
-        public string PhoneNumber 
-        {
-            get => _phoneNumber;
-            set
-            {
-                _phoneNumber = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private decimal _balance;
-        public decimal Balance
-        {
-            get => _balance;
-            set
-            {
-                _balance = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
-
-        private double _discount;
-        public double Discount 
-        {
-            get => _discount;
-            set
-            {
-                _discount = value;
-                SaveCommand.RaiseCanExecuteChanged();
-            }
-        }
+        public string FullName { get; set; }
+        public string CompanyName { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public decimal Balance { get; set; }
+        public double Discount { get; set; }
 
         public CustomerFormViewModel()
         {
             CancelCommand = new DelegateCommand(OnCancel);
             SaveCommand = new DelegateCommand(OnSave, CanSave);
+
+            Title = "Add Customer";
         }
 
         public CustomerFormViewModel(CustomerDto customer)
@@ -92,10 +35,14 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             isEditingMode = true;
 
             InitializeProperties(customer);
+
+            Title = "Update Customer";
         }
 
         private void InitializeProperties(CustomerDto customer)
         {
+            ArgumentNullException.ThrowIfNull(customer, nameof(customer));
+
             FullName = customer.FullName;
             CompanyName = customer.CompanyName;
             Address = customer.Addresses.Select(x => x.AddressDetails).FirstOrDefault();
@@ -114,18 +61,21 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
                 {
                     FullName = FullName,
                     CompanyName = CompanyName,
-
                 };
+
+                DialogHost.Close("RootDialog", updatedCustomer);
             }
-
-            var newCustomer = new CustomerForCreateDto()
+            else
             {
-                FullName = FullName,
-                CompanyName = CompanyName,
-                ContactPersonPhone = PhoneNumber,
-            };
+                var newCustomer = new CustomerForCreateDto()
+                {
+                    FullName = FullName,
+                    CompanyName = CompanyName,
+                    ContactPersonPhone = PhoneNumber,
+                };
 
-            DialogHost.Close("RootDialog", newCustomer);
+                DialogHost.Close("RootDialog", newCustomer);
+            }
         }
 
         private bool CanSave()
