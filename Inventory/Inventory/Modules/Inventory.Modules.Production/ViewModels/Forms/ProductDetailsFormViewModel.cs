@@ -3,6 +3,7 @@ using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using ReverseAnalytics.Domain.DTOs.Product;
+using System;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
@@ -23,16 +24,16 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         public decimal IncomePrice { get; set; }
         public decimal SalePrice { get; set; }
 
-        public ProductDto Product { get; set; }
-
         public DelegateCommand CloseCommand { get; }
 
         public ProductDetailsFormViewModel(ProductDto product)
         {
+            ArgumentNullException.ThrowIfNull(product);
+
             Id = product.Id;
             ProductName = product.ProductName;
             ProductCode = product.ProductCode;
-            CategoryName = product.Category.CategoryName;
+            CategoryName = product?.Category?.CategoryName;
             NumberOfItems = product.Id;
             Volume = product.Volume;
             Weight = product.Weight;
@@ -42,9 +43,6 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             CloseCommand = new DelegateCommand(OnClose);
         }
 
-        private void OnClose()
-        {
-            DialogHost.Close(RegionNames.DialogRegion);
-        }
+        private void OnClose() => DialogHost.Close(RegionNames.DialogRegion);
     }
 }
