@@ -166,8 +166,6 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedProduct is null) return;
-
                 var productToUpdate = await ShowUpdateProductForm(selectedProduct);
 
                 if (productToUpdate is null) return;
@@ -193,8 +191,6 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedProduct is null) return;
-
                 var isConfirm = await _dialogService.ShowConfirmation();
 
                 if (!isConfirm) return;
@@ -225,8 +221,6 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedProduct is null) return;
-
                 var isConfirm = await _dialogService.ShowConfirmation();
 
                 if (!isConfirm) return;
@@ -253,8 +247,6 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedProduct is null) return;
-
                 var view = new ProductDetailsForm()
                 {
                     DataContext = new ProductDetailsFormViewModel(selectedProduct)

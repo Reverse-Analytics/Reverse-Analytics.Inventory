@@ -36,9 +36,9 @@ namespace Inventory.Modules.Production.ViewModels
             set => SetProperty(ref _title, value);
         }
 
-        #endregion
-
         public bool KeepAlive => false;
+
+        #endregion
 
         #region Collections
 
@@ -73,10 +73,14 @@ namespace Inventory.Modules.Production.ViewModels
             LoadCategories();
         }
 
+        #region Main methods
+
         private async void LoadCategories()
         {
             try
             {
+                IsBusy = true;
+
                 var categories = await _categoryService.GetCategoriesAsync();
                 _categoriesList = new List<ProductCategoryDto>(categories);
 
@@ -87,7 +91,13 @@ namespace Inventory.Modules.Production.ViewModels
                 await _dialogService.ShowError(message: "There was an error retrieving categories... Please, try again later.");
                 Debug.WriteLine(ex);
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
+        #endregion
 
         #region Command methods
 
@@ -97,10 +107,7 @@ namespace Inventory.Modules.Production.ViewModels
             {
                 var category = await ShowAddCategoryForm();
 
-                if (category is null)
-                {
-                    return;
-                }
+                if (category is null) return;
 
                 IsBusy = true;
 
@@ -114,13 +121,13 @@ namespace Inventory.Modules.Production.ViewModels
                     }
                 });
 
-                await _dialogService.ShowSuccess(message: $"Category: {category.CategoryName} was added.");
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
 
-                await _dialogService.ShowError(message: $"There was an error adding new Category. Please, try again later.");
+                await _dialogService.ShowError();
             }
             finally
             {
@@ -134,10 +141,7 @@ namespace Inventory.Modules.Production.ViewModels
             {
                 var category = await ShowUpdateCategoryForm(selectedCategory);
 
-                if (category is null)
-                {
-                    return;
-                }
+                if (category is null) return;
 
                 IsBusy = true;
 
@@ -151,11 +155,11 @@ namespace Inventory.Modules.Production.ViewModels
                 Categories.Clear();
                 Categories.AddRange(_categoriesList);
 
-                await _dialogService.ShowSuccess(message: $"Category: {category.CategoryName} was successfully updated.");
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowError(message: "There was an error while updating category. Please, try again later");
+                await _dialogService.ShowError();
                 Debug.WriteLine(ex);
             }
             finally
@@ -168,17 +172,9 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedCategory == null)
-                {
-                    return;
-                }
-
                 var isConfirm = await _dialogService.ShowConfirmation();
 
-                if (!isConfirm)
-                {
-                    return;
-                }
+                if (!isConfirm) return;
 
                 IsBusy = true;
 
@@ -189,11 +185,11 @@ namespace Inventory.Modules.Production.ViewModels
                     Categories.Remove(selectedCategory);
                 });
 
-                await _dialogService.ShowSuccess(message: $"Category: {selectedCategory.CategoryName} was successfully deleted.");
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowError(message: "There was an error while deleting category. Please, try again later.");
+                await _dialogService.ShowError();
                 Debug.WriteLine(ex);
             }
             finally
@@ -206,28 +202,20 @@ namespace Inventory.Modules.Production.ViewModels
         {
             try
             {
-                if (selectedCategory == null)
-                {
-                    return;
-                }
-
                 var isConfirm = await _dialogService.ShowConfirmation();
 
-                if (!isConfirm)
-                {
-                    return;
-                }
+                if (!isConfirm) return;
 
                 IsBusy = true;
 
                 // TODO implement archiving
                 await Task.Delay(1500);
 
-                await _dialogService.ShowSuccess(message: $"Category: {selectedCategory.CategoryName} was successfully archived.");
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowError(message: $"There was an error archiving Category: {selectedCategory.CategoryName}. Please, try again later");
+                await _dialogService.ShowError();
                 Debug.WriteLine(ex);
             }
             finally
@@ -259,12 +247,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            if (result is null || result is not ProductCategoryForCreateDto category)
-            {
-                return null;
-            }
-
-            return category;
+            return result as ProductCategoryForCreateDto;
         }
 
         private static async Task<ProductCategoryForUpdateDto> ShowUpdateCategoryForm(ProductCategoryDto categoryToUpdate)
@@ -281,12 +264,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            if (result is null || result is not ProductCategoryForUpdateDto updatedCategory)
-            {
-                return null;
-            }
-
-            return updatedCategory;
+            return result as ProductCategoryForUpdateDto;
         }
 
         #endregion
