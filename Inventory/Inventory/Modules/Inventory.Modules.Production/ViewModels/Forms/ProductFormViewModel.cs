@@ -1,17 +1,21 @@
-﻿using Inventory.Services.Interfaces;
+﻿using Inventory.Core.Mvvm;
+using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
-    public class ProductFormViewModel : BindableBase
+    public class ProductFormViewModel : ViewModelBase
     {
         private readonly ICategorySerivce _categoryService;
+
+        #region Properties
+
         private readonly bool IsEditingMode;
         private readonly int productId;
 
@@ -78,10 +82,18 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             set => SetProperty(ref _salePrice, value);
         }
 
+        #endregion
+
         public ObservableCollection<ProductCategoryDto> Categories { get; }
+
+        #region Commands
 
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CancelCommand { get; }
+
+        #endregion
+
+        #region Constructors
 
         public ProductFormViewModel(ICategorySerivce categorySerivce)
         {
@@ -93,11 +105,15 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             CancelCommand = new DelegateCommand(OnCancel);
 
             LoadCategories();
+
+            Title = "New Product";
         }
 
         public ProductFormViewModel(ICategorySerivce categorySerivce, ProductDto productToUpdate)
             : this(categorySerivce)
         {
+            ArgumentNullException.ThrowIfNull(productToUpdate, nameof(productToUpdate));
+
             IsEditingMode = productToUpdate.ProductName is not null;
 
             productId = productToUpdate.Id;
@@ -108,7 +124,11 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             IncomePrice = productToUpdate.SupplyPrice;
             SalePrice = productToUpdate.SalePrice;
             categoryId = productToUpdate.CategoryId;
+
+            Title = "Update Product";
         }
+
+        #endregion
 
         public async void LoadCategories()
         {

@@ -32,6 +32,13 @@ namespace Inventory.Core.Mvvm
             }
         }
 
+        private string _title;
+        public string Title
+        {
+            get => _title;
+            set => SetProperty(ref _title, value);
+        }
+
         protected ViewModelBase()
         {
         }

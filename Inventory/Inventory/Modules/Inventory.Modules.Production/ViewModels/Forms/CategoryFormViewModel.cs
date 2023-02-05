@@ -2,12 +2,15 @@
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
+using System;
 using System.Diagnostics;
 
-namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
+namespace Inventory.Modules.Production.ViewModels.Forms
 {
-    public class CategoriesFormDialogViewModel : ViewModelBase
+    public class CategoryFormViewModel : ViewModelBase
     {
+        #region Properties
+
         private readonly bool isEditingMode = false;
         private readonly int id;
 
@@ -31,21 +34,29 @@ namespace Inventory.Modules.Production.ViewModels.CategoryDialogs
 
         public bool IsCategoryNameInvalid => CanSave();
 
+        #endregion
+
         public DelegateCommand SaveCommand { get; }
         public DelegateCommand CloseCommand { get; }
 
-        public CategoriesFormDialogViewModel()
+        public CategoryFormViewModel()
         {
             SaveCommand = new DelegateCommand(OnSave, CanSave);
             CloseCommand = new DelegateCommand(OnClose);
+
+            Title = "New Category";
         }
 
-        public CategoriesFormDialogViewModel(ProductCategoryDto categoryToUpdate)
+        public CategoryFormViewModel(ProductCategoryDto categoryToUpdate)
             : this()
         {
+            ArgumentNullException.ThrowIfNull(categoryToUpdate, nameof(categoryToUpdate));
+
             CategoryName = categoryToUpdate.CategoryName;
             id = categoryToUpdate.Id;
             isEditingMode = !string.IsNullOrEmpty(categoryToUpdate.CategoryName);
+
+            Title = "Update Category";
         }
 
         private void ClosingEventHandler(object sender, DialogClosingEventArgs eventArgs)

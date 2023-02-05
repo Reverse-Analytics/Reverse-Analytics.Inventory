@@ -1,4 +1,4 @@
-﻿using Inventory.Modules.Production.ViewModels.CategoryDialogs;
+﻿using Inventory.Modules.Production.ViewModels.Forms;
 using System.Windows.Controls;
 using System.Windows.Input;
 
@@ -7,9 +7,9 @@ namespace Inventory.Modules.Production.Views.CategoryDialogs
     /// <summary>
     /// Interaction logic for AddCategoryDialogView.xaml
     /// </summary>
-    public partial class CategoriesFormDialogView : UserControl
+    public partial class CategoryForm : UserControl
     {
-        public CategoriesFormDialogView()
+        public CategoryForm()
         {
             InitializeComponent();
 
@@ -18,7 +18,7 @@ namespace Inventory.Modules.Production.Views.CategoryDialogs
 
         private void HandleKeyPress(object sender, KeyEventArgs e)
         {
-            var vm = DataContext as CategoriesFormDialogViewModel;
+            var vm = DataContext as CategoryFormViewModel;
 
             if (e.Key == Key.Escape)
             {

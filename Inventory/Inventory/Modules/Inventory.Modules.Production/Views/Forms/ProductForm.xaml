@@ -22,7 +22,8 @@
                        VerticalAlignment="Center"
                        FontWeight="DemiBold"
                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
-                       Text="New Product" />
+                       Text="{Binding Title}" />
+
             <StackPanel Margin="0,40,0,0" HorizontalAlignment="Center">
                 <ComboBox x:Name="OutlinedComboBox"
                           Width="400"

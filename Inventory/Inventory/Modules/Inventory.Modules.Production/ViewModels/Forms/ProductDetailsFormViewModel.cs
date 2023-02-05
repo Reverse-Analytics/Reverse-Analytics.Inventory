@@ -28,7 +28,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         public ProductDetailsFormViewModel(ProductDto product)
         {
-            ArgumentNullException.ThrowIfNull(product);
+            ArgumentNullException.ThrowIfNull(product, nameof(product));
 
             Id = product.Id;
             ProductName = product.ProductName;

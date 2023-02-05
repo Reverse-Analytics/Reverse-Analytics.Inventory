@@ -1,6 +1,5 @@
 ﻿using Inventory.Core;
 using Inventory.Core.Mvvm;
-using Inventory.Modules.Production.ViewModels.CategoryDialogs;
 using Inventory.Modules.Production.ViewModels.Forms;
 using Inventory.Modules.Production.Views.CategoryDialogs;
 using Inventory.Modules.Production.Views.Forms;
@@ -240,9 +239,9 @@ namespace Inventory.Modules.Production.ViewModels
 
         private static async Task<ProductCategoryForCreateDto> ShowAddCategoryForm()
         {
-            var view = new CategoriesFormDialogView()
+            var view = new CategoryForm()
             {
-                DataContext = new CategoriesFormDialogViewModel()
+                DataContext = new CategoryFormViewModel()
             };
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
@@ -257,9 +256,9 @@ namespace Inventory.Modules.Production.ViewModels
                 return null;
             }
 
-            var view = new CategoriesFormDialogView()
+            var view = new CategoryForm()
             {
-                DataContext = new CategoriesFormDialogViewModel(categoryToUpdate)
+                DataContext = new CategoryFormViewModel(categoryToUpdate)
             };
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);

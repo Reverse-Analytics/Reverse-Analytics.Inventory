@@ -3,14 +3,13 @@ using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
+using System;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
     public class CategoryDetailsFormViewModel : ViewModelBase
     {
-        public ICommand CloseCommand { get; }
-
         private int _id;
         public int Id
         {
@@ -32,8 +31,12 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             set => SetProperty(ref _categoryName, value);
         }
 
+        public ICommand CloseCommand { get; }
+
         public CategoryDetailsFormViewModel(ProductCategoryDto category)
         {
+            ArgumentNullException.ThrowIfNull(category, nameof(category));
+
             Id = category.Id;
             CategoryName = category.CategoryName;
             NumberOfItems = category.Id;
