@@ -1,5 +1,4 @@
 ﻿using Inventory.Core;
-using Inventory.Core.Dialogs;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Production.ViewModels.Forms;
 using Inventory.Modules.Production.Views.Forms;
@@ -21,13 +20,23 @@ namespace Inventory.Modules.Production.ViewModels
 {
     public class ProductsViewModel : ViewModelBase, IRegionMemberLifetime
     {
+        #region Services
+
         private readonly ICategorySerivce _categoryService;
         private readonly IProductService _productService;
         private readonly IDialogService _dialogService;
 
+        #endregion
+
+        #region Collections
+
         public List<ProductDto> Products { get; private set; }
         public ObservableCollection<ProductDto> FilteredProducts { get; private set; }
         public ObservableCollection<ProductCategoryDto> Categories { get; private set; }
+
+        #endregion
+
+        #region Properties
 
         private ProductCategoryDto _selectedCategory;
         public ProductCategoryDto SelectedCategory
@@ -43,13 +52,19 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
+        public bool KeepAlive => false;
+
+        #endregion
+
+        #region Commands
+
         public ICommand AddCommand { get; }
         public ICommand DeleteCommand { get; }
         public ICommand EditCommand { get; }
         public ICommand ArchiveCommand { get; }
         public ICommand ShowDetailsCommand { get; }
 
-        public bool KeepAlive => false;
+        #endregion
 
         public ProductsViewModel(ICategorySerivce categoryService, IProductService productService, IDialogService dialogService)
         {
@@ -70,6 +85,8 @@ namespace Inventory.Modules.Production.ViewModels
             LoadCollections();
         }
 
+        #region Main methods
+
         private void FilterProductsByCategory(ProductCategoryDto category)
         {
             if (category is null)
@@ -88,68 +105,119 @@ namespace Inventory.Modules.Production.ViewModels
 
         private async void LoadCollections()
         {
-            var categories = await _categoryService.GetCategoriesAsync();
-            var products = await _productService.GetProductsAsync();
+            try
+            {
+                IsBusy = true;
 
-            Categories.AddRange(categories);
-            Products.AddRange(products);
-            FilteredProducts.AddRange(products);
+                var categories = await _categoryService.GetCategoriesAsync();
+                var products = await _productService.GetProductsAsync();
+
+                Categories.AddRange(categories);
+                Products.AddRange(products);
+                FilteredProducts.AddRange(products);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
+
+        #endregion
+
+        #region Command methods
 
         private async void OnAddProduct()
         {
-            var view = new ProductForm()
+            try
             {
-                DataContext = new ProductFormViewModel(_categoryService)
-            };
+                var product = await ShowAddProductForm();
 
-            var result = await DialogHost.Show(view, "RootDialog");
+                if (product is null) return;
 
-            if (result is ProductForCreateDto)
+                IsBusy = true;
+
+                await Task.Run(async () =>
+                {
+                    var createdProduct = await _productService.CreateProductAsync(product);
+
+                    Products.Add(createdProduct);
+                    FilteredProducts.Add(createdProduct);
+                });
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
             {
-                var product = result as ProductForCreateDto;
-
-                var createdProduct = await _productService.CreateProductAsync(product);
-
-                Products.Add(createdProduct);
-                FilteredProducts.Add(createdProduct);
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
-        private async void OnUpdateProduct(ProductDto product)
+        private async void OnUpdateProduct(ProductDto selectedProduct)
         {
-            var view = new ProductForm()
+            try
             {
-                DataContext = new ProductFormViewModel(_categoryService, product)
-            };
+                if (selectedProduct is null) return;
 
-            var result = await DialogHost.Show(view, "RootDialog");
+                var productToUpdate = await ShowUpdateProductForm(selectedProduct);
 
-            if (result is ProductForUpdateDto)
+                if (productToUpdate is null) return;
+
+                IsBusy = true;
+
+                await Task.Run(async () => await _productService.UpdateProductAsync(productToUpdate));
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
             {
-                var productToUpdate = result as ProductForUpdateDto;
-
-                await _productService.UpdateProductAsync(productToUpdate);
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
-        private async void OnDeleteProduct(ProductDto product)
+        private async void OnDeleteProduct(ProductDto selectedProduct)
         {
-            if (product is null)
+            try
             {
-                return;
+                if (selectedProduct is null) return;
+
+                var isConfirm = await _dialogService.ShowConfirmation();
+
+                if (!isConfirm) return;
+
+                IsBusy = true;
+
+                await Task.Run(async () =>
+                {
+                    await _productService.DeleteProductAsync(selectedProduct.Id);
+
+                    FilteredProducts.Remove(selectedProduct);
+                });
+
+                await _dialogService.ShowSuccess();
             }
-
-            var view = new ConfirmationDialog("Confirm action.", $"Are you sure you want to delete: {product.ProductName}?");
-
-            var result = await DialogHost.Show(view, "RootDialog");
-            bool? isConfirm = result as bool?;
-
-            if (isConfirm.HasValue && isConfirm.Value)
+            catch (Exception ex)
             {
-                await _productService.DeleteProductAsync(product.Id);
-
-                FilteredProducts.Remove(product);
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -166,6 +234,8 @@ namespace Inventory.Modules.Production.ViewModels
                 IsBusy = true;
 
                 await Task.Delay(1000);
+
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
@@ -198,5 +268,35 @@ namespace Inventory.Modules.Production.ViewModels
                 await _dialogService.ShowError();
             }
         }
+
+        #endregion
+
+        #region Helper methods
+
+        private async Task<ProductForCreateDto> ShowAddProductForm()
+        {
+            var view = new ProductForm()
+            {
+                DataContext = new ProductFormViewModel(_categoryService)
+            };
+
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            return result as ProductForCreateDto;
+        }
+
+        private async Task<ProductForUpdateDto> ShowUpdateProductForm(ProductDto product)
+        {
+            var view = new ProductForm()
+            {
+                DataContext = new ProductFormViewModel(_categoryService, product)
+            };
+
+            var result = await DialogHost.Show(view, "RootDialog");
+
+            return result as ProductForUpdateDto;
+        }
+
+        #endregion
     }
 }
