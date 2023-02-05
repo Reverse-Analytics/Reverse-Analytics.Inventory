@@ -1,24 +1,29 @@
-﻿using Inventory.Core.Dialogs;
+﻿using Inventory.Core;
+using Inventory.Core.Dialogs;
+using Inventory.Core.Mvvm;
 using Inventory.Modules.Production.ViewModels.Forms;
 using Inventory.Modules.Production.Views.Forms;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Mvvm;
 using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Production.ViewModels
 {
-    public class ProductsViewModel : BindableBase, IRegionMemberLifetime
+    public class ProductsViewModel : ViewModelBase, IRegionMemberLifetime
     {
         private readonly ICategorySerivce _categoryService;
         private readonly IProductService _productService;
+        private readonly IDialogService _dialogService;
 
         public List<ProductDto> Products { get; private set; }
         public ObservableCollection<ProductDto> FilteredProducts { get; private set; }
@@ -46,10 +51,11 @@ namespace Inventory.Modules.Production.ViewModels
 
         public bool KeepAlive => false;
 
-        public ProductsViewModel(ICategorySerivce categoryService, IProductService productService)
+        public ProductsViewModel(ICategorySerivce categoryService, IProductService productService, IDialogService dialogService)
         {
             _categoryService = categoryService;
             _productService = productService;
+            _dialogService = dialogService;
 
             Products = new List<ProductDto>();
             Categories = new ObservableCollection<ProductCategoryDto>();
@@ -147,14 +153,50 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private void OnArchiveProduct(ProductDto selectedProduct)
+        private async void OnArchiveProduct(ProductDto selectedProduct)
         {
+            try
+            {
+                if (selectedProduct is null) return;
 
+                var isConfirm = await _dialogService.ShowConfirmation();
+
+                if (!isConfirm) return;
+
+                IsBusy = true;
+
+                await Task.Delay(1000);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                await _dialogService.ShowError();
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
-        private void OnShowDetails(ProductDto selectedProduct)
+        private async void OnShowDetails(ProductDto selectedProduct)
         {
+            try
+            {
+                if (selectedProduct is null) return;
 
+                var view = new ProductDetailsForm()
+                {
+                    DataContext = new ProductDetailsFormViewModel(selectedProduct)
+                };
+
+                await DialogHost.Show(view, RegionNames.DialogRegion);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await _dialogService.ShowError();
+            }
         }
     }
 }
