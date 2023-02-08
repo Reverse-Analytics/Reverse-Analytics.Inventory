@@ -6,6 +6,7 @@
         public const string Catalog = "ProductsView";
         public const string Categories = "CategoriesView";
         public const string Customers = "CustomersView";
+        public const string Debts = "DebtsView";
     }
 
     public static class CategoryDialogNames

@@ -16,6 +16,7 @@ namespace Inventory.Modules.Customers
         {
             containerRegistry.RegisterForNavigation<CustomersView>();
             containerRegistry.RegisterForNavigation<CustomerForm>();
+            containerRegistry.RegisterForNavigation<DebtsView>();
         }
     }
 }
