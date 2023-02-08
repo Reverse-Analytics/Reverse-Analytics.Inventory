@@ -6,7 +6,7 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
+using ReverseAnalytics.Domain.DTOs.Customer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -125,7 +125,7 @@ namespace Inventory.Modules.Customers.ViewModels
                 {
                     var createdCustomer = await _customerService.CreateCustomerAsync(result);
 
-                    FilteredCustomers.Add(createdCustomer);
+                    FilteredCustomers.Insert(0, createdCustomer);
                     customers.Add(createdCustomer);
                 });
 
@@ -157,6 +157,8 @@ namespace Inventory.Modules.Customers.ViewModels
                 {
                     await _customerService.UpdateCustomerAsync(result);
                 });
+
+                await _dialogService.ShowSuccess();
             }
             catch (Exception ex)
             {
@@ -205,6 +207,8 @@ namespace Inventory.Modules.Customers.ViewModels
 
                 if (!isConfirm) return;
 
+                IsBusy = true;
+
                 // TODO implement archive call
                 await Task.Delay(1500);
                 await _dialogService.ShowSuccess();
@@ -224,7 +228,7 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             var view = new CustomerDetailsForm()
             {
-                DataContext = new CustomerDetailsFormViewModel()
+                DataContext = new CustomerDetailsFormViewModel(customerDto)
             };
 
             await DialogHost.Show(view, "RootDialog");

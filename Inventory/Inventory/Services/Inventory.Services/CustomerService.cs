@@ -1,7 +1,7 @@
 ﻿using Inventory.RestClient;
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
-using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
+using ReverseAnalytics.Domain.DTOs.Customer;
 
 namespace Inventory.Services
 {
@@ -48,7 +48,7 @@ namespace Inventory.Services
         public async Task<CustomerDto?> CreateCustomerAsync(CustomerForCreateDto customerToCreate)
         {
             var json = JsonConvert.SerializeObject(customerToCreate);
-            var response = await _client.Post(json, url);
+            var response = await _client.Post(url: url, json: json);
 
             if (response is null || !response.IsSuccessStatusCode)
             {
