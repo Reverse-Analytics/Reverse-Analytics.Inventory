@@ -1,9 +1,8 @@
 ﻿using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.CustomerPhoneDto;
+using ReverseAnalytics.Domain.DTOs.Customer;
 using System;
-using System.Linq;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
 {
@@ -14,7 +13,17 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         public DelegateCommand CancelCommand { get; private set; }
         public DelegateCommand SaveCommand { get; private set; }
 
-        public string FullName { get; set; }
+        public int Id { get; set; }
+        private string _fullName;
+        public string FullName
+        {
+            get => _fullName;
+            set
+            {
+                SetProperty(ref _fullName, value);
+                SaveCommand.RaiseCanExecuteChanged();
+            }
+        }
         public string CompanyName { get; set; }
         public string Address { get; set; }
         public string PhoneNumber { get; set; }
@@ -43,11 +52,12 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         {
             ArgumentNullException.ThrowIfNull(customer, nameof(customer));
 
+            Id = customer.Id;
             FullName = customer.FullName;
             CompanyName = customer.CompanyName;
-            Address = customer.Addresses.Select(x => x.AddressDetails).FirstOrDefault();
-            PhoneNumber = customer.Phones.FirstOrDefault(x => x.IsPrimary == true)?.PhoneNumber;
-            Balance = customer.Balance ?? 0;
+            Address = customer.Address;
+            PhoneNumber = customer.PhoneNumber;
+            Balance = customer.Balance;
             Discount = 0;
         }
 
@@ -59,8 +69,13 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             {
                 var updatedCustomer = new CustomerForUpdateDto()
                 {
+                    Id = Id,
                     FullName = FullName,
                     CompanyName = CompanyName,
+                    Address = Address,
+                    PhoneNumber = PhoneNumber,
+                    Balance = Balance,
+                    Discount = Discount
                 };
 
                 DialogHost.Close("RootDialog", updatedCustomer);
@@ -71,7 +86,10 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
                 {
                     FullName = FullName,
                     CompanyName = CompanyName,
-                    ContactPersonPhone = PhoneNumber,
+                    Address = Address,
+                    PhoneNumber = PhoneNumber,
+                    Balance = Balance,
+                    Discount = Discount
                 };
 
                 DialogHost.Close("RootDialog", newCustomer);
@@ -80,10 +98,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 
         private bool CanSave()
         {
-            return !string.IsNullOrEmpty(FullName) &&
-                !string.IsNullOrEmpty(CompanyName) &&
-                !string.IsNullOrEmpty(Address) &&
-                !string.IsNullOrEmpty(PhoneNumber);
+            return !string.IsNullOrEmpty(FullName);
         }
     }
 }

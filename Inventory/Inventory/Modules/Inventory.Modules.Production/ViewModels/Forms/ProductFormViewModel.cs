@@ -119,8 +119,8 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             productId = productToUpdate.Id;
             Name = productToUpdate.ProductName;
             Code = productToUpdate.ProductCode;
-            Volume = productToUpdate.Volume;
-            Weight = productToUpdate.Weight;
+            Volume = productToUpdate.Volume ?? 0;
+            Weight = productToUpdate.Weight ?? 0;
             IncomePrice = productToUpdate.SupplyPrice;
             SalePrice = productToUpdate.SalePrice;
             categoryId = productToUpdate.CategoryId;

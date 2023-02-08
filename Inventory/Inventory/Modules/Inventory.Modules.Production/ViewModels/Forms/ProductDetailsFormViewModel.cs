@@ -35,8 +35,8 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             ProductCode = product.ProductCode;
             CategoryName = product?.Category?.CategoryName;
             NumberOfItems = product.Id;
-            Volume = product.Volume;
-            Weight = product.Weight;
+            Volume = product.Volume ?? 0;
+            Weight = product.Weight ?? 0;
             IncomePrice = product.SupplyPrice;
             SalePrice = product.SupplyPrice;
 
