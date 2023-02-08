@@ -145,7 +145,7 @@
                             BorderThickness="1">
                         <TextBlock FontSize="14"
                                    Foreground="#2d2e2e"
-                                   Text="{Binding ProductName}" />
+                                   Text="{Binding ProductCode}" />
                     </Border>
                     <Border Width="345"
                             Padding="15"

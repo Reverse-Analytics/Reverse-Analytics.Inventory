@@ -111,7 +111,7 @@
                       SelectedValue="{Binding SelectedCompany}"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-            <Button Width="135"
+            <Button Width="145"
                     Height="30"
                     Margin="0,0,25,0"
                     HorizontalAlignment="Right"
@@ -121,7 +121,12 @@
                     Command="{Binding AddCommand}"
                     Foreground="White"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">
-                <TextBlock Text="Add customer" />
+                <StackPanel Orientation="Horizontal">
+                    <md:PackIcon Margin="0,0,5,0"
+                                 VerticalAlignment="Center"
+                                 Kind="Plus" />
+                    <TextBlock Text="Add customer" />
+                </StackPanel>
             </Button>
         </StackPanel>
 
@@ -131,6 +136,7 @@
             <sf:SfDataGrid x:Name="customersDataGrid"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
+                           AllowRowHoverHighlighting="True"
                            AllowSorting="True"
                            AutoGenerateColumns="False"
                            Background="White"
@@ -144,6 +150,7 @@
                            HeaderRowHeight="40"
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
+                           RowHoverHighlightingBrush="#ebebeb"
                            RowSelectionBrush="#ebebeb"
                            SelectionMode="Single"
                            SelectionUnit="Row">
@@ -166,7 +173,7 @@
                     <sf:GridTextColumn Width="250"
                                        HeaderText="Phone number"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="ContactPersonPhone"
+                                       MappingName="PhoneNumber"
                                        TextAlignment="Left" />
                     <sf:GridNumericColumn Width="200"
                                           HeaderText="Balance"
@@ -255,5 +262,7 @@
                             PageSize="15"
                             Source="{Binding FilteredCustomers}" />
         </StackPanel>
+
+
     </Grid>
 </UserControl>

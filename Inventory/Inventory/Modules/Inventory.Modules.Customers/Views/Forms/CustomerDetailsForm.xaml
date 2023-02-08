@@ -5,6 +5,7 @@
              xmlns:local="clr-namespace:Inventory.Modules.Customers.Views.Forms"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
              Width="1105"
              Height="640"
              mc:Ignorable="d">
@@ -150,16 +151,76 @@
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 BorderBrush="Gray"
+                                Command="{Binding CancelCommand}"
                                 Content="Close"
                                 Foreground="Black"
                                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
 
                 </TabItem>
-                <TabItem Cursor="Hand" Header="Consolidated report">
-                    <Border Background="Gray">
-                        <TextBlock FontSize="20" Text="Full s" />
-                    </Border>
+                <TabItem Margin="10"
+                         Cursor="Hand"
+                         Header="Consolidated report">
+                    <StackPanel Margin="0,15,0,0">
+                        <sf:SfDataGrid x:Name="customersDataGrid"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Top"
+                                       AllowRowHoverHighlighting="True"
+                                       AllowSorting="True"
+                                       AutoGenerateColumns="False"
+                                       Background="White"
+                                       BorderBrush="LightGray"
+                                       BorderThickness="1"
+                                       CanUseViewFilter="True"
+                                       CurrentCellBorderThickness="0"
+                                       FontSize="14"
+                                       GridLinesVisibility="Horizontal"
+                                       HeaderLinesVisibility="Horizontal"
+                                       HeaderRowHeight="40"
+                                       ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
+                                       RowHeight="35"
+                                       RowHoverHighlightingBrush="#ebebeb"
+                                       RowSelectionBrush="#ebebeb"
+                                       SelectionMode="Single"
+                                       SelectionUnit="Row">
+                            <sf:SfDataGrid.HeaderStyle>
+                                <Style TargetType="sf:GridHeaderCellControl">
+                                    <Setter Property="Background" Value="#f7f7f7" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Style>
+                            </sf:SfDataGrid.HeaderStyle>
+                            <sf:SfDataGrid.Columns>
+                                <sf:GridTextColumn Width="150"
+                                                   HeaderText="Sale Id"
+                                                   MappingName="Id"
+                                                   TextAlignment="Center" />
+                                <sf:GridTextColumn Width="250"
+                                                   VerticalAlignment="Center"
+                                                   HeaderText="Date"
+                                                   HorizontalHeaderContentAlignment="Right"
+                                                   MappingName="SaleDate"
+                                                   TextAlignment="Right" />
+                                <sf:GridTextColumn Width="250"
+                                                   HeaderText="Total Due"
+                                                   HorizontalHeaderContentAlignment="Right"
+                                                   MappingName="TotalDue"
+                                                   TextAlignment="Right" />
+                                <sf:GridNumericColumn Width="200"
+                                                      Padding="0,0,15,0"
+                                                      HeaderText="Total Paid"
+                                                      HorizontalHeaderContentAlignment="Right"
+                                                      MappingName="TotalPaid"
+                                                      NumberDecimalDigits="2"
+                                                      TextAlignment="Right" />
+                            </sf:SfDataGrid.Columns>
+                        </sf:SfDataGrid>
+
+                        <sf:SfDataPager x:Name="dataPager"
+                                        Margin="0,15,0,0"
+                                        HorizontalAlignment="Center"
+                                        PageSize="10"
+                                        Source="{Binding Sales}" />
+                    </StackPanel>
                 </TabItem>
             </TabControl>
         </StackPanel>
