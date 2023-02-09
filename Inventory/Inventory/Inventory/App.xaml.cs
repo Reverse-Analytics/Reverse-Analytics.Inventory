@@ -37,6 +37,7 @@ namespace Inventory
             containerRegistry.RegisterScoped<ICategorySerivce, CategoryService>();
             containerRegistry.RegisterScoped<IProductService, ProductService>();
             containerRegistry.RegisterScoped<ICustomerService, CustomerService>();
+            containerRegistry.RegisterScoped<IDebtService, DebtService>();
             containerRegistry.RegisterSingleton<RestClientBase>();
 
             containerRegistry.RegisterDialog<SuccessDialog, SuccessDialogViewModel>();
