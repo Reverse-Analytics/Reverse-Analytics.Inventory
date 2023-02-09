@@ -262,7 +262,5 @@
                             PageSize="15"
                             Source="{Binding FilteredCustomers}" />
         </StackPanel>
-
-
     </Grid>
 </UserControl>
