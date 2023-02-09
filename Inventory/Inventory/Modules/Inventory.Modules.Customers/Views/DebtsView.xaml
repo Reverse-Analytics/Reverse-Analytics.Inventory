@@ -2,14 +2,250 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:extensions="clr-namespace:Inventory.Helpers.Extensions;assembly=Inventory.Helpers"
              xmlns:local="clr-namespace:Inventory.Modules.Customers.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             d:DesignHeight="450"
-             d:DesignWidth="800"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
+             prism:ViewModelLocator.AutoWireViewModel="True"
+             Style="{StaticResource Page_Style}"
              mc:Ignorable="d">
+    <UserControl.Resources>
+        <Style TargetType="sf:GridCell">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style TargetType="sf:GridHeaderCellControl">
+            <Setter Property="BorderThickness" Value="0,0,0,1" />
+        </Style>
+        <Style x:Key="MoreOptionsButton" TargetType="Button">
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Height" Value="32" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="border"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="Transparent">
+                            <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#e6f7ff" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="Cursor" Value="Hand" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
     <Grid>
-        <Label HorizontalAlignment="Center"
-               VerticalAlignment="Center"
-               Content="Debts" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Left">
+            <TextBlock Margin="40,25,0,25"
+                       HorizontalAlignment="Left"
+                       DockPanel.Dock="Left"
+                       Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                       Text="Debts" />
+        </StackPanel>
+        <StackPanel Grid.Row="0"
+                    Margin="0,25,0,25"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Orientation="Horizontal">
+            <Border Margin="0,0,25,0"
+                    VerticalAlignment="Center"
+                    Background="White"
+                    BorderBrush="LightGray"
+                    BorderThickness="2"
+                    CornerRadius="5">
+                <StackPanel Orientation="Horizontal">
+                    <TextBox x:Name="searchTextBox"
+                             Width="250"
+                             Height="25"
+                             Margin="20,2,2,2"
+                             md:HintAssist.Hint="Search customers"
+                             md:TextFieldAssist.HasClearButton="True"
+                             BorderBrush="Transparent"
+                             FontSize="14"
+                             Text="{Binding SearchText}" />
+                    <Border Width="30"
+                            Background="Transparent"
+                            BorderBrush="LightGray"
+                            BorderThickness="1,0,0,0"
+                            Cursor="Hand">
+                        <Viewbox>
+                            <md:PackIcon Width="20"
+                                         Height="20"
+                                         Margin="8"
+                                         Kind="Magnify" />
+                        </Viewbox>
+                    </Border>
+                </StackPanel>
+            </Border>
+            <ComboBox x:Name="OutlinedComboBox"
+                      Width="150"
+                      Height="30"
+                      Margin="0,0,25,0"
+                      Padding="10,7,10,7"
+                      md:HintAssist.Hint="Select customer"
+                      md:TextFieldAssist.HasClearButton="True"
+                      Cursor="Hand"
+                      IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
+                      ItemsSource="{Binding Companies}"
+                      SelectedValue="{Binding SelectedCompany}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="25,50"
+                    VerticalAlignment="Top">
+            <sf:SfDataGrid x:Name="customersDataGrid"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top"
+                           AllowRowHoverHighlighting="True"
+                           AllowSorting="True"
+                           AutoGenerateColumns="False"
+                           Background="White"
+                           BorderBrush="LightGray"
+                           BorderThickness="1"
+                           CanUseViewFilter="True"
+                           CurrentCellBorderThickness="0"
+                           FontSize="14"
+                           GridLinesVisibility="Horizontal"
+                           HeaderLinesVisibility="Horizontal"
+                           HeaderRowHeight="40"
+                           ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
+                           RowHeight="35"
+                           RowHoverHighlightingBrush="#ebebeb"
+                           RowSelectionBrush="#ebebeb"
+                           SelectionMode="Single"
+                           SelectionUnit="Row">
+                <sf:SfDataGrid.HeaderStyle>
+                    <Style TargetType="sf:GridHeaderCellControl">
+                        <Setter Property="Background" Value="#f7f7f7" />
+                        <Setter Property="Foreground" Value="Black" />
+                    </Style>
+                </sf:SfDataGrid.HeaderStyle>
+                <sf:SfDataGrid.Columns>
+                    <sf:GridTextColumn Width="70"
+                                       HeaderText="ID"
+                                       HorizontalHeaderContentAlignment="Left"
+                                       MappingName="Id"
+                                       TextAlignment="Center" />
+                    <sf:GridTextColumn Width="250"
+                                       VerticalAlignment="Center"
+                                       HeaderText="Sale ID"
+                                       MappingName="SaleId"
+                                       TextAlignment="Center" />
+                    <sf:GridTextColumn Width="250"
+                                       HeaderText="Customer"
+                                       HorizontalHeaderContentAlignment="Left"
+                                       MappingName="PersonId"
+                                       TextAlignment="Left" />
+                    <sf:GridNumericColumn Width="200"
+                                          HeaderText="Amount"
+                                          HorizontalHeaderContentAlignment="Left"
+                                          MappingName="Amount"
+                                          NumberDecimalDigits="2"
+                                          TextAlignment="Left" />
+                    <sf:GridTextColumn Width="200"
+                                       HeaderText="Debt Date"
+                                       HorizontalHeaderContentAlignment="Left"
+                                       MappingName="DebtDate"
+                                       TextAlignment="Left" />
+                    <sf:GridTextColumn Width="200"
+                                       HeaderText="Due Date"
+                                       HorizontalHeaderContentAlignment="Left"
+                                       MappingName="DueDate"
+                                       TextAlignment="Left" />
+
+                    <extensions:MoreOptionsTemplateColumnExtension Width="85"
+                                                                   AllowFocus="True"
+                                                                   AllowSorting="False">
+                        <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
+                            <DataTemplate>
+                                <md:PopupBox Margin="5"
+                                             Padding="2,0,2,0"
+                                             VerticalAlignment="Center"
+                                             Foreground="#2d2e2e"
+                                             ToolTip="More options">
+                                    <StackPanel Width="133">
+                                        <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="InformationOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Details" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="PencilOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Edit" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.ArchiveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="ArchiveOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Archive" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Foreground="#f7430a"
+                                                             Kind="DeleteOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Foreground="#f7430a"
+                                                           Text="Delete" />
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </md:PopupBox>
+                            </DataTemplate>
+                        </extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
+                    </extensions:MoreOptionsTemplateColumnExtension>
+                </sf:SfDataGrid.Columns>
+            </sf:SfDataGrid>
+
+            <sf:SfDataPager x:Name="dataPager"
+                            Margin="0,15,0,0"
+                            HorizontalAlignment="Center"
+                            PageSize="15"
+                            Source="{Binding FilteredDebts}" />
+        </StackPanel>
     </Grid>
 </UserControl>
