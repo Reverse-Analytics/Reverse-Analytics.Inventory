@@ -36,7 +36,7 @@ namespace Inventory.Modules.Customers.ViewModels
             set => SetProperty(ref _selectedCompany, value);
         }
 
-        public bool KeepAlive => true;
+        public bool KeepAlive => false;
 
         #endregion
 
