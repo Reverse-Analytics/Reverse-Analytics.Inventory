@@ -113,7 +113,7 @@
                     VerticalAlignment="Top">
             <sf:SfDataGrid x:Name="customersDataGrid"
                            HorizontalAlignment="Stretch"
-                           VerticalAlignment="Top"
+                           VerticalAlignment="Stretch"
                            AllowRowHoverHighlighting="True"
                            AllowSorting="True"
                            AutoGenerateColumns="False"
@@ -121,6 +121,7 @@
                            BorderBrush="LightGray"
                            BorderThickness="1"
                            CanUseViewFilter="True"
+                           ColumnSizer="AutoLastColumnFill"
                            CurrentCellBorderThickness="0"
                            FontSize="14"
                            GridLinesVisibility="Horizontal"
@@ -139,45 +140,38 @@
                     </Style>
                 </sf:SfDataGrid.HeaderStyle>
                 <sf:SfDataGrid.Columns>
-                    <sf:GridTextColumn Width="70"
-                                       HeaderText="ID"
+                    <sf:GridTextColumn HeaderText="ID"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="Id"
                                        TextAlignment="Center" />
-                    <sf:GridTextColumn Width="250"
-                                       VerticalAlignment="Center"
+                    <sf:GridTextColumn VerticalAlignment="Center"
                                        HeaderText="Sale ID"
                                        MappingName="SaleId"
                                        TextAlignment="Center" />
-                    <sf:GridTextColumn Width="250"
-                                       HeaderText="Customer"
+                    <sf:GridTextColumn HeaderText="Customer"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="PersonId"
                                        TextAlignment="Left" />
-                    <sf:GridNumericColumn Width="200"
-                                          HeaderText="Amount"
+                    <sf:GridNumericColumn HeaderText="Amount"
                                           HorizontalHeaderContentAlignment="Left"
                                           MappingName="Amount"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Left" />
-                    <sf:GridTextColumn Width="200"
-                                       HeaderText="Debt Date"
+                    <sf:GridTextColumn HeaderText="Debt Date"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="DebtDate"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn Width="200"
-                                       HeaderText="Due Date"
+                    <sf:GridTextColumn HeaderText="Due Date"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="DueDate"
                                        TextAlignment="Left" />
 
-                    <extensions:MoreOptionsTemplateColumnExtension Width="85"
-                                                                   AllowFocus="True"
-                                                                   AllowSorting="False">
+                    <extensions:MoreOptionsTemplateColumnExtension AllowFocus="True" AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
                                 <md:PopupBox Margin="5"
-                                             Padding="2,0,2,0"
+                                             Padding="0,0,0,0"
+                                             HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Foreground="#2d2e2e"
                                              ToolTip="More options">

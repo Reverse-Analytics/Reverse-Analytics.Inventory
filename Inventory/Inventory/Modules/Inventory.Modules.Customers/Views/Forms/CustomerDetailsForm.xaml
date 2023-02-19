@@ -14,9 +14,7 @@
             <TextBlock Text="{Binding CustomerName}" />
 
             <TabControl>
-                <TabItem Margin="10"
-                         Cursor="Hand"
-                         Header="Details">
+                <TabItem Cursor="Hand" Header="Details">
                     <StackPanel Margin="0,25,0,0" Cursor="Arrow">
                         <!--  1st row header  -->
                         <StackPanel Orientation="Horizontal">
@@ -147,23 +145,20 @@
 
                         <Button Width="115"
                                 Height="40"
-                                Margin="0,25,0,0"
+                                Margin="0,60,0,0"
                                 HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
                                 BorderBrush="Gray"
                                 Command="{Binding CancelCommand}"
                                 Content="Close"
                                 Foreground="Black"
                                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
-
                 </TabItem>
-                <TabItem Margin="10"
-                         Cursor="Hand"
-                         Header="Consolidated report">
-                    <StackPanel Margin="0,15,0,0">
+                <TabItem Cursor="Hand" Header="Consolidated report">
+                    <StackPanel Margin="0,25,0,0">
                         <sf:SfDataGrid x:Name="customersDataGrid"
-                                       HorizontalAlignment="Center"
+                                       HorizontalAlignment="Stretch"
                                        VerticalAlignment="Top"
                                        AllowRowHoverHighlighting="True"
                                        AllowSorting="True"
@@ -172,6 +167,7 @@
                                        BorderBrush="LightGray"
                                        BorderThickness="1"
                                        CanUseViewFilter="True"
+                                       ColumnSizer="Star"
                                        CurrentCellBorderThickness="0"
                                        FontSize="14"
                                        GridLinesVisibility="Horizontal"
@@ -190,23 +186,19 @@
                                 </Style>
                             </sf:SfDataGrid.HeaderStyle>
                             <sf:SfDataGrid.Columns>
-                                <sf:GridTextColumn Width="150"
-                                                   HeaderText="Sale Id"
+                                <sf:GridTextColumn HeaderText="Sale Id"
                                                    MappingName="Id"
                                                    TextAlignment="Center" />
-                                <sf:GridTextColumn Width="250"
-                                                   VerticalAlignment="Center"
+                                <sf:GridTextColumn VerticalAlignment="Center"
                                                    HeaderText="Date"
                                                    HorizontalHeaderContentAlignment="Right"
                                                    MappingName="SaleDate"
                                                    TextAlignment="Right" />
-                                <sf:GridTextColumn Width="250"
-                                                   HeaderText="Total Due"
+                                <sf:GridTextColumn HeaderText="Total Due"
                                                    HorizontalHeaderContentAlignment="Right"
                                                    MappingName="TotalDue"
                                                    TextAlignment="Right" />
-                                <sf:GridNumericColumn Width="200"
-                                                      Padding="0,0,15,0"
+                                <sf:GridNumericColumn Padding="0,0,15,0"
                                                       HeaderText="Total Paid"
                                                       HorizontalHeaderContentAlignment="Right"
                                                       MappingName="TotalPaid"
@@ -216,7 +208,7 @@
                         </sf:SfDataGrid>
 
                         <sf:SfDataPager x:Name="dataPager"
-                                        Margin="0,15,0,0"
+                                        Margin="0,5,0,0"
                                         HorizontalAlignment="Center"
                                         PageSize="10"
                                         Source="{Binding Sales}" />

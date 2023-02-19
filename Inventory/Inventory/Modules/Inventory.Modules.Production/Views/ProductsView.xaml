@@ -162,39 +162,37 @@
                     </Style>
                 </sf:SfDataGrid.HeaderStyle>
                 <sf:SfDataGrid.Columns>
-                    <sf:GridTextColumn Width="150"
-                                       Padding="10,0,0,0"
+                    <sf:GridTextColumn Padding="10,0,0,0"
                                        HeaderText="Product ID"
                                        MappingName="Id"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn Width="150"
+                    <sf:GridTextColumn ColumnSizer="Star"
                                        HeaderText="Product Code"
                                        MappingName="ProductCode"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn Width="275"
-                                       VerticalAlignment="Center"
+                    <sf:GridTextColumn VerticalAlignment="Center"
+                                       ColumnSizer="Star"
                                        HeaderText="Product Name"
                                        MappingName="ProductName"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn Width="225"
+                    <sf:GridTextColumn ColumnSizer="Star"
                                        HeaderText="Category"
                                        MappingName="Category.CategoryName"
                                        TextAlignment="Left" />
-                    <sf:GridNumericColumn Width="175"
-                                          HeaderText="Income price"
+                    <sf:GridNumericColumn HeaderText="Income price"
                                           MappingName="SupplyPrice"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Left" />
-                    <sf:GridNumericColumn Width="175"
-                                          HeaderText="Sale price"
+                    <sf:GridNumericColumn HeaderText="Sale price"
                                           MappingName="SalePrice"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Left" />
-                    <extensions:MoreOptionsTemplateColumnExtension Width="85" AllowSorting="False">
+                    <extensions:MoreOptionsTemplateColumnExtension AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
-                                <md:PopupBox Padding="2,0,2,0"
-                                             HorizontalAlignment="Center"
+                                <md:PopupBox Margin="0,0,25,0"
+                                             Padding="2,0"
+                                             HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Foreground="#2d2e2e"
                                              ToolTip="More options">

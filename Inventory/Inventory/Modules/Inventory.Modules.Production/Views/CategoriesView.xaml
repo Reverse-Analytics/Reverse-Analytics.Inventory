@@ -144,30 +144,33 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="50">
+                    Margin="25,50"
+                    VerticalAlignment="Top">
 
-            <sf:SfDataGrid x:Name="categoriesDataGrid" ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}">
+            <sf:SfDataGrid x:Name="categoriesDataGrid"
+                           HorizontalAlignment="Stretch"
+                           VerticalAlignment="Top"
+                           ColumnSizer="Star"
+                           ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}">
                 <sf:SfDataGrid.Columns>
-                    <sf:GridNumericColumn Width="350"
-                                          HeaderText="Category ID"
+                    <sf:GridNumericColumn HeaderText="Category ID"
                                           MappingName="Id"
                                           NumberDecimalDigits="0"
                                           TextAlignment="Center" />
-                    <sf:GridTextColumn Width="350"
-                                       VerticalAlignment="Center"
+                    <sf:GridTextColumn VerticalAlignment="Center"
                                        HeaderText="Category Name"
                                        MappingName="CategoryName"
                                        TextAlignment="Center" />
-                    <sf:GridNumericColumn Width="350"
-                                          HeaderText="Number of items"
+                    <sf:GridNumericColumn HeaderText="Number of items"
                                           MappingName="Id"
                                           NumberDecimalDigits="0"
                                           TextAlignment="Center" />
-                    <extensions:MoreOptionsTemplateColumnExtension Width="85" AllowSorting="False">
+                    <extensions:MoreOptionsTemplateColumnExtension AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
-                                <md:PopupBox Padding="2,0,2,0"
-                                             HorizontalAlignment="Center"
+                                <md:PopupBox Margin="0,0,25,0"
+                                             Padding="2,0"
+                                             HorizontalAlignment="Right"
                                              VerticalAlignment="Center"
                                              Foreground="#2d2e2e"
                                              ToolTip="More options">
