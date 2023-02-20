@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace Inventory.Modules.Sales.ViewModels
 {
-    public class SaleViewModel : ViewModelBase, IRegionMemberLifetime
+    public class SalesViewModel : ViewModelBase, IRegionMemberLifetime
     {
 
         #region Services
@@ -44,7 +44,7 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #endregion
 
-        public SaleViewModel(ISaleService service, IDialogService dialogService)
+        public SalesViewModel(ISaleService service, IDialogService dialogService)
         {
             _service = service;
             _dialogService = dialogService;
