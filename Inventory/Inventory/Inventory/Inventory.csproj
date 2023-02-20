@@ -19,6 +19,7 @@
     <ProjectReference Include="..\Modules\Inventory.Modules.Dialogs\Inventory.Modules.Dialogs.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.Production\Inventory.Modules.Production.csproj" />
     <ProjectReference Include="..\Modules\Inventory.Modules.Regions\Inventory.Modules.Regions.csproj" />
+    <ProjectReference Include="..\Modules\Inventory.Modules.Sales\Inventory.Modules.Sales.csproj" />
     <ProjectReference Include="..\Services\Inventory.RestClient\Inventory.RestClient.csproj" />
     <ProjectReference Include="..\Services\Inventory.Services.Interfaces\Inventory.Services.Interfaces.csproj" />
     <ProjectReference Include="..\Services\Inventory.Services\Inventory.Services.csproj" />
