@@ -4,6 +4,7 @@ using Inventory.Modules.Dashboard;
 using Inventory.Modules.Dialogs;
 using Inventory.Modules.Production;
 using Inventory.Modules.Regions;
+using Inventory.Modules.Sales;
 using Inventory.RestClient;
 using Inventory.Services;
 using Inventory.Services.Interfaces;
@@ -26,11 +27,6 @@ namespace Inventory
             return Container.Resolve<ShellWindow>();
         }
 
-        protected override void OnInitialized()
-        {
-            base.OnInitialized();
-        }
-
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IDialogService, DialogService>();
@@ -38,6 +34,7 @@ namespace Inventory
             containerRegistry.RegisterScoped<IProductService, ProductService>();
             containerRegistry.RegisterScoped<ICustomerService, CustomerService>();
             containerRegistry.RegisterScoped<IDebtService, DebtService>();
+            containerRegistry.RegisterScoped<ISaleService, SaleService>();
             containerRegistry.RegisterSingleton<RestClientBase>();
 
             containerRegistry.RegisterDialog<SuccessDialog, SuccessDialogViewModel>();
@@ -50,6 +47,7 @@ namespace Inventory
             moduleCatalog.AddModule<ProductionModule>();
             moduleCatalog.AddModule<CustomersModule>();
             moduleCatalog.AddModule<DialogsModule>();
+            moduleCatalog.AddModule<SalesModule>();
         }
     }
 }
