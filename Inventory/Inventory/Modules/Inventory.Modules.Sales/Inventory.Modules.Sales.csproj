@@ -6,4 +6,13 @@
   <ItemGroup>
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Inventory.Core\Inventory.Core.csproj" />
+    <ProjectReference Include="..\..\Services\Inventory.Services.Interfaces\Inventory.Services.Interfaces.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="ReverseAnalytics.Domain">
+      <HintPath>..\..\Inventory.Core\Libs\ReverseAnalytics.Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>
