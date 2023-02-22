@@ -74,6 +74,7 @@
     <None Remove="Resources\Icons\minimize.ico" />
     <None Remove="Resources\Icons\notifications.ico" />
     <None Remove="Resources\Icons\notifications_icon.png" />
+    <None Remove="Resources\Icons\payment_required.png" />
     <None Remove="Resources\Icons\production.ico" />
     <None Remove="Resources\Icons\Production.svg" />
     <None Remove="Resources\Icons\products.ico" />
@@ -190,6 +191,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\notifications.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\payment_required.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icons\production.ico">

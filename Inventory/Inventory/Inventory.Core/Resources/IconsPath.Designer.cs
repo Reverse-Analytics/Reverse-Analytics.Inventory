@@ -331,6 +331,15 @@ namespace Inventory.Core.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to /Inventory.Core;Component/Resources/Icons/payment_required.png.
+        /// </summary>
+        public static string PaymentRequired {
+            get {
+                return ResourceManager.GetString("PaymentRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to M2.59416 9.21306C2.62095 9.21306 2.64773 9.21039 2.67452 9.20637L4.9272 8.81128C4.95398 8.80592 4.97943 8.79387 4.99818 8.77378L10.6754 3.09655C10.6878 3.08416 10.6977 3.06944 10.7044 3.05324C10.7111 3.03704 10.7146 3.01967 10.7146 3.00213C10.7146 2.98459 10.7111 2.96722 10.7044 2.95102C10.6977 2.93481 10.6878 2.9201 10.6754 2.90771L8.44952 0.680475C8.42407 0.655029 8.39059 0.641636 8.35443 0.641636C8.31827 0.641636 8.28479 0.655029 8.25934 0.680475L2.58211 6.35771C2.56202 6.3778 2.54997 6.4019 2.54461 6.42 [rest of string was truncated]&quot;;.
         /// </summary>
         public static string PopupEdit {
