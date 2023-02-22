@@ -8,9 +8,14 @@
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.4.0.38" />
     <PackageReference Include="Syncfusion.Shared.WPF" Version="20.4.0.38" />
     <PackageReference Include="Syncfusion.Tools.WPF" Version="20.4.0.38" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Inventory.Core\Inventory.Core.csproj" />
   </ItemGroup>
 
 </Project>
