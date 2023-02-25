@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Threading.Tasks;
 
 namespace Inventory.Modules.Customers.ViewModels
 {
@@ -19,13 +18,23 @@ namespace Inventory.Modules.Customers.ViewModels
 
         private List<DebtDto> debts;
         public ObservableCollection<DebtDto> FilteredDebts { get; }
+        public ObservableCollection<string> Statuses { get; }
 
-        public DebtsViewModel(IDebtService service)
+        private string _selectedStatus;
+        public string SelectedStatus
+        {
+            get => _selectedStatus;
+            set => SetProperty(ref _selectedStatus, value);
+        }
+
+        public DebtsViewModel(IDebtService service, IDialogService dialogService)
         {
             _debtService = service;
+            _dialogService = dialogService;
 
             debts = new List<DebtDto>();
             FilteredDebts = new ObservableCollection<DebtDto>();
+            Statuses = new ObservableCollection<string>();
 
             LoadDebts();
         }
@@ -36,13 +45,15 @@ namespace Inventory.Modules.Customers.ViewModels
             {
                 IsBusy = true;
 
-                await Task.Run(async () =>
-                {
-                    var result = await _debtService.GetDebtsAsync();
+                Statuses.Add("Closed");
+                Statuses.Add("Overdue");
+                Statuses.Add("Payment required");
+                Statuses.Add("Due soon");
 
-                    debts.AddRange(result);
-                    FilteredDebts.AddRange(result);
-                });
+                var result = await _debtService.GetDebtsAsync();
+
+                debts.AddRange(result);
+                FilteredDebts.AddRange(result);
             }
             catch (Exception ex)
             {

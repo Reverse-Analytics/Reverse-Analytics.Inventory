@@ -5,8 +5,8 @@ namespace Inventory.RestClient
 {
     public class RestClientBase
     {
-        //private const string urlBase = "https://wpqmn9m6-7231.euw.devtunnels.ms/api";
-        private const string urlBase = "https://d3vxvbnt-7231.euw.devtunnels.ms/api";
+        private const string urlBase = "https://wpqmn9m6-7231.euw.devtunnels.ms/api";
+        //private const string urlBase = "https://d3vxvbnt-7231.euw.devtunnels.ms/api";
         //private const string urlBase = "https://mj6vmt9t-7231.asse.devtunnels.ms/api";
         private readonly HttpClient client;
 
