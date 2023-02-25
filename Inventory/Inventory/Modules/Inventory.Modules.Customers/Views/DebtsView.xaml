@@ -102,21 +102,17 @@
                       Height="30"
                       Margin="0,0,25,0"
                       Padding="10,7,10,7"
-                      md:HintAssist.Hint="Select customer"
+                      md:HintAssist.Hint="Select status"
                       md:TextFieldAssist.HasClearButton="True"
                       Cursor="Hand"
                       IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                      ItemsSource="{Binding Companies}"
-                      SelectedValue="{Binding SelectedCompany}"
+                      ItemsSource="{Binding Statuses}"
+                      SelectedValue="{Binding SelectedStatus}"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}" />
         </StackPanel>
 
-        <StackPanel Grid.Row="1"
-                    Margin="25,50"
-                    VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Margin="25">
             <sf:SfDataGrid x:Name="customersDataGrid"
-                           HorizontalAlignment="Stretch"
-                           VerticalAlignment="Stretch"
                            AllowRowHoverHighlighting="True"
                            AllowSorting="True"
                            AutoGenerateColumns="False"
@@ -174,20 +170,7 @@
                     <sf:GridTextColumn HeaderText="Status"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="DueDate"
-                                       TextAlignment="Left">
-                        <sf:GridTextColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
-                                    <Image Width="10"
-                                           Height="10"
-                                           Margin="5,0,0,0"
-                                           VerticalAlignment="Center"
-                                           Source="{Binding Source={x:Static res:IconsPath.PaymentRequired}}" />
-                                    <TextBlock Margin="10,0,0,0" Text="{Binding DueDate}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </sf:GridTextColumn.CellTemplate>
-                    </sf:GridTextColumn>
+                                       TextAlignment="Left" />
                     <extensions:MoreOptionsTemplateColumnExtension AllowFocus="True" AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
@@ -211,42 +194,17 @@
                                                            Text="Details" />
                                             </StackPanel>
                                         </Button>
-                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
                                                 <md:PackIcon Width="16"
                                                              Height="16"
-                                                             Kind="PencilOutline" />
+                                                             Kind="Dollar" />
                                                 <TextBlock Margin="10,0,0,0"
+                                                           VerticalAlignment="Center"
                                                            FontSize="14"
-                                                           Text="Edit" />
-                                            </StackPanel>
-                                        </Button>
-                                        <Button Command="{Binding Path=DataContext.ArchiveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                                Style="{StaticResource MoreOptionsButton}">
-                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                                <md:PackIcon Width="16"
-                                                             Height="16"
-                                                             Kind="ArchiveOutline" />
-                                                <TextBlock Margin="10,0,0,0"
-                                                           FontSize="14"
-                                                           Text="Archive" />
-                                            </StackPanel>
-                                        </Button>
-                                        <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                                Style="{StaticResource MoreOptionsButton}">
-                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                                <md:PackIcon Width="16"
-                                                             Height="16"
-                                                             Foreground="#f7430a"
-                                                             Kind="DeleteOutline" />
-                                                <TextBlock Margin="10,0,0,0"
-                                                           FontSize="14"
-                                                           Foreground="#f7430a"
-                                                           Text="Delete" />
+                                                           Text="Payment" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>

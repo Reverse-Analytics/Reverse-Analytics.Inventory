@@ -144,7 +144,7 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="25,50"
+                    Margin="25"
                     VerticalAlignment="Top">
 
             <sf:SfDataGrid x:Name="categoriesDataGrid"
