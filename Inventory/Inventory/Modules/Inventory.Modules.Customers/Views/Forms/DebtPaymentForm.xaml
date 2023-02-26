@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="Inventory.Modules.Customers.Views.Forms.DebtPaymentForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Customers.Views.Forms"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d">
+    <Grid Margin="100,50,150,100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="6*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="1"
+                   HorizontalAlignment="Center"
+                   Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                   Text="Pay Debt" />
+
+        <TextBlock Grid.Row="1"
+                   Grid.Column="0"
+                   Margin="0,50,10,0"
+                   HorizontalAlignment="Right"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   Text="Sale ID: " />
+        <TextBox Grid.Row="1"
+                 Grid.Column="1"
+                 Height="30"
+                 MinWidth="350"
+                 Margin="0,50,0,0"
+                 Padding="10,7,0,0"
+                 Focusable="False"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Text="1323" />
+
+        <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   Margin="0,25,10,0"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   Text="Amount to pay: " />
+        <TextBox Grid.Row="2"
+                 Grid.Column="1"
+                 Height="30"
+                 MinWidth="350"
+                 Margin="0,25,0,0"
+                 Padding="10,7,0,0"
+                 HorizontalAlignment="Right"
+                 Focusable="False"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Text="1323" />
+
+        <Grid Grid.Row="3"
+              Grid.Column="1"
+              Margin="0,40,0,0">
+            <TextBlock HorizontalAlignment="Left"
+                       VerticalAlignment="Center"
+                       Foreground="#5D758F"
+                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                       Text="Leftover: " />
+            <TextBlock HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Foreground="#5D758F"
+                       Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                       Text="123.45" />
+        </Grid>
+
+        <Button Grid.Row="4"
+                Grid.Column="1"
+                Margin="0,25,0,0"
+                Background="#1890FF"
+                BorderThickness="0"
+                Content="Pay"
+                Foreground="White"
+                Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" />
+        <Button Grid.Row="5"
+                Grid.Column="1"
+                Margin="0,25,0,0"
+                BorderBrush="Gray"
+                BorderThickness="1"
+                Content="Cancel"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+    </Grid>
+</UserControl>
