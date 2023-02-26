@@ -1,11 +1,18 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core;
+using Inventory.Core.Mvvm;
+using Inventory.Modules.Customers.ViewModels.Forms;
+using Inventory.Modules.Customers.Views.Forms;
 using Inventory.Services.Interfaces;
+using MaterialDesignThemes.Wpf;
+using Prism.Commands;
 using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.Debt;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace Inventory.Modules.Customers.ViewModels
 {
@@ -27,6 +34,9 @@ namespace Inventory.Modules.Customers.ViewModels
             set => SetProperty(ref _selectedStatus, value);
         }
 
+        public ICommand MakePaymentCommand { get; }
+        public ICommand ShowDetailsCommand { get; }
+
         public DebtsViewModel(IDebtService service, IDialogService dialogService)
         {
             _debtService = service;
@@ -35,6 +45,9 @@ namespace Inventory.Modules.Customers.ViewModels
             debts = new List<DebtDto>();
             FilteredDebts = new ObservableCollection<DebtDto>();
             Statuses = new ObservableCollection<string>();
+
+            MakePaymentCommand = new DelegateCommand(OnMakePayment);
+            ShowDetailsCommand = new DelegateCommand<DebtDto>(OnShowDetails);
 
             LoadDebts();
         }
@@ -64,6 +77,49 @@ namespace Inventory.Modules.Customers.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private async void OnShowDetails(DebtDto debt)
+        {
+            try
+            {
+                await ShowDetailsForm(debt);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                await _dialogService.ShowError();
+            }
+        }
+
+        private async void OnMakePayment()
+        {
+            try
+            {
+                await ShowPaymentForm();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await _dialogService.ShowError();
+            }
+        }
+
+        private async Task ShowPaymentForm()
+        {
+            var view = new DebtPaymentForm();
+
+            await DialogHost.Show(view, RegionNames.DialogRegion);
+        }
+
+        private async Task ShowDetailsForm(DebtDto debt)
+        {
+            var view = new DebtDetailsForm()
+            {
+                DataContext = new DebtDetailsFormViewModel(debt)
+            };
+
+            await DialogHost.Show(view, RegionNames.DialogRegion);
         }
     }
 }

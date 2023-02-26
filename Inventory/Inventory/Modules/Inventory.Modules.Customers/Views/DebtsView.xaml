@@ -181,7 +181,7 @@
                                              Foreground="#2d2e2e"
                                              ToolTip="More options">
                                     <StackPanel Width="133">
-                                        <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.ShowDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
@@ -194,7 +194,7 @@
                                                            Text="Details" />
                                             </StackPanel>
                                         </Button>
-                                        <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.MakePaymentCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
