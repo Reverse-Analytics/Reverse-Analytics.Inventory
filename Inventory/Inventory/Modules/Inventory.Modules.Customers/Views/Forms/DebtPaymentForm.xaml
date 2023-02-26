@@ -17,6 +17,7 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -45,7 +46,7 @@
                    Grid.Column="0"
                    Margin="0,25,10,0"
                    Style="{StaticResource MaterialDesignBody1TextBlock}"
-                   Text="Amount to pay: " />
+                   Text="Total Amount: " />
         <TextBox Grid.Row="2"
                  Grid.Column="1"
                  Height="30"
@@ -55,9 +56,24 @@
                  HorizontalAlignment="Right"
                  Focusable="False"
                  Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Text="1323" />
+                 Text="{Binding TotalAmount}" />
 
-        <Grid Grid.Row="3"
+        <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   Margin="0,25,10,0"
+                   Style="{StaticResource MaterialDesignBody1TextBlock}"
+                   Text="Amount to pay: " />
+        <TextBox Grid.Row="3"
+                 Grid.Column="1"
+                 Height="30"
+                 MinWidth="350"
+                 Margin="0,25,0,0"
+                 Padding="10,7,0,0"
+                 HorizontalAlignment="Right"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Text="{Binding AmountToPay, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+        <Grid Grid.Row="4"
               Grid.Column="1"
               Margin="0,40,0,0">
             <TextBlock HorizontalAlignment="Left"
@@ -69,10 +85,10 @@
                        VerticalAlignment="Center"
                        Foreground="#5D758F"
                        Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                       Text="123.45" />
+                       Text="{Binding LeftOver}" />
         </Grid>
 
-        <Button Grid.Row="4"
+        <Button Grid.Row="5"
                 Grid.Column="1"
                 Margin="0,25,0,0"
                 Background="#1890FF"
@@ -80,11 +96,12 @@
                 Content="Pay"
                 Foreground="White"
                 Style="{StaticResource MaterialDesignFlatSecondaryDarkBgButton}" />
-        <Button Grid.Row="5"
+        <Button Grid.Row="6"
                 Grid.Column="1"
                 Margin="0,25,0,0"
                 BorderBrush="Gray"
                 BorderThickness="1"
+                Command="{Binding CloseCommand}"
                 Content="Cancel"
                 Foreground="Black"
                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />

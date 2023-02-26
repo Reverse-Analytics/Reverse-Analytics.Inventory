@@ -46,7 +46,7 @@ namespace Inventory.Modules.Customers.ViewModels
             FilteredDebts = new ObservableCollection<DebtDto>();
             Statuses = new ObservableCollection<string>();
 
-            MakePaymentCommand = new DelegateCommand(OnMakePayment);
+            MakePaymentCommand = new DelegateCommand<DebtDto>(OnMakePayment);
             ShowDetailsCommand = new DelegateCommand<DebtDto>(OnShowDetails);
 
             LoadDebts();
@@ -92,11 +92,11 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnMakePayment()
+        private async void OnMakePayment(DebtDto debt)
         {
             try
             {
-                await ShowPaymentForm();
+                await ShowPaymentForm(debt);
             }
             catch (Exception ex)
             {
@@ -105,9 +105,12 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async Task ShowPaymentForm()
+        private async Task ShowPaymentForm(DebtDto debt)
         {
-            var view = new DebtPaymentForm();
+            var view = new DebtPaymentForm
+            {
+                DataContext = new DebtPaymentFormViewModel(debt)
+            };
 
             await DialogHost.Show(view, RegionNames.DialogRegion);
         }
