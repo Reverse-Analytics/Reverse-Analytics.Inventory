@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using Inventory.Helpers.Extensions;
+using System.Windows.Controls;
 
 namespace Inventory.Modules.Sales.Views
 {
@@ -10,6 +11,9 @@ namespace Inventory.Modules.Sales.Views
         public SalesView()
         {
             InitializeComponent();
+
+            salesDataGrid.CellRenderers.Remove("TemplateExt");
+            salesDataGrid.CellRenderers.Add("TemplateExt", new GridCellTemplateExtension());
         }
     }
 }
