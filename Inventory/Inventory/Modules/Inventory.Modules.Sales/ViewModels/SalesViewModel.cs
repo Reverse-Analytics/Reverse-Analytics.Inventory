@@ -70,6 +70,10 @@ namespace Inventory.Modules.Sales.ViewModels
             {
                 Debug.WriteLine(ex.Message);
             }
+            finally
+            {
+                IsBusy = false;
+            }
         }
     }
 }
