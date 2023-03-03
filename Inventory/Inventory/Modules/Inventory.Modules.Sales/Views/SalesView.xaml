@@ -149,7 +149,7 @@
                     VerticalAlignment="Top">
             <sf:SfDataGrid x:Name="salesDataGrid"
                            HorizontalAlignment="Stretch"
-                           VerticalAlignment="Top"
+                           VerticalAlignment="Stretch"
                            AllowRowHoverHighlighting="True"
                            AllowSorting="True"
                            AutoGenerateColumns="False"
@@ -169,6 +169,24 @@
                            RowSelectionBrush="#ebebeb"
                            SelectionMode="Single"
                            SelectionUnit="Row">
+                <sf:SfDataGrid.DetailsViewDefinition>
+                    <sf:GridViewDefinition RelationalColumn="Details">
+                        <sf:GridViewDefinition.DataGrid>
+                            <sf:SfDataGrid AutoGenerateColumns="False" ColumnSizer="Star">
+                                <sf:SfDataGrid.Columns>
+                                    <sf:GridTextColumn HeaderText="Product Code" MappingName="Product.ProductCode" />
+                                    <sf:GridTextColumn HeaderText="Product Name" MappingName="Product.ProductName" />
+                                    <sf:GridNumericColumn HeaderText="Unit Price"
+                                                          MappingName="UnitPrice"
+                                                          NumberDecimalDigits="2" />
+                                    <sf:GridNumericColumn HeaderText="Quantity" MappingName="Quantity" />
+                                    <sf:GridNumericColumn HeaderText="Discount" MappingName="Discount" />
+                                    <sf:GridNumericColumn HeaderText="Total Price" MappingName="TotalPrice" />
+                                </sf:SfDataGrid.Columns>
+                            </sf:SfDataGrid>
+                        </sf:GridViewDefinition.DataGrid>
+                    </sf:GridViewDefinition>
+                </sf:SfDataGrid.DetailsViewDefinition>
                 <sf:SfDataGrid.HeaderStyle>
                     <Style TargetType="sf:GridHeaderCellControl">
                         <Setter Property="Background" Value="#f7f7f7" />
@@ -190,6 +208,12 @@
                                        TextAlignment="Left" />
                     <sf:GridTextColumn VerticalAlignment="Center"
                                        ColumnSizer="Star"
+                                       HeaderText="Customer"
+                                       HorizontalHeaderContentAlignment="Center"
+                                       MappingName="Customer.FullName"
+                                       TextAlignment="Center" />
+                    <sf:GridTextColumn VerticalAlignment="Center"
+                                       ColumnSizer="Star"
                                        HeaderText="Date"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="SaleDate"
@@ -206,12 +230,19 @@
                                           MappingName="TotalPaid"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Left" />
+                    <sf:GridNumericColumn ColumnSizer="Auto"
+                                          HeaderText="Discount"
+                                          HorizontalHeaderContentAlignment="Left"
+                                          MappingName="DiscountTotal"
+                                          NumberDecimalDigits="2"
+                                          TextAlignment="Left" />
                     <sf:GridTextColumn ColumnSizer="Auto"
                                        HeaderText="Status"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="TransactionStatus"
+                                       MappingName="Status"
                                        TextAlignment="Left" />
-                    <extensions:MoreOptionsTemplateColumnExtension AllowFocus="True"
+                    <extensions:MoreOptionsTemplateColumnExtension Width="50"
+                                                                   AllowFocus="True"
                                                                    AllowSorting="False"
                                                                    ColumnSizer="Auto">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
