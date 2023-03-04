@@ -1,11 +1,17 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core;
+using Inventory.Core.Mvvm;
+using Inventory.Modules.Sales.Views.Forms;
 using Inventory.Services.Interfaces;
+using MaterialDesignThemes.Wpf;
+using Prism.Commands;
 using Prism.Regions;
+using ReverseAnalytics.Domain.DTOs.Customer;
 using ReverseAnalytics.Domain.DTOs.Sale;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -25,6 +31,28 @@ namespace Inventory.Modules.Sales.ViewModels
 
         public bool KeepAlive => false;
 
+        private DateTime? _selectedDate;
+        public DateTime? SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                SetProperty(ref _selectedDate, value);
+                UpdateDate();
+            }
+        }
+
+        private CustomerDto _customer;
+        public CustomerDto SelectedCustomer
+        {
+            get => _customer;
+            set
+            {
+                SetProperty(ref _customer, value);
+                FilterSalesByCustomer();
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -41,16 +69,22 @@ namespace Inventory.Modules.Sales.ViewModels
 
         private readonly List<SaleDto> _sales;
         public ObservableCollection<SaleDto> Sales { get; private set; }
+        public ObservableCollection<CustomerDto> Customers { get; private set; }
 
         #endregion
 
         public SalesViewModel(ISaleService service, IDialogService dialogService)
         {
+            SelectedDate = DateTime.Now;
+
             _service = service;
             _dialogService = dialogService;
 
+            AddCommand = new DelegateCommand(OnAddSale);
+
             Sales = new ObservableCollection<SaleDto>();
             _sales = new List<SaleDto>();
+            Customers = new ObservableCollection<CustomerDto>();
 
             LoadSales().ConfigureAwait(false);
         }
@@ -62,9 +96,12 @@ namespace Inventory.Modules.Sales.ViewModels
                 IsBusy = true;
 
                 var sales = await _service.GetAllSales();
+                var currentDateSales = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
 
-                Sales.AddRange(sales);
                 _sales.AddRange(sales);
+                Sales.AddRange(currentDateSales);
+                var customers = sales.Select(x => x.Customer).Distinct().ToList();
+                Customers.AddRange(customers);
             }
             catch (Exception ex)
             {
@@ -74,6 +111,59 @@ namespace Inventory.Modules.Sales.ViewModels
             {
                 IsBusy = false;
             }
+        }
+
+        private async void OnAddSale()
+        {
+            try
+            {
+                var view = new SaleForm();
+
+                var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+                if (result is null)
+                {
+                    return;
+                }
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError(ex.Message);
+            }
+        }
+
+        private void UpdateDate()
+        {
+            if (_sales is null) return;
+
+            if (SelectedDate is null)
+            {
+                Sales.Clear();
+                Sales.AddRange(_sales);
+
+                return;
+            }
+
+            var sales = _sales.Where(x => x.SaleDate.Date == SelectedDate.Value.Date).ToList();
+
+            Sales.Clear();
+            Sales.AddRange(sales);
+        }
+
+        private void FilterSalesByCustomer()
+        {
+            if (SelectedCustomer is null)
+            {
+                Sales.Clear();
+                Sales.AddRange(_sales);
+
+                return;
+            }
+
+            var sales = _sales.Where(x => x.Customer.FullName == SelectedCustomer.FullName)
+                .ToList();
+
+            Sales.AddRange(sales);
         }
     }
 }

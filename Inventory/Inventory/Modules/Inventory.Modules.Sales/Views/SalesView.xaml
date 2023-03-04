@@ -111,17 +111,34 @@
                       md:HintAssist.Hint="Select customer"
                       md:TextFieldAssist.HasClearButton="True"
                       Cursor="Hand"
+                      DisplayMemberPath="FullName"
+                      IsEditable="True"
                       IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
-                      ItemsSource="{Binding Companies}"
-                      SelectedValue="{Binding SelectedCompany}"
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            <DatePicker Width="110"
+                      ItemsSource="{Binding Customers}"
+                      SelectedValue="{Binding SelectedCustomer}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                <ComboBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel />
+                    </ItemsPanelTemplate>
+                </ComboBox.ItemsPanel>
+            </ComboBox>
+            <DatePicker Width="120"
                         Height="30"
                         Margin="0,0,25,0"
                         Padding="5,7"
-                        md:HintAssist.Hint="Pick Date"
+                        md:HintAssist.Hint="Select Date"
                         md:TextFieldAssist.HasClearButton="True"
-                        Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                        SelectedDate="{Binding SelectedDate}"
+                        Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                <DatePicker.CalendarStyle>
+                    <Style BasedOn="{StaticResource MaterialDesignCalendarPortrait}" TargetType="Calendar">
+                        <Style.Resources>
+                            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#1890ff" />
+                        </Style.Resources>
+                    </Style>
+                </DatePicker.CalendarStyle>
+            </DatePicker>
             <Button Width="145"
                     Height="30"
                     Margin="0,0,25,0"
@@ -130,7 +147,6 @@
                     Background="#1890ff"
                     BorderThickness="0"
                     Command="{Binding AddCommand}"
-                    Cursor=""
                     Foreground="White"
                     Style="{StaticResource MaterialDesignRaisedAccentButton}">
                 <StackPanel Orientation="Horizontal">
