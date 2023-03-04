@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="MaterialDesignColors" Version="2.0.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+    <PackageReference Include="MediatR.Contracts" Version="2.0.1" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
     <PackageReference Include="Syncfusion.Grid.WPF" Version="20.4.0.38" />
     <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.4.0.38" />
