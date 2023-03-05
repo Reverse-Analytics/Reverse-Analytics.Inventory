@@ -48,6 +48,7 @@
         </Style>
 
     </UserControl.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -164,6 +165,7 @@
                     Margin="25"
                     VerticalAlignment="Top">
             <sf:SfDataGrid x:Name="salesDataGrid"
+                           MaxHeight="570"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
                            AllowRowHoverHighlighting="True"
@@ -183,6 +185,7 @@
                            RowHeight="35"
                            RowHoverHighlightingBrush="#ebebeb"
                            RowSelectionBrush="#ebebeb"
+                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.DetailsViewDefinition>
