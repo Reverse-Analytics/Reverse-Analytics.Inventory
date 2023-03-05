@@ -23,6 +23,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
@@ -103,11 +104,8 @@
                               ItemsSource="{Binding AddedProducts}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Background="#eef6ff"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1"
-                                    CornerRadius="5">
-                                <Grid Margin="15">
+                            <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                <Grid Margin="0,15,0,0">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="*" />
@@ -206,6 +204,22 @@
             </ScrollViewer>
         </StackPanel>
 
+        <TextBlock Grid.Row="6"
+                   Grid.Column="0"
+                   Margin="0,25,0,0"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Center"
+                   Text="Payment: " />
+        <TextBox Grid.Row="6"
+                 Grid.Column="1"
+                 Width="350"
+                 Height="35"
+                 Margin="10,25,0,0"
+                 Padding="10,9"
+                 HorizontalAlignment="Left"
+                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                 Text="{Binding PaymentAmount}" />
+
         <TextBlock Grid.Row="5"
                    Grid.Column="1"
                    Margin="0,10,0,0"
@@ -221,7 +235,7 @@
                    Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
                    Text="{Binding TotalDue}" />
 
-        <Button Grid.Row="6"
+        <Button Grid.Row="7"
                 Grid.Column="1"
                 Height="40"
                 Margin="0,35,0,0"
@@ -232,7 +246,7 @@
                 Command="{Binding SaveCommand}"
                 Content="Save" />
 
-        <Button Grid.Row="7"
+        <Button Grid.Row="8"
                 Grid.Column="1"
                 Height="40"
                 Margin="0,15,0,0"
