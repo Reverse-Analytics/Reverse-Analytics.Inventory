@@ -96,6 +96,259 @@
                     </Button>
                 </Grid>
             </md:TransitionerSlide>
+
+            <md:TransitionerSlide>
+                <md:TransitionerSlide.BackwardWipe>
+                    <md:SlideWipe Direction="Left" Duration="0:0:0.8" />
+                </md:TransitionerSlide.BackwardWipe>
+                <md:TransitionerSlide.ForwardWipe>
+                    <md:SlideWipe Direction="Right" Duration="0:0:0.8" />
+                </md:TransitionerSlide.ForwardWipe>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="2*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Margin="0,75,0,0"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                               Text="Products" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,50,10,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Product:" />
+                    <StackPanel Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="0,50,0,0"
+                                VerticalAlignment="Top"
+                                Orientation="Horizontal">
+                        <ComboBox Width="350"
+                                  Height="35"
+                                  Margin="0,0,25,0"
+                                  Padding="10"
+                                  md:HintAssist.Hint="Select Product"
+                                  Cursor="Hand"
+                                  DisplayMemberPath="ProductName"
+                                  IsEditable="True"
+                                  ItemsSource="{Binding Products}"
+                                  SelectedValue="{Binding SelectedProduct}"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                        <Button Width="80"
+                                Height="35"
+                                Margin="0,0,25,0"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="#009624"
+                                BorderThickness="0"
+                                Command="{Binding AddProductCommand}"
+                                Content="Add"
+                                Foreground="White"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+                    </StackPanel>
+
+                    <Border Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="25,50,25,0"
+                            VerticalAlignment="Top"
+                            BorderBrush="LightGray"
+                            BorderThickness="1">
+                        <ScrollViewer Height="300" VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="productsList"
+                                          HorizontalAlignment="Stretch"
+                                          md:ListBoxItemAssist.ShowSelection="False"
+                                          ItemsSource="{Binding AddedProducts}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                            <Grid Margin="0,5,0,0">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="*" />
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Grid.Row="1"
+                                                           Grid.Column="0"
+                                                           Width="100"
+                                                           Margin="10,0,0,0"
+                                                           HorizontalAlignment="Left"
+                                                           VerticalAlignment="Center"
+                                                           Text="{Binding Product.ProductName}"
+                                                           TextWrapping="Wrap" />
+
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="1"
+                                                           Margin="20,5,0,0"
+                                                           HorizontalAlignment="Left"
+                                                           FontSize="10"
+                                                           Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                                           Text="Price per unit" />
+                                                <TextBox Grid.Row="1"
+                                                         Grid.Column="1"
+                                                         Width="150"
+                                                         Height="30"
+                                                         Margin="20,0,0,0"
+                                                         Padding="10,7"
+                                                         HorizontalAlignment="Left"
+                                                         Background="White"
+                                                         BorderBrush="LightGray"
+                                                         FontWeight="SemiBold"
+                                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                         Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="2"
+                                                           Margin="20,5,0,0"
+                                                           HorizontalAlignment="Left"
+                                                           FontSize="10"
+                                                           Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                                           Text="Number of units" />
+                                                <sf:UpDown Grid.Row="1"
+                                                           Grid.Column="2"
+                                                           Width="100"
+                                                           Height="30"
+                                                           Margin="20,0,0,0"
+                                                           Padding="5"
+                                                           HorizontalAlignment="Left"
+                                                           Background="White"
+                                                           BorderBrush="LightGray"
+                                                           CornerRadius="5"
+                                                           FontWeight="SemiBold"
+                                                           MinValue="1"
+                                                           NumberDecimalDigits="0"
+                                                           Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="3"
+                                                           Margin="20,5,0,0"
+                                                           FontSize="10"
+                                                           Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                                           Text="Discount" />
+                                                <sf:PercentTextBox Grid.Row="1"
+                                                                   Grid.Column="3"
+                                                                   Width="80"
+                                                                   Height="30"
+                                                                   Margin="20,0,0,0"
+                                                                   HorizontalAlignment="Left"
+                                                                   Background="White"
+                                                                   BorderBrush="LightGray"
+                                                                   CornerRadius="4"
+                                                                   FontWeight="SemiBold"
+                                                                   IsScrollingOnCircle="True"
+                                                                   MaxPercentDecimalDigits="1"
+                                                                   MaxValue="100"
+                                                                   MinValue="0"
+                                                                   PercentValue="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="4"
+                                                           Margin="20,5,0,0"
+                                                           HorizontalAlignment="Left"
+                                                           FontSize="10"
+                                                           Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                                           Text="Total Price" />
+                                                <TextBox Grid.Row="1"
+                                                         Grid.Column="4"
+                                                         Width="150"
+                                                         Height="30"
+                                                         Margin="20,0,0,0"
+                                                         Padding="10,7"
+                                                         HorizontalAlignment="Left"
+                                                         Background="White"
+                                                         BorderBrush="LightGray"
+                                                         FontWeight="SemiBold"
+                                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                         Text="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                                                <Button Grid.Row="1"
+                                                        Grid.Column="5"
+                                                        Margin="20,0,0,0"
+                                                        HorizontalContentAlignment="Right"
+                                                        Background="Transparent"
+                                                        BorderBrush="Transparent"
+                                                        Command="{Binding Path=DataContext.RemoveProductCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                                        CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                        Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                                        ToolTip="Delete">
+                                                    <md:PackIcon Width="25"
+                                                                 Height="25"
+                                                                 Foreground="Red"
+                                                                 Kind="TrashCan" />
+                                                </Button>
+
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="0,25,0,0">
+                        <Button Width="350"
+                                Height="35"
+                                Margin="10,0,0,0"
+                                HorizontalAlignment="Left"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="#1890ff"
+                                BorderThickness="0"
+                                Command="{x:Static md:Transitioner.MoveNextCommand}"
+                                Foreground="White"
+                                IsEnabled="{Binding CanMoveToProducts}"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,5,0"
+                                           VerticalAlignment="Center"
+                                           Text="Payment" />
+                                <md:PackIcon Width="20"
+                                             Height="20"
+                                             Kind="ArrowRight" />
+                            </StackPanel>
+                        </Button>
+                        <Button Width="350"
+                                Height="35"
+                                Margin="10,25,0,0"
+                                HorizontalAlignment="Left"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="Gray"
+                                BorderThickness="0"
+                                Command="{x:Static md:Transitioner.MovePreviousCommand}"
+                                Foreground="White"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Width="20"
+                                             Height="20"
+                                             Kind="ArrowLeft" />
+                                <TextBlock Margin="5,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Details" />
+                            </StackPanel>
+                        </Button>
+
+                    </StackPanel>
+                </Grid>
+            </md:TransitionerSlide>
         </md:Transitioner>
     </Grid>
 </UserControl>
