@@ -12,14 +12,15 @@
 
     <Grid Width="800" Height="700">
         <md:Transitioner SelectedIndex="0">
+            <!--  Sale details  -->
             <md:TransitionerSlide>
                 <md:TransitionerSlide.ForwardWipe>
                     <md:SlideWipe Direction="Right" Duration="0:0:0.8" />
                 </md:TransitionerSlide.ForwardWipe>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="5*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -110,6 +111,7 @@
                 </Grid>
             </md:TransitionerSlide>
 
+            <!--  Product details  -->
             <md:TransitionerSlide>
                 <md:TransitionerSlide.BackwardWipe>
                     <md:SlideWipe Direction="Left" Duration="0:0:0.8" />
