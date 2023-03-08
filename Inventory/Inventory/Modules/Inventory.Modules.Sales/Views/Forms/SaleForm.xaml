@@ -9,251 +9,93 @@
              xmlns:sf="http://schemas.syncfusion.com/wpf"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
-    <Grid Margin="100,50">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   HorizontalAlignment="Center"
-                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                   Text="New Sale" />
+    <Grid Width="800" Height="700">
+        <md:Transitioner SelectedIndex="0">
+            <md:TransitionerSlide>
+                <md:TransitionerSlide.ForwardWipe>
+                    <md:SlideWipe Direction="Right" Duration="0:0:0.8" />
+                </md:TransitionerSlide.ForwardWipe>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="1"
-                   Grid.Column="0"
-                   Margin="0,50,0,0"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Customer:" />
-        <ComboBox Grid.Row="1"
-                  Grid.Column="1"
-                  Width="350"
-                  Height="35"
-                  Margin="10,50,0,0"
-                  Padding="10"
-                  HorizontalAlignment="Left"
-                  md:HintAssist.Hint="Select Customer"
-                  md:TextFieldAssist.HasClearButton="True"
-                  Cursor="Hand"
-                  DisplayMemberPath="FullName"
-                  ItemsSource="{Binding Customers}"
-                  SelectedValue="{Binding SelectedCustomer}"
-                  Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Margin="0,100,0,0"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                               Text="Sale Details" />
 
-        <TextBlock Grid.Row="2"
-                   Grid.Column="0"
-                   Margin="0,25,0,0"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Product:" />
-        <StackPanel Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="10,25,0,0"
-                    Orientation="Horizontal">
-            <ComboBox Width="350"
-                      Height="35"
-                      Margin="0,0,25,0"
-                      Padding="10"
-                      Cursor="Hand"
-                      DisplayMemberPath="ProductName"
-                      IsEditable="True"
-                      ItemsSource="{Binding Products}"
-                      SelectedValue="{Binding SelectedProduct}"
-                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            <Button Width="80"
-                    Height="30"
-                    Margin="0,0,25,0"
-                    HorizontalAlignment="Right"
-                    md:ButtonAssist.CornerRadius="3"
-                    Background="#1890ff"
-                    BorderThickness="0"
-                    Command="{Binding AddProductCommand}"
-                    Content="Add"
-                    Foreground="White"
-                    Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
-        </StackPanel>
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,75,10,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Customer:" />
+                    <ComboBox Grid.Row="1"
+                              Grid.Column="1"
+                              Width="350"
+                              Height="35"
+                              Margin="0,75,0,0"
+                              Padding="10"
+                              HorizontalAlignment="Left"
+                              md:HintAssist.Hint="Select Customer"
+                              md:TextFieldAssist.HasClearButton="True"
+                              Cursor="Hand"
+                              DisplayMemberPath="FullName"
+                              ItemsSource="{Binding Customers}"
+                              SelectedValue="{Binding SelectedCustomer}"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-        <Separator Grid.Row="3"
-                   Grid.Column="1"
-                   Margin="5,25,5,0"
-                   VerticalAlignment="Center    "
-                   Background="DarkGray" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,50,10,0"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="Sale Date:" />
+                    <DatePicker Grid.Row="2"
+                                Grid.Column="2"
+                                Width="350"
+                                Height="35"
+                                Margin="0,50,0,0"
+                                Padding="10"
+                                HorizontalAlignment="Left"
+                                md:HintAssist.Hint="Select Date"
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
 
-        <StackPanel Grid.Row="4"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="0,15,0,0">
-            <ScrollViewer Height="200" VerticalScrollBarVisibility="Auto">
-                <ItemsControl x:Name="productsList"
-                              HorizontalAlignment="Stretch"
-                              md:ListBoxItemAssist.ShowSelection="False"
-                              ItemsSource="{Binding AddedProducts}">
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
-                                <Grid Margin="0,15,0,0">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock Grid.Row="1"
-                                               Grid.Column="0"
-                                               Width="100"
-                                               HorizontalAlignment="Center"
-                                               VerticalAlignment="Center"
-                                               Text="{Binding Product.ProductName}"
-                                               TextWrapping="Wrap" />
-                                    <TextBlock Grid.Row="0"
-                                               Grid.Column="1"
-                                               FontSize="10"
-                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
-                                               Text="Price per unit" />
-                                    <TextBlock Grid.Row="0"
-                                               Grid.Column="2"
-                                               Margin="15,0,0,0"
-                                               FontSize="10"
-                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
-                                               Text="Number of units" />
-                                    <TextBlock Grid.Row="0"
-                                               Grid.Column="3"
-                                               Margin="15,0,0,0"
-                                               FontSize="10"
-                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
-                                               Text="Discount" />
-                                    <TextBox Grid.Row="1"
-                                             Grid.Column="1"
-                                             Width="150"
-                                             Height="30"
-                                             Margin="0,5,0,0"
-                                             Padding="10,7"
-                                             Background="White"
-                                             BorderBrush="LightGray"
-                                             FontWeight="SemiBold"
-                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                             Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <sf:UpDown Grid.Row="1"
-                                               Grid.Column="2"
-                                               Width="150"
-                                               Height="30"
-                                               Margin="15,5,0,0"
-                                               Padding="5"
-                                               Background="White"
-                                               BorderBrush="LightGray"
-                                               CornerRadius="5"
-                                               FontWeight="SemiBold"
-                                               MinValue="1"
-                                               NumberDecimalDigits="0"
-                                               Value="{Binding Quantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-                                    <sf:PercentTextBox Grid.Row="1"
-                                                       Grid.Column="3"
-                                                       Width="80"
-                                                       Height="30"
-                                                       Margin="15,5,0,0"
-                                                       Background="White"
-                                                       BorderBrush="LightGray"
-                                                       CornerRadius="4"
-                                                       FontWeight="SemiBold"
-                                                       IsScrollingOnCircle="True"
-                                                       MaxPercentDecimalDigits="1"
-                                                       MaxValue="100"
-                                                       MinValue="0"
-                                                       PercentValue="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                                    <Button Grid.Row="1"
-                                            Grid.Column="4"
-                                            VerticalAlignment="Bottom"
-                                            HorizontalContentAlignment="Right"
-                                            Background="Transparent"
-                                            BorderBrush="Transparent"
-                                            Command="{Binding Path=DataContext.RemoveProductCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
-                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
-                                            ToolTip="Delete">
-                                        <md:PackIcon Width="25"
-                                                     Height="25"
-                                                     Foreground="Red"
-                                                     Kind="TrashCan" />
-                                    </Button>
-
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
-            </ScrollViewer>
-        </StackPanel>
-
-        <TextBlock Grid.Row="6"
-                   Grid.Column="0"
-                   Margin="0,25,0,0"
-                   HorizontalAlignment="Right"
-                   VerticalAlignment="Center"
-                   Text="Payment: " />
-        <TextBox Grid.Row="6"
-                 Grid.Column="1"
-                 Width="350"
-                 Height="35"
-                 Margin="10,25,0,0"
-                 Padding="10,9"
-                 HorizontalAlignment="Left"
-                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                 Text="{Binding PaymentAmount}" />
-
-        <TextBlock Grid.Row="5"
-                   Grid.Column="1"
-                   Margin="0,10,0,0"
-                   HorizontalAlignment="Left"
-                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                   Text="Total Due: " />
-
-        <TextBlock Grid.Row="5"
-                   Grid.Column="1"
-                   Margin="0,10,0,0"
-                   HorizontalAlignment="Right"
-                   Foreground="#5D758F"
-                   Style="{StaticResource MaterialDesignSubtitle2TextBlock}"
-                   Text="{Binding TotalDue}" />
-
-        <Button Grid.Row="7"
-                Grid.Column="1"
-                Height="40"
-                Margin="0,35,0,0"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Background="#1890ff"
-                BorderThickness="0"
-                Command="{Binding SaveCommand}"
-                Content="Save" />
-
-        <Button Grid.Row="8"
-                Grid.Column="1"
-                Height="40"
-                Margin="0,15,0,0"
-                BorderBrush="Gray"
-                Command="{Binding CancelCommand}"
-                Content="Cancel"
-                Foreground="Black"
-                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+                    <Button Grid.Row="3"
+                            Grid.Column="1"
+                            Width="350"
+                            Height="35"
+                            Margin="0,50,0,0"
+                            HorizontalAlignment="Left"
+                            md:ButtonAssist.CornerRadius="3"
+                            Background="#1890ff"
+                            BorderThickness="0"
+                            Command="{x:Static md:Transitioner.MoveNextCommand}"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,0"
+                                       VerticalAlignment="Center"
+                                       Text="Products" />
+                            <md:PackIcon Width="25"
+                                         Height="25"
+                                         Kind="ArrowRight" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </md:TransitionerSlide>
+        </md:Transitioner>
     </Grid>
 </UserControl>
