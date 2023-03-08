@@ -73,27 +73,40 @@
                                 md:HintAssist.Hint="Select Date"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
 
-                    <Button Grid.Row="3"
-                            Grid.Column="1"
-                            Width="350"
-                            Height="35"
-                            Margin="0,50,0,0"
-                            HorizontalAlignment="Left"
-                            md:ButtonAssist.CornerRadius="3"
-                            Background="#1890ff"
-                            BorderThickness="0"
-                            Command="{x:Static md:Transitioner.MoveNextCommand}"
-                            Foreground="White"
-                            Style="{StaticResource MaterialDesignFlatAccentBgButton}">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Margin="0,0,5,0"
-                                       VerticalAlignment="Center"
-                                       Text="Products" />
-                            <md:PackIcon Width="25"
-                                         Height="25"
-                                         Kind="ArrowRight" />
-                        </StackPanel>
-                    </Button>
+                    <StackPanel Grid.Row="3"
+                                Grid.Column="1"
+                                Margin="0,50,0,0">
+                        <Button Width="350"
+                                Height="35"
+                                HorizontalAlignment="Left"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="#1890ff"
+                                BorderThickness="0"
+                                Command="{x:Static md:Transitioner.MoveNextCommand}"
+                                Foreground="White"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Margin="0,0,5,0"
+                                           VerticalAlignment="Center"
+                                           Text="Products" />
+                                <md:PackIcon Width="25"
+                                             Height="25"
+                                             Kind="ArrowRight" />
+                            </StackPanel>
+                        </Button>
+
+                        <Button Width="350"
+                                Height="35"
+                                Margin="0,25,0,0"
+                                HorizontalAlignment="Left"
+                                md:ButtonAssist.CornerRadius="3"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                Command="{x:Static md:Transitioner.MoveNextCommand}"
+                                Content="Cancel"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+                    </StackPanel>
                 </Grid>
             </md:TransitionerSlide>
 
