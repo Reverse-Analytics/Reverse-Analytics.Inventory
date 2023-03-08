@@ -21,7 +21,31 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal TotalDue
         {
             get => _totalDue;
-            set => SetProperty(ref _totalDue, value);
+            set
+            {
+                SetProperty(ref _totalDue, value);
+                DebtAmount = value;
+            }
+        }
+
+        private decimal _paymentAmount;
+        public decimal PaymentAmount
+        {
+            get => _paymentAmount;
+            set
+            {
+                if (value > _totalDue) return;
+
+                SetProperty(ref _paymentAmount, value);
+                DebtAmount = TotalDue - value;
+            }
+        }
+
+        private decimal _debtAmount;
+        public decimal DebtAmount
+        {
+            get => _debtAmount;
+            set => SetProperty(ref _debtAmount, value);
         }
 
         public ProductDto SelectedProduct { get; set; }

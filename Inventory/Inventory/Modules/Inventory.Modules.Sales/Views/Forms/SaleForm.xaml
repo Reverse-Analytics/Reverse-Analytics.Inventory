@@ -364,6 +364,89 @@
                     </StackPanel>
                 </Grid>
             </md:TransitionerSlide>
+
+            <!--  Payment  -->
+            <md:TransitionerSlide>
+                <md:TransitionerSlide.BackwardWipe>
+                    <md:SlideWipe Direction="Left" Duration="0:0:0.8" />
+                </md:TransitionerSlide.BackwardWipe>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               Margin="0,100,0,0"
+                               HorizontalAlignment="Center"
+                               Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                               Text="Payment" />
+
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="15,50,0,0"
+                               HorizontalAlignment="Left"
+                               Foreground="#5D758F"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Text="Total Due: " />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="0,50,15,0"
+                               HorizontalAlignment="Right"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Text="{Binding TotalDue}" />
+
+
+                    <TextBox Grid.Row="2"
+                             Grid.Column="1"
+                             Height="35"
+                             Margin="15,25,15,0"
+                             Padding="10"
+                             HorizontalAlignment="Stretch"
+                             md:HintAssist.Hint="Enter payment amount"
+                             Cursor="Hand"
+                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Text="{Binding PaymentAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Margin="15,25,0,0"
+                               HorizontalAlignment="Left"
+                               Foreground="#5D758F"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Text="Debt: " />
+
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="1"
+                               Margin="0,25,15,0"
+                               HorizontalAlignment="Right"
+                               Foreground="#eb4034"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Text="{Binding DebtAmount}" />
+
+                    <Button Grid.Row="4"
+                            Grid.Column="1"
+                            Margin="15,75,15,0"
+                            HorizontalAlignment="Stretch"
+                            md:ButtonAssist.CornerRadius="3"
+                            Background="#1890ff"
+                            BorderThickness="0"
+                            Command="{x:Static md:Transitioner.MovePreviousCommand}"
+                            Content="Pay"
+                            Foreground="White"
+                            Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+                </Grid>
+            </md:TransitionerSlide>
         </md:Transitioner>
     </Grid>
 </UserControl>
