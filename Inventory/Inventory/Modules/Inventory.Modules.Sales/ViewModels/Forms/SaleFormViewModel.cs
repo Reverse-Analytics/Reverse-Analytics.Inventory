@@ -48,6 +48,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _debtAmount, value);
         }
 
+        private DateTime _selectedDate = DateTime.Now;
+        public DateTime SelectedDate
+        {
+            get => _selectedDate;
+            set => SetProperty(ref _selectedDate, value);
+        }
+
         public ProductDto SelectedProduct { get; set; }
         public CustomerDto SelectedCustomer { get; set; }
 

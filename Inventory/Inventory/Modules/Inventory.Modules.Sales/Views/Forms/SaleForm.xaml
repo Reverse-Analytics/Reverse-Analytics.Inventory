@@ -7,6 +7,7 @@
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
              xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:validations="clr-namespace:Inventory.Core.ValidationRules;assembly=Inventory.Core"
              prism:ViewModelLocator.AutoWireViewModel="True"
              mc:Ignorable="d">
 
@@ -48,7 +49,7 @@
                               Width="350"
                               Height="35"
                               Margin="0,75,0,0"
-                              Padding="10"
+                              Padding="10,9"
                               HorizontalAlignment="Left"
                               md:HintAssist.Hint="Select Customer"
                               md:TextFieldAssist.HasClearButton="True"
@@ -56,7 +57,17 @@
                               DisplayMemberPath="FullName"
                               ItemsSource="{Binding Customers}"
                               SelectedValue="{Binding SelectedCustomer}"
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <ComboBox.SelectedItem>
+                            <Binding Mode="TwoWay"
+                                     Path="SelectedCustomer"
+                                     UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validations:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </ComboBox.SelectedItem>
+                    </ComboBox>
 
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
@@ -71,8 +82,17 @@
                                 Margin="0,50,0,0"
                                 Padding="10"
                                 HorizontalAlignment="Left"
+                                md:CalendarAssist.IsHeaderVisible="False"
                                 md:HintAssist.Hint="Select Date"
-                                Style="{StaticResource MaterialDesignOutlinedDatePicker}" />
+                                Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                        <DatePicker.SelectedDate>
+                            <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <validations:FutureDateValidationRule ValidatesOnTargetUpdated="True" />
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </DatePicker.SelectedDate>
+                    </DatePicker>
 
                     <StackPanel Grid.Row="3"
                                 Grid.Column="1"
