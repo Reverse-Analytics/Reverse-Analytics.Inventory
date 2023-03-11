@@ -1,11 +1,16 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core;
+using Inventory.Core.Mvvm;
 using Inventory.Services.Interfaces;
+using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
 using ReverseAnalytics.Domain.DTOs.Customer;
 using ReverseAnalytics.Domain.DTOs.Product;
+using ReverseAnalytics.Domain.DTOs.Sale;
+using ReverseAnalytics.Domain.DTOs.SaleDetail;
 using Syncfusion.Data.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -13,11 +18,15 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 {
     public class SaleFormViewModel : ViewModelBase
     {
-        private readonly ICustomerService _customerService;
-        private readonly IProductService _productService;
+        #region Services
+
         private readonly IDialogService _dialogService;
 
-        private decimal _totalDue;
+        #endregion
+
+        #region Properties
+
+        private decimal _totalDue = 0;
         public decimal TotalDue
         {
             get => _totalDue;
@@ -48,11 +57,36 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _debtAmount, value);
         }
 
+        private string _comments;
+        public string Comments
+        {
+            get => _comments;
+            set => SetProperty(ref _comments, value);
+        }
+
         private DateTime _selectedDate = DateTime.Now;
         public DateTime SelectedDate
         {
             get => _selectedDate;
             set => SetProperty(ref _selectedDate, value);
+        }
+
+        private ProductDto _selectedProduct;
+        public ProductDto SelectedProduct
+        {
+            get => _selectedProduct;
+            set => SetProperty(ref _selectedProduct, value);
+        }
+
+        private CustomerDto _selectedCustomer;
+        public CustomerDto SelectedCustomer
+        {
+            get => _selectedCustomer;
+            set
+            {
+                SetProperty(ref _selectedCustomer, value);
+                CanMoveToProducts = value != null;
+            }
         }
 
         private bool _canMoveToProducts = false;
@@ -69,78 +103,46 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _canMoveToPayment, value);
         }
 
-        public ProductDto SelectedProduct { get; set; }
+        #endregion
 
-        private CustomerDto _selectedCustomer;
-        public CustomerDto SelectedCustomer
-        {
-            get => _selectedCustomer;
-            set
-            {
-                SetProperty(ref _selectedCustomer, value);
-                CanMoveToProducts = value != null;
-            }
-        }
+        #region Commands
+
+        public DelegateCommand AddProductCommand { get; private set; }
+        public DelegateCommand<SaleDetail> RemoveProductCommand { get; private set; }
+        public DelegateCommand MakePaymentCommand { get; private set; }
+
+        #endregion
+
+        #region Collections
 
         public ObservableCollection<ProductDto> Products { get; private set; }
         public ObservableCollection<CustomerDto> Customers { get; private set; }
         public ObservableCollection<SaleDetail> AddedProducts { get; private set; }
 
-        public DelegateCommand AddProductCommand { get; private set; }
-        public DelegateCommand<SaleDetail> RemoveProductCommand { get; private set; }
+        #endregion
 
-        public SaleFormViewModel(ICustomerService customerService, IProductService productService, IDialogService dialogService)
+        public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService)
         {
-            TotalDue = 0;
-
-            _customerService = customerService;
-            _productService = productService;
             _dialogService = dialogService;
 
-            Products = new ObservableCollection<ProductDto>();
-            Customers = new ObservableCollection<CustomerDto>();
+            Products = new ObservableCollection<ProductDto>(products);
+            Customers = new ObservableCollection<CustomerDto>(customers);
             AddedProducts = new ObservableCollection<SaleDetail>();
             AddedProducts.CollectionChanged += OnSaleDetailChanged;
 
             AddProductCommand = new DelegateCommand(OnAddProduct);
             RemoveProductCommand = new DelegateCommand<SaleDetail>(OnRemoveProduct);
-
-            Load();
+            MakePaymentCommand = new DelegateCommand(OnMakePayment);
         }
 
-        private async void Load()
-        {
-            try
-            {
-                IsBusy = true;
-
-
-                var customers = await _customerService.GetCustomersAsync();
-                var products = await _productService.GetProductsAsync();
-
-                Customers.AddRange(customers);
-                Products.AddRange(products);
-            }
-            catch (Exception ex)
-            {
-                await _dialogService.ShowError(ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private void OnSaleDetailChanged(object sender, EventArgs e)
-        {
-            TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
-        }
+        #region Command methods
 
         public async void OnAddProduct()
         {
             try
             {
                 if (SelectedProduct is null) return;
+
                 var saleDetail = new SaleDetail
                 {
                     Quantity = 0,
@@ -163,12 +165,75 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         public async void OnRemoveProduct(SaleDetail detail)
         {
-            if (detail is null) return;
+            try
+            {
+                if (detail is null) return;
 
-            AddedProducts.Remove(detail);
+                AddedProducts.Remove(detail);
 
-            CanMoveToPayment = AddedProducts.Count > 0;
+                CanMoveToPayment = AddedProducts.Count > 0;
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error removing product.", ex.Message);
+            }
         }
+
+        public async void OnMakePayment()
+        {
+            try
+            {
+                var details = new List<SaleDetailDto>();
+                var discountTotal = AddedProducts.Sum(x => x.CalculateDiscountAmount());
+                var result = await _dialogService.ShowConfirmation();
+
+                AddedProducts.ForEach(x =>
+                {
+                    details.Add(new SaleDetailDto
+                    {
+                        Quantity = x.Quantity,
+                        Discount = x.Discount,
+                        UnitPrice = x.UnitPrice,
+                        ProductId = x.ProductId,
+                    });
+                });
+
+                if (!result) return;
+
+                var sale = new SaleForCreateDto
+                {
+                    CustomerId = SelectedCustomer.Id,
+                    SaleDate = SelectedDate,
+                    SaleDetails = new List<SaleDetailDto>(details),
+                    TotalDue = TotalDue,
+                    TotalPaid = PaymentAmount,
+                    DiscountTotal = discountTotal,
+                    SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
+                    Comment = Comments,
+                    Status = DebtAmount == 0 ?
+                        ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
+                        ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
+                    Receipt = Guid.NewGuid().ToString().Substring(0, 5)
+                };
+
+                DialogHost.Close(RegionNames.DialogRegion, sale);
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error completing payment.", ex.Message);
+            }
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        private void OnSaleDetailChanged(object sender, EventArgs e)
+        {
+            TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
+        }
+
+        #endregion
     }
 
     public class SaleDetail : BindableBase
@@ -234,6 +299,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 var discount = (TotalPrice * (decimal)Discount) / 100;
                 TotalPrice -= discount;
             }
+        }
+
+        public decimal CalculateDiscountAmount()
+        {
+            if (Discount > 0 && TotalPrice > 0)
+                return (TotalPrice * (decimal)Discount) / 100;
+
+            return 0;
         }
     }
 }

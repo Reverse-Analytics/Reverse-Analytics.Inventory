@@ -1,5 +1,6 @@
 ﻿using Inventory.Core;
 using Inventory.Core.Mvvm;
+using Inventory.Modules.Sales.ViewModels.Forms;
 using Inventory.Modules.Sales.Views.Forms;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
@@ -23,6 +24,8 @@ namespace Inventory.Modules.Sales.ViewModels
         #region Services
 
         private readonly ISaleService _service;
+        private readonly ICustomerService _customerService;
+        private readonly IProductService _productService;
         private readonly IDialogService _dialogService;
 
         #endregion
@@ -73,11 +76,13 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #endregion
 
-        public SalesViewModel(ISaleService service, IDialogService dialogService)
+        public SalesViewModel(ISaleService service, IProductService productService, ICustomerService customerService, IDialogService dialogService)
         {
             SelectedDate = DateTime.Now;
 
             _service = service;
+            _productService = productService;
+            _customerService = customerService;
             _dialogService = dialogService;
 
             AddCommand = new DelegateCommand(OnAddSale);
@@ -117,7 +122,13 @@ namespace Inventory.Modules.Sales.ViewModels
         {
             try
             {
-                var view = new SaleForm();
+                var customers = await _customerService.GetCustomersAsync();
+                var products = await _productService.GetProductsAsync();
+
+                var view = new SaleForm()
+                {
+                    DataContext = new SaleFormViewModel(customers.ToList(), products.ToList(), _dialogService)
+                };
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
