@@ -318,7 +318,7 @@
                                                          BorderBrush="LightGray"
                                                          FontWeight="SemiBold"
                                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                         Text="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                         Text="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
                                                 <Button Grid.Row="1"
                                                         Grid.Column="5"
@@ -460,7 +460,7 @@
                                Margin="0,25,15,0"
                                HorizontalAlignment="Right"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Text="{Binding TotalDue}" />
+                               Text="{Binding TotalDue, StringFormat=N2}" />
 
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -475,7 +475,7 @@
                                HorizontalAlignment="Right"
                                Foreground="{Binding DebtAmount, Converter={StaticResource DebtValueToColorConverter}}"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Text="{Binding DebtAmount}" />
+                               Text="{Binding DebtAmount, StringFormat=N2}" />
 
                     <TextBox Grid.Row="5"
                              Grid.Column="1"
@@ -486,19 +486,40 @@
                              md:HintAssist.Hint="Enter payment amount"
                              Cursor="Hand"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding PaymentAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                             Text="{Binding PaymentAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
-                    <Button Grid.Row="6"
-                            Grid.Column="1"
-                            Margin="15,75,15,0"
-                            HorizontalAlignment="Stretch"
-                            md:ButtonAssist.CornerRadius="3"
-                            Background="#1890ff"
-                            BorderThickness="0"
-                            Command="{x:Static md:Transitioner.MovePreviousCommand}"
-                            Content="Pay"
-                            Foreground="White"
-                            Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="1"
+                                Margin="15,50,15,0">
+                        <Button Height="35"
+                                HorizontalAlignment="Stretch"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="#1890ff"
+                                BorderThickness="0"
+                                Command="{Binding MakePaymentCommand}"
+                                Content="Pay"
+                                Foreground="White"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+
+                        <Button Height="35"
+                                Margin="0,25,0,0"
+                                HorizontalAlignment="Stretch"
+                                md:ButtonAssist.CornerRadius="3"
+                                Background="Gray"
+                                BorderThickness="0"
+                                Command="{x:Static md:Transitioner.MovePreviousCommand}"
+                                Foreground="White"
+                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
+                            <StackPanel Orientation="Horizontal">
+                                <md:PackIcon Width="20"
+                                             Height="20"
+                                             Kind="ArrowLeft" />
+                                <TextBlock Margin="5,0,0,0"
+                                           VerticalAlignment="Center"
+                                           Text="Details" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
                 </Grid>
             </md:TransitionerSlide>
         </md:Transitioner>
