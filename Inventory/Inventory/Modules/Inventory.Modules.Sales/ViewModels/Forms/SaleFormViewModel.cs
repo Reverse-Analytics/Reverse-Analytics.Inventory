@@ -50,6 +50,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
+        private decimal _discountTotal;
+        public decimal DiscountTotal
+        {
+            get => _discountTotal;
+            set => SetProperty(ref _discountTotal, value);
+        }
+
         private decimal _debtAmount;
         public decimal DebtAmount
         {
@@ -184,19 +191,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             try
             {
                 var details = new List<SaleDetailDto>();
-                var discountTotal = AddedProducts.Sum(x => x.CalculateDiscountAmount());
                 var result = await _dialogService.ShowConfirmation();
-
-                AddedProducts.ForEach(x =>
-                {
-                    details.Add(new SaleDetailDto
-                    {
-                        Quantity = x.Quantity,
-                        Discount = x.Discount,
-                        UnitPrice = x.UnitPrice,
-                        ProductId = x.ProductId,
-                    });
-                });
 
                 if (!result) return;
 
@@ -207,20 +202,20 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                     SaleDetails = new List<SaleDetailDto>(details),
                     TotalDue = TotalDue,
                     TotalPaid = PaymentAmount,
-                    DiscountTotal = discountTotal,
+                    DiscountTotal = DiscountTotal,
                     SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
                     Comment = Comments,
                     Status = DebtAmount == 0 ?
                         ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
                         ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
-                    Receipt = Guid.NewGuid().ToString().Substring(0, 5)
+                    Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
                 };
 
                 DialogHost.Close(RegionNames.DialogRegion, sale);
             }
             catch (Exception ex)
             {
-                await _dialogService.ShowError("Error completing payment.", ex.Message);
+                await _dialogService.ShowError("Error completing sale.", ex.Message);
             }
         }
 
@@ -231,6 +226,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         private void OnSaleDetailChanged(object sender, EventArgs e)
         {
             TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
+            DiscountTotal = AddedProducts.Sum(x => x.CalculateDiscountAmount());
         }
 
         #endregion

@@ -477,7 +477,7 @@
                                Margin="0,15,15,0"
                                HorizontalAlignment="Right"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Text="{Binding TotalDue, StringFormat=N2}" />
+                               Text="{Binding DiscountTotal, StringFormat=N2}" />
 
                     <TextBlock Grid.Row="5"
                                Grid.Column="1"
