@@ -319,7 +319,7 @@
                                                          BorderBrush="LightGray"
                                                          FontWeight="SemiBold"
                                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                         Text="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+                                                         Text="{Binding TotalPriceWithDiscount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
                                                 <Button Grid.Row="1"
                                                         Grid.Column="5"
@@ -463,7 +463,7 @@
                                Margin="0,15,15,0"
                                HorizontalAlignment="Right"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Text="{Binding TotalDue, StringFormat=N2}" />
+                               Text="{Binding TotalDueWithDiscount, StringFormat=N2}" />
 
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"

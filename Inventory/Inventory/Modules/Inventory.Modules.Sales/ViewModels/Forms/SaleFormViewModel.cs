@@ -37,6 +37,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
+        private decimal _totalDueWithDiscount = 0;
+        public decimal TotalDueWithDiscount
+        {
+            get => _totalDueWithDiscount;
+            set => SetProperty(ref _totalDueWithDiscount, value);
+        }
+
         private decimal _paymentAmount;
         public decimal PaymentAmount
         {
@@ -46,7 +53,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 if (value > _totalDue) value = _totalDue;
 
                 SetProperty(ref _paymentAmount, value);
-                DebtAmount = TotalDue - value;
+                DebtAmount = TotalDueWithDiscount - value;
             }
         }
 
@@ -226,7 +233,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         private void OnSaleDetailChanged(object sender, EventArgs e)
         {
             TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
-            DiscountTotal = AddedProducts.Sum(x => x.CalculateDiscountAmount());
+            TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
+            DiscountTotal = AddedProducts.Sum(x => x.CalculateTotalDiscount());
         }
 
         #endregion
@@ -279,6 +287,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _totalPrice, value);
         }
 
+        private decimal _totalPriceWithDiscount;
+        public decimal TotalPriceWithDiscount
+        {
+            get => _totalPriceWithDiscount;
+            set => SetProperty(ref _totalPriceWithDiscount, value);
+        }
+
         private ProductDto _product;
         public ProductDto Product
         {
@@ -290,16 +305,17 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             TotalPrice = Quantity * UnitPrice;
 
-            if (Discount > 0 && TotalPrice > 0)
+            // Calculate discount total
+            if (UnitPrice > 0)
             {
                 var discount = (TotalPrice * (decimal)Discount) / 100;
-                TotalPrice -= discount;
+                TotalPriceWithDiscount = TotalPrice - discount;
             }
         }
 
-        public decimal CalculateDiscountAmount()
+        public decimal CalculateTotalDiscount()
         {
-            if (Discount > 0 && TotalPrice > 0)
+            if (UnitPrice > 0 && Discount > 0)
                 return (TotalPrice * (decimal)Discount) / 100;
 
             return 0;
