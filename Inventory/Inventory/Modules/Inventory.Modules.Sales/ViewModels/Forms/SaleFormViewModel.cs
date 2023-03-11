@@ -34,7 +34,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _paymentAmount;
             set
             {
-                if (value > _totalDue) return;
+                if (value > _totalDue) value = _totalDue;
 
                 SetProperty(ref _paymentAmount, value);
                 DebtAmount = TotalDue - value;
@@ -60,6 +60,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             get => _canMoveToProducts;
             set => SetProperty(ref _canMoveToProducts, value);
+        }
+
+        private bool _canMoveToPayment = false;
+        public bool CanMoveToPayment
+        {
+            get => _canMoveToPayment;
+            set => SetProperty(ref _canMoveToPayment, value);
         }
 
         public ProductDto SelectedProduct { get; set; }
@@ -146,7 +153,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
                 AddedProducts.Add(saleDetail);
 
-
+                CanMoveToPayment = true;
             }
             catch (Exception ex)
             {
@@ -159,6 +166,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             if (detail is null) return;
 
             AddedProducts.Remove(detail);
+
+            CanMoveToPayment = AddedProducts.Count > 0;
         }
     }
 
