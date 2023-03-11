@@ -181,11 +181,13 @@
                            GridLinesVisibility="Horizontal"
                            HeaderLinesVisibility="Horizontal"
                            HeaderRowHeight="40"
+                           HideEmptyGridViewDefinition="True"
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
                            RowHoverHighlightingBrush="#ebebeb"
                            RowSelectionBrush="#ebebeb"
-                           ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                           ScrollViewer.VerticalScrollBarVisibility="Auto"
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.DetailsViewDefinition>
@@ -296,6 +298,30 @@
                                                 <TextBlock Margin="10,0,0,0"
                                                            FontSize="14"
                                                            Text="Edit" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="PrinterOutline" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Print" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="CashRefund" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           FontSize="14"
+                                                           Text="Refund" />
                                             </StackPanel>
                                         </Button>
                                         <Button Command="{Binding Path=DataContext.ArchiveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
