@@ -105,6 +105,7 @@
                                 BorderThickness="0"
                                 Command="{x:Static md:Transitioner.MoveNextCommand}"
                                 Foreground="White"
+                                IsEnabled="{Binding CanMoveToProducts}"
                                 Style="{StaticResource MaterialDesignFlatAccentBgButton}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Margin="0,0,5,0"

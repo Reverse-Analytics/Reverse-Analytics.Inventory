@@ -55,8 +55,25 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _selectedDate, value);
         }
 
+        private bool _canMoveToProducts = false;
+        public bool CanMoveToProducts
+        {
+            get => _canMoveToProducts;
+            set => SetProperty(ref _canMoveToProducts, value);
+        }
+
         public ProductDto SelectedProduct { get; set; }
-        public CustomerDto SelectedCustomer { get; set; }
+
+        private CustomerDto _selectedCustomer;
+        public CustomerDto SelectedCustomer
+        {
+            get => _selectedCustomer;
+            set
+            {
+                SetProperty(ref _selectedCustomer, value);
+                CanMoveToProducts = value != null;
+            }
+        }
 
         public ObservableCollection<ProductDto> Products { get; private set; }
         public ObservableCollection<CustomerDto> Customers { get; private set; }
@@ -128,6 +145,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 saleDetail.PropertyChanged += OnSaleDetailChanged;
 
                 AddedProducts.Add(saleDetail);
+
+
             }
             catch (Exception ex)
             {
