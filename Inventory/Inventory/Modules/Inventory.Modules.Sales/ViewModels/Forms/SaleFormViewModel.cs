@@ -197,7 +197,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             try
             {
-                var details = new List<SaleDetailDto>();
                 var result = await _dialogService.ShowConfirmation();
 
                 if (!result) return;
@@ -206,7 +205,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 {
                     CustomerId = SelectedCustomer.Id,
                     SaleDate = SelectedDate,
-                    SaleDetails = new List<SaleDetailDto>(details),
+                    SaleDetails = GetSaleDetails(),
                     TotalDue = TotalDue,
                     TotalPaid = PaymentAmount,
                     DiscountTotal = DiscountTotal,
@@ -224,6 +223,17 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             {
                 await _dialogService.ShowError("Error completing sale.", ex.Message);
             }
+        }
+
+        private List<SaleDetailDto> GetSaleDetails()
+        {
+            return AddedProducts.Select(x => new SaleDetailDto
+            {
+                ProductId = x.ProductId,
+                Discount = x.Discount,
+                Quantity = x.Quantity,
+                UnitPrice = x.UnitPrice,
+            }).ToList();
         }
 
         #endregion
