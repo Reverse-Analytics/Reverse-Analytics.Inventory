@@ -23,7 +23,7 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #region Services
 
-        private readonly ISaleService _service;
+        private readonly ISaleService _saleService;
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
         private readonly IDialogService _dialogService;
@@ -80,7 +80,7 @@ namespace Inventory.Modules.Sales.ViewModels
         {
             SelectedDate = DateTime.Now;
 
-            _service = service;
+            _saleService = service;
             _productService = productService;
             _customerService = customerService;
             _dialogService = dialogService;
@@ -100,7 +100,7 @@ namespace Inventory.Modules.Sales.ViewModels
             {
                 IsBusy = true;
 
-                var sales = await _service.GetAllSales();
+                var sales = await _saleService.GetAllSales();
                 var currentDateSales = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
 
                 _sales.AddRange(sales);
@@ -132,10 +132,12 @@ namespace Inventory.Modules.Sales.ViewModels
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-                if (result is null)
+                if (result is not SaleForCreateDto saleToCreate)
                 {
                     return;
                 }
+
+                await _saleService.CreateSale(saleToCreate);
             }
             catch (Exception ex)
             {
