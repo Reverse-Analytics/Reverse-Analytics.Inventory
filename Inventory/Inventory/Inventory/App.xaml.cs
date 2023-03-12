@@ -1,5 +1,4 @@
-﻿using Inventory.Core.Dialogs;
-using Inventory.Modules.Customers;
+﻿using Inventory.Modules.Customers;
 using Inventory.Modules.Dashboard;
 using Inventory.Modules.Dialogs;
 using Inventory.Modules.Production;
@@ -36,8 +35,6 @@ namespace Inventory
             containerRegistry.RegisterScoped<IDebtService, DebtService>();
             containerRegistry.RegisterScoped<ISaleService, SaleService>();
             containerRegistry.RegisterSingleton<RestClientBase>();
-
-            containerRegistry.RegisterDialog<SuccessDialog, SuccessDialogViewModel>();
         }
 
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
