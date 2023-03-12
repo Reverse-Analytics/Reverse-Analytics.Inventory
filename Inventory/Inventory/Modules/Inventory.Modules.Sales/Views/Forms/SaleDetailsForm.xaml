@@ -1,0 +1,296 @@
+﻿<UserControl x:Class="Inventory.Modules.Sales.Views.Forms.SaleDetailsForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Sales.Views.Forms"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
+             mc:Ignorable="d">
+    <Grid Background="White">
+        <StackPanel Margin="50">
+            <TextBlock Text="{Binding CustomerName}" />
+
+            <TabControl>
+                <TabItem Cursor="Hand" Header="Details">
+                    <StackPanel Margin="0,25,0,0" Cursor="Arrow">
+                        <!--  1st row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Customer" />
+                            </Border>
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Sale Date" />
+                            </Border>
+                            <Border Width="345"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Salesman" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding CustomerFullName}" />
+                            </Border>
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding SaleDate}" />
+                            </Border>
+                            <Border Width="345"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Salesman}" />
+                            </Border>
+                        </StackPanel>
+
+                        <!--  2nd row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Total Due" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Paid Amount" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Discount" />
+                            </Border>
+                            <Border Width="255"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Debt Amount" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding TotalDue}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding PaidAmount}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Discount}" />
+                            </Border>
+                            <Border Width="255"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding DebtAmount}" />
+                            </Border>
+
+                        </StackPanel>
+
+                        <!--  3rd row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Receipt" />
+                            </Border>
+                            <Border Width="505"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Status" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="500"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Receipt}" />
+                            </Border>
+                            <Border Width="505"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Status}" />
+                            </Border>
+                        </StackPanel>
+
+                        <!--  4th row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="1005"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Comments" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="1005"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Comments}" />
+                            </Border>
+                        </StackPanel>
+
+                        <Button Width="115"
+                                Height="40"
+                                Margin="0,60,0,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom"
+                                BorderBrush="Gray"
+                                Command="{Binding CancelCommand}"
+                                Content="Close"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+                    </StackPanel>
+                </TabItem>
+                <TabItem Cursor="Hand" Header="Consolidated report">
+                    <StackPanel Margin="0,25,0,0">
+                        <sf:SfDataGrid x:Name="customersDataGrid"
+                                       HorizontalAlignment="Stretch"
+                                       VerticalAlignment="Top"
+                                       AllowRowHoverHighlighting="True"
+                                       AllowSorting="True"
+                                       AutoGenerateColumns="False"
+                                       Background="White"
+                                       BorderBrush="LightGray"
+                                       BorderThickness="1"
+                                       CanUseViewFilter="True"
+                                       ColumnSizer="Star"
+                                       CurrentCellBorderThickness="0"
+                                       FontSize="14"
+                                       GridLinesVisibility="Horizontal"
+                                       HeaderLinesVisibility="Horizontal"
+                                       HeaderRowHeight="40"
+                                       ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
+                                       RowHeight="35"
+                                       RowHoverHighlightingBrush="#ebebeb"
+                                       RowSelectionBrush="#ebebeb"
+                                       SelectionMode="Single"
+                                       SelectionUnit="Row">
+                            <sf:SfDataGrid.HeaderStyle>
+                                <Style TargetType="sf:GridHeaderCellControl">
+                                    <Setter Property="Background" Value="#f7f7f7" />
+                                    <Setter Property="Foreground" Value="Black" />
+                                </Style>
+                            </sf:SfDataGrid.HeaderStyle>
+                            <sf:SfDataGrid.Columns>
+                                <sf:GridTextColumn HeaderText="Sale Id"
+                                                   MappingName="Id"
+                                                   TextAlignment="Center" />
+                                <sf:GridTextColumn VerticalAlignment="Center"
+                                                   HeaderText="Date"
+                                                   HorizontalHeaderContentAlignment="Right"
+                                                   MappingName="SaleDate"
+                                                   TextAlignment="Right" />
+                                <sf:GridTextColumn HeaderText="Total Due"
+                                                   HorizontalHeaderContentAlignment="Right"
+                                                   MappingName="TotalDue"
+                                                   TextAlignment="Right" />
+                                <sf:GridNumericColumn Padding="0,0,15,0"
+                                                      HeaderText="Total Paid"
+                                                      HorizontalHeaderContentAlignment="Right"
+                                                      MappingName="TotalPaid"
+                                                      NumberDecimalDigits="2"
+                                                      TextAlignment="Right" />
+                            </sf:SfDataGrid.Columns>
+                        </sf:SfDataGrid>
+
+                        <sf:SfDataPager x:Name="dataPager"
+                                        Margin="0,5,0,0"
+                                        HorizontalAlignment="Center"
+                                        PageSize="10"
+                                        Source="{Binding Sales}" />
+                    </StackPanel>
+                </TabItem>
+            </TabControl>
+        </StackPanel>
+    </Grid>
+</UserControl>
