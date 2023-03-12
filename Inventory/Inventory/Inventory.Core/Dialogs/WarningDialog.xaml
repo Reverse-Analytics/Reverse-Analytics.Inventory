@@ -1,7 +1,8 @@
-﻿<UserControl x:Class="Inventory.Core.Dialogs.ConfirmationDialog"
+﻿<UserControl x:Class="Inventory.Core.Dialogs.WarningDialog"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Core.Dialogs"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d">
@@ -18,7 +19,7 @@
                            FontSize="16"
                            FontWeight="SemiBold"
                            Style="{StaticResource MaterialDesignTextBlock}"
-                           Text="Confirm action." />
+                           Text="Warning." />
             </StackPanel>
 
 
@@ -45,8 +46,8 @@
                 </Button>
                 <Button Width="75"
                         HorizontalAlignment="Stretch"
-                        Background="#82ce34"
-                        BorderBrush="#82ce34"
+                        Background="#ec3d78"
+                        BorderBrush="#ec3d78"
                         Command="{x:Static md:DialogHost.CloseDialogCommand}"
                         Content="Accept"
                         Foreground="White"
