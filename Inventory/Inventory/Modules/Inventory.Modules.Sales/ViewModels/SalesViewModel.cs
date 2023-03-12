@@ -14,7 +14,6 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 
 namespace Inventory.Modules.Sales.ViewModels
 {
@@ -60,11 +59,12 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #region Commands
 
-        public ICommand DetailsCommand { get; }
-        public ICommand AddCommand { get; }
-        public ICommand UpdateCommand { get; }
-        public ICommand ArchiveCommand { get; }
-        public ICommand DeleteCommand { get; }
+        public DelegateCommand<SaleDto> DetailsCommand { get; }
+        public DelegateCommand<SaleDto> AddCommand { get; }
+        public DelegateCommand<SaleDto> UpdateCommand { get; }
+        public DelegateCommand<SaleDto> DeleteCommand { get; }
+        public DelegateCommand<SaleDto> PrintReceiptCommand { get; }
+        public DelegateCommand<SaleDto> MakeRefundCommand { get; }
 
         #endregion
 
@@ -85,7 +85,12 @@ namespace Inventory.Modules.Sales.ViewModels
             _customerService = customerService;
             _dialogService = dialogService;
 
-            AddCommand = new DelegateCommand(OnAddSale);
+            DetailsCommand = new DelegateCommand<SaleDto>(OnShowDetails);
+            AddCommand = new DelegateCommand<SaleDto>(OnAddSale);
+            UpdateCommand = new DelegateCommand<SaleDto>(OnUpdateSale);
+            DeleteCommand = new DelegateCommand<SaleDto>(OnDeleteSale);
+            PrintReceiptCommand = new DelegateCommand<SaleDto>(OnPrintReceipt);
+            MakeRefundCommand = new DelegateCommand<SaleDto>(OnMakeRefund);
 
             Sales = new ObservableCollection<SaleDto>();
             _sales = new List<SaleDto>();
@@ -94,31 +99,14 @@ namespace Inventory.Modules.Sales.ViewModels
             LoadSales().ConfigureAwait(false);
         }
 
-        private async Task LoadSales()
+        #region Command methods
+
+        private async void OnShowDetails(SaleDto selectedSale)
         {
-            try
-            {
-                IsBusy = true;
 
-                var sales = await _saleService.GetAllSales();
-                var currentDateSales = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
-
-                _sales.AddRange(sales);
-                Sales.AddRange(currentDateSales);
-                var customers = sales.Select(x => x.Customer).Distinct().ToList();
-                Customers.AddRange(customers);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
         }
 
-        private async void OnAddSale()
+        private async void OnAddSale(SaleDto selectedSale)
         {
             try
             {
@@ -142,6 +130,54 @@ namespace Inventory.Modules.Sales.ViewModels
             catch (Exception ex)
             {
                 await _dialogService.ShowError(ex.Message);
+            }
+        }
+
+        public async void OnUpdateSale(SaleDto selectedSale)
+        {
+
+        }
+
+        public async void OnDeleteSale(SaleDto selectedSale)
+        {
+
+        }
+
+        public async void OnPrintReceipt(SaleDto selectedSale)
+        {
+
+        }
+
+        public async void OnMakeRefund(SaleDto selectedSale)
+        {
+
+        }
+
+        #endregion
+
+        #region Helper methods
+
+        private async Task LoadSales()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var sales = await _saleService.GetAllSales();
+                var currentDateSales = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
+
+                _sales.AddRange(sales);
+                Sales.AddRange(currentDateSales);
+                var customers = sales.Select(x => x.Customer).Distinct().ToList();
+                Customers.AddRange(customers);
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
             }
         }
 
@@ -178,5 +214,7 @@ namespace Inventory.Modules.Sales.ViewModels
 
             Sales.AddRange(sales);
         }
+
+        #endregion
     }
 }

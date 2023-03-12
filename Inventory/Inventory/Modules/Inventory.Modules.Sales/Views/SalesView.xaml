@@ -300,7 +300,7 @@
                                                            Text="Edit" />
                                             </StackPanel>
                                         </Button>
-                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.PrintReceiptCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
@@ -312,7 +312,7 @@
                                                            Text="Print" />
                                             </StackPanel>
                                         </Button>
-                                        <Button Command="{Binding Path=DataContext.UpdateCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.MakeRefundCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
@@ -322,18 +322,6 @@
                                                 <TextBlock Margin="10,0,0,0"
                                                            FontSize="14"
                                                            Text="Refund" />
-                                            </StackPanel>
-                                        </Button>
-                                        <Button Command="{Binding Path=DataContext.ArchiveCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                                Style="{StaticResource MoreOptionsButton}">
-                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                                <md:PackIcon Width="16"
-                                                             Height="16"
-                                                             Kind="ArchiveOutline" />
-                                                <TextBlock Margin="10,0,0,0"
-                                                           FontSize="14"
-                                                           Text="Archive" />
                                             </StackPanel>
                                         </Button>
                                         <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
