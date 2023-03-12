@@ -231,9 +231,9 @@
                                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
                 </TabItem>
-                <TabItem Cursor="Hand" Header="Consolidated report">
+                <TabItem Cursor="Hand" Header="Products">
                     <StackPanel Margin="0,25,0,0">
-                        <sf:SfDataGrid x:Name="customersDataGrid"
+                        <sf:SfDataGrid x:Name="saleDetailsDataGrid"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Top"
                                        AllowRowHoverHighlighting="True"
@@ -262,20 +262,24 @@
                                 </Style>
                             </sf:SfDataGrid.HeaderStyle>
                             <sf:SfDataGrid.Columns>
-                                <sf:GridTextColumn HeaderText="Sale Id"
-                                                   MappingName="Id"
+                                <sf:GridTextColumn HeaderText="Product"
+                                                   MappingName="Product.ProductName"
                                                    TextAlignment="Center" />
                                 <sf:GridTextColumn VerticalAlignment="Center"
-                                                   HeaderText="Date"
+                                                   HeaderText="Unit Price"
                                                    HorizontalHeaderContentAlignment="Right"
-                                                   MappingName="SaleDate"
+                                                   MappingName="Unit Price"
                                                    TextAlignment="Right" />
-                                <sf:GridTextColumn HeaderText="Total Due"
+                                <sf:GridTextColumn HeaderText="Quantity"
+                                                   HorizontalHeaderContentAlignment="Right"
+                                                   MappingName="TotalDue"
+                                                   TextAlignment="Right" />
+                                <sf:GridTextColumn HeaderText="Discount"
                                                    HorizontalHeaderContentAlignment="Right"
                                                    MappingName="TotalDue"
                                                    TextAlignment="Right" />
                                 <sf:GridNumericColumn Padding="0,0,15,0"
-                                                      HeaderText="Total Paid"
+                                                      HeaderText="Total Due"
                                                       HorizontalHeaderContentAlignment="Right"
                                                       MappingName="TotalPaid"
                                                       NumberDecimalDigits="2"
@@ -287,7 +291,7 @@
                                         Margin="0,5,0,0"
                                         HorizontalAlignment="Center"
                                         PageSize="10"
-                                        Source="{Binding Sales}" />
+                                        Source="{Binding Products}" />
                     </StackPanel>
                 </TabItem>
             </TabControl>
