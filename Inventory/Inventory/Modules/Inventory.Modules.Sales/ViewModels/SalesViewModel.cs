@@ -103,7 +103,19 @@ namespace Inventory.Modules.Sales.ViewModels
 
         private async void OnShowDetails(SaleDto selectedSale)
         {
+            try
+            {
+                var view = new SaleDetailsForm()
+                {
+                    DataContext = new SaleDetailsFormViewModel(selectedSale)
+                };
 
+                await DialogHost.Show(view, RegionNames.DialogRegion);
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error while showing details", ex.Message);
+            }
         }
 
         private async void OnAddSale(SaleDto selectedSale)
