@@ -7,6 +7,7 @@ using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
 using ReverseAnalytics.Domain.DTOs.Customer;
+using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.Sale;
 using System;
 using System.Collections.Generic;
@@ -71,6 +72,8 @@ namespace Inventory.Modules.Sales.ViewModels
         #region Collections
 
         private readonly List<SaleDto> _sales;
+        private readonly List<ProductDto> _products;
+        private readonly List<CustomerDto> _customers;
         public ObservableCollection<SaleDto> Sales { get; private set; }
         public ObservableCollection<CustomerDto> Customers { get; private set; }
 
@@ -92,8 +95,10 @@ namespace Inventory.Modules.Sales.ViewModels
             PrintReceiptCommand = new DelegateCommand<SaleDto>(OnPrintReceipt);
             MakeRefundCommand = new DelegateCommand<SaleDto>(OnMakeRefund);
 
-            Sales = new ObservableCollection<SaleDto>();
             _sales = new List<SaleDto>();
+            _customers = new List<CustomerDto>();
+            _products = new List<ProductDto>();
+            Sales = new ObservableCollection<SaleDto>();
             Customers = new ObservableCollection<CustomerDto>();
 
             LoadSales().ConfigureAwait(false);
@@ -122,12 +127,9 @@ namespace Inventory.Modules.Sales.ViewModels
         {
             try
             {
-                var customers = await _customerService.GetCustomersAsync();
-                var products = await _productService.GetProductsAsync();
-
                 var view = new SaleForm()
                 {
-                    DataContext = new SaleFormViewModel(customers.ToList(), products.ToList(), _dialogService)
+                    DataContext = new SaleFormViewModel(_customers, _products, _dialogService)
                 };
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
@@ -147,7 +149,28 @@ namespace Inventory.Modules.Sales.ViewModels
 
         public async void OnUpdateSale(SaleDto selectedSale)
         {
+            try
+            {
+                var view = new SaleForm()
+                {
+                    DataContext = new SaleFormViewModel(_customers, _products, _dialogService, selectedSale)
+                };
 
+                var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+                if (result is not SaleForUpdateDto saleToUpdate)
+                {
+                    return;
+                }
+
+                await _saleService.UpdateSale(saleToUpdate);
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error opening dialog.", ex.Message);
+            }
         }
 
         public async void OnDeleteSale(SaleDto selectedSale)
@@ -175,13 +198,31 @@ namespace Inventory.Modules.Sales.ViewModels
             {
                 IsBusy = true;
 
-                var sales = await _saleService.GetAllSales();
-                var currentDateSales = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
+                var retreiveSales = Task.Run(async () =>
+                {
+                    var sales = await _saleService.GetAllSales();
 
-                _sales.AddRange(sales);
-                Sales.AddRange(currentDateSales);
-                var customers = sales.Select(x => x.Customer).Distinct().ToList();
-                Customers.AddRange(customers);
+                    var salesForCurrentDate = sales.Where(x => x.SaleDate.Date == DateTime.Now.Date).ToList();
+
+                    _sales.AddRange(sales);
+
+                    Sales.AddRange(salesForCurrentDate);
+                    Customers.AddRange(_customers);
+                });
+
+                var retreiveProducts = Task.Run(async () =>
+                {
+                    var products = await _productService.GetProductsAsync();
+                    _products.AddRange(products);
+                });
+
+                var retreiveCustomers = Task.Run(async () =>
+                {
+                    var customers = await _customerService.GetCustomersAsync();
+                    _customers.AddRange(customers);
+                });
+
+                await Task.WhenAll(retreiveCustomers, retreiveProducts, retreiveCustomers);
             }
             catch (Exception ex)
             {
