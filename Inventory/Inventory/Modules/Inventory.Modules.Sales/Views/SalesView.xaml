@@ -114,7 +114,6 @@
                       Cursor="Hand"
                       DisplayMemberPath="FullName"
                       IsEditable="True"
-                      IsEnabled="{Binding Path=IsChecked, ElementName=OutlinedComboBoxEnabledCheckBox}"
                       ItemsSource="{Binding Customers}"
                       SelectedValue="{Binding SelectedCustomer}"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}">
