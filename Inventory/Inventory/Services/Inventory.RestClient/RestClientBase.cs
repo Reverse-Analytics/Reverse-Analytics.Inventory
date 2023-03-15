@@ -5,8 +5,8 @@ namespace Inventory.RestClient
 {
     public class RestClientBase
     {
-        private const string urlBase = "https://wpqmn9m6-7231.euw.devtunnels.ms/api";
-        //private const string urlBase = "https://d3vxvbnt-7231.euw.devtunnels.ms/api";
+        // private const string urlBase = "https://wpqmn9m6-7231.euw.devtunnels.ms/api";
+        private const string urlBase = "https://d3vxvbnt-7231.euw.devtunnels.ms/api";
         //private const string urlBase = "https://mj6vmt9t-7231.asse.devtunnels.ms/api";
         private readonly HttpClient client;
 
@@ -27,26 +27,34 @@ namespace Inventory.RestClient
 
         public async Task<HttpResponseMessage?> Post(string url, string json)
         {
-            var request = new HttpRequestMessage(HttpMethod.Post, $"{client.BaseAddress?.AbsoluteUri}/{url}");
-            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.SendAsync(request);
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(5));
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{client.BaseAddress?.AbsoluteUri}/{url}")
+            {
+                Content = new StringContent(json, Encoding.UTF8, "application/json")
+            };
+            var response = await client.SendAsync(request, cts.Token);
 
             return response;
         }
 
         public async Task<HttpResponseMessage?> Put(string url, string json)
         {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(5));
             var request = new HttpRequestMessage(HttpMethod.Put, $"{client.BaseAddress?.AbsoluteUri}/{url}");
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
-            var response = await client.SendAsync(request);
+            var response = await client.SendAsync(request, cts.Token);
 
             return response;
         }
 
         public async Task<HttpResponseMessage?> Delete(string url)
         {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(5));
             var request = new HttpRequestMessage(HttpMethod.Delete, $"{client.BaseAddress?.AbsoluteUri}/{url}");
-            var response = await client.SendAsync(request);
+            var response = await client.SendAsync(request, cts.Token);
 
             return response;
         }
