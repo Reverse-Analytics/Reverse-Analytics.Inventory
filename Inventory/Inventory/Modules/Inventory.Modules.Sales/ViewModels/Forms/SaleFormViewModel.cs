@@ -149,6 +149,25 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             MakePaymentCommand = new DelegateCommand(OnMakePayment);
         }
 
+        public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService, SaleDto sale)
+            : this(customers, products, dialogService)
+        {
+            SelectedCustomer = sale.Customer;
+            SelectedDate = sale.SaleDate;
+            sale.Details.ForEach(x => AddedProducts.Add(new SaleDetail()
+            {
+                Discount = x.Discount,
+                Product = x.Product,
+                Quantity = x.Quantity,
+                UnitPrice = x.UnitPrice,
+                ProductId = x.ProductId
+            }));
+            Comments = sale.Comment;
+            TotalDue = sale.TotalDue;
+            PaymentAmount = sale.TotalPaid;
+            TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
+        }
+
         #region Command methods
 
         public async void OnAddProduct()
@@ -262,6 +281,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             {
                 SetProperty(ref _unitPrice, value);
                 CalculateTotalPrice();
+                CalculateTotalDiscount();
             }
         }
 
@@ -273,6 +293,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             {
                 SetProperty(ref _quantity, value);
                 CalculateTotalPrice();
+                CalculateTotalDiscount();
             }
         }
 
@@ -286,6 +307,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 {
                     SetProperty(ref _discount, value);
                     CalculateTotalPrice();
+                    CalculateTotalDiscount();
                 }
             }
         }
