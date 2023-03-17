@@ -177,6 +177,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             PaymentAmount = sale.TotalPaid;
             TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
             IsDatePickerEnabled = false;
+            CanMoveToPayment = true;
         }
 
         #region Command methods
