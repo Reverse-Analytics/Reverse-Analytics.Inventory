@@ -82,7 +82,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public DateTime SelectedDate
         {
             get => _selectedDate;
-            set => SetProperty(ref _selectedDate, value);
+            set
+            {
+                SetProperty(ref _selectedDate, value);
+                CanMoveToProducts = value >= DateTime.Now;
+            }
         }
 
         private ProductDto _selectedProduct;
@@ -152,7 +156,9 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService, SaleDto sale)
             : this(customers, products, dialogService)
         {
-            SelectedCustomer = sale.Customer;
+            Customers = new ObservableCollection<CustomerDto>(customers);
+
+            SelectedCustomer = Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             SelectedDate = sale.SaleDate;
             sale.Details.ForEach(x => AddedProducts.Add(new SaleDetail()
             {

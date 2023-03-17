@@ -222,7 +222,7 @@ namespace Inventory.Modules.Sales.ViewModels
                     _customers.AddRange(customers);
                 });
 
-                await Task.WhenAll(retreiveCustomers, retreiveProducts, retreiveCustomers);
+                await Task.WhenAll(retreiveCustomers, retreiveProducts, retreiveSales);
             }
             catch (Exception ex)
             {
