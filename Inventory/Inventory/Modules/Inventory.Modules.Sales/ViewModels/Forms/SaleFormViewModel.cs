@@ -82,11 +82,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public DateTime SelectedDate
         {
             get => _selectedDate;
-            set
-            {
-                SetProperty(ref _selectedDate, value);
-                CanMoveToProducts = value >= DateTime.Now;
-            }
+            set => SetProperty(ref _selectedDate, value);
         }
 
         private ProductDto _selectedProduct;
@@ -121,6 +117,12 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _canMoveToPayment, value);
         }
 
+        private bool _isDatePickerEnabled = true;
+        public bool IsDatePickerEnabled
+        {
+            get => _isDatePickerEnabled;
+            set => SetProperty(ref _isDatePickerEnabled, value);
+        }
         #endregion
 
         #region Commands
@@ -133,8 +135,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         #region Collections
 
-        public ObservableCollection<ProductDto> Products { get; private set; }
-        public ObservableCollection<CustomerDto> Customers { get; private set; }
+        public List<ProductDto> Products { get; private set; }
+        public List<CustomerDto> Customers { get; private set; }
         public ObservableCollection<SaleDetail> AddedProducts { get; private set; }
 
         #endregion
@@ -143,8 +145,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             _dialogService = dialogService;
 
-            Products = new ObservableCollection<ProductDto>(products);
-            Customers = new ObservableCollection<CustomerDto>(customers);
+            Products = products;
+            Customers = customers;
             AddedProducts = new ObservableCollection<SaleDetail>();
             AddedProducts.CollectionChanged += OnSaleDetailChanged;
 
@@ -156,7 +158,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService, SaleDto sale)
             : this(customers, products, dialogService)
         {
-            Customers = new ObservableCollection<CustomerDto>(customers);
+            Customers = customers;
 
             SelectedCustomer = Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             SelectedDate = sale.SaleDate;
@@ -172,6 +174,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             TotalDue = sale.TotalDue;
             PaymentAmount = sale.TotalPaid;
             TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
+            IsDatePickerEnabled = false;
         }
 
         #region Command methods

@@ -89,6 +89,7 @@
                                 HorizontalAlignment="Left"
                                 md:CalendarAssist.IsHeaderVisible="False"
                                 md:HintAssist.Hint="Select Date"
+                                IsEnabled="{Binding IsDatePickerEnabled}"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}">
                         <DatePicker.SelectedDate>
                             <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
