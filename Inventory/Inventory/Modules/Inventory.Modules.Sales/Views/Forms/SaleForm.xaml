@@ -536,7 +536,7 @@
                                 md:ButtonAssist.CornerRadius="3"
                                 Background="Gray"
                                 BorderThickness="0"
-                                Command="{x:Static md:Transitioner.MovePreviousCommand}"
+                                Command="{Binding CancelCommand}"
                                 Foreground="White"
                                 Style="{StaticResource MaterialDesignFlatAccentBgButton}">
                             <StackPanel Orientation="Horizontal">

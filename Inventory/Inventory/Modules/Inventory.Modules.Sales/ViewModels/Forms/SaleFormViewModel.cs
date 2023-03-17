@@ -130,6 +130,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public DelegateCommand AddProductCommand { get; private set; }
         public DelegateCommand<SaleDetail> RemoveProductCommand { get; private set; }
         public DelegateCommand MakePaymentCommand { get; private set; }
+        public DelegateCommand CancelCommand { get; private set; }
 
         #endregion
 
@@ -153,6 +154,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             AddProductCommand = new DelegateCommand(OnAddProduct);
             RemoveProductCommand = new DelegateCommand<SaleDetail>(OnRemoveProduct);
             MakePaymentCommand = new DelegateCommand(OnMakePayment);
+            CancelCommand = new DelegateCommand(OnCancel);
         }
 
         public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService, SaleDto sale)
@@ -262,6 +264,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 Quantity = x.Quantity,
                 UnitPrice = x.UnitPrice,
             }).ToList();
+        }
+
+        private void OnCancel()
+        {
+            DialogHost.Close(RegionNames.DialogRegion);
         }
 
         #endregion
