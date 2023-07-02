@@ -2,6 +2,7 @@
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
 using ReverseAnalytics.Domain.DTOs.Sale;
+using ReverseAnalytics.Domain.DTOs.SaleDetail;
 
 namespace Inventory.Services
 {
@@ -17,6 +18,7 @@ namespace Inventory.Services
 
         public async Task<SaleDto> CreateSale(SaleForCreateDto saleToCreate)
         {
+            saleToCreate.SaleDetails = new List<SaleDetailDto>();
             var json = JsonConvert.SerializeObject(saleToCreate);
 
             var response = await _client.Post(url, json);

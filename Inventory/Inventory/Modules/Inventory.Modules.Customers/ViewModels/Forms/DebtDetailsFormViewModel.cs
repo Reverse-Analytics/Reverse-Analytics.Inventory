@@ -19,7 +19,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 
         public ICommand CloseCommand { get; }
 
-        public DebtDetailsFormViewModel(DebtDto debt)
+        public DebtDetailsFormViewModel(SaleDebtDto debt)
         {
             ArgumentNullException.ThrowIfNull(debt);
 

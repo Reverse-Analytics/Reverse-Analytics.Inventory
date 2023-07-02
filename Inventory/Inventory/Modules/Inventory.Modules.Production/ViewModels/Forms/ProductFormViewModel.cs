@@ -4,6 +4,7 @@ using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using ReverseAnalytics.Domain.DTOs.Product;
 using ReverseAnalytics.Domain.DTOs.ProductCategory;
+using ReverseAnalytics.Domain.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -121,9 +122,9 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             Code = productToUpdate.ProductCode;
             Volume = productToUpdate.Volume ?? 0;
             Weight = productToUpdate.Weight ?? 0;
-            IncomePrice = productToUpdate.SupplyPrice;
+            IncomePrice = productToUpdate.SupplyPrice ?? 0;
             SalePrice = productToUpdate.SalePrice;
-            categoryId = productToUpdate.CategoryId;
+            categoryId = productToUpdate.Category?.Id ?? 0;
 
             Title = "Update Product";
         }
@@ -148,32 +149,16 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         {
             if (IsEditingMode)
             {
-                var productToUpdate = new ProductForUpdateDto()
-                {
-                    Id = productId,
-                    ProductName = Name,
-                    ProductCode = Code,
-                    Volume = Volume,
-                    Weight = Weight,
-                    SupplyPrice = IncomePrice,
-                    SalePrice = SalePrice,
-                    CategoryId = SelectedCategory.Id
-                };
+                var productToUpdate = new ProductForUpdateDto(productId, Name, Code, null,
+                    SalePrice, IncomePrice, 1, Volume, Weight,
+                    UnitOfMeasurement.Kg, categoryId);
 
                 DialogHost.Close("RootDialog", productToUpdate);
             }
             else
             {
-                var product = new ProductForCreateDto()
-                {
-                    ProductName = Name,
-                    ProductCode = Code,
-                    Volume = Volume,
-                    Weight = Weight,
-                    SupplyPrice = IncomePrice,
-                    SalePrice = SalePrice,
-                    CategoryId = SelectedCategory.Id
-                };
+                var product = new ProductForCreateDto(Name, Code, null, SalePrice, IncomePrice, 1, Volume, Weight,
+                    UnitOfMeasurement.Kg, categoryId);
 
                 DialogHost.Close("RootDialog", product);
             }

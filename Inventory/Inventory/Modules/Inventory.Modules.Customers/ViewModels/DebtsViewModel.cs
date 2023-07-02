@@ -6,7 +6,7 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.Debt;
+using ReverseAnalytics.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -18,13 +18,13 @@ namespace Inventory.Modules.Customers.ViewModels
 {
     public class DebtsViewModel : ViewModelBase, IRegionMemberLifetime
     {
-        private readonly IDebtService _debtService;
+        private readonly ISaleDebtService _debtService;
         private readonly IDialogService _dialogService;
 
         public bool KeepAlive => false;
 
-        private List<DebtDto> debts;
-        public ObservableCollection<DebtDto> FilteredDebts { get; }
+        private List<SaleSaleDebtDto> debts;
+        public ObservableCollection<SaleSaleDebtDto> FilteredDebts { get; }
         public ObservableCollection<string> Statuses { get; }
 
         private string _selectedStatus;
@@ -37,17 +37,17 @@ namespace Inventory.Modules.Customers.ViewModels
         public ICommand MakePaymentCommand { get; }
         public ICommand ShowDetailsCommand { get; }
 
-        public DebtsViewModel(IDebtService service, IDialogService dialogService)
+        public DebtsViewModel(ISaleDebtService debtService, IDialogService dialogService)
         {
-            _debtService = service;
+            _debtService = debtService;
             _dialogService = dialogService;
 
-            debts = new List<DebtDto>();
-            FilteredDebts = new ObservableCollection<DebtDto>();
+            debts = new List<SaleSaleDebtDto>();
+            FilteredDebts = new ObservableCollection<SaleSaleDebtDto>();
             Statuses = new ObservableCollection<string>();
 
-            MakePaymentCommand = new DelegateCommand<DebtDto>(OnMakePayment);
-            ShowDetailsCommand = new DelegateCommand<DebtDto>(OnShowDetails);
+            MakePaymentCommand = new DelegateCommand<SaleSaleDebtDto>(OnMakePayment);
+            ShowDetailsCommand = new DelegateCommand<SaleSaleDebtDto>(OnShowDetails);
 
             LoadDebts();
         }
@@ -79,7 +79,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnShowDetails(DebtDto debt)
+        private async void OnShowDetails(SaleSaleDebtDto debt)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnMakePayment(DebtDto debt)
+        private async void OnMakePayment(SaleSaleDebtDto debt)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async Task ShowPaymentForm(DebtDto debt)
+        private async Task ShowPaymentForm(SaleSaleDebtDto debt)
         {
             var view = new DebtPaymentForm
             {
@@ -115,7 +115,7 @@ namespace Inventory.Modules.Customers.ViewModels
             await DialogHost.Show(view, RegionNames.DialogRegion);
         }
 
-        private async Task ShowDetailsForm(DebtDto debt)
+        private async Task ShowDetailsForm(SaleSaleDebtDto debt)
         {
             var view = new DebtDetailsForm()
             {

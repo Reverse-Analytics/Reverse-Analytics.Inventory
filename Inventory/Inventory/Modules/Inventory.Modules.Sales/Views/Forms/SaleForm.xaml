@@ -512,8 +512,8 @@
                              VerticalAlignment="Top"
                              md:HintAssist.Hint="Enter comments"
                              AcceptsReturn="True"
-                             IsEnabled="{Binding Path=IsChecked, ElementName=MaterialDesignOutlinedTextBoxEnabledComboBox}"
                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                             Text="{Binding Comments}"
                              TextWrapping="Wrap"
                              VerticalScrollBarVisibility="Auto" />
 
@@ -536,7 +536,7 @@
                                 md:ButtonAssist.CornerRadius="3"
                                 Background="Gray"
                                 BorderThickness="0"
-                                Command="{Binding CancelCommand}"
+                                Command="{x:Static md:Transitioner.MovePreviousCommand}"
                                 Foreground="White"
                                 Style="{StaticResource MaterialDesignFlatAccentBgButton}">
                             <StackPanel Orientation="Horizontal">

@@ -2,7 +2,7 @@
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Debt;
+using ReverseAnalytics.Domain.DTOs.SaleDebt;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
@@ -35,12 +35,12 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             set => SetProperty(ref _leftOver, value);
         }
 
-        public DebtPaymentFormViewModel(DebtDto debt)
+        public DebtPaymentFormViewModel(SaleDebtDto debt)
         {
             SaleId = debt.Id;
-            TotalAmount = debt.Amount;
+            TotalAmount = debt.TotalDue;
             AmountToPay = 0;
-            LeftOver = debt.Amount - 0;
+            LeftOver = debt.TotalDue - 0;
 
             CloseCommand = new DelegateCommand(() => DialogHost.Close(RegionNames.DialogRegion));
         }

@@ -41,7 +41,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal TotalDueWithDiscount
         {
             get => _totalDueWithDiscount;
-            set => SetProperty(ref _totalDueWithDiscount, value);
+            set
+            {
+                SetProperty(ref _totalDueWithDiscount, value);
+                DebtAmount = value - PaymentAmount;
+            }
         }
 
         private decimal _paymentAmount;
@@ -123,6 +127,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _isDatePickerEnabled;
             set => SetProperty(ref _isDatePickerEnabled, value);
         }
+
+        private readonly bool isEditingMode = false;
         #endregion
 
         #region Commands
@@ -176,8 +182,10 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             TotalDue = sale.TotalDue;
             PaymentAmount = sale.TotalPaid;
             TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
+
             IsDatePickerEnabled = false;
             CanMoveToPayment = true;
+            isEditingMode = true;
         }
 
         #region Command methods
@@ -232,23 +240,47 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
                 if (!result) return;
 
-                var sale = new SaleForCreateDto
+                if (isEditingMode)
                 {
-                    CustomerId = SelectedCustomer.Id,
-                    SaleDate = SelectedDate,
-                    SaleDetails = GetSaleDetails(),
-                    TotalDue = TotalDue,
-                    TotalPaid = PaymentAmount,
-                    DiscountTotal = DiscountTotal,
-                    SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
-                    Comment = Comments,
-                    Status = DebtAmount == 0 ?
+                    var sale = new SaleForUpdateDto
+                    {
+                        CustomerId = SelectedCustomer.Id,
+                        SaleDate = SelectedDate,
+                        DiscountPercentage = 10,
+                        TotalDue = TotalDue,
+                        TotalPaid = PaymentAmount,
+                        DiscountTotal = DiscountTotal,
+                        SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
+                        Comment = Comments,
+                        Status = DebtAmount == 0 ?
                         ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
                         ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
-                    Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
-                };
+                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
+                    };
 
-                DialogHost.Close(RegionNames.DialogRegion, sale);
+                    DialogHost.Close(RegionNames.DialogRegion, sale);
+                }
+                else
+                {
+                    var sale = new SaleForCreateDto
+                    {
+                        CustomerId = SelectedCustomer.Id,
+                        SaleDate = SelectedDate,
+                        SaleDetails = GetSaleDetails(),
+                        DiscountPercentage = 10,
+                        TotalDue = TotalDue,
+                        TotalPaid = PaymentAmount,
+                        DiscountTotal = DiscountTotal,
+                        SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
+                        Comment = Comments,
+                        Status = DebtAmount == 0 ?
+                        ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
+                        ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
+                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
+                    };
+
+                    DialogHost.Close(RegionNames.DialogRegion, sale);
+                }
             }
             catch (Exception ex)
             {

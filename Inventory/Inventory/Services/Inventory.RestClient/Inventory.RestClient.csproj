@@ -10,4 +10,10 @@
     <PackageReference Include="EntityFramework" Version="6.4.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="ReverseAnalytics.Domain">
+      <HintPath>..\..\Inventory.Core\Libs\ReverseAnalytics.Domain.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
