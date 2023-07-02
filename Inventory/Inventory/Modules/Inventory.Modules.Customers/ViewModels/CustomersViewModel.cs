@@ -63,14 +63,14 @@ namespace Inventory.Modules.Customers.ViewModels
             _customerService = customerService;
             _dialogService = dialogService;
 
-            DetailsCommand = new DelegateCommand<CustomerDto>(OnShowDetails);
+            DetailsCommand = new DelegateCommand<Customer>(OnShowDetails);
             AddCommand = new DelegateCommand(OnAddCustomer);
-            UpdateCommand = new DelegateCommand<CustomerDto>(OnUpdateCustomer);
+            UpdateCommand = new DelegateCommand<Customer>(OnUpdateCustomer);
             ArchiveCommand = new DelegateCommand(OnArchiveCustomer);
-            DeleteCommand = new DelegateCommand<CustomerDto>(OnDeleteCustomer);
+            DeleteCommand = new DelegateCommand<Customer>(OnDeleteCustomer);
 
-            customers = new List<CustomerDto>();
-            FilteredCustomers = new ObservableCollection<CustomerDto>();
+            customers = new List<Customer>();
+            FilteredCustomers = new ObservableCollection<Customer>();
             Companies = new ObservableCollection<string>();
 
             LoadCustomers();
@@ -88,7 +88,7 @@ namespace Inventory.Modules.Customers.ViewModels
 
                 if (result == null) return;
 
-                var companies = result.Select(x => x.CompanyName)
+                var companies = result.Select(x => x.Company)
                     .Distinct()
                     .ToList();
 
@@ -224,11 +224,11 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnShowDetails(Customer customerDto)
+        private async void OnShowDetails(Customer customer)
         {
             var view = new CustomerDetailsForm()
             {
-                DataContext = new CustomerDetailsFormViewModel(customerDto)
+                DataContext = new CustomerDetailsFormViewModel(customer)
             };
 
             await DialogHost.Show(view, "RootDialog");
@@ -259,7 +259,7 @@ namespace Inventory.Modules.Customers.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            return result as CustomerForUpdateDto;
+            return result as Customer;
         }
 
         #endregion

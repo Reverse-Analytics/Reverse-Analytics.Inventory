@@ -1,8 +1,7 @@
-﻿using Inventory.RestClient;
+﻿using Inventory.Core.Models;
+using Inventory.RestClient;
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
-using ReverseAnalytics.Domain.DTOs.Sale;
-using ReverseAnalytics.Domain.DTOs.SaleDetail;
 
 namespace Inventory.Services
 {
@@ -16,9 +15,9 @@ namespace Inventory.Services
             _client = client;
         }
 
-        public async Task<SaleDto> CreateSale(SaleForCreateDto saleToCreate)
+        public async Task<Sale> CreateSale(Sale saleToCreate)
         {
-            saleToCreate.SaleDetails = new List<SaleDetailDto>();
+            saleToCreate.OrderDetails = new List<SaleDetail>();
             var json = JsonConvert.SerializeObject(saleToCreate);
 
             var response = await _client.Post(url, json);
@@ -29,7 +28,7 @@ namespace Inventory.Services
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<SaleDto>(jsonResponse);
+            var result = JsonConvert.DeserializeObject<Sale>(jsonResponse);
 
             if (result is null)
             {
@@ -49,7 +48,7 @@ namespace Inventory.Services
             }
         }
 
-        public async Task<IEnumerable<SaleDto>> GetAllSales()
+        public async Task<IEnumerable<Sale>> GetAllSales()
         {
             var response = await _client.Get(url);
 
@@ -59,12 +58,12 @@ namespace Inventory.Services
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IEnumerable<SaleDto>>(jsonResponse);
+            var result = JsonConvert.DeserializeObject<IEnumerable<Sale>>(jsonResponse);
 
-            return result ?? Enumerable.Empty<SaleDto>();
+            return result ?? Enumerable.Empty<Sale>();
         }
 
-        public async Task<SaleDto> GetById(int id)
+        public async Task<Sale> GetById(int id)
         {
             var response = await _client.Get($"{url}/{id}");
 
@@ -74,7 +73,7 @@ namespace Inventory.Services
             }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<SaleDto>(jsonResponse);
+            var result = JsonConvert.DeserializeObject<Sale>(jsonResponse);
 
             if (result is null)
             {
@@ -84,7 +83,7 @@ namespace Inventory.Services
             return result;
         }
 
-        public async Task UpdateSale(SaleForUpdateDto saleToUpdate)
+        public async Task UpdateSale(Sale saleToUpdate)
         {
             var json = JsonConvert.SerializeObject(saleToUpdate);
 

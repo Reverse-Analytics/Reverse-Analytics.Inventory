@@ -21,5 +21,11 @@ namespace Inventory.Core.Models
             CategoryName = categoryName;
             Products = new List<Product>();
         }
+
+        public ProductCategory(int id, string categoryName)
+        {
+            Id = id;
+            CategoryName = categoryName;
+        }
     }
 }

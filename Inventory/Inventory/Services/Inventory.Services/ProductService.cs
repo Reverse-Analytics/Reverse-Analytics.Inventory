@@ -1,7 +1,7 @@
-﻿using Inventory.RestClient;
+﻿using Inventory.Core.Models;
+using Inventory.RestClient;
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
-using ReverseAnalytics.Domain.DTOs.Product;
 
 namespace Inventory.Services
 {
@@ -14,10 +14,10 @@ namespace Inventory.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<ProductDto>?> GetProductsAsync()
+        public async Task<IEnumerable<Product>?> GetProductsAsync()
         {
             var response = await _client.Get("products?pageSize=0&pageNumber=0");
-            IEnumerable<ProductDto>? products = null;
+            IEnumerable<Product>? products = null;
 
             if (response is not null && response.IsSuccessStatusCode)
             {
@@ -25,20 +25,20 @@ namespace Inventory.Services
                 JsonSerializerSettings settings = new JsonSerializerSettings();
                 settings.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
 
-                products = JsonConvert.DeserializeObject<IEnumerable<ProductDto>>(json, settings)?.ToList();
+                products = JsonConvert.DeserializeObject<IEnumerable<Product>>(json, settings)?.ToList();
             }
 
-            return products ?? Enumerable.Empty<ProductDto>();
+            return products ?? Enumerable.Empty<Product>();
         }
 
-        public async Task<ProductDto?> GetProductByIdAsync(int productId)
+        public async Task<Product?> GetProductByIdAsync(int productId)
         {
             var response = await _client.Get($"products/{productId}");
-            
+
             if (response is not null && response.IsSuccessStatusCode)
             {
                 var jsonReponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ProductDto?>(jsonReponse);
+                return JsonConvert.DeserializeObject<Product?>(jsonReponse);
             }
             else
             {
@@ -46,15 +46,15 @@ namespace Inventory.Services
             }
         }
 
-        public async Task<ProductDto?> CreateProductAsync(ProductForCreateDto productToCreate)
+        public async Task<Product?> CreateProductAsync(Product productToCreate)
         {
             var json = JsonConvert.SerializeObject(productToCreate);
             var response = await _client.Post("products", json);
 
-            if(response is not null && response.IsSuccessStatusCode)
+            if (response is not null && response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ProductDto>(jsonResponse);
+                return JsonConvert.DeserializeObject<Product>(jsonResponse);
             }
             else
             {
@@ -62,12 +62,12 @@ namespace Inventory.Services
             }
         }
 
-        public async Task UpdateProductAsync(ProductForUpdateDto productToUpdate)
+        public async Task UpdateProductAsync(Product productToUpdate)
         {
             var json = JsonConvert.SerializeObject(productToUpdate);
             var response = await _client.Put($"products/{productToUpdate.Id}", json);
 
-            if(response is null || !response.IsSuccessStatusCode)
+            if (response is null || !response.IsSuccessStatusCode)
             {
                 throw new Exception(response?.Content.ToString());
             }

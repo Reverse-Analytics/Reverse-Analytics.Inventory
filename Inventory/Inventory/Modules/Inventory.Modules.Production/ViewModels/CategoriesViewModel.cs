@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Production.ViewModels.Forms;
 using Inventory.Modules.Production.Views.CategoryDialogs;
@@ -7,7 +8,6 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -41,8 +41,8 @@ namespace Inventory.Modules.Production.ViewModels
 
         #region Collections
 
-        private List<ProductCategoryDto> _categoriesList;
-        public ObservableCollection<ProductCategoryDto> Categories { get; set; }
+        private List<ProductCategory> _categoriesList;
+        public ObservableCollection<ProductCategory> Categories { get; set; }
 
         #endregion
 
@@ -58,16 +58,16 @@ namespace Inventory.Modules.Production.ViewModels
 
         public CategoriesViewModel(ICategorySerivce categorySerivce, IDialogService dialogService)
         {
-            Categories = new ObservableCollection<ProductCategoryDto>();
+            Categories = new ObservableCollection<ProductCategory>();
 
             _categoryService = categorySerivce;
             _dialogService = dialogService;
 
             AddCommand = new DelegateCommand(OnAddCategory);
-            UpdateCommand = new DelegateCommand<ProductCategoryDto>(OnUpdate);
-            DeleteCommand = new DelegateCommand<ProductCategoryDto>(OnDelete);
-            ArchiveCommand = new DelegateCommand<ProductCategoryDto>(OnArchive);
-            ShowDetailsCommand = new DelegateCommand<ProductCategoryDto>(OnShowDetails);
+            UpdateCommand = new DelegateCommand<ProductCategory>(OnUpdate);
+            DeleteCommand = new DelegateCommand<ProductCategory>(OnDelete);
+            ArchiveCommand = new DelegateCommand<ProductCategory>(OnArchive);
+            ShowDetailsCommand = new DelegateCommand<ProductCategory>(OnShowDetails);
 
             LoadCategories();
         }
@@ -81,7 +81,7 @@ namespace Inventory.Modules.Production.ViewModels
                 IsBusy = true;
 
                 var categories = await _categoryService.GetCategoriesAsync();
-                _categoriesList = new List<ProductCategoryDto>(categories);
+                _categoriesList = new List<ProductCategory>(categories);
 
                 Categories.AddRange(categories);
             }
@@ -134,7 +134,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnUpdate(ProductCategoryDto selectedCategory)
+        private async void OnUpdate(ProductCategory selectedCategory)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnDelete(ProductCategoryDto selectedCategory)
+        private async void OnDelete(ProductCategory selectedCategory)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnArchive(ProductCategoryDto selectedCategory)
+        private async void OnArchive(ProductCategory selectedCategory)
         {
             try
             {
@@ -223,7 +223,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnShowDetails(ProductCategoryDto selectedCategory)
+        private async void OnShowDetails(ProductCategory selectedCategory)
         {
             var view = new CategoryDetailsForm()
             {
@@ -237,7 +237,7 @@ namespace Inventory.Modules.Production.ViewModels
 
         #region Helper methods
 
-        private static async Task<ProductCategoryForCreateDto> ShowAddCategoryForm()
+        private static async Task<ProductCategory> ShowAddCategoryForm()
         {
             var view = new CategoryForm()
             {
@@ -246,10 +246,10 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            return result as ProductCategoryForCreateDto;
+            return result as ProductCategory;
         }
 
-        private static async Task<ProductCategoryForUpdateDto> ShowUpdateCategoryForm(ProductCategoryDto categoryToUpdate)
+        private static async Task<ProductCategory> ShowUpdateCategoryForm(ProductCategory categoryToUpdate)
         {
             if (categoryToUpdate is null)
             {
@@ -263,7 +263,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            return result as ProductCategoryForUpdateDto;
+            return result as ProductCategory;
         }
 
         #endregion

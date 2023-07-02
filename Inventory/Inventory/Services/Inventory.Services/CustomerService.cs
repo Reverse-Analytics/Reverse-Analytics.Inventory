@@ -1,7 +1,7 @@
-﻿using Inventory.RestClient;
+﻿using Inventory.Core.Models;
+using Inventory.RestClient;
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
-using ReverseAnalytics.Domain.DTOs.Customer;
 
 namespace Inventory.Services
 {
@@ -15,7 +15,7 @@ namespace Inventory.Services
             _client = client;
         }
 
-        public async Task<IEnumerable<CustomerDto>?> GetCustomersAsync()
+        public async Task<IEnumerable<Customer>?> GetCustomersAsync()
         {
             var response = await _client.Get(url);
 
@@ -25,12 +25,12 @@ namespace Inventory.Services
             }
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<IEnumerable<CustomerDto>>(responseJson);
+            var result = JsonConvert.DeserializeObject<IEnumerable<Customer>>(responseJson);
 
             return result;
         }
 
-        public async Task<CustomerDto?> GetCustomerByIdAsync(int id)
+        public async Task<Customer?> GetCustomerByIdAsync(int id)
         {
             var response = await _client.Get($"{url}/{id}");
 
@@ -40,12 +40,12 @@ namespace Inventory.Services
             }
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<CustomerDto>(responseJson);
+            var result = JsonConvert.DeserializeObject<Customer>(responseJson);
 
             return result;
         }
 
-        public async Task<CustomerDto?> CreateCustomerAsync(CustomerForCreateDto customerToCreate)
+        public async Task<Customer?> CreateCustomerAsync(Customer customerToCreate)
         {
             var json = JsonConvert.SerializeObject(customerToCreate);
             var response = await _client.Post(url: url, json: json);
@@ -56,12 +56,12 @@ namespace Inventory.Services
             }
 
             var responseJson = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<CustomerDto>(responseJson);
+            var result = JsonConvert.DeserializeObject<Customer>(responseJson);
 
             return result;
         }
 
-        public async Task UpdateCustomerAsync(CustomerForUpdateDto customerToUpdate)
+        public async Task UpdateCustomerAsync(Customer customerToUpdate)
         {
             var json = JsonConvert.SerializeObject(customerToUpdate);
             var response = await _client.Put($"{url}/{customerToUpdate.Id}", json);

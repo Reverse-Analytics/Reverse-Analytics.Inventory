@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Customers.ViewModels.Forms;
 using Inventory.Modules.Customers.Views.Forms;
@@ -6,7 +7,6 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.Interfaces.Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,8 +23,8 @@ namespace Inventory.Modules.Customers.ViewModels
 
         public bool KeepAlive => false;
 
-        private List<SaleSaleDebtDto> debts;
-        public ObservableCollection<SaleSaleDebtDto> FilteredDebts { get; }
+        private List<SaleDebt> debts;
+        public ObservableCollection<SaleDebt> FilteredDebts { get; }
         public ObservableCollection<string> Statuses { get; }
 
         private string _selectedStatus;
@@ -42,12 +42,12 @@ namespace Inventory.Modules.Customers.ViewModels
             _debtService = debtService;
             _dialogService = dialogService;
 
-            debts = new List<SaleSaleDebtDto>();
-            FilteredDebts = new ObservableCollection<SaleSaleDebtDto>();
+            debts = new List<SaleDebt>();
+            FilteredDebts = new ObservableCollection<SaleDebt>();
             Statuses = new ObservableCollection<string>();
 
-            MakePaymentCommand = new DelegateCommand<SaleSaleDebtDto>(OnMakePayment);
-            ShowDetailsCommand = new DelegateCommand<SaleSaleDebtDto>(OnShowDetails);
+            MakePaymentCommand = new DelegateCommand<SaleDebt>(OnMakePayment);
+            ShowDetailsCommand = new DelegateCommand<SaleDebt>(OnShowDetails);
 
             LoadDebts();
         }
@@ -63,7 +63,7 @@ namespace Inventory.Modules.Customers.ViewModels
                 Statuses.Add("Payment required");
                 Statuses.Add("Due soon");
 
-                var result = await _debtService.GetDebtsAsync();
+                var result = await _debtService.GetSaleDebtsAsync();
 
                 debts.AddRange(result);
                 FilteredDebts.AddRange(result);
@@ -79,7 +79,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnShowDetails(SaleSaleDebtDto debt)
+        private async void OnShowDetails(SaleDebt debt)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnMakePayment(SaleSaleDebtDto debt)
+        private async void OnMakePayment(SaleDebt debt)
         {
             try
             {
@@ -105,7 +105,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async Task ShowPaymentForm(SaleSaleDebtDto debt)
+        private async Task ShowPaymentForm(SaleDebt debt)
         {
             var view = new DebtPaymentForm
             {
@@ -115,7 +115,7 @@ namespace Inventory.Modules.Customers.ViewModels
             await DialogHost.Show(view, RegionNames.DialogRegion);
         }
 
-        private async Task ShowDetailsForm(SaleSaleDebtDto debt)
+        private async Task ShowDetailsForm(SaleDebt debt)
         {
             var view = new DebtDetailsForm()
             {

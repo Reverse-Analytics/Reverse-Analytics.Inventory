@@ -1,7 +1,7 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Debt;
 using System;
 using System.Windows.Input;
 
@@ -19,17 +19,17 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 
         public ICommand CloseCommand { get; }
 
-        public DebtDetailsFormViewModel(SaleDebtDto debt)
+        public DebtDetailsFormViewModel(SaleDebt debt)
         {
             ArgumentNullException.ThrowIfNull(debt);
 
             Customer = "John Doe";
             Salesman = "Smith Johnson";
             Status = "Paid";
-            DebtDate = debt.DebtDate;
             DueDate = debt.DueDate;
-            TotalAmount = debt.Amount;
-            Leftover = debt.Amount;
+            TotalAmount = debt.TotalDue;
+            Leftover = debt.TotalDue;
+            Status = debt.Status.ToString();
 
             CloseCommand = new DelegateCommand(OnClose);
         }

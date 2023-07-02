@@ -1,9 +1,8 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Customer;
-using ReverseAnalytics.Domain.DTOs.Sale;
 using System;
 using System.Collections.ObjectModel;
 
@@ -21,15 +20,15 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 
         public DelegateCommand CancelCommand { get; }
 
-        public ObservableCollection<SaleDto> Sales { get; set; }
+        public ObservableCollection<Sale> Sales { get; set; }
 
-        public CustomerDetailsFormViewModel(CustomerDto customer)
+        public CustomerDetailsFormViewModel(Customer customer)
         {
             ArgumentNullException.ThrowIfNull(customer, nameof(customer));
 
             Id = customer.Id;
             FullName = customer.FullName;
-            CompanyName = customer.CompanyName;
+            CompanyName = customer.Company;
             PhoneNumber = customer.PhoneNumber;
             Address = customer.Address;
             Balance = customer.Balance;

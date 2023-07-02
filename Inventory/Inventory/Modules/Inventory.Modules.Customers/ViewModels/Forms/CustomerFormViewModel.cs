@@ -1,7 +1,7 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core.Models;
+using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Customer;
 using System;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
@@ -38,7 +38,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             Title = "Add Customer";
         }
 
-        public CustomerFormViewModel(CustomerDto customer)
+        public CustomerFormViewModel(Customer customer)
             : this()
         {
             isEditingMode = true;
@@ -48,13 +48,13 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             Title = "Update Customer";
         }
 
-        private void InitializeProperties(CustomerDto customer)
+        private void InitializeProperties(Customer customer)
         {
             ArgumentNullException.ThrowIfNull(customer, nameof(customer));
 
             Id = customer.Id;
             FullName = customer.FullName;
-            CompanyName = customer.CompanyName;
+            CompanyName = customer.Company;
             Address = customer.Address;
             PhoneNumber = customer.PhoneNumber;
             Balance = customer.Balance;
@@ -67,11 +67,11 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         {
             if (isEditingMode)
             {
-                var updatedCustomer = new CustomerForUpdateDto()
+                var updatedCustomer = new Customer()
                 {
                     Id = Id,
                     FullName = FullName,
-                    CompanyName = CompanyName,
+                    Company = CompanyName,
                     Address = Address,
                     PhoneNumber = PhoneNumber,
                     Balance = Balance,
@@ -82,10 +82,10 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             }
             else
             {
-                var newCustomer = new CustomerForCreateDto()
+                var newCustomer = new Customer()
                 {
                     FullName = FullName,
-                    CompanyName = CompanyName,
+                    Company = CompanyName,
                     Address = Address,
                     PhoneNumber = PhoneNumber,
                     Balance = Balance,

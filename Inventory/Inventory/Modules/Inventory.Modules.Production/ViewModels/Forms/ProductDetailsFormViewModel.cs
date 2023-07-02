@@ -1,8 +1,8 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Product;
 using System;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
@@ -26,7 +26,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         public DelegateCommand CloseCommand { get; }
 
-        public ProductDetailsFormViewModel(ProductDto product)
+        public ProductDetailsFormViewModel(Product product)
         {
             ArgumentNullException.ThrowIfNull(product, nameof(product));
 
@@ -37,8 +37,8 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             NumberOfItems = product.Id;
             Volume = product.Volume ?? 0;
             Weight = product.Weight ?? 0;
-            IncomePrice = product.SupplyPrice;
-            SalePrice = product.SupplyPrice;
+            IncomePrice = product.SupplyPrice ?? 0;
+            SalePrice = product.SalePrice;
 
             CloseCommand = new DelegateCommand(OnClose);
         }

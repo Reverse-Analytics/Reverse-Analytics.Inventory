@@ -2,12 +2,11 @@
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Product;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
-using ReverseAnalytics.Domain.Enums;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using Inventory.Core.Models;
+using Inventory.Core.Enums;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
@@ -20,8 +19,8 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         private readonly bool IsEditingMode;
         private readonly int productId;
 
-        private ProductCategoryDto _selectedCategory;
-        public ProductCategoryDto SelectedCategory
+        private ProductCategory _selectedCategory;
+        public ProductCategory SelectedCategory
         {
             get => _selectedCategory;
             set
@@ -85,7 +84,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         #endregion
 
-        public ObservableCollection<ProductCategoryDto> Categories { get; }
+        public ObservableCollection<ProductCategory> Categories { get; }
 
         #region Commands
 
@@ -100,7 +99,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         {
             _categoryService = categorySerivce;
 
-            Categories = new ObservableCollection<ProductCategoryDto>();
+            Categories = new ObservableCollection<ProductCategory>();
 
             SaveCommand = new DelegateCommand(OnSave, CanSave);
             CancelCommand = new DelegateCommand(OnCancel);
@@ -110,7 +109,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             Title = "New Product";
         }
 
-        public ProductFormViewModel(ICategorySerivce categorySerivce, ProductDto productToUpdate)
+        public ProductFormViewModel(ICategorySerivce categorySerivce, Product productToUpdate)
             : this(categorySerivce)
         {
             ArgumentNullException.ThrowIfNull(productToUpdate, nameof(productToUpdate));
@@ -149,18 +148,37 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         {
             if (IsEditingMode)
             {
-                var productToUpdate = new ProductForUpdateDto(productId, Name, Code, null,
-                    SalePrice, IncomePrice, 1, Volume, Weight,
-                    UnitOfMeasurement.Kg, categoryId);
+                var productToUpdate = new Product()
+                {
+                    Id = productId,
+                    ProductName = Name,
+                    ProductCode = Code,
+                    SalePrice = SalePrice,
+                    SupplyPrice = IncomePrice,
+                    Volume = Volume,
+                    Weight = Weight,
+                    UnitOfMeasurement = UnitOfMeasurement.Kg,
+                    CategoryId = categoryId
+                };
+
 
                 DialogHost.Close("RootDialog", productToUpdate);
             }
             else
             {
-                var product = new ProductForCreateDto(Name, Code, null, SalePrice, IncomePrice, 1, Volume, Weight,
-                    UnitOfMeasurement.Kg, categoryId);
+                var productToCreate = new Product()
+                {
+                    ProductName = Name,
+                    ProductCode = Code,
+                    SalePrice = SalePrice,
+                    SupplyPrice = IncomePrice,
+                    Volume = Volume,
+                    Weight = Weight,
+                    UnitOfMeasurement = UnitOfMeasurement.Kg,
+                    CategoryId = categoryId
+                };
 
-                DialogHost.Close("RootDialog", product);
+                DialogHost.Close("RootDialog", productToCreate);
             }
         }
 

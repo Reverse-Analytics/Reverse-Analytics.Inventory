@@ -1,9 +1,8 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.Sale;
-using ReverseAnalytics.Domain.DTOs.SaleDetail;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,11 +21,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal DebtAmount { get; set; }
         public string Receipt { get; set; }
         public string Comments { get; set; }
-        public List<SaleDetailDto> SaleDetails { get; }
+        public List<Inventory.Core.Models.SaleDetail> SaleDetails { get; }
 
         public ICommand CloseCommand { get; }
 
-        public SaleDetailsFormViewModel(SaleDto sale)
+        public SaleDetailsFormViewModel(Sale sale)
         {
             CustomerFullName = sale.Customer.FullName;
             SaleDate = sale.SaleDate;

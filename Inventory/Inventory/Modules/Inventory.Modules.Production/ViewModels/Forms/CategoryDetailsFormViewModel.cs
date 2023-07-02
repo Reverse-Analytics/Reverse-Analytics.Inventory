@@ -1,8 +1,8 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System;
 using System.Windows.Input;
 
@@ -33,7 +33,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         public ICommand CloseCommand { get; }
 
-        public CategoryDetailsFormViewModel(ProductCategoryDto category)
+        public CategoryDetailsFormViewModel(ProductCategory category)
         {
             ArgumentNullException.ThrowIfNull(category, nameof(category));
 

@@ -1,8 +1,8 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.SaleDebt;
 using System.Windows.Input;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
@@ -35,7 +35,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             set => SetProperty(ref _leftOver, value);
         }
 
-        public DebtPaymentFormViewModel(SaleDebtDto debt)
+        public DebtPaymentFormViewModel(SaleDebt debt)
         {
             SaleId = debt.Id;
             TotalAmount = debt.TotalDue;

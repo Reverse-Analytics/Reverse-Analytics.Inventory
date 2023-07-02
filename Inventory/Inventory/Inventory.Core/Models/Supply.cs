@@ -1,8 +1,9 @@
-﻿using ReverseAnalytics.Domain.Common;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Inventory.Core.Models
 {
-    public class Supply 
+    public class Supply
     {
         public string? ReceivedBy { get; set; }
         public string? Comment { get; set; }

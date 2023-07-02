@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Sales.ViewModels.Forms;
 using Inventory.Modules.Sales.Views.Forms;
@@ -6,9 +7,6 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.Customer;
-using ReverseAnalytics.Domain.DTOs.Product;
-using ReverseAnalytics.Domain.DTOs.Sale;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,8 +43,8 @@ namespace Inventory.Modules.Sales.ViewModels
             }
         }
 
-        private CustomerDto _customer;
-        public CustomerDto SelectedCustomer
+        private Customer _customer;
+        public Customer SelectedCustomer
         {
             get => _customer;
             set
@@ -60,22 +58,22 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #region Commands
 
-        public DelegateCommand<SaleDto> DetailsCommand { get; }
-        public DelegateCommand<SaleDto> AddCommand { get; }
-        public DelegateCommand<SaleDto> UpdateCommand { get; }
-        public DelegateCommand<SaleDto> DeleteCommand { get; }
-        public DelegateCommand<SaleDto> PrintReceiptCommand { get; }
-        public DelegateCommand<SaleDto> MakeRefundCommand { get; }
+        public DelegateCommand<Sale> DetailsCommand { get; }
+        public DelegateCommand<Sale> AddCommand { get; }
+        public DelegateCommand<Sale> UpdateCommand { get; }
+        public DelegateCommand<Sale> DeleteCommand { get; }
+        public DelegateCommand<Sale> PrintReceiptCommand { get; }
+        public DelegateCommand<Sale> MakeRefundCommand { get; }
 
         #endregion
 
         #region Collections
 
-        private readonly List<SaleDto> _sales;
-        private readonly List<ProductDto> _products;
-        private readonly List<CustomerDto> _customers;
-        public ObservableCollection<SaleDto> Sales { get; private set; }
-        public ObservableCollection<CustomerDto> Customers { get; private set; }
+        private readonly List<Sale> _sales;
+        private readonly List<Product> _products;
+        private readonly List<Customer> _customers;
+        public ObservableCollection<Sale> Sales { get; private set; }
+        public ObservableCollection<Customer> Customers { get; private set; }
 
         #endregion
 
@@ -88,25 +86,25 @@ namespace Inventory.Modules.Sales.ViewModels
             _customerService = customerService;
             _dialogService = dialogService;
 
-            DetailsCommand = new DelegateCommand<SaleDto>(OnShowDetails);
-            AddCommand = new DelegateCommand<SaleDto>(OnAddSale);
-            UpdateCommand = new DelegateCommand<SaleDto>(OnUpdateSale);
-            DeleteCommand = new DelegateCommand<SaleDto>(OnDeleteSale);
-            PrintReceiptCommand = new DelegateCommand<SaleDto>(OnPrintReceipt);
-            MakeRefundCommand = new DelegateCommand<SaleDto>(OnMakeRefund);
+            DetailsCommand = new DelegateCommand<Sale>(OnShowDetails);
+            AddCommand = new DelegateCommand<Sale>(OnAddSale);
+            UpdateCommand = new DelegateCommand<Sale>(OnUpdateSale);
+            DeleteCommand = new DelegateCommand<Sale>(OnDeleteSale);
+            PrintReceiptCommand = new DelegateCommand<Sale>(OnPrintReceipt);
+            MakeRefundCommand = new DelegateCommand<Sale>(OnMakeRefund);
 
-            _sales = new List<SaleDto>();
-            _customers = new List<CustomerDto>();
-            _products = new List<ProductDto>();
-            Sales = new ObservableCollection<SaleDto>();
-            Customers = new ObservableCollection<CustomerDto>();
+            _sales = new List<Sale>();
+            _customers = new List<Customer>();
+            _products = new List<Product>();
+            Sales = new ObservableCollection<Sale>();
+            Customers = new ObservableCollection<Customer>();
 
             LoadSales().ConfigureAwait(false);
         }
 
         #region Command methods
 
-        private async void OnShowDetails(SaleDto selectedSale)
+        private async void OnShowDetails(Sale selectedSale)
         {
             try
             {
@@ -123,7 +121,7 @@ namespace Inventory.Modules.Sales.ViewModels
             }
         }
 
-        private async void OnAddSale(SaleDto selectedSale)
+        private async void OnAddSale(Sale selectedSale)
         {
             try
             {
@@ -134,7 +132,7 @@ namespace Inventory.Modules.Sales.ViewModels
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-                if (result is not SaleForCreateDto saleToCreate)
+                if (result is not Sale saleToCreate)
                 {
                     return;
                 }
@@ -147,7 +145,7 @@ namespace Inventory.Modules.Sales.ViewModels
             }
         }
 
-        public async void OnUpdateSale(SaleDto selectedSale)
+        public async void OnUpdateSale(Sale selectedSale)
         {
             try
             {
@@ -158,7 +156,7 @@ namespace Inventory.Modules.Sales.ViewModels
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-                if (result is not SaleForUpdateDto saleToUpdate)
+                if (result is not Sale saleToUpdate)
                 {
                     return;
                 }
@@ -173,17 +171,17 @@ namespace Inventory.Modules.Sales.ViewModels
             }
         }
 
-        public async void OnDeleteSale(SaleDto selectedSale)
+        public async void OnDeleteSale(Sale selectedSale)
         {
 
         }
 
-        public async void OnPrintReceipt(SaleDto selectedSale)
+        public async void OnPrintReceipt(Sale selectedSale)
         {
 
         }
 
-        public async void OnMakeRefund(SaleDto selectedSale)
+        public async void OnMakeRefund(Sale selectedSale)
         {
 
         }

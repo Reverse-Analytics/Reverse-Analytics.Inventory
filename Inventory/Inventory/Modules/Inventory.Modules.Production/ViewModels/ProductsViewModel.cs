@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Production.ViewModels.Forms;
 using Inventory.Modules.Production.Views.Forms;
@@ -6,8 +7,6 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.Product;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -30,16 +29,16 @@ namespace Inventory.Modules.Production.ViewModels
 
         #region Collections
 
-        public List<ProductDto> Products { get; private set; }
-        public ObservableCollection<ProductDto> FilteredProducts { get; private set; }
-        public ObservableCollection<ProductCategoryDto> Categories { get; private set; }
+        public List<Product> Products { get; private set; }
+        public ObservableCollection<Product> FilteredProducts { get; private set; }
+        public ObservableCollection<ProductCategory> Categories { get; private set; }
 
         #endregion
 
         #region Properties
 
-        private ProductCategoryDto _selectedCategory;
-        public ProductCategoryDto SelectedCategory
+        private ProductCategory _selectedCategory;
+        public ProductCategory SelectedCategory
         {
             get => _selectedCategory;
             set
@@ -72,22 +71,22 @@ namespace Inventory.Modules.Production.ViewModels
             _productService = productService;
             _dialogService = dialogService;
 
-            Products = new List<ProductDto>();
-            Categories = new ObservableCollection<ProductCategoryDto>();
-            FilteredProducts = new ObservableCollection<ProductDto>();
+            Products = new List<Product>();
+            Categories = new ObservableCollection<ProductCategory>();
+            FilteredProducts = new ObservableCollection<Product>();
 
             AddCommand = new DelegateCommand(OnAddProduct);
-            EditCommand = new DelegateCommand<ProductDto>(OnUpdateProduct);
-            DeleteCommand = new DelegateCommand<ProductDto>(OnDeleteProduct);
-            ArchiveCommand = new DelegateCommand<ProductDto>(OnArchiveProduct);
-            ShowDetailsCommand = new DelegateCommand<ProductDto>(OnShowDetails);
+            EditCommand = new DelegateCommand<Product>(OnUpdateProduct);
+            DeleteCommand = new DelegateCommand<Product>(OnDeleteProduct);
+            ArchiveCommand = new DelegateCommand<Product>(OnArchiveProduct);
+            ShowDetailsCommand = new DelegateCommand<Product>(OnShowDetails);
 
             LoadCollections();
         }
 
         #region Main methods
 
-        private void FilterProductsByCategory(ProductCategoryDto category)
+        private void FilterProductsByCategory(ProductCategory category)
         {
             if (category is null)
             {
@@ -162,7 +161,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnUpdateProduct(ProductDto selectedProduct)
+        private async void OnUpdateProduct(Product selectedProduct)
         {
             try
             {
@@ -187,7 +186,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnDeleteProduct(ProductDto selectedProduct)
+        private async void OnDeleteProduct(Product selectedProduct)
         {
             try
             {
@@ -217,7 +216,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnArchiveProduct(ProductDto selectedProduct)
+        private async void OnArchiveProduct(Product selectedProduct)
         {
             try
             {
@@ -243,7 +242,7 @@ namespace Inventory.Modules.Production.ViewModels
             }
         }
 
-        private async void OnShowDetails(ProductDto selectedProduct)
+        private async void OnShowDetails(Product selectedProduct)
         {
             try
             {
@@ -265,7 +264,7 @@ namespace Inventory.Modules.Production.ViewModels
 
         #region Helper methods
 
-        private async Task<ProductForCreateDto> ShowAddProductForm()
+        private async Task<Product> ShowAddProductForm()
         {
             var view = new ProductForm()
             {
@@ -274,10 +273,10 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, "RootDialog");
 
-            return result as ProductForCreateDto;
+            return result as Product;
         }
 
-        private async Task<ProductForUpdateDto> ShowUpdateProductForm(ProductDto product)
+        private async Task<Product> ShowUpdateProductForm(Product product)
         {
             var view = new ProductForm()
             {
@@ -286,7 +285,7 @@ namespace Inventory.Modules.Production.ViewModels
 
             var result = await DialogHost.Show(view, "RootDialog");
 
-            return result as ProductForUpdateDto;
+            return result as Product;
         }
 
         #endregion

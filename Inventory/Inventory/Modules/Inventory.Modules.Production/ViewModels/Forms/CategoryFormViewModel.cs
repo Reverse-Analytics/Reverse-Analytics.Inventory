@@ -1,7 +1,7 @@
-﻿using Inventory.Core.Mvvm;
+﻿using Inventory.Core.Models;
+using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
 using System;
 using System.Diagnostics;
 
@@ -47,7 +47,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             Title = "New Category";
         }
 
-        public CategoryFormViewModel(ProductCategoryDto categoryToUpdate)
+        public CategoryFormViewModel(ProductCategory categoryToUpdate)
             : this()
         {
             ArgumentNullException.ThrowIfNull(categoryToUpdate, nameof(categoryToUpdate));
@@ -66,12 +66,12 @@ namespace Inventory.Modules.Production.ViewModels.Forms
         {
             if (isEditingMode)
             {
-                var category = new ProductCategoryForUpdateDto(id, CategoryName);
+                var category = new ProductCategory(id, CategoryName);
                 DialogHost.Close("RootDialog", category);
             }
             else
             {
-                var category = new ProductCategoryForCreateDto(CategoryName);
+                var category = new ProductCategory(CategoryName);
                 DialogHost.Close("RootDialog", category);
             }
         }

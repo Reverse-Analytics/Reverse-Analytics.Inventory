@@ -1,13 +1,10 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Mvvm;
-using ReverseAnalytics.Domain.DTOs.Customer;
-using ReverseAnalytics.Domain.DTOs.Product;
-using ReverseAnalytics.Domain.DTOs.Sale;
-using ReverseAnalytics.Domain.DTOs.SaleDetail;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -89,15 +86,15 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _selectedDate, value);
         }
 
-        private ProductDto _selectedProduct;
-        public ProductDto SelectedProduct
+        private Product _selectedProduct;
+        public Product SelectedProduct
         {
             get => _selectedProduct;
             set => SetProperty(ref _selectedProduct, value);
         }
 
-        private CustomerDto _selectedCustomer;
-        public CustomerDto SelectedCustomer
+        private Customer _selectedCustomer;
+        public Customer SelectedCustomer
         {
             get => _selectedCustomer;
             set
@@ -142,13 +139,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         #region Collections
 
-        public List<ProductDto> Products { get; private set; }
-        public List<CustomerDto> Customers { get; private set; }
+        public List<Product> Products { get; private set; }
+        public List<Customer> Customers { get; private set; }
         public ObservableCollection<SaleDetail> AddedProducts { get; private set; }
 
         #endregion
 
-        public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService)
+        public SaleFormViewModel(List<Customer> customers, List<Product> products, IDialogService dialogService)
         {
             _dialogService = dialogService;
 
@@ -163,14 +160,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             CancelCommand = new DelegateCommand(OnCancel);
         }
 
-        public SaleFormViewModel(List<CustomerDto> customers, List<ProductDto> products, IDialogService dialogService, SaleDto sale)
+        public SaleFormViewModel(List<Customer> customers, List<Product> products, IDialogService dialogService, Sale sale)
             : this(customers, products, dialogService)
         {
             Customers = customers;
 
             SelectedCustomer = Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             SelectedDate = sale.SaleDate;
-            sale.Details.ForEach(x => AddedProducts.Add(new SaleDetail()
+            sale.OrderDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
             {
                 Discount = x.Discount,
                 Product = x.Product,
@@ -178,7 +175,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 UnitPrice = x.UnitPrice,
                 ProductId = x.ProductId
             }));
-            Comments = sale.Comment;
+            Comments = sale.Comments;
             TotalDue = sale.TotalDue;
             PaymentAmount = sale.TotalPaid;
             TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
@@ -242,19 +239,15 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
                 if (isEditingMode)
                 {
-                    var sale = new SaleForUpdateDto
+                    var sale = new Sale
                     {
                         CustomerId = SelectedCustomer.Id,
                         SaleDate = SelectedDate,
-                        DiscountPercentage = 10,
                         TotalDue = TotalDue,
                         TotalPaid = PaymentAmount,
-                        DiscountTotal = DiscountTotal,
-                        SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
-                        Comment = Comments,
-                        Status = DebtAmount == 0 ?
-                        ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
-                        ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
+                        TotalDiscount = DiscountTotal,
+                        SaleType = Core.Enums.SaleType.Retaile,
+                        Comments = Comments,
                         Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
                     };
 
@@ -262,20 +255,16 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 }
                 else
                 {
-                    var sale = new SaleForCreateDto
+                    var sale = new Sale
                     {
                         CustomerId = SelectedCustomer.Id,
                         SaleDate = SelectedDate,
-                        SaleDetails = GetSaleDetails(),
-                        DiscountPercentage = 10,
+                        OrderDetails = GetSaleDetails(),
                         TotalDue = TotalDue,
                         TotalPaid = PaymentAmount,
-                        DiscountTotal = DiscountTotal,
-                        SaleType = ReverseAnalytics.Domain.Enums.SaleType.Retaile,
-                        Comment = Comments,
-                        Status = DebtAmount == 0 ?
-                        ReverseAnalytics.Domain.Enums.TransactionStatus.Finished :
-                        ReverseAnalytics.Domain.Enums.TransactionStatus.Debt,
+                        TotalDiscount = DiscountTotal,
+                        SaleType = Core.Enums.SaleType.Retaile,
+                        Comments = Comments,
                         Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
                     };
 
@@ -288,9 +277,9 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        private List<SaleDetailDto> GetSaleDetails()
+        private List<Inventory.Core.Models.SaleDetail> GetSaleDetails()
         {
-            return AddedProducts.Select(x => new SaleDetailDto
+            return AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
             {
                 ProductId = x.ProductId,
                 Discount = x.Discount,
@@ -346,8 +335,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        private double _discount;
-        public double Discount
+        private decimal _discount;
+        public decimal Discount
         {
             get => _discount;
             set
@@ -375,8 +364,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _totalPriceWithDiscount, value);
         }
 
-        private ProductDto _product;
-        public ProductDto Product
+        private Product _product;
+        public Product Product
         {
             get => _product;
             set => SetProperty(ref _product, value);
