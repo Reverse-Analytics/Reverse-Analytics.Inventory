@@ -1,13 +1,13 @@
-﻿using ReverseAnalytics.Domain.DTOs.Customer;
+﻿using Inventory.Core.Models;
 
 namespace Inventory.Services.Interfaces
 {
     public interface ICustomerService
     {
-        public Task<IEnumerable<CustomerDto>?> GetCustomersAsync();
-        public Task<CustomerDto?> GetCustomerByIdAsync(int id);
-        public Task<CustomerDto?> CreateCustomerAsync(CustomerForCreateDto customerToCreate);
-        public Task UpdateCustomerAsync(CustomerForUpdateDto customerToUpdate);
+        public Task<IEnumerable<Customer>?> GetCustomersAsync();
+        public Task<Customer?> GetCustomerByIdAsync(int id);
+        public Task<Customer?> CreateCustomerAsync(Customer customerToCreate);
+        public Task UpdateCustomerAsync(Customer customerToUpdate);
         public Task DeleteCustomerAsync(int id);
     }
 }

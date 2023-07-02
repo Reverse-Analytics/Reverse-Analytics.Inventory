@@ -1,13 +1,13 @@
-﻿using ReverseAnalytics.Domain.DTOs.Sale;
+﻿using Inventory.Core.Models;
 
 namespace Inventory.Services.Interfaces
 {
     public interface ISaleService
     {
-        public Task<IEnumerable<SaleDto>> GetAllSales();
-        public Task<SaleDto> GetById(int id);
-        public Task<SaleDto> CreateSale(SaleForCreateDto saleToCreate);
-        public Task UpdateSale(SaleForUpdateDto saleToUpdate);
+        public Task<IEnumerable<Sale>> GetAllSales();
+        public Task<Sale> GetById(int id);
+        public Task<Sale> CreateSale(Sale saleToCreate);
+        public Task UpdateSale(Sale saleToUpdate);
         public Task DeleteSale(int id);
     }
 }

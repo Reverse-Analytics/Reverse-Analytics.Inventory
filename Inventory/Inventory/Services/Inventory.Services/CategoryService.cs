@@ -1,7 +1,7 @@
-﻿using Inventory.RestClient;
+﻿using Inventory.Core.Models;
+using Inventory.RestClient;
 using Inventory.Services.Interfaces;
 using Newtonsoft.Json;
-using ReverseAnalytics.Domain.DTOs.ProductCategory;
 
 namespace Inventory.Services
 {
@@ -14,33 +14,33 @@ namespace Inventory.Services
             _restClient = restClient;
         }
 
-        public async Task<IEnumerable<ProductCategoryDto>> GetCategoriesAsync()
+        public async Task<IEnumerable<ProductCategory>> GetCategoriesAsync()
         {
             var response = await _restClient.Get("categories");
-            IEnumerable<ProductCategoryDto>? result = null;
+            IEnumerable<ProductCategory>? result = null;
 
             if (response != null && response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                result = JsonConvert.DeserializeObject<IEnumerable<ProductCategoryDto>>(json)?.ToList();
+                result = JsonConvert.DeserializeObject<IEnumerable<ProductCategory>>(json)?.ToList();
             }
 
-            return result ?? Enumerable.Empty<ProductCategoryDto>();
+            return result ?? Enumerable.Empty<ProductCategory>();
         }
 
-        public async Task<ProductCategoryDto?> GetCategoryByIdAsync(int id)
+        public async Task<ProductCategory?> GetCategoryByIdAsync(int id)
         {
             var response = await _restClient.Get($"categories/{id}");
             if (response != null && response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ProductCategoryDto>(json);
+                return JsonConvert.DeserializeObject<ProductCategory>(json);
             }
 
             return null;
         }
 
-        public async Task<ProductCategoryDto?> CreateCategoryAsync(ProductCategoryForCreateDto categoryToCreate)
+        public async Task<ProductCategory?> CreateCategoryAsync(ProductCategory categoryToCreate)
         {
             var json = JsonConvert.SerializeObject(categoryToCreate);
 
@@ -48,13 +48,13 @@ namespace Inventory.Services
             if (response is not null && response.IsSuccessStatusCode)
             {
                 var jsonResponse = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<ProductCategoryDto>(jsonResponse);
+                return JsonConvert.DeserializeObject<ProductCategory>(jsonResponse);
             }
 
             return null;
         }
 
-        public async Task UpdateCategoryAsync(ProductCategoryForUpdateDto categoryToUpdate)
+        public async Task UpdateCategoryAsync(ProductCategory categoryToUpdate)
         {
             var json = JsonConvert.SerializeObject(categoryToUpdate);
 

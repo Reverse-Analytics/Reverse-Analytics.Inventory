@@ -1,13 +1,13 @@
-﻿using ReverseAnalytics.Domain.DTOs.ProductCategory;
+﻿using Inventory.Core.Models;
 
 namespace Inventory.Services.Interfaces
 {
     public interface ICategorySerivce
     {
-        public Task<IEnumerable<ProductCategoryDto>> GetCategoriesAsync();
-        public Task<ProductCategoryDto?> GetCategoryByIdAsync(int id);
-        public Task<ProductCategoryDto?> CreateCategoryAsync(ProductCategoryForCreateDto categoryToCreate);
-        public Task UpdateCategoryAsync(ProductCategoryForUpdateDto categoryToUpdate);
+        public Task<IEnumerable<ProductCategory>> GetCategoriesAsync();
+        public Task<ProductCategory?> GetCategoryByIdAsync(int id);
+        public Task<ProductCategory?> CreateCategoryAsync(ProductCategory categoryToCreate);
+        public Task UpdateCategoryAsync(ProductCategory categoryToUpdate);
         public Task DeleteCategoryAsync(int id);
     }
 }

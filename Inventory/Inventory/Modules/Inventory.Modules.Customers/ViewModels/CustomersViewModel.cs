@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Customers.ViewModels.Forms;
 using Inventory.Modules.Customers.Views.Forms;
@@ -6,7 +7,6 @@ using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using Prism.Regions;
-using ReverseAnalytics.Domain.DTOs.Customer;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -52,8 +52,8 @@ namespace Inventory.Modules.Customers.ViewModels
 
         #region Collections
 
-        private readonly List<CustomerDto> customers;
-        public ObservableCollection<CustomerDto> FilteredCustomers { get; private set; }
+        private readonly List<Customer> customers;
+        public ObservableCollection<Customer> FilteredCustomers { get; private set; }
         public ObservableCollection<string> Companies { get; private set; }
 
         #endregion
@@ -142,7 +142,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnUpdateCustomer(CustomerDto selectedCustomer)
+        private async void OnUpdateCustomer(Customer selectedCustomer)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnDeleteCustomer(CustomerDto selectedCustomer)
+        private async void OnDeleteCustomer(Customer selectedCustomer)
         {
             try
             {
@@ -224,7 +224,7 @@ namespace Inventory.Modules.Customers.ViewModels
             }
         }
 
-        private async void OnShowDetails(CustomerDto customerDto)
+        private async void OnShowDetails(Customer customerDto)
         {
             var view = new CustomerDetailsForm()
             {
@@ -238,7 +238,7 @@ namespace Inventory.Modules.Customers.ViewModels
 
         #region Helper methods
 
-        public async Task<CustomerForCreateDto> ShowAddCustomerForm()
+        public async Task<Customer> ShowAddCustomerForm()
         {
             var view = new CustomerForm()
             {
@@ -247,10 +247,10 @@ namespace Inventory.Modules.Customers.ViewModels
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-            return result as CustomerForCreateDto;
+            return result as Customer;
         }
 
-        private async Task<CustomerForUpdateDto> ShowUpdateCustomerForm(CustomerDto customer)
+        private async Task<Customer> ShowUpdateCustomerForm(Customer customer)
         {
             var view = new CustomerForm()
             {

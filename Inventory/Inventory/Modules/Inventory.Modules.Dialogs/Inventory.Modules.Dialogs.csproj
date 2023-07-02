@@ -11,9 +11,4 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Inventory.Core\Inventory.Core.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <Reference Include="ReverseAnalytics.Domain">
-      <HintPath>..\..\Inventory.Core\Libs\ReverseAnalytics.Domain.dll</HintPath>
-    </Reference>
-  </ItemGroup>
 </Project>
