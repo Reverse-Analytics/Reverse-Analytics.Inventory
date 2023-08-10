@@ -148,7 +148,6 @@
                            GridLinesVisibility="Horizontal"
                            HeaderLinesVisibility="Horizontal"
                            HeaderRowHeight="40"
-                           IsManipulationEnabled="False"
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
                            RowSelectionBrush="#ebebeb"
@@ -166,7 +165,7 @@
                                        HeaderText="Product ID"
                                        MappingName="Id"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn ColumnSizer="Star"
+                    <sf:GridTextColumn ColumnSizer="Auto"
                                        HeaderText="Product Code"
                                        MappingName="ProductCode"
                                        TextAlignment="Left" />
