@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Inventory.Core.Models
 {
@@ -7,12 +6,13 @@ namespace Inventory.Core.Models
     {
         public int Id { get; set; }
         public string CategoryName { get; set; }
+        public int NumberOfProducts { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
 
         public ProductCategory()
         {
-            CategoryName = String.Empty;
+            CategoryName = string.Empty;
             Products = new List<Product>();
         }
 
