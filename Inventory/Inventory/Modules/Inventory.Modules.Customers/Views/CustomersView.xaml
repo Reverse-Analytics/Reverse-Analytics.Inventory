@@ -184,7 +184,7 @@
                     <sf:GridTextColumn Width="300"
                                        HeaderText="Company"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="CompanyName"
+                                       MappingName="Company"
                                        TextAlignment="Left" />
                     <extensions:MoreOptionsTemplateColumnExtension Width="85"
                                                                    AllowFocus="True"

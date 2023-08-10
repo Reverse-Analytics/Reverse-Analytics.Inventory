@@ -162,7 +162,7 @@
                                        MappingName="CategoryName"
                                        TextAlignment="Center" />
                     <sf:GridNumericColumn HeaderText="Number of items"
-                                          MappingName="Id"
+                                          MappingName="NumberOfProducts"
                                           NumberDecimalDigits="0"
                                           TextAlignment="Center" />
                     <extensions:MoreOptionsTemplateColumnExtension AllowSorting="False">
