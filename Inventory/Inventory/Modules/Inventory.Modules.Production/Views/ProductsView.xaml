@@ -137,12 +137,9 @@
             <sf:SfDataGrid x:Name="productsDataGrid"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
-                           AllowSorting="True"
-                           AutoGenerateColumns="False"
                            Background="White"
                            BorderBrush="LightGray"
                            BorderThickness="1"
-                           CanUseViewFilter="True"
                            CurrentCellBorderThickness="0"
                            FontSize="14"
                            GridLinesVisibility="Horizontal"
@@ -150,9 +147,7 @@
                            HeaderRowHeight="40"
                            ItemsSource="{Binding ElementName=dataPager, Path=PagedSource}"
                            RowHeight="35"
-                           RowSelectionBrush="#ebebeb"
-                           SelectionMode="Single"
-                           SelectionUnit="Row">
+                           RowSelectionBrush="#ebebeb">
                 <sf:SfDataGrid.HeaderStyle>
                     <Style TargetType="sf:GridHeaderCellControl">
                         <Setter Property="Background" Value="#f7f7f7" />
