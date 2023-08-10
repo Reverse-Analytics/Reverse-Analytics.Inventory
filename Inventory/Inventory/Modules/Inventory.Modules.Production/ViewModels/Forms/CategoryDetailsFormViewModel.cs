@@ -39,7 +39,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
             Id = category.Id;
             CategoryName = category.CategoryName;
-            NumberOfItems = category.Id;
+            NumberOfItems = category.NumberOfProducts;
 
             CloseCommand = new DelegateCommand(OnClose);
         }
