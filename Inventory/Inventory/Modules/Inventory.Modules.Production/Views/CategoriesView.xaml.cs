@@ -41,8 +41,8 @@ namespace Inventory.Modules.Production.Views
                 return;
 
             var text = searchTextBox.Text;
-            categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = true;
-            categoriesDataGrid.SearchHelper.SearchType = SearchType.StartsWith;
+            categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = false;
+            categoriesDataGrid.SearchHelper.SearchType = SearchType.Contains;
             categoriesDataGrid.SearchHelper.AllowFiltering = true;
             categoriesDataGrid.SearchHelper.Search(text);
         }
