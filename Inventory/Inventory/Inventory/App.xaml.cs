@@ -18,7 +18,10 @@ namespace Inventory
     {
         public App()
         {
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("ODE1Mjg2QDMyMzAyZTM0MmUzMGIyekp1VGJuc1RXK2ovWUJHK3V2RStZVFR0WkU4M1Q1a2JjRGs2VzcyWVE9");
+            Syncfusion
+                .Licensing
+                .SyncfusionLicenseProvider
+                .RegisterLicense("ODE1Mjg2QDMyMzAyZTM0MmUzMGIyekp1VGJuc1RXK2ovWUJHK3V2RStZVFR0WkU4M1Q1a2JjRGs2VzcyWVE9");
         }
 
         protected override Window CreateShell()
