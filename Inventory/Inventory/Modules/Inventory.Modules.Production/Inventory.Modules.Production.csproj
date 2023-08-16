@@ -9,11 +9,11 @@
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Prism.Core" Version="8.1.97" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
-    <PackageReference Include="Syncfusion.Grid.WPF" Version="20.4.0.38" />
-    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="20.4.0.38" />
-    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="20.4.0.38" />
-    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="20.4.0.38" />
-    <PackageReference Include="Syncfusion.Shared.WPF" Version="20.4.0.38" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="22.2.8" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Inventory.Controls\Inventory.Controls.csproj" />

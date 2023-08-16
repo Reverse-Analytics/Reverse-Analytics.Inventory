@@ -95,6 +95,13 @@
     <PackageReference Include="FontAwesome.Sharp" Version="6.2.1" />
     <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
     <PackageReference Include="Prism.Wpf" Version="8.1.97" />
+    <PackageReference Include="Syncfusion.Grid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.PropertyGrid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.SfBusyIndicator.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.SfGrid.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.SfTreeView.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.Shared.WPF" Version="22.2.8" />
+    <PackageReference Include="Syncfusion.Tools.WPF" Version="22.2.8" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Fonts\Inter-Black.ttf">
