@@ -21,7 +21,7 @@ namespace Inventory
             Syncfusion
                 .Licensing
                 .SyncfusionLicenseProvider
-                .RegisterLicense("ODE1Mjg2QDMyMzAyZTM0MmUzMGIyekp1VGJuc1RXK2ovWUJHK3V2RStZVFR0WkU4M1Q1a2JjRGs2VzcyWVE9");
+                .RegisterLicense("MjYzNjQxMEAzMjMyMmUzMDJlMzBOc3R2Z0tvMUZkQ2Fidnlwck1ZbTZKSFhJV1kvMTYveklYTnBlSTNlU0FBPQ==");
         }
 
         protected override Window CreateShell()
