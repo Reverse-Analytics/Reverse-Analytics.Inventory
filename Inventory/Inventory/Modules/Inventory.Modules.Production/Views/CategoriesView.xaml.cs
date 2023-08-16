@@ -1,8 +1,6 @@
 ﻿using Inventory.Helpers.Extensions;
-using Syncfusion.UI.Xaml.Grid;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace Inventory.Modules.Production.Views
 {
@@ -17,8 +15,12 @@ namespace Inventory.Modules.Production.Views
 
             // Setup search helper
             categoriesDataGrid.SearchHelper = new SearchHelperExtension(categoriesDataGrid);
+            categoriesDataGrid.SearchHelper.AllowFiltering = true;
+            categoriesDataGrid.SearchHelper.CanHighlightSearchText = true;
+            categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = false;
+            categoriesDataGrid.SearchHelper.SearchType = Syncfusion.UI.Xaml.Grid.SearchType.Contains;
+
             searchTextBox.TextChanged += TextBox_TextChanged;
-            searchTextBox.PreviewKeyDown += TextBox_PreviewKeyDown;
 
             categoriesDataGrid.CellRenderers.Remove("TemplateExt");
             categoriesDataGrid.CellRenderers.Add("TemplateExt", new GridCellTemplateExtension());
@@ -29,22 +31,9 @@ namespace Inventory.Modules.Production.Views
             PerformSearch();
         }
 
-        private void TextBox_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Enter)
-                PerformSearch();
-        }
-
         private void PerformSearch()
         {
-            if (categoriesDataGrid.SearchHelper.SearchText.Equals(searchTextBox.Text))
-                return;
-
-            var text = searchTextBox.Text;
-            categoriesDataGrid.SearchHelper.AllowCaseSensitiveSearch = false;
-            categoriesDataGrid.SearchHelper.SearchType = SearchType.Contains;
-            categoriesDataGrid.SearchHelper.AllowFiltering = true;
-            categoriesDataGrid.SearchHelper.Search(text);
+            categoriesDataGrid.SearchHelper.Search(searchTextBox.Text);
         }
     }
 }
