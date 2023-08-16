@@ -108,12 +108,13 @@ namespace Inventory.Modules.Production.ViewModels
             {
                 IsBusy = true;
 
-                var categories = await _categoryService.GetCategoriesAsync();
                 var products = await _productService.GetProductsAsync();
-
-                Categories.AddRange(categories);
                 Products.AddRange(products);
                 FilteredProducts.AddRange(products);
+
+                var categories = await _categoryService.GetCategoriesAsync();
+                Categories.AddRange(categories);
+
             }
             catch (Exception ex)
             {
@@ -145,7 +146,7 @@ namespace Inventory.Modules.Production.ViewModels
                     var createdProduct = await _productService.CreateProductAsync(product);
 
                     Products.Add(createdProduct);
-                    FilteredProducts.Add(createdProduct);
+                    FilteredProducts.Insert(0, createdProduct);
                 });
 
                 await _dialogService.ShowSuccess();
@@ -172,6 +173,13 @@ namespace Inventory.Modules.Production.ViewModels
                 IsBusy = true;
 
                 await Task.Run(async () => await _productService.UpdateProductAsync(productToUpdate));
+
+                // Update in both collections
+                int index = FilteredProducts.IndexOf(selectedProduct);
+                FilteredProducts[index] = productToUpdate;
+
+                index = Products.IndexOf(selectedProduct);
+                Products[index] = productToUpdate;
 
                 await _dialogService.ShowSuccess();
             }
@@ -268,7 +276,7 @@ namespace Inventory.Modules.Production.ViewModels
         {
             var view = new ProductForm()
             {
-                DataContext = new ProductFormViewModel(_categoryService)
+                DataContext = new ProductFormViewModel(_categoryService, Categories)
             };
 
             var result = await DialogHost.Show(view, "RootDialog");
@@ -280,7 +288,7 @@ namespace Inventory.Modules.Production.ViewModels
         {
             var view = new ProductForm()
             {
-                DataContext = new ProductFormViewModel(_categoryService, product)
+                DataContext = new ProductFormViewModel(_categoryService, product, Categories)
             };
 
             var result = await DialogHost.Show(view, "RootDialog");

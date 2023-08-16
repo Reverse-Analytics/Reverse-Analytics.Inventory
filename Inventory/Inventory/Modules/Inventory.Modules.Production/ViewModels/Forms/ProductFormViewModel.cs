@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Inventory.Core.Models;
 using Inventory.Core.Enums;
+using System.Collections.Generic;
 
 namespace Inventory.Modules.Production.ViewModels.Forms
 {
@@ -18,6 +19,7 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         private readonly bool IsEditingMode;
         private readonly int productId;
+        private int categoryId;
 
         private ProductCategory _selectedCategory;
         public ProductCategory SelectedCategory
@@ -26,11 +28,10 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             set
             {
                 SetProperty(ref _selectedCategory, value);
+                categoryId = value.Id;
                 SaveCommand.RaiseCanExecuteChanged();
             }
         }
-
-        public int categoryId;
 
         private string _code;
         public string Code
@@ -95,27 +96,27 @@ namespace Inventory.Modules.Production.ViewModels.Forms
 
         #region Constructors
 
-        public ProductFormViewModel(ICategorySerivce categorySerivce)
+        public ProductFormViewModel(ICategorySerivce categorySerivce, ICollection<ProductCategory> categories)
         {
             _categoryService = categorySerivce;
 
-            Categories = new ObservableCollection<ProductCategory>();
-
             SaveCommand = new DelegateCommand(OnSave, CanSave);
             CancelCommand = new DelegateCommand(OnCancel);
+            Categories = new ObservableCollection<ProductCategory>(categories);
 
-            LoadCategories();
+            // LoadCategories();
 
             Title = "New Product";
         }
 
-        public ProductFormViewModel(ICategorySerivce categorySerivce, Product productToUpdate)
-            : this(categorySerivce)
+        public ProductFormViewModel(ICategorySerivce categorySerivce,
+            Product productToUpdate,
+            ICollection<ProductCategory> categories)
+            : this(categorySerivce, categories)
         {
             ArgumentNullException.ThrowIfNull(productToUpdate, nameof(productToUpdate));
 
             IsEditingMode = productToUpdate.ProductName is not null;
-
             productId = productToUpdate.Id;
             Name = productToUpdate.ProductName;
             Code = productToUpdate.ProductCode;
@@ -123,25 +124,29 @@ namespace Inventory.Modules.Production.ViewModels.Forms
             Weight = productToUpdate.Weight ?? 0;
             IncomePrice = productToUpdate.SupplyPrice ?? 0;
             SalePrice = productToUpdate.SalePrice;
-            categoryId = productToUpdate.Category?.Id ?? 0;
+
+            LoadCategory(productToUpdate.Category);
 
             Title = "Update Product";
         }
 
         #endregion
 
-        public async void LoadCategories()
+        private void LoadCategory(ProductCategory currentCategory)
         {
-            var categories = await _categoryService.GetCategoriesAsync();
-
-            var selectedCategory = categories.FirstOrDefault(c => c.Id == categoryId);
-
-            if (selectedCategory != null)
+            if (currentCategory is null)
             {
-                SelectedCategory = selectedCategory;
+                return;
             }
 
-            Categories.AddRange(categories);
+            var selected = Categories.FirstOrDefault(x => x.Id == currentCategory.Id);
+
+            if (selected is null)
+            {
+                return;
+            }
+
+            SelectedCategory = selected;
         }
 
         public void OnSave()
@@ -158,7 +163,8 @@ namespace Inventory.Modules.Production.ViewModels.Forms
                     Volume = Volume,
                     Weight = Weight,
                     UnitOfMeasurement = UnitOfMeasurement.Kg,
-                    CategoryId = categoryId
+                    Category = SelectedCategory,
+                    CategoryId = SelectedCategory.Id
                 };
 
 
