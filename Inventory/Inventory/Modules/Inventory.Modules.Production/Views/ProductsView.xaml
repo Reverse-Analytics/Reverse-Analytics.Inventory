@@ -85,8 +85,7 @@
                              md:HintAssist.Hint="Search products"
                              md:TextFieldAssist.HasClearButton="True"
                              BorderBrush="Transparent"
-                             FontSize="14"
-                             Text="{Binding SearchText}" />
+                             FontSize="14" />
                     <Border Width="30"
                             Background="Transparent"
                             BorderBrush="LightGray"
@@ -137,6 +136,7 @@
             <sf:SfDataGrid x:Name="productsDataGrid"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Top"
+                           AutoGenerateColumns="False"
                            Background="White"
                            BorderBrush="LightGray"
                            BorderThickness="1"
