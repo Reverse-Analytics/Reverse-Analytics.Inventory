@@ -29,7 +29,7 @@ namespace Inventory.RestClient
         public async Task<HttpResponseMessage?> Post(string url, string json)
         {
             var cts = new CancellationTokenSource();
-            cts.CancelAfter(TimeSpan.FromSeconds(5));
+            cts.CancelAfter(TimeSpan.FromSeconds(15));
             var request = new HttpRequestMessage(HttpMethod.Post, $"{client.BaseAddress?.AbsoluteUri}/{url}")
             {
                 Content = new StringContent(json, Encoding.UTF8, "application/json")
