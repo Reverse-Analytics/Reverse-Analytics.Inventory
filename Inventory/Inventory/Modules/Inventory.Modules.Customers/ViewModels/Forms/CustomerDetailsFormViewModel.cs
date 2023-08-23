@@ -32,7 +32,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             PhoneNumber = customer.PhoneNumber;
             Address = customer.Address;
             Balance = customer.Balance;
-            Discount = 0;
+            Discount = customer.Discount;
 
             Sales = new(customer.Sales);
 

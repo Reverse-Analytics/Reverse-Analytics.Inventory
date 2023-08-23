@@ -3,6 +3,7 @@ using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
 using System;
+using System.Linq;
 
 namespace Inventory.Modules.Customers.ViewModels.Forms
 {
@@ -26,7 +27,21 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         }
         public string CompanyName { get; set; }
         public string Address { get; set; }
-        public string PhoneNumber { get; set; }
+
+        private string _phoneNumber = "+998 ";
+        public string PhoneNumber
+        {
+            get => _phoneNumber;
+            set
+            {
+                if (ValidatePhoneNumber(value))
+                {
+                    return;
+                }
+
+                SetProperty(ref _phoneNumber, value);
+            }
+        }
         public decimal Balance { get; set; }
         public double Discount { get; set; }
 
@@ -99,6 +114,21 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         private bool CanSave()
         {
             return !string.IsNullOrEmpty(FullName);
+        }
+
+        private bool ValidatePhoneNumber(string phoneNumber)
+        {
+            if (string.IsNullOrEmpty(phoneNumber))
+            {
+                return false;
+            }
+
+            if (phoneNumber.Length < 5 || phoneNumber.Length > 14)
+            {
+                return false;
+            }
+
+            return phoneNumber.Any(el => !char.IsDigit(el) && el != ' ' && el != '+');
         }
     }
 }

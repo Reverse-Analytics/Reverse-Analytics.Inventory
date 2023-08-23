@@ -24,6 +24,7 @@ namespace Inventory.Modules.Customers.ViewModels
 
         private readonly ICustomerService _customerService;
         private readonly IDialogService _dialogService;
+        private readonly ISaleService _saleService;
 
         #endregion
 
@@ -33,7 +34,11 @@ namespace Inventory.Modules.Customers.ViewModels
         public string SelectedCompany
         {
             get => _selectedCompany;
-            set => SetProperty(ref _selectedCompany, value);
+            set
+            {
+                FilterCustomersByCompany(value);
+                SetProperty(ref _selectedCompany, value);
+            }
         }
 
         public bool KeepAlive => false;
@@ -58,10 +63,12 @@ namespace Inventory.Modules.Customers.ViewModels
 
         #endregion
 
-        public CustomersViewModel(ICustomerService customerService, IDialogService dialogService)
+        public CustomersViewModel(ICustomerService customerService, ISaleService saleService,
+            IDialogService dialogService)
         {
             _customerService = customerService;
             _dialogService = dialogService;
+            _saleService = saleService;
 
             DetailsCommand = new DelegateCommand<Customer>(OnShowDetails);
             AddCommand = new DelegateCommand(OnAddCustomer);
@@ -146,6 +153,8 @@ namespace Inventory.Modules.Customers.ViewModels
         {
             try
             {
+                if (selectedCustomer is null) return;
+
                 var customer = FilteredCustomers.FirstOrDefault(x => x.Id == selectedCustomer.Id);
                 var result = await ShowUpdateCustomerForm(customer);
 
@@ -157,6 +166,12 @@ namespace Inventory.Modules.Customers.ViewModels
                 {
                     await _customerService.UpdateCustomerAsync(result);
                 });
+
+                selectedCustomer.FullName = result.FullName;
+                selectedCustomer.Balance = result.Balance;
+
+                FilteredCustomers.Clear();
+                FilteredCustomers.AddRange(customers);
 
                 await _dialogService.ShowSuccess();
             }
@@ -226,6 +241,8 @@ namespace Inventory.Modules.Customers.ViewModels
 
         private async void OnShowDetails(Customer customer)
         {
+            var sales = await _saleService.GetByCustomerId(customer.Id);
+            customer.Sales = sales.ToList();
             var view = new CustomerDetailsForm()
             {
                 DataContext = new CustomerDetailsFormViewModel(customer)
@@ -260,6 +277,22 @@ namespace Inventory.Modules.Customers.ViewModels
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
             return result as Customer;
+        }
+
+        private void FilterCustomersByCompany(string companyName)
+        {
+            if (string.IsNullOrEmpty(companyName))
+            {
+                FilteredCustomers.Clear();
+                FilteredCustomers.AddRange(customers);
+
+                return;
+            }
+
+            var fitleredCustomers = customers.Where(x => x.Company == companyName);
+
+            FilteredCustomers.Clear();
+            FilteredCustomers.AddRange(fitleredCustomers);
         }
 
         #endregion
