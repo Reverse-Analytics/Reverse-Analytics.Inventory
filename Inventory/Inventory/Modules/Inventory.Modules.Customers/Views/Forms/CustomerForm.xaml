@@ -41,7 +41,8 @@
                          Text="{Binding Address}" />
                 <TextBox Padding="15,8,15,8"
                          md:HintAssist.Hint="Enter phone number"
-                         Text="{Binding PhoneNumber}" />
+                         AcceptsReturn="True"
+                         Text="{Binding PhoneNumber, UpdateSourceTrigger=PropertyChanged}" />
                 <TextBox Padding="15,8,15,8"
                          md:HintAssist.Hint="Enter balance"
                          Text="{Binding Balance}" />
