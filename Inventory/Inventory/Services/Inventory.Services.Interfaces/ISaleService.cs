@@ -6,6 +6,7 @@ namespace Inventory.Services.Interfaces
     {
         public Task<IEnumerable<Sale>> GetAllSales();
         public Task<Sale> GetById(int id);
+        public Task<IEnumerable<Sale>> GetByCustomerId(int customerId);
         public Task<Sale> CreateSale(Sale saleToCreate);
         public Task UpdateSale(Sale saleToUpdate);
         public Task DeleteSale(int id);

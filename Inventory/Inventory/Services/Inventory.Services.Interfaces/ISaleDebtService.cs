@@ -9,5 +9,7 @@ namespace Inventory.Services.Interfaces
         public Task<SaleDebt> CreateSaleDebtAsync(SaleDebt saleDebtToCreate);
         public Task UpdateSaleDebtAsync(SaleDebt saleDebtToUpdate);
         public Task DeleteSaleDebtAsync(int id);
+        public Task<SaleDebt> CloseDebtAsync(int id);
+        public Task<SaleDebt> PayDebtAsync(int id, decimal amount);
     }
 }
