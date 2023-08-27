@@ -39,12 +39,32 @@ namespace Inventory.RestClient
             return response;
         }
 
+        public async Task<HttpResponseMessage> Post(string url)
+        {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(15));
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{client.BaseAddress?.AbsoluteUri}/{url}");
+            var response = await client.SendAsync(request, cts.Token);
+
+            return response;
+        }
+
         public async Task<HttpResponseMessage?> Put(string url, string json)
         {
             var cts = new CancellationTokenSource();
             cts.CancelAfter(TimeSpan.FromSeconds(5));
             var request = new HttpRequestMessage(HttpMethod.Put, $"{client.BaseAddress?.AbsoluteUri}/{url}");
             request.Content = new StringContent(json, Encoding.UTF8, "application/json");
+            var response = await client.SendAsync(request, cts.Token);
+
+            return response;
+        }
+
+        public async Task<HttpResponseMessage?> Put(string url)
+        {
+            var cts = new CancellationTokenSource();
+            cts.CancelAfter(TimeSpan.FromSeconds(5));
+            var request = new HttpRequestMessage(HttpMethod.Put, $"{client.BaseAddress?.AbsoluteUri}/{url}");
             var response = await client.SendAsync(request, cts.Token);
 
             return response;
