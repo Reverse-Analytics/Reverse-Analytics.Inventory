@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Enums;
 using Inventory.Core.Models;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
@@ -9,13 +10,15 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 {
     public class DebtDetailsFormViewModel
     {
+        public string Receipt { get; set; }
         public string Customer { get; set; }
         public string Salesman { get; set; }
-        public string Status { get; set; }
+        public DebtStatus Status { get; set; }
         public DateTime DebtDate { get; set; }
-        public DateTime DueDate { get; set; }
-        public decimal TotalAmount { get; set; }
-        public decimal Leftover { get; set; }
+        public DateTime? DueDate { get; set; }
+        public DateTime? ClosedDate { get; set; }
+        public string TotalAmount { get; set; }
+        public string Leftover { get; set; }
 
         public ICommand CloseCommand { get; }
 
@@ -23,13 +26,15 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         {
             ArgumentNullException.ThrowIfNull(debt);
 
-            Customer = "John Doe";
-            Salesman = "Smith Johnson";
-            Status = "Paid";
+            Receipt = debt.Receipt;
+            Customer = debt.Customer;
+            Salesman = debt.SoldBy;
+            Status = debt.Status;
+            DebtDate = debt.DebtDate;
             DueDate = debt.DueDate;
-            TotalAmount = debt.TotalDue;
-            Leftover = debt.TotalDue;
-            Status = debt.Status.ToString();
+            ClosedDate = debt.ClosedDate;
+            TotalAmount = debt.TotalDue.ToString("N");
+            Leftover = (debt.TotalDue - debt.TotalPaid).ToString("N");
 
             CloseCommand = new DelegateCommand(OnClose);
         }

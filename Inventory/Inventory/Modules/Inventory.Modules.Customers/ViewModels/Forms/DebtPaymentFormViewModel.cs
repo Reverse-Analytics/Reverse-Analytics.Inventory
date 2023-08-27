@@ -1,5 +1,4 @@
-﻿using Inventory.Core;
-using Inventory.Core.Models;
+﻿using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
@@ -9,7 +8,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
 {
     public class DebtPaymentFormViewModel : ViewModelBase
     {
-        public ICommand CompletePaymentCommand { get; }
+        public ICommand SaveCommand { get; }
         public ICommand CloseCommand { get; }
 
         public int SaleId { get; set; }
@@ -21,11 +20,24 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             get => _amountToPay;
             set
             {
-                if (TotalAmount - value < 0) return;
+                if (TotalAmount - (value + TotalPaid) < 0)
+                {
+                    value = TotalAmount - TotalPaid;
+                    SetProperty(ref _amountToPay, value);
+                    LeftOver = 0;
+                    return;
+                }
 
-                LeftOver = TotalAmount - value;
+                LeftOver = TotalAmount - (value + TotalPaid);
                 SetProperty(ref _amountToPay, value);
             }
+        }
+
+        private decimal _totalPaid;
+        public decimal TotalPaid
+        {
+            get => _totalPaid;
+            set => SetProperty(ref _totalPaid, value);
         }
 
         private decimal _leftOver;
@@ -40,9 +52,21 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             SaleId = debt.Id;
             TotalAmount = debt.TotalDue;
             AmountToPay = 0;
-            LeftOver = debt.TotalDue - 0;
+            TotalPaid = debt.TotalPaid;
+            LeftOver = (debt.TotalDue - debt.TotalPaid);
 
-            CloseCommand = new DelegateCommand(() => DialogHost.Close(RegionNames.DialogRegion));
+            CloseCommand = new DelegateCommand(() => DialogHost.Close("RootDialog"));
+            SaveCommand = new DelegateCommand(OnSave);
+        }
+
+        private void OnSave()
+        {
+            var debt = new SaleDebt
+            {
+                TotalPaid = AmountToPay
+            };
+
+            DialogHost.Close("RootDialog", debt);
         }
     }
 }
