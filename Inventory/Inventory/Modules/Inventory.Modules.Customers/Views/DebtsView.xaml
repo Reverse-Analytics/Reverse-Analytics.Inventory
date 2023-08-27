@@ -151,7 +151,7 @@
                                        TextAlignment="Center" />
                     <sf:GridTextColumn HeaderText="Customer"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="Customer.FirstName"
+                                       MappingName="Customer"
                                        TextAlignment="Left" />
                     <sf:GridNumericColumn HeaderText="Total Due"
                                           HorizontalHeaderContentAlignment="Left"
@@ -164,11 +164,11 @@
                                        TextAlignment="Left" />
                     <sf:GridTextColumn HeaderText="Date"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="SaleDate"
+                                       MappingName="DebtDate"
                                        TextAlignment="Left" />
                     <sf:GridTextColumn HeaderText="Status"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="TransactionStatus"
+                                       MappingName="Status"
                                        TextAlignment="Left" />
                     <extensions:MoreOptionsTemplateColumnExtension AllowFocus="True" AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
@@ -204,6 +204,19 @@
                                                            VerticalAlignment="Center"
                                                            FontSize="14"
                                                            Text="Payment" />
+                                            </StackPanel>
+                                        </Button>
+                                        <Button Command="{Binding Path=DataContext.CloseDebtCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                                Style="{StaticResource MoreOptionsButton}">
+                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
+                                                <md:PackIcon Width="16"
+                                                             Height="16"
+                                                             Kind="CheckBold" />
+                                                <TextBlock Margin="10,0,0,0"
+                                                           VerticalAlignment="Center"
+                                                           FontSize="14"
+                                                           Text="Close" />
                                             </StackPanel>
                                         </Button>
                                     </StackPanel>
