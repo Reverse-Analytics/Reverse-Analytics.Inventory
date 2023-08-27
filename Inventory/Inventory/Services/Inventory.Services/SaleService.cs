@@ -94,5 +94,26 @@ namespace Inventory.Services
                 throw new HttpRequestException($"Error updating sale with id: {saleToUpdate.Id}");
             }
         }
+
+        public async Task<IEnumerable<Sale>> GetByCustomerId(int customerId)
+        {
+            string path = $"{url}customers/{customerId}";
+            var response = await _client.Get(path);
+
+            if (response is null || !response.IsSuccessStatusCode)
+            {
+                throw new HttpRequestException($"Error retrieving sale with id: {customerId}.");
+            }
+
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var result = JsonConvert.DeserializeObject<IEnumerable<Sale>>(jsonResponse);
+
+            if (result is null)
+            {
+                throw new JsonSerializationException("Error converting sale.");
+            }
+
+            return result;
+        }
     }
 }
