@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Enums;
 using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Modules.Customers.ViewModels.Forms;
@@ -11,6 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 
@@ -25,17 +27,22 @@ namespace Inventory.Modules.Customers.ViewModels
 
         private List<SaleDebt> debts;
         public ObservableCollection<SaleDebt> FilteredDebts { get; }
-        public ObservableCollection<string> Statuses { get; }
+        public ObservableCollection<DebtStatus> Statuses { get; }
 
-        private string _selectedStatus;
-        public string SelectedStatus
+        private DebtStatus? _selectedStatus;
+        public DebtStatus? SelectedStatus
         {
             get => _selectedStatus;
-            set => SetProperty(ref _selectedStatus, value);
+            set
+            {
+                FilterByStatus(value);
+                SetProperty(ref _selectedStatus, value);
+            }
         }
 
         public ICommand MakePaymentCommand { get; }
         public ICommand ShowDetailsCommand { get; }
+        public ICommand CloseDebtCommand { get; }
 
         public DebtsViewModel(ISaleDebtService debtService, IDialogService dialogService)
         {
@@ -44,10 +51,11 @@ namespace Inventory.Modules.Customers.ViewModels
 
             debts = new List<SaleDebt>();
             FilteredDebts = new ObservableCollection<SaleDebt>();
-            Statuses = new ObservableCollection<string>();
+            Statuses = new ObservableCollection<DebtStatus>();
 
             MakePaymentCommand = new DelegateCommand<SaleDebt>(OnMakePayment);
             ShowDetailsCommand = new DelegateCommand<SaleDebt>(OnShowDetails);
+            CloseDebtCommand = new DelegateCommand<SaleDebt>(OnCloseDebt);
 
             LoadDebts();
         }
@@ -58,12 +66,10 @@ namespace Inventory.Modules.Customers.ViewModels
             {
                 IsBusy = true;
 
-                Statuses.Add("Closed");
-                Statuses.Add("Overdue");
-                Statuses.Add("Payment required");
-                Statuses.Add("Due soon");
-
                 var result = await _debtService.GetSaleDebtsAsync();
+                var statuses = result.Select(x => x.Status).Distinct().ToList();
+
+                Statuses.AddRange(statuses);
 
                 debts.AddRange(result);
                 FilteredDebts.AddRange(result);
@@ -112,7 +118,31 @@ namespace Inventory.Modules.Customers.ViewModels
                 DataContext = new DebtPaymentFormViewModel(debt)
             };
 
-            await DialogHost.Show(view, RegionNames.DialogRegion);
+            var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+            if (result is not SaleDebt payment)
+            {
+                return;
+            }
+
+            try
+            {
+                var response = await _debtService.PayDebtAsync(debt.Id, payment.TotalPaid);
+                var index = debts.IndexOf(debt);
+
+                debts[index] = response;
+                FilteredDebts[index] = response;
+
+                await _dialogService.ShowSuccess("Payment was successful");
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError(ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
         }
 
         private async Task ShowDetailsForm(SaleDebt debt)
@@ -123,6 +153,50 @@ namespace Inventory.Modules.Customers.ViewModels
             };
 
             await DialogHost.Show(view, RegionNames.DialogRegion);
+        }
+
+        private async void OnCloseDebt(SaleDebt debt)
+        {
+            if (debt is null)
+            {
+                return;
+            }
+
+            IsBusy = true;
+
+            try
+            {
+                var response = await _debtService.CloseDebtAsync(debt.Id);
+                var index = debts.IndexOf(debt);
+                debts[index] = response;
+                FilteredDebts[index] = response;
+
+                await _dialogService.ShowSuccess("Debt closed!");
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error while closing a debt", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FilterByStatus(DebtStatus? status)
+        {
+            if (!status.HasValue)
+            {
+                FilteredDebts.Clear();
+                FilteredDebts.AddRange(debts);
+
+                return;
+            }
+
+            var filteredDebts = debts.Where(x => x.Status == status);
+
+            FilteredDebts.Clear();
+            FilteredDebts.AddRange(filteredDebts);
         }
     }
 }
