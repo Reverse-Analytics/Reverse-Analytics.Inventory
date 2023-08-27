@@ -43,7 +43,7 @@
                 BorderBrush="LightGray"
                 BorderThickness="1,1,0,1">
             <TextBlock Margin="0,0,200,0"
-                       FontSize="14"
+                       FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Customer" />
         </Border>
@@ -55,7 +55,7 @@
                 BorderBrush="LightGray"
                 BorderThickness="1,1,0,1">
             <TextBlock Margin="0,0,200,0"
-                       FontSize="14"
+                       FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Salesman" />
         </Border>
@@ -67,9 +67,9 @@
                 BorderBrush="LightGray"
                 BorderThickness="1,1,1,1">
             <TextBlock Margin="0,0,200,0"
-                       FontSize="14"
+                       FontSize="16"
                        Foreground="#2d2e2e"
-                       Text="Sale ID" />
+                       Text="Receipt ID" />
         </Border>
         <Border Grid.Row="2"
                 Grid.Column="0"
@@ -91,7 +91,7 @@
                 BorderThickness="1,0,0,1">
             <TextBlock FontSize="14"
                        Foreground="#2d2e2e"
-                       Text="{Binding Customer}" />
+                       Text="{Binding Salesman}" />
         </Border>
         <Border Grid.Row="2"
                 Grid.Column="4"
@@ -102,7 +102,7 @@
                 BorderThickness="1,0,1,1">
             <TextBlock FontSize="14"
                        Foreground="#2d2e2e"
-                       Text="{Binding Customer}" />
+                       Text="{Binding Receipt}" />
         </Border>
 
         <Border Grid.Row="3"
@@ -112,7 +112,7 @@
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,0,0,1">
-            <TextBlock FontSize="14"
+            <TextBlock FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Total Amount" />
         </Border>
@@ -123,7 +123,7 @@
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,0,1,1">
-            <TextBlock FontSize="14"
+            <TextBlock FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Left over" />
         </Border>
@@ -152,29 +152,41 @@
 
         <Border Grid.Row="5"
                 Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="2"
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,0,0,1">
-            <TextBlock FontSize="14"
+            <TextBlock FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Debt Date" />
         </Border>
         <Border Grid.Row="5"
-                Grid.Column="3"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,0,1,1">
-            <TextBlock FontSize="14"
+            <TextBlock FontSize="16"
                        Foreground="#2d2e2e"
                        Text="Due Date" />
         </Border>
+        <Border Grid.Row="5"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="16"
+                       Foreground="#2d2e2e"
+                       Text="Closed Date" />
+        </Border>
+
         <Border Grid.Row="6"
                 Grid.Column="0"
-                Grid.ColumnSpan="3"
+                Grid.ColumnSpan="2"
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
@@ -184,8 +196,8 @@
                        Text="{Binding DebtDate}" />
         </Border>
         <Border Grid.Row="6"
-                Grid.Column="3"
-                Grid.ColumnSpan="3"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
@@ -193,6 +205,17 @@
             <TextBlock FontSize="14"
                        Foreground="#2d2e2e"
                        Text="{Binding DueDate}" />
+        </Border>
+        <Border Grid.Row="6"
+                Grid.Column="4"
+                Grid.ColumnSpan="2"
+                Padding="15"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,0,1">
+            <TextBlock FontSize="14"
+                       Foreground="#2d2e2e"
+                       Text="{Binding ClosedDate}" />
         </Border>
 
         <Button Grid.Row="7"
