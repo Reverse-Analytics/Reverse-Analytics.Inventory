@@ -18,6 +18,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         public DateTime? ClosedDate { get; set; }
         public string TotalAmount { get; set; }
         public string Leftover { get; set; }
+        public string TotalPaid { get; set; }
 
         public ICommand CloseCommand { get; }
 
@@ -33,6 +34,7 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             ClosedDate = debt.ClosedDate;
             TotalAmount = debt.TotalDue.ToString("N");
             Leftover = (debt.TotalDue - debt.TotalPaid).ToString("N");
+            TotalPaid = debt.TotalPaid.ToString("N");
 
             CloseCommand = new DelegateCommand(OnClose);
         }
