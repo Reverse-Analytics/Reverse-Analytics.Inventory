@@ -36,7 +36,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             DebtAmount = sale.TotalDue - sale.TotalPaid;
             Receipt = sale.Receipt;
             Comments = sale.Comments;
-            SaleDetails = sale.OrderDetails.ToList();
+            SaleDetails = sale.SaleDetails.ToList();
 
             CloseCommand = new DelegateCommand(OnClose);
         }

@@ -9,7 +9,6 @@ namespace Inventory.Core.Models
         public decimal TotalDue { get; set; }
         public decimal TotalPaid { get; set; }
         public DateTime DebtDate { get; set; }
-        public DateTime? DueDate { get; set; }
         public DateTime? ClosedDate { get; set; }
         public DebtStatus Status { get; set; }
         public string Receipt { get; set; }

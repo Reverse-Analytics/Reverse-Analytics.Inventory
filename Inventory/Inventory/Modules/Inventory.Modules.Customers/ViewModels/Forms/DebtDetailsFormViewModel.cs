@@ -15,7 +15,6 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
         public string Salesman { get; set; }
         public DebtStatus Status { get; set; }
         public DateTime DebtDate { get; set; }
-        public DateTime? DueDate { get; set; }
         public DateTime? ClosedDate { get; set; }
         public string TotalAmount { get; set; }
         public string Leftover { get; set; }
@@ -31,7 +30,6 @@ namespace Inventory.Modules.Customers.ViewModels.Forms
             Salesman = debt.SoldBy;
             Status = debt.Status;
             DebtDate = debt.DebtDate;
-            DueDate = debt.DueDate;
             ClosedDate = debt.ClosedDate;
             TotalAmount = debt.TotalDue.ToString("N");
             Leftover = (debt.TotalDue - debt.TotalPaid).ToString("N");

@@ -167,7 +167,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
             SelectedCustomer = Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             SelectedDate = sale.SaleDate;
-            sale.OrderDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
+            sale.SaleDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
             {
                 Discount = x.Discount,
                 Product = x.Product,
@@ -248,7 +248,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                         TotalDiscount = DiscountTotal,
                         SaleType = Core.Enums.SaleType.Retaile,
                         Comments = Comments,
-                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
+                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}",
                     };
 
                     DialogHost.Close(RegionNames.DialogRegion, sale);
@@ -259,13 +259,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                     {
                         CustomerId = SelectedCustomer.Id,
                         SaleDate = SelectedDate,
-                        OrderDetails = GetSaleDetails(),
+                        SaleDetails = GetSaleDetails(),
                         TotalDue = TotalDue,
                         TotalPaid = PaymentAmount,
                         TotalDiscount = DiscountTotal,
                         SaleType = Core.Enums.SaleType.Retaile,
                         Comments = Comments,
-                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}"
+                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}",
                     };
 
                     DialogHost.Close(RegionNames.DialogRegion, sale);
@@ -389,6 +389,17 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return (TotalPrice * (decimal)Discount) / 100;
 
             return 0;
+        }
+
+        public Core.Models.SaleDetail ToSaleDetail()
+        {
+            return new Core.Models.SaleDetail()
+            {
+                ProductId = ProductId,
+                Discount = Discount,
+                Quantity = Quantity,
+                UnitPrice = UnitPrice,
+            };
         }
     }
 }

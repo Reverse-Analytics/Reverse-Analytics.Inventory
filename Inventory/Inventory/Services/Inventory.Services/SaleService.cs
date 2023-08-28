@@ -17,7 +17,6 @@ namespace Inventory.Services
 
         public async Task<Sale> CreateSale(Sale saleToCreate)
         {
-            saleToCreate.OrderDetails = new List<SaleDetail>();
             var json = JsonConvert.SerializeObject(saleToCreate);
 
             var response = await _client.Post(url, json);

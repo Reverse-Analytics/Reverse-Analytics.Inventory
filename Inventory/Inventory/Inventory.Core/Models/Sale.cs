@@ -19,7 +19,7 @@ namespace Inventory.Core.Models
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
 
-        public virtual ICollection<SaleDetail> OrderDetails { get; set; }
+        public virtual ICollection<SaleDetail> SaleDetails { get; set; }
         public virtual ICollection<SaleDebt> SaleDebts { get; set; }
         public virtual ICollection<Refund> Refunds { get; set; }
     }
