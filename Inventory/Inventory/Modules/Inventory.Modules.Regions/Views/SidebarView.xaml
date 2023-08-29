@@ -129,62 +129,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Button x:Name="customersButton" Click="CustomersButton_Click">
-                        <DockPanel Width="240" Margin="5">
-                            <Viewbox Width="20"
-                                     Height="20"
-                                     Margin="10,0,0,0"
-                                     DockPanel.Dock="Left">
-                                <Path x:Name="customersIcon"
-                                      Data="{Binding Source={x:Static res:IconsPath.CustomersIcon}}"
-                                      Fill="#2D2E2E" />
-                            </Viewbox>
-                            <TextBlock Margin="20,0,0,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="17"
-                                       FontWeight="Medium"
-                                       Text="Customers"
-                                       TextAlignment="Left" />
-                            <fa:IconBlock x:Name="customersCaret"
-                                          Margin="0,0,25,0"
-                                          HorizontalAlignment="Right"
-                                          DockPanel.Dock="Right"
-                                          FontSize="16"
-                                          Icon="CaretRight" />
-                        </DockPanel>
-                    </Button>
-
-                    <Border x:Name="customersChildContent" Background="#fafafa">
-                        <StackPanel x:Name="customersChildInnerContent">
-                            <Button x:Name="customersListButton"
-                                    Click="CustomersInnerButton_Click"
-                                    Command="{Binding NavigateToCommand}"
-                                    CommandParameter="{x:Static viewNames:ViewNames.Customers}">
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Margin="0,0,70,0"
-                                               FontSize="17"
-                                               FontWeight="Medium"
-                                               Text="List" />
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="customerDebtsButton"
-                                    Click="CustomersInnerButton_Click"
-                                    Command="{Binding NavigateToCommand}"
-                                    CommandParameter="{x:Static viewNames:ViewNames.Debts}">
-                                <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Margin="0,0,55,0"
-                                               FontSize="17"
-                                               FontWeight="Medium"
-                                               Text="Debts" />
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-
-                    <Button x:Name="salesButton"
-                            Click="SalesButton_Click"
-                            Command="{Binding NavigateToCommand}"
-                            CommandParameter="{x:Static viewNames:ViewNames.Sales}">
+                    <Button x:Name="salesButton" Click="SalesButton_Click">
                         <DockPanel Width="240" Margin="5">
                             <Viewbox Width="20"
                                      Height="20"
@@ -199,6 +144,61 @@
                                        FontSize="17"
                                        FontWeight="Medium"
                                        Text="Sales"
+                                       TextAlignment="Left" />
+                            <fa:IconBlock x:Name="salesCaret"
+                                          Margin="0,0,25,0"
+                                          HorizontalAlignment="Right"
+                                          DockPanel.Dock="Right"
+                                          FontSize="16"
+                                          Icon="CaretRight" />
+                        </DockPanel>
+                    </Button>
+
+                    <Border x:Name="salesChildContent" Background="#fafafa">
+                        <StackPanel x:Name="salesChildInnerContent">
+                            <Button x:Name="salesListButton"
+                                    Click="SalesInnerButton_Click"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="{x:Static viewNames:ViewNames.Customers}">
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,35,0"
+                                               FontSize="17"
+                                               FontWeight="Medium"
+                                               Text="All Sales" />
+                                </StackPanel>
+                            </Button>
+                            <Button x:Name="saleDebtsButton"
+                                    Click="SalesInnerButton_Click"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="{x:Static viewNames:ViewNames.Debts}">
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,55,0"
+                                               FontSize="17"
+                                               FontWeight="Medium"
+                                               Text="Debts" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <Button x:Name="customersButton"
+                            Click="CustomersButton_Click"
+                            Command="{Binding NavigateToCommand}"
+                            CommandParameter="{x:Static viewNames:ViewNames.Customers}">
+                        <DockPanel Width="240" Margin="5">
+                            <Viewbox Width="20"
+                                     Height="20"
+                                     Margin="10,0,0,0"
+                                     DockPanel.Dock="Left">
+                                <Path x:Name="customersIcon"
+                                      Data="{Binding Source={x:Static res:IconsPath.CustomersIcon}}"
+                                      Fill="#2D2E2E" />
+                            </Viewbox>
+                            <TextBlock Margin="20,0,0,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="17"
+                                       FontWeight="Medium"
+                                       Text="Customers"
                                        TextAlignment="Left" />
                         </DockPanel>
                     </Button>

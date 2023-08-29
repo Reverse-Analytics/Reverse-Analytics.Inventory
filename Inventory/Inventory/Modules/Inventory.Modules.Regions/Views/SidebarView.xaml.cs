@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
-using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
 namespace Inventory.Modules.Regions.Views
@@ -19,7 +15,7 @@ namespace Inventory.Modules.Regions.Views
     public partial class SidebarView : UserControl
     {
         private bool productionChildVisible = false;
-        private bool customersChildVisible = false;
+        private bool salesChildVisible = false;
         private bool suppliersChildVisible = false;
 
         Dictionary<string, List<Button>> navigationButtons = new Dictionary<string, List<Button>>();
@@ -32,7 +28,7 @@ namespace Inventory.Modules.Regions.Views
             InitializeComponent();
 
             productionsChildContent.Height = 0;
-            customersChildContent.Height = 0;
+            salesChildContent.Height = 0;
             suppliersChildContent.Height = 0;
 
             InitializeNavigationButtonsDictionary();
@@ -51,35 +47,35 @@ namespace Inventory.Modules.Regions.Views
                 catalogButton,
                 categoriesButton
             });
-            navigationButtons.Add(customersButton.Name, new List<Button> 
+            navigationButtons.Add(salesButton.Name, new List<Button>
             {
-                customersButton,
-                customersListButton,
-                customerDebtsButton
+                salesButton,
+                salesListButton,
+                saleDebtsButton
             });
-            navigationButtons.Add(salesButton.Name, new List<Button> 
+            navigationButtons.Add(customersButton.Name, new List<Button>
             {
-                salesButton
+                customersButton
             });
-            navigationButtons.Add(suppliersButton.Name, new List<Button> 
+            navigationButtons.Add(suppliersButton.Name, new List<Button>
             {
                 suppliersButton,
                 suppliersListButton,
                 supplierDebtsButton
             });
-            navigationButtons.Add(suppliesButton.Name, new List<Button> 
+            navigationButtons.Add(suppliesButton.Name, new List<Button>
             {
                 suppliesButton
             });
-            navigationButtons.Add(inventoryButton.Name, new List<Button> 
+            navigationButtons.Add(inventoryButton.Name, new List<Button>
             {
                 inventoryButton
             });
-            navigationButtons.Add(reportsButton.Name, new List<Button> 
+            navigationButtons.Add(reportsButton.Name, new List<Button>
             {
                 reportsButton
             });
-            navigationButtons.Add(settingsButton.Name, new List<Button> 
+            navigationButtons.Add(settingsButton.Name, new List<Button>
             {
                 settingsButton
             });
@@ -89,8 +85,8 @@ namespace Inventory.Modules.Regions.Views
         {
             navigationButtonIcons.Add(dashboardButton.Name, dashboardIcon);
             navigationButtonIcons.Add(productionButton.Name, productionsIcon);
-            navigationButtonIcons.Add(customersButton.Name, customersIcon);
             navigationButtonIcons.Add(salesButton.Name, salesIcon);
+            navigationButtonIcons.Add(customersButton.Name, customersIcon);
             navigationButtonIcons.Add(suppliersButton.Name, suppliersIcon);
             navigationButtonIcons.Add(suppliesButton.Name, suppliesIcon);
             navigationButtonIcons.Add(inventoryButton.Name, inventoriesIcon);
@@ -101,16 +97,16 @@ namespace Inventory.Modules.Regions.Views
         private void ResetButtonsToDefaultStateExceptSelected(string selectedButtonName)
         {
             var allButtonsExceptSelected = navigationButtons.Where(nb => nb.Key != selectedButtonName).Select(nb => nb.Value).ToList();
-            foreach(var buttonsList in allButtonsExceptSelected) 
+            foreach (var buttonsList in allButtonsExceptSelected)
             {
-                foreach(var button in buttonsList)
+                foreach (var button in buttonsList)
                 {
                     button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
                 }
             }
 
             var allButtonIconsExceptSelected = navigationButtonIcons.Where(nb => nb.Key != selectedButtonName).Select(nb => nb.Value).ToList();
-            foreach(var icon in allButtonIconsExceptSelected)
+            foreach (var icon in allButtonIconsExceptSelected)
             {
                 icon.Fill = new SolidColorBrush(Color.FromRgb(45, 46, 46));
             }
@@ -134,7 +130,7 @@ namespace Inventory.Modules.Regions.Views
 
             var allButtonsExceptSelected = navigationButtons[productionButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != productionButton.Name));
 
-            foreach(var button in allButtonsExceptSelected)
+            foreach (var button in allButtonsExceptSelected)
             {
                 button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
             }
@@ -142,23 +138,23 @@ namespace Inventory.Modules.Regions.Views
             ResetButtonsToDefaultStateExceptSelected(productionButton.Name);
         }
 
-        private void CustomersInnerButton_Click(object sender, RoutedEventArgs e)
+        private void SalesInnerButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedButton = (sender as Button);
 
-            customersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
-            customersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            salesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            salesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             selectedButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
 
-            var allButtonsExceptSelected = navigationButtons[customersButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != customersButton.Name));
+            var allButtonsExceptSelected = navigationButtons[salesButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != salesButton.Name));
 
             foreach (var button in allButtonsExceptSelected)
             {
                 button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
             }
 
-            ResetButtonsToDefaultStateExceptSelected(customersButton.Name);
+            ResetButtonsToDefaultStateExceptSelected(salesButton.Name);
         }
 
         private void SuppliersInnerButton_Click(object sender, RoutedEventArgs e)
@@ -199,33 +195,33 @@ namespace Inventory.Modules.Regions.Views
             productionChildVisible = !productionChildVisible;
         }
 
-        private void CustomersButton_Click(object sender, RoutedEventArgs e)
+        private void SalesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (customersChildVisible)
+            if (salesChildVisible)
             {
                 DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
-                customersChildContent.BeginAnimation(HeightProperty, heightAnimation);
-                
-                customersCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
+                salesChildContent.BeginAnimation(HeightProperty, heightAnimation);
+
+                salesCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
             }
             else
             {
-                customersChildInnerContent.Measure(new Size(customersChildInnerContent.MaxWidth, customersChildInnerContent.MaxHeight));
-                DoubleAnimation heightAnimation = new DoubleAnimation(0, customersChildInnerContent.DesiredSize.Height, _openCloseDuration);
-                customersChildContent.BeginAnimation(HeightProperty, heightAnimation);
-                
-                customersCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
+                salesChildInnerContent.Measure(new Size(salesChildInnerContent.MaxWidth, salesChildInnerContent.MaxHeight));
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, salesChildInnerContent.DesiredSize.Height, _openCloseDuration);
+                salesChildContent.BeginAnimation(HeightProperty, heightAnimation);
+
+                salesCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
             }
 
-            customersChildVisible = !customersChildVisible;
+            salesChildVisible = !salesChildVisible;
         }
 
-        private void SalesButton_Click(object sender, RoutedEventArgs e)
+        private void CustomersButton_Click(object sender, RoutedEventArgs e)
         {
-            salesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
-            salesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            customersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            customersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
-            ResetButtonsToDefaultStateExceptSelected(salesButton.Name);
+            ResetButtonsToDefaultStateExceptSelected(customersButton.Name);
         }
 
         private void SuppliersButton_Click(object sender, RoutedEventArgs e)
