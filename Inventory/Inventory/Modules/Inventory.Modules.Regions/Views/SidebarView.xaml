@@ -203,6 +203,53 @@
                         </DockPanel>
                     </Button>
 
+                    <Button x:Name="suppliesButton" Click="SuppliesButton_Click">
+                        <DockPanel Width="240" Margin="5">
+                            <Viewbox Width="20"
+                                     Height="20"
+                                     Margin="10,0,0,0"
+                                     DockPanel.Dock="Left">
+                                <Path x:Name="suppliesIcon"
+                                      Data="{Binding Source={x:Static res:IconsPath.Supplies}}"
+                                      Fill="#2D2E2E" />
+                            </Viewbox>
+                            <TextBlock Margin="20,0,0,0"
+                                       VerticalAlignment="Center"
+                                       FontSize="17"
+                                       FontWeight="Medium"
+                                       Text="All Supplies"
+                                       TextAlignment="Left" />
+                            <fa:IconBlock x:Name="suppliesCaret"
+                                          Margin="0,0,25,0"
+                                          HorizontalAlignment="Right"
+                                          DockPanel.Dock="Right"
+                                          FontSize="16"
+                                          Icon="CaretRight" />
+                        </DockPanel>
+                    </Button>
+
+                    <Border x:Name="suppliesChildContent" Background="#fafafa">
+                        <StackPanel x:Name="suppliesChildInnerContent">
+                            <Button x:Name="suppliesListButton" Click="SuppliesInnerButton_Click">
+                                <StackPanel Margin="5">
+                                    <TextBlock Margin="0,0,71,0"
+                                               FontSize="17"
+                                               FontWeight="Medium"
+                                               Text="List" />
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="supplyDebtsButton" Click="SuppliesInnerButton_Click">
+                                <StackPanel Margin="5">
+                                    <TextBlock Margin="0,0,55,0"
+                                               FontSize="17"
+                                               FontWeight="Medium"
+                                               Text="Debts" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
                     <Button x:Name="suppliersButton" Click="SuppliersButton_Click">
                         <DockPanel Width="240" Margin="5">
                             <Viewbox Width="20"
@@ -218,53 +265,6 @@
                                        FontSize="17"
                                        FontWeight="Medium"
                                        Text="Suppliers"
-                                       TextAlignment="Left" />
-                            <fa:IconBlock x:Name="suppliersCaret"
-                                          Margin="0,0,25,0"
-                                          HorizontalAlignment="Right"
-                                          DockPanel.Dock="Right"
-                                          FontSize="16"
-                                          Icon="CaretRight" />
-                        </DockPanel>
-                    </Button>
-
-                    <Border x:Name="suppliersChildContent" Background="#fafafa">
-                        <StackPanel x:Name="suppliersChildInnerContent">
-                            <Button x:Name="suppliersListButton" Click="SuppliersInnerButton_Click">
-                                <StackPanel Margin="5">
-                                    <TextBlock Margin="0,0,71,0"
-                                               FontSize="17"
-                                               FontWeight="Medium"
-                                               Text="List" />
-                                </StackPanel>
-                            </Button>
-
-                            <Button x:Name="supplierDebtsButton" Click="SuppliersInnerButton_Click">
-                                <StackPanel Margin="5">
-                                    <TextBlock Margin="0,0,55,0"
-                                               FontSize="17"
-                                               FontWeight="Medium"
-                                               Text="Debts" />
-                                </StackPanel>
-                            </Button>
-                        </StackPanel>
-                    </Border>
-
-                    <Button x:Name="suppliesButton" Click="SuppliesButton_Click">
-                        <DockPanel Width="240" Margin="5">
-                            <Viewbox Width="20"
-                                     Height="20"
-                                     Margin="10,0,0,0"
-                                     DockPanel.Dock="Left">
-                                <Path x:Name="suppliesIcon"
-                                      Data="{Binding Source={x:Static res:IconsPath.Supplies}}"
-                                      Fill="#2D2E2E" />
-                            </Viewbox>
-                            <TextBlock Margin="20,0,0,0"
-                                       VerticalAlignment="Center"
-                                       FontSize="17"
-                                       FontWeight="Medium"
-                                       Text="Supplies"
                                        TextAlignment="Left" />
                         </DockPanel>
                     </Button>

@@ -16,7 +16,7 @@ namespace Inventory.Modules.Regions.Views
     {
         private bool productionChildVisible = false;
         private bool salesChildVisible = false;
-        private bool suppliersChildVisible = false;
+        private bool suppliesChildVisible = false;
 
         Dictionary<string, List<Button>> navigationButtons = new Dictionary<string, List<Button>>();
         Dictionary<string, Path> navigationButtonIcons = new Dictionary<string, Path>();
@@ -29,7 +29,7 @@ namespace Inventory.Modules.Regions.Views
 
             productionsChildContent.Height = 0;
             salesChildContent.Height = 0;
-            suppliersChildContent.Height = 0;
+            suppliesChildContent.Height = 0;
 
             InitializeNavigationButtonsDictionary();
             InitializeNavigationButtonIconsDictionary();
@@ -57,15 +57,15 @@ namespace Inventory.Modules.Regions.Views
             {
                 customersButton
             });
-            navigationButtons.Add(suppliersButton.Name, new List<Button>
-            {
-                suppliersButton,
-                suppliersListButton,
-                supplierDebtsButton
-            });
             navigationButtons.Add(suppliesButton.Name, new List<Button>
             {
-                suppliesButton
+                suppliesButton,
+                suppliesListButton,
+                supplyDebtsButton
+            });
+            navigationButtons.Add(suppliersButton.Name, new List<Button>
+            {
+                suppliersButton
             });
             navigationButtons.Add(inventoryButton.Name, new List<Button>
             {
@@ -87,8 +87,8 @@ namespace Inventory.Modules.Regions.Views
             navigationButtonIcons.Add(productionButton.Name, productionsIcon);
             navigationButtonIcons.Add(salesButton.Name, salesIcon);
             navigationButtonIcons.Add(customersButton.Name, customersIcon);
-            navigationButtonIcons.Add(suppliersButton.Name, suppliersIcon);
             navigationButtonIcons.Add(suppliesButton.Name, suppliesIcon);
+            navigationButtonIcons.Add(suppliersButton.Name, suppliersIcon);
             navigationButtonIcons.Add(inventoryButton.Name, inventoriesIcon);
             navigationButtonIcons.Add(reportsButton.Name, reportsIcon);
             navigationButtonIcons.Add(settingsButton.Name, settingsIcon);
@@ -157,21 +157,21 @@ namespace Inventory.Modules.Regions.Views
             ResetButtonsToDefaultStateExceptSelected(salesButton.Name);
         }
 
-        private void SuppliersInnerButton_Click(object sender, RoutedEventArgs e)
+        private void SuppliesInnerButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedButton = (sender as Button);
 
-            suppliersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
-            suppliersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
             selectedButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
-            var allButtonsExceptSelected = navigationButtons[suppliersButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != suppliersButton.Name));
+            var allButtonsExceptSelected = navigationButtons[suppliesButton.Name].Where(b => (b.Name != selectedButton.Name && b.Name != suppliesButton.Name));
 
             foreach (var button in allButtonsExceptSelected)
             {
                 button.Foreground = new SolidColorBrush(Color.FromRgb(45, 46, 46));
             }
 
-            ResetButtonsToDefaultStateExceptSelected(suppliersButton.Name);
+            ResetButtonsToDefaultStateExceptSelected(suppliesButton.Name);
         }
 
         private void ProductionButton_Click(object sender, RoutedEventArgs e)
@@ -224,33 +224,33 @@ namespace Inventory.Modules.Regions.Views
             ResetButtonsToDefaultStateExceptSelected(customersButton.Name);
         }
 
-        private void SuppliersButton_Click(object sender, RoutedEventArgs e)
+        private void SuppliesButton_Click(object sender, RoutedEventArgs e)
         {
-            if (suppliersChildVisible)
+            if (suppliesChildVisible)
             {
                 DoubleAnimation heightAnimation = new DoubleAnimation(0, _openCloseDuration);
-                suppliersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+                suppliesChildContent.BeginAnimation(HeightProperty, heightAnimation);
 
-                suppliersCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
+                suppliesCaret.Icon = FontAwesome.Sharp.IconChar.CaretRight;
             }
             else
             {
-                suppliersChildInnerContent.Measure(new Size(suppliersChildInnerContent.MaxWidth, suppliersChildInnerContent.MaxHeight));
-                DoubleAnimation heightAnimation = new DoubleAnimation(0, suppliersChildInnerContent.DesiredSize.Height, _openCloseDuration);
-                suppliersChildContent.BeginAnimation(HeightProperty, heightAnimation);
+                suppliesChildInnerContent.Measure(new Size(suppliesChildInnerContent.MaxWidth, suppliesChildInnerContent.MaxHeight));
+                DoubleAnimation heightAnimation = new DoubleAnimation(0, suppliesChildInnerContent.DesiredSize.Height, _openCloseDuration);
+                suppliesChildContent.BeginAnimation(HeightProperty, heightAnimation);
 
-                suppliersCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
+                suppliesCaret.Icon = FontAwesome.Sharp.IconChar.CaretDown;
             }
 
-            suppliersChildVisible = !suppliersChildVisible;
+            suppliesChildVisible = !suppliesChildVisible;
         }
 
-        private void SuppliesButton_Click(object sender, RoutedEventArgs e)
+        private void SuppliersButton_Click(object sender, RoutedEventArgs e)
         {
-            suppliesButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
-            suppliesIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliersButton.Foreground = new SolidColorBrush(Color.FromRgb(27, 130, 224));
+            suppliersIcon.Fill = new SolidColorBrush(Color.FromRgb(27, 130, 224));
 
-            ResetButtonsToDefaultStateExceptSelected(suppliesButton.Name);
+            ResetButtonsToDefaultStateExceptSelected(suppliersButton.Name);
         }
 
         private void InventoryButton_Click(object sender, RoutedEventArgs e)
