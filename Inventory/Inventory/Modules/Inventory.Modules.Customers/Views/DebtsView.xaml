@@ -145,35 +145,35 @@
                                        MappingName="Id"
                                        TextAlignment="Left" />
                     <sf:GridTextColumn HeaderText="Customer"
-                                       HorizontalHeaderContentAlignment="Left"
+                                       HorizontalHeaderContentAlignment="Stretch"
                                        MappingName="Customer"
-                                       TextAlignment="Left" />
+                                       TextAlignment="Justify" />
                     <sf:GridCurrencyColumn CurrencyDecimalDigits="2"
                                            CurrencyDecimalSeparator="."
                                            CurrencyGroupSeparator=","
                                            CurrencyGroupSizes="3"
                                            CurrencyPositivePattern="3"
                                            HeaderText="Total Due"
-                                           HorizontalHeaderContentAlignment="Left"
+                                           HorizontalHeaderContentAlignment="Right"
                                            MappingName="TotalDue"
-                                           TextAlignment="Left" />
+                                           TextAlignment="Right" />
                     <sf:GridCurrencyColumn CurrencyDecimalDigits="2"
                                            CurrencyDecimalSeparator="."
                                            CurrencyGroupSeparator=","
                                            CurrencyGroupSizes="3"
                                            CurrencyPositivePattern="3"
                                            HeaderText="Total Paid"
-                                           HorizontalHeaderContentAlignment="Left"
+                                           HorizontalHeaderContentAlignment="Right"
                                            MappingName="TotalPaid"
-                                           TextAlignment="Left" />
+                                           TextAlignment="Right" />
                     <sf:GridTextColumn HeaderText="Date"
-                                       HorizontalHeaderContentAlignment="Left"
+                                       HorizontalHeaderContentAlignment="Center"
                                        MappingName="DebtDate"
-                                       TextAlignment="Left" />
+                                       TextAlignment="Right" />
                     <sf:GridTextColumn HeaderText="Status"
-                                       HorizontalHeaderContentAlignment="Left"
+                                       HorizontalHeaderContentAlignment="Right"
                                        MappingName="Status"
-                                       TextAlignment="Left" />
+                                       TextAlignment="Right" />
                     <extensions:MoreOptionsTemplateColumnExtension AllowFocus="True" AllowSorting="False">
                         <extensions:MoreOptionsTemplateColumnExtension.CellTemplate>
                             <DataTemplate>
