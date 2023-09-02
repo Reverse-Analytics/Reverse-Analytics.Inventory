@@ -137,7 +137,10 @@ namespace Inventory.Modules.Sales.ViewModels
                     return;
                 }
 
-                await _saleService.CreateSale(saleToCreate);
+                var createdSale = await _saleService.CreateSale(saleToCreate);
+
+                Sales.Insert(0, createdSale);
+                _sales.Add(createdSale);
             }
             catch (Exception ex)
             {
