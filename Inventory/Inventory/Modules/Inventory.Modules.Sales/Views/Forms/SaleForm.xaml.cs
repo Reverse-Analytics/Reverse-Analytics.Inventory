@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using Inventory.Modules.Sales.ViewModels.Forms;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Inventory.Modules.Sales.Views.Forms
 {
@@ -23,6 +11,44 @@ namespace Inventory.Modules.Sales.Views.Forms
         public SaleForm()
         {
             InitializeComponent();
+        }
+
+        private void ComboBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var vm = (SaleFormViewModel)DataContext;
+
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                vm?.OnAddProduct();
+            }
+        }
+
+        private void Grid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var vm = (SaleFormViewModel)DataContext;
+
+            if (e.Key == System.Windows.Input.Key.Escape)
+            {
+                vm.CancelCommand.Execute();
+            }
+        }
+
+        private void DatePicker_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Up)
+            {
+                this.customersComboBox.Focus();
+            }
+        }
+
+        private void Button_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+                var vm = (SaleFormViewModel)DataContext;
+
+                (sender as Button).Command.Execute(null);
+            }
         }
     }
 }

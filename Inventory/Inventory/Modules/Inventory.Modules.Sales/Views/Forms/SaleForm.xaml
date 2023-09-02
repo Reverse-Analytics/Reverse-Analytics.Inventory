@@ -15,7 +15,9 @@
         <converters:DebtValueToColorConverter x:Key="DebtValueToColorConverter" />
     </UserControl.Resources>
 
-    <Grid Width="800" Height="700">
+    <Grid Width="800"
+          Height="700"
+          KeyDown="Grid_KeyDown">
         <md:Transitioner SelectedIndex="0">
             <!--  Sale details  -->
             <md:TransitionerSlide>
@@ -49,7 +51,8 @@
                                HorizontalAlignment="Right"
                                VerticalAlignment="Center"
                                Text="Customer:" />
-                    <ComboBox Grid.Row="1"
+                    <ComboBox x:Name="customersComboBox"
+                              Grid.Row="1"
                               Grid.Column="1"
                               Width="350"
                               Height="35"
@@ -90,6 +93,7 @@
                                 md:CalendarAssist.IsHeaderVisible="False"
                                 md:HintAssist.Hint="Select Date"
                                 IsEnabled="{Binding IsDatePickerEnabled}"
+                                KeyDown="DatePicker_KeyDown"
                                 Style="{StaticResource MaterialDesignOutlinedDatePicker}">
                         <DatePicker.SelectedDate>
                             <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
@@ -112,6 +116,7 @@
                                 Command="{x:Static md:Transitioner.MoveNextCommand}"
                                 Foreground="White"
                                 IsEnabled="{Binding CanMoveToProducts}"
+                                KeyDown="Button_KeyDown"
                                 Style="{StaticResource MaterialDesignFlatAccentBgButton}">
                             <StackPanel Orientation="Horizontal">
                                 <TextBlock Margin="0,0,5,0"
@@ -130,7 +135,7 @@
                                 md:ButtonAssist.CornerRadius="3"
                                 BorderBrush="Gray"
                                 BorderThickness="1"
-                                Command="{x:Static md:Transitioner.MoveNextCommand}"
+                                Command="{Binding CancelCommand}"
                                 Content="Cancel"
                                 Foreground="Black"
                                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
@@ -161,23 +166,31 @@
                     <TextBlock Grid.Row="0"
                                Grid.Column="0"
                                Grid.ColumnSpan="2"
-                               Margin="0,75,0,0"
+                               Margin="0,50,0,0"
                                HorizontalAlignment="Center"
                                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                                Text="Products" />
 
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Margin="0,50,10,0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               Text="Product:" />
                     <StackPanel Grid.Row="1"
-                                Grid.Column="1"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="2"
                                 Margin="0,50,0,0"
+                                HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Orientation="Horizontal">
-                        <ComboBox Width="350"
+                        <ComboBox Width="150"
+                                  Height="35"
+                                  Margin="0,0,25,0"
+                                  Padding="10"
+                                  md:HintAssist.Hint="Select Product"
+                                  Cursor="Hand"
+                                  DisplayMemberPath="ProductCode"
+                                  IsEditable="True"
+                                  ItemsSource="{Binding Products}"
+                                  KeyDown="ComboBox_KeyDown"
+                                  SelectedValue="{Binding SelectedProduct}"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                        <ComboBox Width="250"
                                   Height="35"
                                   Margin="0,0,25,0"
                                   Padding="10"
@@ -203,7 +216,7 @@
                     <Border Grid.Row="2"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"
-                            Margin="25,50,25,0"
+                            Margin="25,25,25,0"
                             VerticalAlignment="Top"
                             BorderBrush="LightGray"
                             BorderThickness="1">
@@ -223,18 +236,22 @@
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="Auto" />
                                                 </Grid.ColumnDefinitions>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto" />
                                                     <RowDefinition Height="*" />
                                                 </Grid.RowDefinitions>
+
                                                 <TextBlock Grid.Row="1"
                                                            Grid.Column="0"
-                                                           Width="100"
+                                                           Width="50"
                                                            Margin="10,0,0,0"
                                                            HorizontalAlignment="Left"
                                                            VerticalAlignment="Center"
-                                                           Text="{Binding Product.ProductName}"
+                                                           FontSize="15"
+                                                           FontWeight="Bold"
+                                                           Text="{Binding ProductCode}"
                                                            TextWrapping="Wrap" />
 
                                                 <TextBlock Grid.Row="0"
@@ -246,7 +263,7 @@
                                                            Text="Price per unit" />
                                                 <TextBox Grid.Row="1"
                                                          Grid.Column="1"
-                                                         Width="150"
+                                                         Width="100"
                                                          Height="30"
                                                          Margin="20,0,0,0"
                                                          Padding="10,7"
@@ -255,7 +272,7 @@
                                                          BorderBrush="LightGray"
                                                          FontWeight="SemiBold"
                                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                         Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                         Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
                                                 <TextBlock Grid.Row="0"
                                                            Grid.Column="2"
@@ -266,7 +283,7 @@
                                                            Text="Number of units" />
                                                 <sf:UpDown Grid.Row="1"
                                                            Grid.Column="2"
-                                                           Width="100"
+                                                           Width="75"
                                                            Height="30"
                                                            Margin="20,0,0,0"
                                                            Padding="5"
@@ -299,7 +316,7 @@
                                                                    MaxPercentDecimalDigits="1"
                                                                    MaxValue="100"
                                                                    MinValue="0"
-                                                                   PercentValue="{Binding Path=Discount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                                                                   PercentValue="{Binding Path=DiscountPercentage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                                                 <TextBlock Grid.Row="0"
                                                            Grid.Column="4"
@@ -307,10 +324,10 @@
                                                            HorizontalAlignment="Left"
                                                            FontSize="10"
                                                            Style="{StaticResource MaterialDesignHelperTextBlock}"
-                                                           Text="Total Price" />
+                                                           Text="Total Discount" />
                                                 <TextBox Grid.Row="1"
                                                          Grid.Column="4"
-                                                         Width="150"
+                                                         Width="125"
                                                          Height="30"
                                                          Margin="20,0,0,0"
                                                          Padding="10,7"
@@ -318,12 +335,34 @@
                                                          Background="White"
                                                          BorderBrush="LightGray"
                                                          FontWeight="SemiBold"
+                                                         IsEnabled="False"
                                                          Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                                                         Text="{Binding TotalPriceWithDiscount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+                                                         Text="{Binding TotalDiscount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+
+                                                <TextBlock Grid.Row="0"
+                                                           Grid.Column="5"
+                                                           Margin="20,5,0,0"
+                                                           HorizontalAlignment="Left"
+                                                           FontSize="10"
+                                                           Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                                           Text="Total Price" />
+                                                <TextBox Grid.Row="1"
+                                                         Grid.Column="5"
+                                                         Width="125"
+                                                         Height="30"
+                                                         Margin="20,0,0,0"
+                                                         Padding="10,7"
+                                                         HorizontalAlignment="Left"
+                                                         Background="White"
+                                                         BorderBrush="LightGray"
+                                                         FontWeight="SemiBold"
+                                                         IsEnabled="False"
+                                                         Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                                         Text="{Binding TotalPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
                                                 <Button Grid.Row="1"
-                                                        Grid.Column="5"
-                                                        Margin="20,0,0,0"
+                                                        Grid.Column="6"
+                                                        Margin="10,0,0,0"
                                                         HorizontalContentAlignment="Right"
                                                         Background="Transparent"
                                                         BorderBrush="Transparent"
@@ -336,7 +375,6 @@
                                                                  Foreground="Red"
                                                                  Kind="TrashCan" />
                                                 </Button>
-
                                             </Grid>
                                         </Border>
                                     </DataTemplate>
@@ -418,7 +456,7 @@
                     <TextBlock Grid.Row="0"
                                Grid.Column="0"
                                Grid.ColumnSpan="3"
-                               Margin="0,75,0,0"
+                               Margin="0,50,0,0"
                                HorizontalAlignment="Center"
                                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                                Text="Payment" />
@@ -463,7 +501,7 @@
                                Margin="0,15,15,0"
                                HorizontalAlignment="Right"
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
-                               Text="{Binding TotalDueWithDiscount, StringFormat=N2}" />
+                               Text="{Binding TotalDue, StringFormat=N2}" />
 
                     <TextBlock Grid.Row="4"
                                Grid.Column="1"
@@ -494,16 +532,39 @@
                                Style="{StaticResource MaterialDesignHeadline6TextBlock}"
                                Text="{Binding DebtAmount, StringFormat=N2}" />
 
-                    <TextBox Grid.Row="6"
-                             Grid.Column="1"
-                             Height="35"
-                             Margin="15,25,15,0"
-                             Padding="10"
-                             HorizontalAlignment="Stretch"
-                             md:HintAssist.Hint="Enter payment amount"
-                             Cursor="Hand"
-                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
-                             Text="{Binding PaymentAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+                    <StackPanel Grid.Row="6"
+                                Grid.Column="1"
+                                Margin="15,25,15,0"
+                                Orientation="Horizontal">
+                        <TextBox Width="250"
+                                 Height="35"
+                                 Padding="10"
+                                 HorizontalAlignment="Stretch"
+                                 md:HintAssist.Hint="Enter payment amount"
+                                 Cursor="Hand"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 Text="{Binding PaymentAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+
+                        <ComboBox Width="110"
+                                  Height="35"
+                                  Margin="15,0,0,0"
+                                  Padding="10"
+                                  HorizontalAlignment="Right"
+                                  md:HintAssist.Hint="Type"
+                                  ItemsSource="{Binding PaymentTypes}"
+                                  SelectedItem="{Binding PaymentType}"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+
+                        <ComboBox Width="110"
+                                  Height="35"
+                                  Margin="15,0,0,0"
+                                  Padding="10"
+                                  HorizontalAlignment="Right"
+                                  md:HintAssist.Hint="Currency"
+                                  ItemsSource="{Binding CurrencyTypes}"
+                                  SelectedItem="{Binding CurrencyType}"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+                    </StackPanel>
 
                     <TextBox Grid.Row="7"
                              Grid.Column="1"

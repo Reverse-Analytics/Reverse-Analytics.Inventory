@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Enums;
 using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using Inventory.Services.Interfaces;
@@ -21,7 +22,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         #endregion
 
-        #region Properties
+        #region Sale Details
 
         private decimal _totalDue = 0;
         public decimal TotalDue
@@ -34,17 +35,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        private decimal _totalDueWithDiscount = 0;
-        public decimal TotalDueWithDiscount
-        {
-            get => _totalDueWithDiscount;
-            set
-            {
-                SetProperty(ref _totalDueWithDiscount, value);
-                DebtAmount = value - PaymentAmount;
-            }
-        }
-
         private decimal _paymentAmount;
         public decimal PaymentAmount
         {
@@ -54,7 +44,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 if (value > _totalDue) value = _totalDue;
 
                 SetProperty(ref _paymentAmount, value);
-                DebtAmount = TotalDueWithDiscount - value;
+                DebtAmount = TotalDue - value;
             }
         }
 
@@ -77,6 +67,20 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             get => _comments;
             set => SetProperty(ref _comments, value);
+        }
+
+        private CurrencyType _currencyType;
+        public CurrencyType CurrencyType
+        {
+            get => _currencyType;
+            set => SetProperty(ref _currencyType, value);
+        }
+
+        private PaymentType _paymentType;
+        public PaymentType PaymentType
+        {
+            get => _paymentType;
+            set => SetProperty(ref _paymentType, value);
         }
 
         private DateTime _selectedDate = DateTime.Now;
@@ -104,6 +108,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
+        public static List<CurrencyType> CurrencyTypes => new() { CurrencyType.UZS, CurrencyType.USD };
+        public static List<PaymentType> PaymentTypes => new() { PaymentType.Cash, PaymentType.Card };
+
+        #endregion
+
+        #region UI Properties
+
         private bool _canMoveToProducts = false;
         public bool CanMoveToProducts
         {
@@ -125,7 +136,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _isDatePickerEnabled, value);
         }
 
-        private readonly bool isEditingMode = false;
         #endregion
 
         #region Commands
@@ -169,20 +179,18 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             SelectedDate = sale.SaleDate;
             sale.SaleDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
             {
-                Discount = x.Discount,
-                Product = x.Product,
+                ProductCode = x.Product.ProductCode,
+                TotalDiscount = x.Discount,
                 Quantity = x.Quantity,
                 UnitPrice = x.UnitPrice,
-                ProductId = x.ProductId
+                ProductId = x.ProductId,
             }));
             Comments = sale.Comments;
             TotalDue = sale.TotalDue;
             PaymentAmount = sale.TotalPaid;
-            TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
 
             IsDatePickerEnabled = false;
             CanMoveToPayment = true;
-            isEditingMode = true;
         }
 
         #region Command methods
@@ -191,14 +199,25 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             try
             {
-                if (SelectedProduct is null) return;
+                if (SelectedProduct is null)
+                {
+                    return;
+                }
+
+                var productAlreadyAdded = AddedProducts.Any(x => x.ProductId == SelectedProduct.Id);
+
+                if (productAlreadyAdded)
+                {
+                    return;
+                }
+
 
                 var saleDetail = new SaleDetail
                 {
-                    Quantity = 0,
+                    ProductCode = SelectedProduct.ProductCode,
+                    Quantity = 1,
                     UnitPrice = SelectedProduct.SalePrice,
-                    ProductId = SelectedProduct.Id,
-                    Product = SelectedProduct
+                    ProductId = SelectedProduct.Id
                 };
 
                 saleDetail.PropertyChanged += OnSaleDetailChanged;
@@ -237,39 +256,22 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
                 if (!result) return;
 
-                if (isEditingMode)
+                var sale = new Sale
                 {
-                    var sale = new Sale
-                    {
-                        CustomerId = SelectedCustomer.Id,
-                        SaleDate = SelectedDate,
-                        TotalDue = TotalDue,
-                        TotalPaid = PaymentAmount,
-                        TotalDiscount = DiscountTotal,
-                        SaleType = Core.Enums.SaleType.Retaile,
-                        Comments = Comments,
-                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}",
-                    };
+                    CustomerId = SelectedCustomer.Id,
+                    SaleDate = SelectedDate,
+                    SaleDetails = GetSaleDetails(),
+                    TotalDue = TotalDue,
+                    TotalPaid = PaymentAmount,
+                    TotalDiscount = DiscountTotal,
+                    SaleType = Core.Enums.SaleType.Retaile,
+                    Comments = Comments,
+                    Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}",
+                    CurrencyType = CurrencyType,
+                    PaymentType = PaymentType
+                };
 
-                    DialogHost.Close(RegionNames.DialogRegion, sale);
-                }
-                else
-                {
-                    var sale = new Sale
-                    {
-                        CustomerId = SelectedCustomer.Id,
-                        SaleDate = SelectedDate,
-                        SaleDetails = GetSaleDetails(),
-                        TotalDue = TotalDue,
-                        TotalPaid = PaymentAmount,
-                        TotalDiscount = DiscountTotal,
-                        SaleType = Core.Enums.SaleType.Retaile,
-                        Comments = Comments,
-                        Receipt = $"{SelectedDate.Date:dd-MM-yyyy} {Guid.NewGuid().ToString()[5..]}",
-                    };
-
-                    DialogHost.Close(RegionNames.DialogRegion, sale);
-                }
+                DialogHost.Close(RegionNames.DialogRegion, sale);
             }
             catch (Exception ex)
             {
@@ -277,16 +279,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        private List<Inventory.Core.Models.SaleDetail> GetSaleDetails()
-        {
-            return AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
+        private List<Inventory.Core.Models.SaleDetail> GetSaleDetails() =>
+            AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
             {
                 ProductId = x.ProductId,
-                Discount = x.Discount,
+                Discount = x.TotalDiscount,
                 Quantity = x.Quantity,
                 UnitPrice = x.UnitPrice,
             }).ToList();
-        }
 
         private void OnCancel()
         {
@@ -300,7 +300,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         private void OnSaleDetailChanged(object sender, EventArgs e)
         {
             TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
-            TotalDueWithDiscount = AddedProducts.Sum(x => x.TotalPriceWithDiscount);
             DiscountTotal = AddedProducts.Sum(x => x.CalculateTotalDiscount());
         }
 
@@ -310,6 +309,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
     public class SaleDetail : BindableBase
     {
         public int ProductId { get; set; }
+        public string ProductCode { get; set; }
 
         private decimal _unitPrice;
         public decimal UnitPrice
@@ -318,8 +318,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set
             {
                 SetProperty(ref _unitPrice, value);
-                CalculateTotalPrice();
-                CalculateTotalDiscount();
+                CalculateTotals();
             }
         }
 
@@ -330,24 +329,29 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set
             {
                 SetProperty(ref _quantity, value);
-                CalculateTotalPrice();
-                CalculateTotalDiscount();
+                CalculateTotals();
             }
         }
 
-        private decimal _discount;
-        public decimal Discount
+        private decimal _discountPercentage;
+        public decimal DiscountPercentage
         {
-            get => _discount;
+            get => _discountPercentage;
             set
             {
                 if (value < 100)
                 {
-                    SetProperty(ref _discount, value);
-                    CalculateTotalPrice();
-                    CalculateTotalDiscount();
+                    SetProperty(ref _discountPercentage, value);
+                    CalculateTotals();
                 }
             }
+        }
+
+        private decimal _totalDiscount;
+        public decimal TotalDiscount
+        {
+            get => _totalDiscount;
+            set => SetProperty(ref _totalDiscount, value);
         }
 
         private decimal _totalPrice;
@@ -357,49 +361,29 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _totalPrice, value);
         }
 
-        private decimal _totalPriceWithDiscount;
-        public decimal TotalPriceWithDiscount
+        private void CalculateTotals()
         {
-            get => _totalPriceWithDiscount;
-            set => SetProperty(ref _totalPriceWithDiscount, value);
-        }
-
-        private Product _product;
-        public Product Product
-        {
-            get => _product;
-            set => SetProperty(ref _product, value);
-        }
-
-        private void CalculateTotalPrice()
-        {
-            TotalPrice = Quantity * UnitPrice;
-
-            // Calculate discount total
-            if (UnitPrice > 0)
-            {
-                var discount = (TotalPrice * (decimal)Discount) / 100;
-                TotalPriceWithDiscount = TotalPrice - discount;
-            }
+            TotalDiscount = CalculateTotalDiscount();
+            TotalPrice = CalculateTotalPrice();
         }
 
         public decimal CalculateTotalDiscount()
         {
-            if (UnitPrice > 0 && Discount > 0)
-                return (TotalPrice * (decimal)Discount) / 100;
+            if (UnitPrice <= 0 || Quantity <= 0)
+                return 0;
 
-            return 0;
+            var totalPrice = UnitPrice * Quantity;
+
+            return (totalPrice * DiscountPercentage) / 100;
         }
 
-        public Core.Models.SaleDetail ToSaleDetail()
+        private decimal CalculateTotalPrice()
         {
-            return new Core.Models.SaleDetail()
-            {
-                ProductId = ProductId,
-                Discount = Discount,
-                Quantity = Quantity,
-                UnitPrice = UnitPrice,
-            };
+            if (UnitPrice <= 0 || Quantity <= 0)
+                return 0;
+
+            return (UnitPrice * Quantity) - TotalDiscount;
         }
     }
+
 }
