@@ -190,7 +190,7 @@
                            SelectionMode="Single"
                            SelectionUnit="Row">
                 <sf:SfDataGrid.DetailsViewDefinition>
-                    <sf:GridViewDefinition RelationalColumn="Details">
+                    <sf:GridViewDefinition RelationalColumn="SaleDetails">
                         <sf:GridViewDefinition.DataGrid>
                             <sf:SfDataGrid AutoGenerateColumns="False" ColumnSizer="Star">
                                 <sf:SfDataGrid.Columns>
@@ -201,7 +201,7 @@
                                                           NumberDecimalDigits="2" />
                                     <sf:GridNumericColumn HeaderText="Quantity" MappingName="Quantity" />
                                     <sf:GridNumericColumn HeaderText="Discount" MappingName="Discount" />
-                                    <sf:GridNumericColumn HeaderText="Total Price" MappingName="TotalPrice" />
+                                    <sf:GridNumericColumn HeaderText="Total Due" MappingName="TotalDue" />
                                 </sf:SfDataGrid.Columns>
                             </sf:SfDataGrid>
                         </sf:GridViewDefinition.DataGrid>
@@ -220,13 +220,15 @@
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="Id"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn VerticalAlignment="Center"
-                                       ColumnSizer="Star"
+                    <sf:GridTextColumn Padding="5,0,0,0"
+                                       VerticalAlignment="Center"
+                                       ColumnSizer="Auto"
                                        HeaderText="Receipt"
                                        HorizontalHeaderContentAlignment="Left"
                                        MappingName="Receipt"
                                        TextAlignment="Left" />
-                    <sf:GridTextColumn VerticalAlignment="Center"
+                    <sf:GridTextColumn Padding="0,0,0,0"
+                                       VerticalAlignment="Center"
                                        ColumnSizer="Star"
                                        HeaderText="Customer"
                                        HorizontalHeaderContentAlignment="Center"
@@ -253,13 +255,19 @@
                     <sf:GridNumericColumn ColumnSizer="Auto"
                                           HeaderText="Discount"
                                           HorizontalHeaderContentAlignment="Left"
-                                          MappingName="DiscountTotal"
+                                          MappingName="TotalDiscount"
                                           NumberDecimalDigits="2"
                                           TextAlignment="Left" />
                     <sf:GridTextColumn ColumnSizer="Auto"
-                                       HeaderText="Status"
+                                       HeaderText="Payment Type"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="Status"
+                                       MappingName="PaymentType"
+                                       TextAlignment="Left" />
+                    <sf:GridTextColumn VerticalAlignment="Center"
+                                       ColumnSizer="Star"
+                                       HeaderText="Currency Type"
+                                       HorizontalHeaderContentAlignment="Left"
+                                       MappingName="CurrencyType"
                                        TextAlignment="Left" />
                     <extensions:MoreOptionsTemplateColumnExtension Width="50"
                                                                    AllowFocus="True"
