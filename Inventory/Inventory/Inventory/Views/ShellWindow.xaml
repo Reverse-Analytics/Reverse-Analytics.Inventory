@@ -269,7 +269,7 @@
                       md:ScrollViewerAssist.IsAutoHideEnabled="True"
                       Background="#f5f6f9"
                       VerticalScrollBarVisibility="Hidden">
-            <md:DialogHost CloseOnClickAway="True"
+            <md:DialogHost CloseOnClickAway="False"
                            DialogClosed="DialogHost_DialogClosed"
                            DialogOpened="DialogHost_DialogOpened"
                            Identifier="RootDialog">
