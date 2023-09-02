@@ -11,33 +11,111 @@
         <StackPanel Margin="50">
             <TabControl>
                 <TabItem Cursor="Hand" Header="Details">
-                    <StackPanel Margin="0,25,0,0" Cursor="Arrow">
+                    <StackPanel Margin="0,50,0,0" Cursor="Arrow">
 
                         <!--  1st row header  -->
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="330"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="#FAFAFA"
                                     BorderBrush="LightGray"
                                     BorderThickness="1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Customer" />
+                                           Text="Total Due" />
                             </Border>
-                            <Border Width="330"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="#FAFAFA "
                                     BorderBrush="LightGray "
                                     BorderThickness="0,1,1,1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Sale Date" />
+                                           Text="Total Paid" />
                             </Border>
-                            <Border Width="345"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="#FAFAFA "
                                     BorderBrush="LightGray "
                                     BorderThickness="0,1,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Discount" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,1,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Debt Amount" />
+                            </Border>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding TotalDue, StringFormat=N2}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding PaidAmount, StringFormat=N2}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding Discount, StringFormat=N2}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding DebtAmount, StringFormat=N2}" />
+                            </Border>
+                        </StackPanel>
+
+                        <!--  2nd row header  -->
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="1,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Customer" />
+                            </Border>
+                            <Border Width="330"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Sale Date" />
+                            </Border>
+                            <Border Width="339"
+                                    Padding="15"
+                                    Background="#FAFAFA"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
                                            Text="Salesman" />
@@ -62,7 +140,7 @@
                                            Foreground="#2d2e2e"
                                            Text="{Binding SaleDate}" />
                             </Border>
-                            <Border Width="345"
+                            <Border Width="339"
                                     Padding="15"
                                     Background="Transparent"
                                     BorderBrush="LightGray"
@@ -73,87 +151,9 @@
                             </Border>
                         </StackPanel>
 
-                        <!--  2nd row header  -->
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="#FAFAFA"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="Total Due" />
-                            </Border>
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="#FAFAFA"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="Paid Amount" />
-                            </Border>
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="#FAFAFA"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="Discount" />
-                            </Border>
-                            <Border Width="255"
-                                    Padding="15"
-                                    Background="#FAFAFA"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="Debt Amount" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="{Binding TotalDue}" />
-                            </Border>
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="{Binding PaidAmount}" />
-                            </Border>
-                            <Border Width="250"
-                                    Padding="15"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="{Binding Discount}" />
-                            </Border>
-                            <Border Width="255"
-                                    Padding="15"
-                                    Background="Transparent"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="0,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="{Binding DebtAmount}" />
-                            </Border>
-                        </StackPanel>
-
                         <!--  3rd row header  -->
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="499"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="#FAFAFA"
                                     BorderBrush="LightGray"
@@ -162,18 +162,36 @@
                                            Foreground="#2d2e2e"
                                            Text="Receipt" />
                             </Border>
-                            <Border Width="505"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="#FAFAFA "
                                     BorderBrush="LightGray "
                                     BorderThickness="0,0,1,1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="Status" />
+                                           Text="Payment Type" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Currency Type" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="#FAFAFA "
+                                    BorderBrush="LightGray "
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="Comments" />
                             </Border>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Border Width="499"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="Transparent"
                                     BorderBrush="LightGray"
@@ -182,35 +200,29 @@
                                            Foreground="#2d2e2e"
                                            Text="{Binding Receipt}" />
                             </Border>
-                            <Border Width="505"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="Transparent"
                                     BorderBrush="LightGray"
                                     BorderThickness="0,0,1,1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
-                                           Text="{Binding Status}" />
+                                           Text="{Binding PaymentType}" />
                             </Border>
-                        </StackPanel>
-
-                        <!--  4th row header  -->
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="1004"
-                                    Padding="15"
-                                    Background="#FAFAFA"
-                                    BorderBrush="LightGray"
-                                    BorderThickness="1,0,1,1">
-                                <TextBlock FontSize="14"
-                                           Foreground="#2d2e2e"
-                                           Text="Comments" />
-                            </Border>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Border Width="1004"
+                            <Border Width="250"
                                     Padding="15"
                                     Background="Transparent"
                                     BorderBrush="LightGray"
-                                    BorderThickness="1,0,1,1">
+                                    BorderThickness="0,0,1,1">
+                                <TextBlock FontSize="14"
+                                           Foreground="#2d2e2e"
+                                           Text="{Binding CurrencyType}" />
+                            </Border>
+                            <Border Width="250"
+                                    Padding="15"
+                                    Background="Transparent"
+                                    BorderBrush="LightGray"
+                                    BorderThickness="0,0,1,1">
                                 <TextBlock FontSize="14"
                                            Foreground="#2d2e2e"
                                            Text="{Binding Comments}" />
@@ -229,8 +241,10 @@
                                 Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
                 </TabItem>
+
+                <!--  Sale Details  -->
                 <TabItem Cursor="Hand" Header="Products">
-                    <StackPanel Margin="0,25,0,0">
+                    <StackPanel Margin="0,50,0,0">
                         <sf:SfDataGrid x:Name="saleDetailsDataGrid"
                                        HorizontalAlignment="Stretch"
                                        VerticalAlignment="Top"
@@ -271,7 +285,7 @@
                                                       TextAlignment="Right" />
                                 <sf:GridNumericColumn HeaderText="Quantity"
                                                       HorizontalHeaderContentAlignment="Right"
-                                                      MappingName="UnitPrice"
+                                                      MappingName="Quantity"
                                                       TextAlignment="Right" />
                                 <sf:GridNumericColumn HeaderText="Discount"
                                                       HorizontalHeaderContentAlignment="Right"

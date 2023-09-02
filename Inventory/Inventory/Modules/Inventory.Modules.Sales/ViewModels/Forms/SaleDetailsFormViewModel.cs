@@ -1,4 +1,5 @@
 ﻿using Inventory.Core;
+using Inventory.Core.Enums;
 using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
 using MaterialDesignThemes.Wpf;
@@ -21,21 +22,27 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal DebtAmount { get; set; }
         public string Receipt { get; set; }
         public string Comments { get; set; }
+        public CurrencyType CurrencyType { get; set; }
+        public PaymentType PaymentType { get; set; }
+
         public List<Inventory.Core.Models.SaleDetail> SaleDetails { get; }
 
         public ICommand CloseCommand { get; }
 
         public SaleDetailsFormViewModel(Sale sale)
         {
-            CustomerFullName = sale.Customer.FullName;
+            CustomerFullName = sale.Customer?.FullName;
             SaleDate = sale.SaleDate;
-            Salesman = sale.Customer.FullName;
+            Salesman = sale.SoldBy;
             TotalDue = sale.TotalDue;
             Discount = sale.TotalDiscount;
             PaidAmount = sale.TotalPaid;
             DebtAmount = sale.TotalDue - sale.TotalPaid;
             Receipt = sale.Receipt;
             Comments = sale.Comments;
+            CurrencyType = sale.CurrencyType;
+            PaymentType = sale.PaymentType;
+
             SaleDetails = sale.SaleDetails.ToList();
 
             CloseCommand = new DelegateCommand(OnClose);
