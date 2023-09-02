@@ -13,8 +13,10 @@ namespace Inventory.Core.Models
         public decimal TotalDue { get; set; }
         public decimal TotalPaid { get; set; }
         public decimal TotalDiscount { get; set; }
-        public SaleType SaleType { get; set; }
         public DateTime SaleDate { get; set; }
+        public SaleType SaleType { get; set; }
+        public CurrencyType CurrencyType { get; set; }
+        public PaymentType PaymentType { get; set; }
 
         public int CustomerId { get; set; }
         public virtual Customer Customer { get; set; }
