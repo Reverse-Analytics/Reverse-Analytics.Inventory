@@ -24,6 +24,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         #region Sale Details
 
+        public int SaleId { get; set; }
+
         private decimal _totalDue = 0;
         public decimal TotalDue
         {
@@ -177,20 +179,15 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
             SelectedCustomer = Customers.FirstOrDefault(x => x.Id == sale.CustomerId);
             SelectedDate = sale.SaleDate;
-            sale.SaleDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
-            {
-                ProductCode = x.Product.ProductCode,
-                TotalDiscount = x.Discount,
-                Quantity = x.Quantity,
-                UnitPrice = x.UnitPrice,
-                ProductId = x.ProductId,
-            }));
             Comments = sale.Comments;
             TotalDue = sale.TotalDue;
             PaymentAmount = sale.TotalPaid;
+            SaleId = sale.Id;
 
             IsDatePickerEnabled = false;
             CanMoveToPayment = true;
+
+            SetupDetails(sale);
         }
 
         #region Command methods
@@ -210,7 +207,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 {
                     return;
                 }
-
 
                 var saleDetail = new SaleDetail
                 {
@@ -258,6 +254,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
                 var sale = new Sale
                 {
+                    Id = SaleId,
                     CustomerId = SelectedCustomer.Id,
                     SaleDate = SelectedDate,
                     SaleDetails = GetSaleDetails(),
@@ -282,15 +279,23 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         private List<Inventory.Core.Models.SaleDetail> GetSaleDetails() =>
             AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
             {
+                Id = x.Id,
                 ProductId = x.ProductId,
                 Discount = x.TotalDiscount,
                 Quantity = x.Quantity,
                 UnitPrice = x.UnitPrice,
+                SaleId = SaleId,
+                TotalDue = x.TotalPrice,
             }).ToList();
 
-        private void OnCancel()
+        private async void OnCancel()
         {
-            DialogHost.Close(RegionNames.DialogRegion);
+            var result = await _dialogService.ShowConfirmation("Please, confirm the action.", "Are you sure you want to close the dialog?");
+
+            if (result)
+            {
+                DialogHost.Close(RegionNames.DialogRegion);
+            }
         }
 
         #endregion
@@ -303,11 +308,31 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             DiscountTotal = AddedProducts.Sum(x => x.CalculateTotalDiscount());
         }
 
+        private void SetupDetails(Sale sale)
+        {
+            if (!sale?.SaleDetails?.Any() ?? false)
+            {
+                return;
+            }
+
+            sale.SaleDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
+            {
+                Id = x.Id,
+                ProductCode = x.Product.ProductCode,
+                Quantity = x.Quantity,
+                UnitPrice = x.UnitPrice,
+                TotalDiscount = x.Discount,
+                ProductId = x.ProductId,
+            }));
+        }
+
         #endregion
     }
 
     public class SaleDetail : BindableBase
     {
+        public int Id { get; set; }
+
         public int ProductId { get; set; }
         public string ProductCode { get; set; }
 
@@ -351,7 +376,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal TotalDiscount
         {
             get => _totalDiscount;
-            set => SetProperty(ref _totalDiscount, value);
+            set
+            {
+                if (_totalDiscount == value) return;
+
+                SetProperty(ref _totalDiscount, value);
+                CalcualteDiscountPercentage();
+            }
         }
 
         private decimal _totalPrice;
@@ -383,6 +414,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return 0;
 
             return (UnitPrice * Quantity) - TotalDiscount;
+        }
+
+        private void CalcualteDiscountPercentage()
+        {
+            if (TotalDiscount > 0 && UnitPrice > 0)
+            {
+                DiscountPercentage = TotalDiscount * 100 / (UnitPrice * Quantity);
+            }
         }
     }
 
