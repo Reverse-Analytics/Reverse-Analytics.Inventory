@@ -15,139 +15,13 @@
         <converters:DebtValueToColorConverter x:Key="DebtValueToColorConverter" />
     </UserControl.Resources>
 
-    <Grid Width="800"
+    <Grid Width="900"
           Height="700"
           KeyDown="Grid_KeyDown">
-        <md:Transitioner SelectedIndex="0">
-            <!--  Sale details  -->
-            <md:TransitionerSlide>
-                <md:TransitionerSlide.ForwardWipe>
-                    <md:SlideWipe Direction="Right" Duration="0:0:0.8" />
-                </md:TransitionerSlide.ForwardWipe>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="2*" />
-                        <ColumnDefinition Width="4*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <TextBlock Grid.Row="0"
-                               Grid.Column="0"
-                               Grid.ColumnSpan="3"
-                               Margin="0,75,0,0"
-                               HorizontalAlignment="Center"
-                               Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                               Text="Sale Details" />
-
-                    <TextBlock Grid.Row="1"
-                               Grid.Column="0"
-                               Margin="0,75,10,0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               Text="Customer:" />
-                    <ComboBox x:Name="customersComboBox"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              Width="350"
-                              Height="35"
-                              Margin="0,75,0,0"
-                              Padding="10,9"
-                              HorizontalAlignment="Left"
-                              md:HintAssist.Hint="Select Customer"
-                              md:TextFieldAssist.HasClearButton="True"
-                              Cursor="Hand"
-                              DisplayMemberPath="FullName"
-                              ItemsSource="{Binding Customers}"
-                              SelectedValue="{Binding SelectedCustomer}"
-                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
-                        <ComboBox.SelectedItem>
-                            <Binding Mode="TwoWay"
-                                     Path="SelectedCustomer"
-                                     UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validations:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </ComboBox.SelectedItem>
-                    </ComboBox>
-
-                    <TextBlock Grid.Row="2"
-                               Grid.Column="0"
-                               Margin="0,50,10,0"
-                               HorizontalAlignment="Right"
-                               VerticalAlignment="Center"
-                               Text="Sale Date:" />
-                    <DatePicker Grid.Row="2"
-                                Grid.Column="1"
-                                Width="350"
-                                Height="35"
-                                Margin="0,50,0,0"
-                                Padding="10"
-                                HorizontalAlignment="Left"
-                                md:CalendarAssist.IsHeaderVisible="False"
-                                md:HintAssist.Hint="Select Date"
-                                IsEnabled="{Binding IsDatePickerEnabled}"
-                                KeyDown="DatePicker_KeyDown"
-                                Style="{StaticResource MaterialDesignOutlinedDatePicker}">
-                        <DatePicker.SelectedDate>
-                            <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <validations:FutureDateValidationRule ValidatesOnTargetUpdated="True" />
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </DatePicker.SelectedDate>
-                    </DatePicker>
-
-                    <StackPanel Grid.Row="3"
-                                Grid.Column="1"
-                                Margin="0,50,0,0">
-                        <Button Width="350"
-                                Height="35"
-                                HorizontalAlignment="Left"
-                                md:ButtonAssist.CornerRadius="3"
-                                Background="#1890ff"
-                                BorderThickness="0"
-                                Command="{x:Static md:Transitioner.MoveNextCommand}"
-                                Foreground="White"
-                                IsEnabled="{Binding CanMoveToProducts}"
-                                KeyDown="Button_KeyDown"
-                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Margin="0,0,5,0"
-                                           VerticalAlignment="Center"
-                                           Text="Products" />
-                                <md:PackIcon Width="25"
-                                             Height="25"
-                                             Kind="ArrowRight" />
-                            </StackPanel>
-                        </Button>
-
-                        <Button Width="350"
-                                Height="35"
-                                Margin="0,25,0,0"
-                                HorizontalAlignment="Left"
-                                md:ButtonAssist.CornerRadius="3"
-                                BorderBrush="Gray"
-                                BorderThickness="1"
-                                Command="{Binding CancelCommand}"
-                                Content="Cancel"
-                                Foreground="Black"
-                                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
-                    </StackPanel>
-                </Grid>
-            </md:TransitionerSlide>
+        <md:Transitioner KeyDown="Transitioner_KeyDown" SelectedIndex="0">
 
             <!--  Product details  -->
             <md:TransitionerSlide>
-                <md:TransitionerSlide.BackwardWipe>
-                    <md:SlideWipe Direction="Left" Duration="0:0:0.8" />
-                </md:TransitionerSlide.BackwardWipe>
                 <md:TransitionerSlide.ForwardWipe>
                     <md:SlideWipe Direction="Right" Duration="0:0:0.8" />
                 </md:TransitionerSlide.ForwardWipe>
@@ -169,20 +43,58 @@
                                Margin="0,50,0,0"
                                HorizontalAlignment="Center"
                                Style="{StaticResource MaterialDesignHeadline4TextBlock}"
-                               Text="Products" />
+                               Text="Sale Details" />
 
                     <StackPanel Grid.Row="1"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="2"
-                                Margin="0,50,0,0"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Top"
+                                Margin="25,50,25,0"
                                 Orientation="Horizontal">
-                        <ComboBox Width="150"
+                        <DatePicker Width="125"
+                                    Height="35"
+                                    Margin="0,0,25,0"
+                                    Padding="10,9"
+                                    HorizontalAlignment="Left"
+                                    md:CalendarAssist.IsHeaderVisible="False"
+                                    md:HintAssist.Hint="Select Date"
+                                    IsEnabled="{Binding IsDatePickerEnabled}"
+                                    KeyDown="DatePicker_KeyDown"
+                                    Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                            <DatePicker.SelectedDate>
+                                <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validations:FutureDateValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </DatePicker.SelectedDate>
+                        </DatePicker>
+                        <ComboBox Width="210"
                                   Height="35"
                                   Margin="0,0,25,0"
-                                  Padding="10"
-                                  md:HintAssist.Hint="Select Product"
+                                  Padding="10,9"
+                                  HorizontalAlignment="Left"
+                                  md:HintAssist.Hint="Select Customer"
+                                  md:TextFieldAssist.HasClearButton="True"
+                                  Cursor="Hand"
+                                  DisplayMemberPath="FullName"
+                                  ItemsSource="{Binding Customers}"
+                                  SelectedValue="{Binding SelectedCustomer}"
+                                  Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                            <ComboBox.SelectedItem>
+                                <Binding Mode="TwoWay"
+                                         Path="SelectedCustomer"
+                                         UpdateSourceTrigger="PropertyChanged">
+                                    <Binding.ValidationRules>
+                                        <validations:NotEmptyValidationRule ValidatesOnTargetUpdated="True" />
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </ComboBox.SelectedItem>
+                        </ComboBox>
+                        <ComboBox Width="105"
+                                  Height="35"
+                                  Margin="0,0,25,0"
+                                  Padding="10,9"
+                                  md:HintAssist.Hint="Code"
                                   Cursor="Hand"
                                   DisplayMemberPath="ProductCode"
                                   IsEditable="True"
@@ -190,10 +102,10 @@
                                   KeyDown="ComboBox_KeyDown"
                                   SelectedValue="{Binding SelectedProduct}"
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                        <ComboBox Width="250"
+                        <ComboBox Width="210"
                                   Height="35"
                                   Margin="0,0,25,0"
-                                  Padding="10"
+                                  Padding="10,9"
                                   md:HintAssist.Hint="Select Product"
                                   Cursor="Hand"
                                   DisplayMemberPath="ProductName"
@@ -201,9 +113,9 @@
                                   ItemsSource="{Binding Products}"
                                   SelectedValue="{Binding SelectedProduct}"
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-                        <Button Width="80"
+                        <Button Width="100"
                                 Height="35"
-                                Margin="0,0,25,0"
+                                Margin="0,0,0,0"
                                 md:ButtonAssist.CornerRadius="3"
                                 Background="#009624"
                                 BorderThickness="0"
@@ -387,7 +299,7 @@
                                 Grid.Column="1"
                                 Margin="0,25,0,0">
                         <Button Width="350"
-                                Height="35"
+                                Height="40"
                                 Margin="10,0,0,0"
                                 HorizontalAlignment="Left"
                                 md:ButtonAssist.CornerRadius="3"
@@ -406,26 +318,18 @@
                                              Kind="ArrowRight" />
                             </StackPanel>
                         </Button>
+
+
                         <Button Width="350"
-                                Height="35"
+                                Height="40"
                                 Margin="10,25,0,0"
                                 HorizontalAlignment="Left"
                                 md:ButtonAssist.CornerRadius="3"
-                                Background="Gray"
-                                BorderThickness="0"
-                                Command="{x:Static md:Transitioner.MovePreviousCommand}"
-                                Foreground="White"
-                                Style="{StaticResource MaterialDesignFlatAccentBgButton}">
-                            <StackPanel Orientation="Horizontal">
-                                <md:PackIcon Width="20"
-                                             Height="20"
-                                             Kind="ArrowLeft" />
-                                <TextBlock Margin="5,0,0,0"
-                                           VerticalAlignment="Center"
-                                           Text="Details" />
-                            </StackPanel>
-                        </Button>
-
+                                BorderBrush="Gray"
+                                Command="{Binding CancelCommand}"
+                                Content="Close"
+                                Foreground="Black"
+                                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
                     </StackPanel>
                 </Grid>
             </md:TransitionerSlide>
@@ -438,7 +342,7 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="4*" />
+                        <ColumnDefinition Width="3*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
@@ -555,7 +459,7 @@
                                   SelectedItem="{Binding PaymentType}"
                                   Style="{StaticResource MaterialDesignOutlinedComboBox}" />
 
-                        <ComboBox Width="110"
+                        <ComboBox Width="115"
                                   Height="35"
                                   Margin="15,0,0,0"
                                   Padding="10"

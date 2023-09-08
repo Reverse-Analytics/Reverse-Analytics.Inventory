@@ -8,7 +8,7 @@ namespace Inventory.Services
     public class SaleService : ISaleService
     {
         private readonly RestClientBase _client;
-        private const string url = "sales/";
+        private const string url = "sales";
 
         public SaleService(RestClientBase client)
         {

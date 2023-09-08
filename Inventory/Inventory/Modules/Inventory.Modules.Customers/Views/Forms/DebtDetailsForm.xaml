@@ -6,8 +6,16 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              Background="White"
              mc:Ignorable="d">
-    <Grid Margin="75">
+    <Grid MinWidth="850"
+          MaxWidth="900"
+          Margin="75">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition />
@@ -25,13 +33,11 @@
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
-                   Grid.Column="2"
-                   Grid.ColumnSpan="2"
+                   Grid.Column="4"
+                   Grid.ColumnSpan="4"
                    Margin="0,0,0,25"
                    HorizontalAlignment="Center"
                    Style="{StaticResource MaterialDesignHeadline5TextBlock}"
@@ -39,48 +45,48 @@
 
         <!--  Row 1  -->
 
+        <!--  Header  -->
         <Border Grid.Row="1"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="4"
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,1,0,1">
-            <TextBlock Margin="0,0,200,0"
-                       FontSize="16"
+            <TextBlock FontSize="16"
                        FontWeight="Normal"
                        Foreground="#2d2e2e"
                        Text="Customer" />
         </Border>
         <Border Grid.Row="1"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
+                Grid.Column="4"
+                Grid.ColumnSpan="4"
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,1,0,1">
-            <TextBlock Margin="0,0,200,0"
-                       FontSize="16"
+            <TextBlock FontSize="16"
                        FontWeight="Normal"
                        Foreground="#2d2e2e"
                        Text="Salesman" />
         </Border>
         <Border Grid.Row="1"
-                Grid.Column="4"
-                Grid.ColumnSpan="2"
+                Grid.Column="8"
+                Grid.ColumnSpan="12"
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,1,1,1">
-            <TextBlock Margin="0,0,200,0"
-                       FontSize="16"
+            <TextBlock FontSize="16"
                        FontWeight="Normal"
                        Foreground="#2d2e2e"
                        Text="Closed By" />
         </Border>
+
+        <!--  Content  -->
         <Border Grid.Row="2"
                 Grid.Column="0"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="4"
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
@@ -90,8 +96,8 @@
                        Text="{Binding Customer}" />
         </Border>
         <Border Grid.Row="2"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
+                Grid.Column="4"
+                Grid.ColumnSpan="8"
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
@@ -101,8 +107,8 @@
                        Text="{Binding Salesman}" />
         </Border>
         <Border Grid.Row="2"
-                Grid.Column="4"
-                Grid.ColumnSpan="2"
+                Grid.Column="8"
+                Grid.ColumnSpan="12"
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
@@ -113,10 +119,13 @@
         </Border>
 
         <!--  Row 2  -->
+
+        <!--  Header  -->
         <Border Grid.Row="3"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Padding="15"
+                HorizontalAlignment="Stretch"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
                 BorderThickness="1,0,0,1">
@@ -131,12 +140,38 @@
                 Padding="15"
                 Background="#FAFAFA"
                 BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
+                BorderThickness="1,0,0,1">
             <TextBlock FontSize="16"
                        FontWeight="Normal"
                        Foreground="#2d2e2e"
                        Text="Status" />
         </Border>
+        <Border Grid.Row="3"
+                Grid.Column="6"
+                Grid.ColumnSpan="3"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,0,1">
+            <TextBlock FontSize="16"
+                       FontWeight="Normal"
+                       Foreground="#2d2e2e"
+                       Text="Status" />
+        </Border>
+        <Border Grid.Row="3"
+                Grid.Column="9"
+                Grid.ColumnSpan="3"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="16"
+                       FontWeight="Normal"
+                       Foreground="#2d2e2e"
+                       Text="Closed Date" />
+        </Border>
+
+        <!--  Content  -->
         <Border Grid.Row="4"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -154,113 +189,13 @@
                 Padding="15"
                 Background="Transparent"
                 BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
+                BorderThickness="1,0,0,1">
             <TextBlock FontSize="14"
                        Foreground="#2d2e2e"
                        Text="{Binding Status}" />
         </Border>
-
-        <!--  Row 3  -->
-
-        <Border Grid.Row="5"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="#FAFAFA"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,0,1">
-            <TextBlock FontSize="16"
-                       FontWeight="Normal"
-                       Foreground="#2d2e2e"
-                       Text="Total Amount" />
-        </Border>
-        <Border Grid.Row="5"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="#FAFAFA"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="16"
-                       FontWeight="Normal"
-                       Foreground="#2d2e2e"
-                       Text="Total Paid" />
-        </Border>
-        <Border Grid.Row="5"
-                Grid.Column="4"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="#FAFAFA"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="16"
-                       FontWeight="Normal"
-                       Foreground="#2d2e2e"
-                       Text="Left over" />
-        </Border>
-        <Border Grid.Row="6"
-                Grid.Column="0"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="Transparent"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,0,1">
-            <TextBlock FontSize="14"
-                       Foreground="#2d2e2e"
-                       Text="{Binding TotalAmount}" />
-        </Border>
-        <Border Grid.Row="6"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="Transparent"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="14"
-                       Foreground="#2d2e2e"
-                       Text="{Binding TotalPaid}" />
-        </Border>
-        <Border Grid.Row="6"
-                Grid.Column="4"
-                Grid.ColumnSpan="2"
-                Padding="15"
-                Background="Transparent"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="14"
-                       Foreground="#2d2e2e"
-                       Text="{Binding Leftover}" />
-        </Border>
-
-        <!--  Row 4  -->
-
-        <Border Grid.Row="7"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Padding="15"
-                Background="#FAFAFA"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,0,1">
-            <TextBlock FontSize="16"
-                       FontWeight="Normal"
-                       Foreground="#2d2e2e"
-                       Text="Debt Date" />
-        </Border>
-        <Border Grid.Row="7"
-                Grid.Column="3"
-                Grid.ColumnSpan="3"
-                Padding="15"
-                Background="#FAFAFA"
-                BorderBrush="LightGray"
-                BorderThickness="1,0,1,1">
-            <TextBlock FontSize="16"
-                       FontWeight="Normal"
-                       Foreground="#2d2e2e"
-                       Text="Closed Date" />
-        </Border>
-
-        <Border Grid.Row="8"
-                Grid.Column="0"
+        <Border Grid.Row="4"
+                Grid.Column="6"
                 Grid.ColumnSpan="3"
                 Padding="15"
                 Background="Transparent"
@@ -270,8 +205,8 @@
                        Foreground="#2d2e2e"
                        Text="{Binding DebtDate}" />
         </Border>
-        <Border Grid.Row="8"
-                Grid.Column="3"
+        <Border Grid.Row="4"
+                Grid.Column="9"
                 Grid.ColumnSpan="3"
                 Padding="15"
                 Background="Transparent"
@@ -282,10 +217,86 @@
                        Text="{Binding ClosedDate}" />
         </Border>
 
+        <!--  Row 3  -->
+
+        <!--  Header  -->
+        <Border Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,0,1">
+            <TextBlock FontSize="16"
+                       FontWeight="Normal"
+                       Foreground="#2d2e2e"
+                       Text="Total Amount" />
+        </Border>
+        <Border Grid.Row="5"
+                Grid.Column="4"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="16"
+                       FontWeight="Normal"
+                       Foreground="#2d2e2e"
+                       Text="Total Paid" />
+        </Border>
+        <Border Grid.Row="5"
+                Grid.Column="8"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="#FAFAFA"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="16"
+                       FontWeight="Normal"
+                       Foreground="#2d2e2e"
+                       Text="Left over" />
+        </Border>
+
+        <!--  Content  -->
+        <Border Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,0,1">
+            <TextBlock FontSize="14"
+                       Foreground="#2d2e2e"
+                       Text="{Binding TotalAmount}" />
+        </Border>
+        <Border Grid.Row="6"
+                Grid.Column="4"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="14"
+                       Foreground="#2d2e2e"
+                       Text="{Binding TotalPaid}" />
+        </Border>
+        <Border Grid.Row="6"
+                Grid.Column="8"
+                Grid.ColumnSpan="4"
+                Padding="15"
+                Background="Transparent"
+                BorderBrush="LightGray"
+                BorderThickness="1,0,1,1">
+            <TextBlock FontSize="14"
+                       Foreground="#2d2e2e"
+                       Text="{Binding Leftover}" />
+        </Border>
+
         <Button Grid.Row="9"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                Margin="0,25,0,0"
+                Grid.Column="4"
+                Grid.ColumnSpan="4"
+                Height="40"
+                Margin="0,75,0,0"
                 BorderBrush="Gray"
                 BorderThickness="1"
                 Command="{Binding CloseCommand}"
