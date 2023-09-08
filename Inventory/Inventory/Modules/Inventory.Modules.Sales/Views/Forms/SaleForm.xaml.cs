@@ -17,28 +17,17 @@ namespace Inventory.Modules.Sales.Views.Forms
         {
             var vm = (SaleFormViewModel)DataContext;
 
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-                vm?.OnAddProduct();
-            }
+
         }
 
         private void Grid_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
             var vm = (SaleFormViewModel)DataContext;
 
-            if (e.Key == System.Windows.Input.Key.Escape)
-            {
-                vm.CancelCommand.Execute();
-            }
         }
 
         private void DatePicker_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == System.Windows.Input.Key.Up)
-            {
-                this.customersComboBox.Focus();
-            }
         }
 
         private void Button_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -48,6 +37,23 @@ namespace Inventory.Modules.Sales.Views.Forms
                 var vm = (SaleFormViewModel)DataContext;
 
                 (sender as Button).Command.Execute(null);
+            }
+        }
+
+        private void Transitioner_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            var vm = (SaleFormViewModel)DataContext;
+
+            if (vm is null) return;
+
+            if (e.Key == System.Windows.Input.Key.Enter)
+            {
+
+                (sender as Button).Command.Execute(null);
+            }
+            else if (e.Key == System.Windows.Input.Key.Escape)
+            {
+                vm.CancelCommand.Execute();
             }
         }
     }
