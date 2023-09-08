@@ -40,10 +40,14 @@
                         Orientation="Horizontal">
                 <Button x:Name="monthToDateButton"
                         Margin="0,0,20,0"
+                        Background="#1890ff"
+                        BorderThickness="0"
                         Content="Month to date"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
                 <Button x:Name="yearToDateButton"
                         Margin="0,0,20,0"
+                        Background="#1890ff"
+                        BorderThickness="0"
                         Content="Year to date"
                         Style="{StaticResource MaterialDesignRaisedButton}" />
             </StackPanel>
