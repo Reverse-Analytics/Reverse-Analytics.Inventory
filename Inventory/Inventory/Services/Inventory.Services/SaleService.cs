@@ -96,7 +96,7 @@ namespace Inventory.Services
 
         public async Task<IEnumerable<Sale>> GetByCustomerId(int customerId)
         {
-            string path = $"{url}customers/{customerId}";
+            string path = $"{url}/customers/{customerId}";
             var response = await _client.Get(path);
 
             if (response is null || !response.IsSuccessStatusCode)
