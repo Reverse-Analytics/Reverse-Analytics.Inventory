@@ -176,7 +176,26 @@ namespace Inventory.Modules.Sales.ViewModels
 
         public async void OnDeleteSale(Sale selectedSale)
         {
+            try
+            {
+                var result = await _dialogService.ShowConfirmation("Confirm your action", "Are you sure you want to delete sale?");
 
+                if (result is not true)
+                {
+                    return;
+                }
+
+                await _saleService.DeleteSale(selectedSale.Id);
+
+                Sales.Remove(selectedSale);
+                _sales.Remove(selectedSale);
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error occured while executing the operation.", ex.Message);
+            }
         }
 
         public async void OnPrintReceipt(Sale selectedSale)

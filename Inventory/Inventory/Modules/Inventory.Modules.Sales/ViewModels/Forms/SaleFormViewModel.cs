@@ -33,7 +33,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set
             {
                 SetProperty(ref _totalDue, value);
-                DebtAmount = value;
+                UpdateDebtAmount();
             }
         }
 
@@ -46,7 +46,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 if (value > _totalDue) value = _totalDue;
 
                 SetProperty(ref _paymentAmount, value);
-                DebtAmount = TotalDue - value;
+                UpdateDebtAmount();
             }
         }
 
@@ -306,6 +306,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
             DiscountTotal = AddedProducts.Sum(x => x.CalculateTotalDiscount());
+
+            if (PaymentAmount > TotalDue)
+            {
+                PaymentAmount = TotalDue;
+            }
         }
 
         private void SetupDetails(Sale sale)
@@ -315,15 +320,27 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return;
             }
 
-            sale.SaleDetails.ForEach(x => AddedProducts.Add(new SaleDetail()
+            sale.SaleDetails.ForEach(x =>
             {
-                Id = x.Id,
-                ProductCode = x.Product.ProductCode,
-                Quantity = x.Quantity,
-                UnitPrice = x.UnitPrice,
-                TotalDiscount = x.Discount,
-                ProductId = x.ProductId,
-            }));
+                var saleDetail = new SaleDetail()
+                {
+                    Id = x.Id,
+                    ProductCode = x.Product.ProductCode,
+                    Quantity = x.Quantity,
+                    UnitPrice = x.UnitPrice,
+                    TotalDiscount = x.Discount,
+                    ProductId = x.ProductId,
+                };
+
+                saleDetail.PropertyChanged += OnSaleDetailChanged;
+
+                AddedProducts.Add(saleDetail);
+            });
+        }
+
+        private void UpdateDebtAmount()
+        {
+            DebtAmount = TotalDue - PaymentAmount;
         }
 
         #endregion

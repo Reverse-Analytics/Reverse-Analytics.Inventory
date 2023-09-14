@@ -42,19 +42,7 @@ namespace Inventory.Modules.Sales.Views.Forms
 
         private void Transitioner_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            var vm = (SaleFormViewModel)DataContext;
 
-            if (vm is null) return;
-
-            if (e.Key == System.Windows.Input.Key.Enter)
-            {
-
-                (sender as Button).Command.Execute(null);
-            }
-            else if (e.Key == System.Windows.Input.Key.Escape)
-            {
-                vm.CancelCommand.Execute();
-            }
         }
     }
 }

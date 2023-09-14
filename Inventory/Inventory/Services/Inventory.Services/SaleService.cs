@@ -39,11 +39,11 @@ namespace Inventory.Services
 
         public async Task DeleteSale(int id)
         {
-            var response = await _client.Delete($"{url}/id");
+            var response = await _client.Delete($"{url}/{id}");
 
             if (response is null || !response.IsSuccessStatusCode)
             {
-                throw new HttpRequestException($"Error deleting sale with id: {id}");
+                throw new HttpRequestException($"Error deleting sale with id: {id}. {response.Content}");
             }
         }
 
