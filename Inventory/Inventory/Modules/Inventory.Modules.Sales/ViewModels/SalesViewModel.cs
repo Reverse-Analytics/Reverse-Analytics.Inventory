@@ -205,7 +205,28 @@ namespace Inventory.Modules.Sales.ViewModels
 
         public async void OnMakeRefund(Sale selectedSale)
         {
+            try
+            {
+                var view = new SaleRefundForm()
+                {
+                    DataContext = new SaleRefundFormViewModel(selectedSale, _dialogService)
+                };
 
+                var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+                if (result is not Sale saleToUpdate)
+                {
+                    return;
+                }
+
+                await _saleService.UpdateSale(saleToUpdate);
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error opening dialog.", ex.Message);
+            }
         }
 
         #endregion
