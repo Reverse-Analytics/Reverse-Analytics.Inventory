@@ -1,0 +1,289 @@
+﻿<UserControl x:Class="Inventory.Modules.Sales.Views.Forms.SaleRefundForm"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:Inventory.Helpers.Converters;assembly=Inventory.Helpers"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Inventory.Modules.Sales.Views.Forms"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:prism="http://prismlibrary.com/"
+             xmlns:sf="http://schemas.syncfusion.com/wpf"
+             xmlns:validations="clr-namespace:Inventory.Core.ValidationRules;assembly=Inventory.Core"
+             mc:Ignorable="d">
+    <UserControl.Resources>
+        <converters:DebtValueToColorConverter x:Key="DebtValueToColorConverter" />
+    </UserControl.Resources>
+
+    <Grid Width="900" Height="720">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0,50,0,0"
+                   HorizontalAlignment="Center"
+                   Style="{StaticResource MaterialDesignHeadline4TextBlock}"
+                   Text="Refund Details" />
+
+        <StackPanel Grid.Row="1"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="25,50,25,0"
+                    HorizontalAlignment="Right"
+                    Orientation="Horizontal">
+            <DatePicker Width="125"
+                        Height="35"
+                        Margin="0,0,25,0"
+                        Padding="10,9"
+                        HorizontalAlignment="Left"
+                        md:CalendarAssist.IsHeaderVisible="False"
+                        md:HintAssist.Hint="Select Date"
+                        IsEnabled="{Binding IsDatePickerEnabled}"
+                        Style="{StaticResource MaterialDesignOutlinedDatePicker}">
+                <DatePicker.SelectedDate>
+                    <Binding Path="SelectedDate" UpdateSourceTrigger="PropertyChanged">
+                        <Binding.ValidationRules>
+                            <validations:FutureDateValidationRule ValidatesOnTargetUpdated="True" />
+                        </Binding.ValidationRules>
+                    </Binding>
+                </DatePicker.SelectedDate>
+            </DatePicker>
+
+            <ComboBox Width="105"
+                      Height="35"
+                      Margin="0,0,25,0"
+                      Padding="10,9"
+                      md:HintAssist.Hint="Code"
+                      Cursor="Hand"
+                      DisplayMemberPath="ProductCode"
+                      IsEditable="True"
+                      ItemsSource="{Binding RefundableProducts}"
+                      SelectedValue="{Binding SelectedProduct}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            <ComboBox Width="210"
+                      Height="35"
+                      Margin="0,0,25,0"
+                      Padding="10,9"
+                      md:HintAssist.Hint="Select Product"
+                      Cursor="Hand"
+                      DisplayMemberPath="ProductName"
+                      IsEditable="True"
+                      ItemsSource="{Binding RefundableProducts}"
+                      SelectedValue="{Binding SelectedProduct}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            <Button Width="100"
+                    Height="35"
+                    Margin="0,0,25,0"
+                    md:ButtonAssist.CornerRadius="3"
+                    Background="#009624"
+                    BorderThickness="0"
+                    Command="{Binding AddProductCommand}"
+                    Content="Add"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+            <Button Width="100"
+                    Height="35"
+                    Margin="0,0,0,0"
+                    md:ButtonAssist.CornerRadius="3"
+                    Background="CadetBlue"
+                    BorderThickness="0"
+                    Command="{Binding RefundAllCommand}"
+                    Content="Refund All"
+                    Foreground="White"
+                    Style="{StaticResource MaterialDesignFlatAccentBgButton}" />
+        </StackPanel>
+
+        <Border Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="25,25,25,0"
+                VerticalAlignment="Top"
+                BorderBrush="LightGray"
+                BorderThickness="1">
+            <ScrollViewer Height="300" VerticalScrollBarVisibility="Auto">
+                <ItemsControl x:Name="productsList"
+                              HorizontalAlignment="Stretch"
+                              md:ListBoxItemAssist.ShowSelection="False"
+                              ItemsSource="{Binding DetailsToRefund}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="LightGray" BorderThickness="0,0,0,1">
+                                <Grid Margin="0,5,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="1"
+                                               Grid.Column="0"
+                                               Width="50"
+                                               Margin="10,0,0,0"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               FontSize="15"
+                                               FontWeight="Bold"
+                                               Text="{Binding ProductCode}"
+                                               TextWrapping="Wrap" />
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="1"
+                                               Margin="20,5,0,0"
+                                               HorizontalAlignment="Left"
+                                               FontSize="10"
+                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="Price per unit" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="1"
+                                             Width="150"
+                                             Height="30"
+                                             Margin="20,0,0,0"
+                                             Padding="10,7"
+                                             HorizontalAlignment="Left"
+                                             Background="White"
+                                             BorderBrush="LightGray"
+                                             FontWeight="SemiBold"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             Text="{Binding UnitPrice, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="2"
+                                               Margin="20,5,0,0"
+                                               HorizontalAlignment="Left"
+                                               FontSize="10"
+                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="Quantity" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="2"
+                                             Width="150"
+                                             Height="30"
+                                             Margin="20,0,0,0"
+                                             Padding="10,7"
+                                             HorizontalAlignment="Left"
+                                             Background="White"
+                                             BorderBrush="LightGray"
+                                             FontWeight="SemiBold"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             Text="{Binding SaleQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="3"
+                                               Margin="20,5,0,0"
+                                               HorizontalAlignment="Left"
+                                               FontSize="10"
+                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="Number of units" />
+                                    <sf:UpDown Grid.Row="1"
+                                               Grid.Column="3"
+                                               Width="100"
+                                               Height="30"
+                                               Margin="20,0,0,0"
+                                               Padding="5"
+                                               HorizontalAlignment="Left"
+                                               Background="White"
+                                               BorderBrush="LightGray"
+                                               CornerRadius="5"
+                                               FontWeight="SemiBold"
+                                               MaxValidation="OnKeyPress"
+                                               MaxValueOnExceedMaxDigit="True"
+                                               MinValue="1"
+                                               NumberDecimalDigits="0"
+                                               Value="{Binding RefundQuantity}" />
+
+                                    <TextBlock Grid.Row="0"
+                                               Grid.Column="4"
+                                               Margin="20,5,0,0"
+                                               HorizontalAlignment="Left"
+                                               FontSize="10"
+                                               Style="{StaticResource MaterialDesignHelperTextBlock}"
+                                               Text="Total Price" />
+                                    <TextBox Grid.Row="1"
+                                             Grid.Column="4"
+                                             Width="150"
+                                             Height="30"
+                                             Margin="20,0,0,0"
+                                             Padding="10,7"
+                                             HorizontalAlignment="Left"
+                                             Background="White"
+                                             BorderBrush="LightGray"
+                                             FontWeight="SemiBold"
+                                             IsEnabled="False"
+                                             Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                             Text="{Binding TotalPriceAmount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
+
+                                    <Button Grid.Row="1"
+                                            Grid.Column="8"
+                                            Margin="10,0,0,0"
+                                            HorizontalContentAlignment="Right"
+                                            Background="Transparent"
+                                            BorderBrush="Transparent"
+                                            Command="{Binding Path=DataContext.RemoveProductCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ItemsControl}}}"
+                                            CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
+                                            Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                                            ToolTip="Delete">
+                                        <md:PackIcon Width="25"
+                                                     Height="25"
+                                                     Foreground="Red"
+                                                     Kind="TrashCan" />
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Border>
+
+        <StackPanel Grid.Row="3"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="25,15,0,0"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Refund total: " />
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding RefundTotalAmount, StringFormat=N2}" />
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Sale Debt: " />
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding DebtAmount, StringFormat=N2}" />
+            </StackPanel>
+            <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Refund amount: " />
+                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding AmountToRefund, StringFormat=N2}" />
+            </StackPanel>
+        </StackPanel>
+
+        <Button Grid.Row="4"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Width="350"
+                Height="40"
+                Margin="0,0,0,50"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Bottom"
+                md:ButtonAssist.CornerRadius="3"
+                BorderBrush="Gray"
+                Command="{Binding CancelCommand}"
+                Content="Close"
+                Foreground="Black"
+                Style="{StaticResource MaterialDesignOutlinedDarkButton}" />
+    </Grid>
+</UserControl>
