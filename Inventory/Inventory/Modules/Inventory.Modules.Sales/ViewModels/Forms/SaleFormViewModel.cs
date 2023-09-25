@@ -211,6 +211,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 var saleDetail = new SaleDetail
                 {
                     ProductCode = SelectedProduct.ProductCode,
+                    SalePrice = SelectedProduct.SalePrice,
                     Quantity = 1,
                     UnitPrice = SelectedProduct.SalePrice,
                     ProductId = SelectedProduct.Id
@@ -305,7 +306,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         private void OnSaleDetailChanged(object sender, EventArgs e)
         {
             TotalDue = AddedProducts.Select(x => x.TotalPrice).Sum();
-            DiscountTotal = AddedProducts.Sum(x => x.CalculateTotalDiscount());
+            DiscountTotal = AddedProducts.Sum(x => x.TotalDiscount);
 
             if (PaymentAmount > TotalDue)
             {
@@ -349,9 +350,10 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
     public class SaleDetail : BindableBase
     {
         public int Id { get; set; }
-
         public int ProductId { get; set; }
         public string ProductCode { get; set; }
+
+        public decimal SalePrice { get; set; }
 
         private decimal _unitPrice;
         public decimal UnitPrice
@@ -359,8 +361,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _unitPrice;
             set
             {
-                SetProperty(ref _unitPrice, value);
-                CalculateTotals();
+                if (value != _unitPrice)
+                {
+                    SetProperty(ref _unitPrice, value);
+                    UnitPriceUpdated();
+                }
             }
         }
 
@@ -370,8 +375,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _quantity;
             set
             {
-                SetProperty(ref _quantity, value);
-                CalculateTotals();
+                if (value != _quantity)
+                {
+                    SetProperty(ref _quantity, value);
+                    QuantityUpdated();
+                }
             }
         }
 
@@ -381,10 +389,10 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _discountPercentage;
             set
             {
-                if (value < 100)
+                if (value != _discountPercentage)
                 {
                     SetProperty(ref _discountPercentage, value);
-                    CalculateTotals();
+                    DiscountPercentageUpdated();
                 }
             }
         }
@@ -395,10 +403,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             get => _totalDiscount;
             set
             {
-                if (_totalDiscount == value) return;
-
-                SetProperty(ref _totalDiscount, value);
-                CalcualteDiscountPercentage();
+                if (value != _totalDiscount)
+                {
+                    SetProperty(ref _totalDiscount, value);
+                    TotalDiscountUpdated();
+                }
             }
         }
 
@@ -406,40 +415,107 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal TotalPrice
         {
             get => _totalPrice;
-            set => SetProperty(ref _totalPrice, value);
-        }
-
-        private void CalculateTotals()
-        {
-            TotalDiscount = CalculateTotalDiscount();
-            TotalPrice = CalculateTotalPrice();
-        }
-
-        public decimal CalculateTotalDiscount()
-        {
-            if (UnitPrice <= 0 || Quantity <= 0)
-                return 0;
-
-            var totalPrice = UnitPrice * Quantity;
-
-            return (totalPrice * DiscountPercentage) / 100;
-        }
-
-        private decimal CalculateTotalPrice()
-        {
-            if (UnitPrice <= 0 || Quantity <= 0)
-                return 0;
-
-            return (UnitPrice * Quantity) - TotalDiscount;
-        }
-
-        private void CalcualteDiscountPercentage()
-        {
-            if (TotalDiscount > 0 && UnitPrice > 0)
+            set
             {
-                DiscountPercentage = TotalDiscount * 100 / (UnitPrice * Quantity);
+                if (value != _totalPrice)
+                {
+                    SetProperty(ref _totalPrice, value);
+                    TotalPriceUpdated();
+                }
             }
         }
-    }
 
+        private void UnitPriceUpdated()
+        {
+            if (UnitPrice < SalePrice)
+            {
+                DiscountPercentage = 100 - (UnitPrice * 100 / SalePrice);
+                TotalDiscount = SalePrice - UnitPrice;
+            }
+            else
+            {
+                DiscountPercentage = 0;
+                TotalDiscount = 0;
+            }
+
+            TotalPrice = UnitPrice * Quantity;
+        }
+
+        private void QuantityUpdated()
+        {
+            TotalPrice = UnitPrice * Quantity;
+            TotalDiscount = (SalePrice - UnitPrice) * Quantity;
+        }
+
+        private void DiscountPercentageUpdated()
+        {
+
+        }
+
+        private void TotalDiscountUpdated()
+        {
+
+        }
+
+        private void TotalPriceUpdated()
+        {
+
+        }
+
+        //private void DiscountPercentageUpdated()
+        //{
+        //    if (SalePrice == 0 || Quantity == 0)
+        //    {
+        //        TotalPrice = 0;
+        //        return;
+        //    }
+
+        //    // Calculate and update UnitPrice based on DiscountPercentage
+        //    UnitPrice = SalePrice * (1 - (DiscountPercentage / 100));
+
+        //    // Calculate and update TotalPrice based on the new UnitPrice and Quantity
+        //    TotalPrice = UnitPrice * Quantity;
+
+        //    // Update TotalDiscount based on SalePrice, UnitPrice, and Quantity
+        //    TotalDiscount = SalePrice * Quantity - TotalPrice;
+        //}
+
+        //private void TotalDiscountUpdated()
+        //{
+        //    if (SalePrice == 0 || Quantity == 0)
+        //    {
+        //        TotalPrice = 0;
+        //        return;
+        //    }
+
+        //    // Calculate and update UnitPrice based on TotalDiscount and Quantity
+        //    UnitPrice = (SalePrice * Quantity - TotalDiscount) / Quantity;
+
+        //    // Calculate and update DiscountPercentage based on the new UnitPrice and SalePrice
+        //    DiscountPercentage = (1 - (UnitPrice / SalePrice)) * 100;
+
+        //    // Calculate and update TotalPrice based on the new UnitPrice and Quantity
+        //    TotalPrice = UnitPrice * Quantity;
+        //}
+
+        //private void TotalPriceUpdated()
+        //{
+        //    if (SalePrice == 0 || Quantity == 0)
+        //    {
+        //        UnitPrice = 0;
+        //        DiscountPercentage = 0;
+        //        TotalDiscount = 0;
+        //        return;
+        //    }
+
+        //    // Calculate and update UnitPrice based on TotalPrice and Quantity
+        //    UnitPrice = TotalPrice / Quantity;
+
+        //    // Calculate and update DiscountPercentage based on UnitPrice and SalePrice
+        //    DiscountPercentage = (100 - (UnitPrice / SalePrice));
+
+        //    // Calculate and update TotalDiscount based on SalePrice, UnitPrice, and Quantity
+        //    TotalDiscount = SalePrice * Quantity - TotalPrice;
+        //}
+    }
 }
