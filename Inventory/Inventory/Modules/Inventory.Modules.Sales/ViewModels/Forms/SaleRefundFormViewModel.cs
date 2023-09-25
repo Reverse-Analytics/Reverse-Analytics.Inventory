@@ -138,7 +138,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return;
             }
 
-            var saleDetailToRefund = saleDetails.FirstOrDefault(x => x.ProductId == SelectedProduct.Id);
+            var saleDetailToRefund = saleDetails.FirstOrDefault(x => x.Product.Id == SelectedProduct.Id);
 
             if (saleDetailToRefund is null || DetailsToRefund.Any(x => x.ProductId == saleDetailToRefund.ProductId))
             {
@@ -148,12 +148,9 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             var saleDetailToAdd = new BindableRefundDetail
             {
                 UnitPrice = saleDetailToRefund.UnitPrice,
-                TotalDiscount = saleDetailToRefund.Discount,
-                TotalDue = saleDetailToRefund.TotalDue,
                 ProductCode = SelectedProduct.ProductCode,
                 SaleQuantity = saleDetailToRefund.Quantity,
-                ProductId = SelectedProduct.Id,
-                PriceWithDiscount = saleDetailToRefund.TotalDue / saleDetailToRefund.Quantity,
+                ProductId = SelectedProduct.Id
             };
 
             saleDetailToAdd.PropertyChanged += OnRefundDetailChanged;
@@ -180,7 +177,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return;
             }
 
-            RefundTotalAmount -= productToRemove.PriceWithDiscount * productToRemove.RefundQuantity;
+            RefundTotalAmount -= productToRemove.UnitPrice * productToRemove.RefundQuantity;
 
             DebtAmount = InitialDebtAmount - RefundTotalAmount;
 
@@ -199,7 +196,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         private void OnRefundDetailChanged(object sender, EventArgs e)
         {
-            RefundTotalAmount = DetailsToRefund.Sum(x => x.PriceWithDiscount * x.RefundQuantity);
+            RefundTotalAmount = DetailsToRefund.Sum(x => x.UnitPrice * x.RefundQuantity);
 
             DebtAmount = InitialDebtAmount - RefundTotalAmount;
 
@@ -217,14 +214,16 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
     public class BindableRefundDetail : BindableBase
     {
         public int ProductId { get; set; }
-        public decimal UnitPrice { get; set; }
         public string ProductCode { get; set; }
-        public decimal TotalDue { get; set; }
-        public double DiscountPercentage { get; set; }
-        public decimal TotalDiscount { get; set; }
+        public decimal UnitPrice { get; set; }
         public int SaleQuantity { get; set; }
-        public decimal PriceWithDiscount { get; set; }
-        public decimal TotalPriceAmount { get; set; }
+
+        private decimal _totalPriceAmount;
+        public decimal TotalPriceAmount
+        {
+            get => _totalPriceAmount;
+            set => SetProperty(ref _totalPriceAmount, value);
+        }
 
         private int _refundQuantity;
         public int RefundQuantity
@@ -238,15 +237,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 }
 
                 SetProperty(ref _refundQuantity, value);
-                CalculateTotals();
+                TotalPriceAmount = RefundQuantity * UnitPrice;
             }
-        }
-
-        private void CalculateTotals()
-        {
-            // calculate discount percentage based on TotalDiscount and TotalDue
-            TotalDue = RefundQuantity * PriceWithDiscount;
-            TotalPriceAmount = RefundQuantity * PriceWithDiscount;
         }
     }
 }
