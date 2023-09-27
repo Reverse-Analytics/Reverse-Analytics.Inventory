@@ -59,7 +59,19 @@
                 </DatePicker.SelectedDate>
             </DatePicker>
 
-            <ComboBox Width="105"
+            <ComboBox Width="110"
+                      Height="35"
+                      Margin="0,0,25,0"
+                      Padding="10,9"
+                      md:HintAssist.Hint="Sale"
+                      Cursor="Hand"
+                      DisplayMemberPath="Id"
+                      IsEditable="True"
+                      IsEnabled="{Binding IsSaleSelectionEnabled}"
+                      ItemsSource="{Binding Sales}"
+                      SelectedValue="{Binding SelectedSale}"
+                      Style="{StaticResource MaterialDesignOutlinedComboBox}" />
+            <ComboBox Width="110"
                       Height="35"
                       Margin="0,0,25,0"
                       Padding="10,9"
@@ -70,7 +82,7 @@
                       ItemsSource="{Binding RefundableProducts}"
                       SelectedValue="{Binding SelectedProduct}"
                       Style="{StaticResource MaterialDesignOutlinedComboBox}" />
-            <ComboBox Width="210"
+            <ComboBox Width="175"
                       Height="35"
                       Margin="0,0,25,0"
                       Padding="10,9"
@@ -180,6 +192,7 @@
                                              Background="White"
                                              BorderBrush="LightGray"
                                              FontWeight="SemiBold"
+                                             IsEnabled="False"
                                              Style="{StaticResource MaterialDesignOutlinedTextBox}"
                                              Text="{Binding SaleQuantity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N2}" />
 
