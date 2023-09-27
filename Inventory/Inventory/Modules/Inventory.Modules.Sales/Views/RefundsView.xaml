@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:extensions="clr-namespace:Inventory.Helpers.Extensions;assembly=Inventory.Helpers"
-             xmlns:local="clr-namespace:Inventory.Modules.Sales.Views"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/"
@@ -56,7 +55,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0" Margin="40,0,0,0">
+        <Grid Grid.Row="0" Margin="40,25,0,25">
             <TextBlock HorizontalAlignment="Left"
                        Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                        Text="Refunds" />
@@ -115,7 +114,7 @@
                         md:ButtonAssist.CornerRadius="3"
                         Background="#1890ff"
                         BorderThickness="0"
-                        Command="{Binding AddCommand}"
+                        Command="{Binding CreateRefundCommand}"
                         Foreground="White"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}">
                     <StackPanel Orientation="Horizontal">
@@ -198,42 +197,25 @@
                                        ColumnSizer="Star"
                                        HeaderText="Customer"
                                        HorizontalHeaderContentAlignment="Center"
-                                       MappingName="Customer.FullName"
+                                       MappingName="ReceivedBy"
                                        TextAlignment="Center" />
                     <sf:GridTextColumn VerticalAlignment="Center"
                                        ColumnSizer="Star"
                                        HeaderText="Date"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="SaleDate"
+                                       MappingName="RefundDate"
                                        TextAlignment="Left" />
-                    <sf:GridNumericColumn ColumnSizer="Auto"
-                                          HeaderText="Total Refund"
+                    <sf:GridNumericColumn VerticalAlignment="Center"
+                                          ColumnSizer="Star"
+                                          HeaderText="Total Amount"
                                           HorizontalHeaderContentAlignment="Left"
-                                          MappingName="TotalDue"
-                                          NumberDecimalDigits="2"
+                                          MappingName="TotalAmount"
                                           TextAlignment="Left" />
-                    <sf:GridNumericColumn ColumnSizer="Auto"
-                                          HeaderText="Total Paid"
-                                          HorizontalHeaderContentAlignment="Left"
-                                          MappingName="TotalPaid"
-                                          NumberDecimalDigits="2"
-                                          TextAlignment="Left" />
-                    <sf:GridNumericColumn ColumnSizer="Auto"
-                                          HeaderText="Discount"
-                                          HorizontalHeaderContentAlignment="Left"
-                                          MappingName="TotalDiscount"
-                                          NumberDecimalDigits="2"
-                                          TextAlignment="Left" />
-                    <sf:GridTextColumn ColumnSizer="Auto"
-                                       HeaderText="Payment Type"
-                                       HorizontalHeaderContentAlignment="Left"
-                                       MappingName="PaymentType"
-                                       TextAlignment="Left" />
                     <sf:GridTextColumn VerticalAlignment="Center"
                                        ColumnSizer="Star"
-                                       HeaderText="Currency Type"
+                                       HeaderText="Received"
                                        HorizontalHeaderContentAlignment="Left"
-                                       MappingName="CurrencyType"
+                                       MappingName="ReceivedBy"
                                        TextAlignment="Left" />
                     <extensions:MoreOptionsTemplateColumnExtension Width="50"
                                                                    AllowFocus="True"
@@ -325,7 +307,7 @@
                             Margin="0,15,0,0"
                             HorizontalAlignment="Center"
                             PageSize="15"
-                            Source="{Binding Sales}" />
+                            Source="{Binding Refunds}" />
         </StackPanel>
     </Grid>
 </UserControl>

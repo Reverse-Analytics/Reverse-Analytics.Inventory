@@ -13,8 +13,10 @@ namespace Inventory.Services
         public RefundService(RestClientBase client)
         {
             _client = client;
-            jsonSerializer = new JsonSerializerSettings();
-            jsonSerializer.ReferenceLoopHandling = ReferenceLoopHandling.Serialize;
+            jsonSerializer = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Serialize
+            };
         }
 
         public async Task<IEnumerable<Refund>> GetRefundsAsync()
