@@ -37,6 +37,7 @@ namespace Inventory
             containerRegistry.RegisterScoped<ICustomerService, CustomerService>();
             containerRegistry.RegisterScoped<ISaleService, SaleService>();
             containerRegistry.RegisterScoped<ISaleDebtService, SaleDebtService>();
+            containerRegistry.RegisterScoped<IRefundService, RefundService>();
             containerRegistry.RegisterSingleton<RestClientBase>();
         }
 
