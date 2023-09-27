@@ -14,6 +14,7 @@ namespace Inventory.Modules.Sales
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<SalesView>();
+            containerRegistry.RegisterForNavigation<RefundsView>();
         }
     }
 }

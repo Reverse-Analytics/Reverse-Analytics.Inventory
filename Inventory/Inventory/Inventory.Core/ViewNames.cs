@@ -8,6 +8,7 @@
         public const string Customers = "CustomersView";
         public const string Debts = "DebtsView";
         public const string Sales = "SalesView";
+        public const string Refunds = "RefundsView";
     }
 
     public static class CategoryDialogNames

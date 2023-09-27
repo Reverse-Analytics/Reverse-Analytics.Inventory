@@ -178,6 +178,17 @@
                                                Text="Debts" />
                                 </StackPanel>
                             </Button>
+                            <Button x:Name="refundsButton"
+                                    Click="SalesInnerButton_Click"
+                                    Command="{Binding NavigateToCommand}"
+                                    CommandParameter="{x:Static viewNames:ViewNames.Refunds}">
+                                <StackPanel Margin="5" Orientation="Horizontal">
+                                    <TextBlock Margin="0,0,55,0"
+                                               FontSize="17"
+                                               FontWeight="Medium"
+                                               Text="Refunds" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </Border>
 
