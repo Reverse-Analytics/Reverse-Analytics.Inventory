@@ -209,7 +209,7 @@ namespace Inventory.Modules.Sales.ViewModels
             {
                 var view = new SaleRefundForm()
                 {
-                    DataContext = new SaleRefundFormViewModel(selectedSale, _dialogService)
+                    DataContext = new SaleRefundFormViewModel(_dialogService, selectedSale, _sales)
                 };
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
