@@ -17,6 +17,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
     {
         private readonly IDialogService _dialogService;
 
+        public List<Sale> Sales { get; private set; }
         private List<Core.Models.SaleDetail> saleDetails;
         public ObservableCollection<Product> RefundableProducts { get; }
         public ObservableCollection<BindableRefundDetail> DetailsToRefund { get; }
@@ -24,6 +25,23 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public DelegateCommand AddProductCommand { get; }
         public DelegateCommand<BindableRefundDetail> RemoveProductCommand { get; }
         public DelegateCommand CancelCommand { get; }
+
+        private Sale _selectedSale;
+        public Sale SelectedSale
+        {
+            get => _selectedSale;
+            set
+            {
+                if (value is null)
+                {
+                    return;
+                }
+
+                SetProperty(ref _selectedSale, value);
+                SetupCollections(value);
+                SetupSaleDebt(value);
+            }
+        }
 
         private Product _selectedProduct;
         public Product SelectedProduct
@@ -82,7 +100,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        public SaleRefundFormViewModel(IDialogService dialogService)
+        private bool _isSaleSelectionEnabled;
+        public bool IsSaleSelectionEnabled
+        {
+            get => _isSaleSelectionEnabled;
+            set => SetProperty(ref _isSaleSelectionEnabled, value);
+        }
+
+        public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales)
         {
             saleDetails = new List<Core.Models.SaleDetail>();
             RefundableProducts = new ObservableCollection<Product>();
@@ -93,13 +118,18 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             CancelCommand = new DelegateCommand(OnCancel);
             AddProductCommand = new DelegateCommand(OnAddProduct);
             RemoveProductCommand = new DelegateCommand<BindableRefundDetail>(OnDeleteProduct);
+            Sales = sales;
+            IsSaleSelectionEnabled = true;
         }
 
-        public SaleRefundFormViewModel(Sale sale, IDialogService dialogService)
-            : this(dialogService)
+        public SaleRefundFormViewModel(IDialogService dialogService, Sale sale, List<Sale> sales)
+            : this(dialogService, sales)
         {
             SetupCollections(sale);
             SetupSaleDebt(sale);
+
+            SelectedSale = sale;
+            IsSaleSelectionEnabled = false;
         }
 
         public void SetupCollections(Sale sale)
@@ -114,6 +144,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 .Distinct()
                 .ToList();
 
+            saleDetails.Clear();
             saleDetails.AddRange(sale.SaleDetails);
 
             RefundableProducts.Clear();
@@ -150,7 +181,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 UnitPrice = saleDetailToRefund.UnitPrice,
                 ProductCode = SelectedProduct.ProductCode,
                 SaleQuantity = saleDetailToRefund.Quantity,
-                ProductId = SelectedProduct.Id
+                ProductId = saleDetailToRefund.ProductId,
             };
 
             saleDetailToAdd.PropertyChanged += OnRefundDetailChanged;
@@ -215,8 +246,14 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
     {
         public int ProductId { get; set; }
         public string ProductCode { get; set; }
-        public decimal UnitPrice { get; set; }
         public int SaleQuantity { get; set; }
+
+        private decimal _unitPrice;
+        public decimal UnitPrice
+        {
+            get => _unitPrice;
+            set => SetProperty(ref _unitPrice, value);
+        }
 
         private decimal _totalPriceAmount;
         public decimal TotalPriceAmount
