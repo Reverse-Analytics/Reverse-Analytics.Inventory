@@ -10,6 +10,7 @@ using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Net.Http;
 
 namespace Inventory.Modules.Sales.ViewModels
@@ -20,21 +21,43 @@ namespace Inventory.Modules.Sales.ViewModels
         private readonly IRefundService _refundService;
         private readonly ISaleService _saleService;
 
-        public List<Sale> Sales { get; private set; }
-        public List<Refund> refunds { get; private set; }
+        private readonly List<Refund> refunds;
+        private readonly List<Sale> Sales;
         public ObservableCollection<Refund> Refunds { get; private set; }
 
-        public DelegateCommand CreateRefundCommand { get; }
+        public DelegateCommand CreateCommand { get; }
+        public DelegateCommand<Refund> UpdateCommand { get; }
+        public DelegateCommand<Refund> DeleteCommand { get; }
+        public DelegateCommand<Refund> ShowDetailsCommand { get; }
+        public DelegateCommand<Refund> PrintReceiptCommand { get; }
 
         public bool KeepAlive => false;
 
+        private DateTime? _selectedDate;
+        public DateTime? SelectedDate
+        {
+            get => _selectedDate;
+            set
+            {
+                SetProperty(ref _selectedDate, value);
+                FilterRefundsByDate();
+            }
+        }
+
         public RefundsViewModel(IDialogService dialogService, IRefundService refundService, ISaleService saleService)
         {
+            SelectedDate = DateTime.Now;
+
             _dialogService = dialogService;
             _refundService = refundService;
             _saleService = saleService;
 
-            CreateRefundCommand = new DelegateCommand(OnCreateRefund);
+            CreateCommand = new DelegateCommand(OnCreateRefund);
+            UpdateCommand = new DelegateCommand<Refund>(OnUpdate);
+            DeleteCommand = new DelegateCommand<Refund>(OnDelete);
+            ShowDetailsCommand = new DelegateCommand<Refund>(OnShowDetails);
+            PrintReceiptCommand = new DelegateCommand<Refund>(OnPrintReceipt);
+
 
             refunds = new List<Refund>();
             Sales = new List<Sale>();
@@ -43,32 +66,7 @@ namespace Inventory.Modules.Sales.ViewModels
             LoadData();
         }
 
-        private async void LoadData()
-        {
-            try
-            {
-                IsBusy = true;
-
-                var result = await _refundService.GetRefundsAsync();
-                var sales = await _saleService.GetAllSales();
-
-                refunds.AddRange(result);
-                Refunds.AddRange(result);
-                Sales.AddRange(sales);
-            }
-            catch (HttpRequestException ex)
-            {
-                await _dialogService.ShowError("Network error", ex.Message);
-            }
-            catch (Exception ex)
-            {
-                await _dialogService.ShowError("Something went wrong", ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
+        #region Command methods
 
         private async void OnCreateRefund()
         {
@@ -110,5 +108,141 @@ namespace Inventory.Modules.Sales.ViewModels
             }
         }
 
+        private async void OnUpdate(Refund refund)
+        {
+            if (refund is null)
+            {
+                return;
+            }
+
+            var view = new SaleRefundForm()
+            {
+                DataContext = new SaleRefundFormViewModel(_dialogService, Sales, refund.Sale, refund)
+            };
+
+            try
+            {
+                IsBusy = true;
+
+                var result = await DialogHost.Show(view, RegionNames.DialogRegion);
+
+                if (result is not Refund refundToUpdate)
+                {
+                    return;
+                }
+
+                await _refundService.UpdateRefundAsync(refundToUpdate);
+
+                await _dialogService.ShowSuccess();
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error opening dialog.", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void OnDelete(Refund refund)
+        {
+            if (refund is null)
+            {
+                return;
+            }
+
+            try
+            {
+                IsBusy = true;
+
+                await _refundService.DeleteRefundAsync(refund.Id);
+
+                await _dialogService.ShowSuccess("Success", $"Refund {refund.Id} was deleted.");
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Error", $"There was an error deleting refund {refund.Id}. {ex.Message}");
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private async void OnShowDetails(Refund refund)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private async void OnPrintReceipt(Refund refund)
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        #endregion
+
+        private async void LoadData()
+        {
+            try
+            {
+                IsBusy = true;
+
+                var result = await _refundService.GetRefundsAsync();
+                var sales = await _saleService.GetAllSales();
+                var refundsForCurrentDate = result.Where(x => x.RefundDate.Date == SelectedDate.Value.Date);
+
+                refunds.AddRange(result);
+                Refunds.AddRange(refundsForCurrentDate);
+                Sales.AddRange(sales);
+            }
+            catch (HttpRequestException ex)
+            {
+                await _dialogService.ShowError("Network error", ex.Message);
+            }
+            catch (Exception ex)
+            {
+                await _dialogService.ShowError("Something went wrong", ex.Message);
+            }
+            finally
+            {
+                IsBusy = false;
+            }
+        }
+
+        private void FilterRefundsByDate()
+        {
+            if (refunds is null || !refunds.Any())
+            {
+                return;
+            }
+
+            if (SelectedDate is null)
+            {
+                Refunds.Clear();
+                Refunds.AddRange(refunds);
+
+                return;
+            }
+
+            var filteredRefunds = refunds.Where(x => x.RefundDate.Date == SelectedDate.Value.Date);
+
+            Refunds.Clear();
+            Refunds.AddRange(filteredRefunds);
+        }
     }
 }
