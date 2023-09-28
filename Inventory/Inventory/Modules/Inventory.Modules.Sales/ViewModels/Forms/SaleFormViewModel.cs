@@ -2,10 +2,10 @@
 using Inventory.Core.Enums;
 using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
+using Inventory.Modules.Sales.Models;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Mvvm;
 using Syncfusion.Data.Extensions;
 using System;
 using System.Collections.Generic;
@@ -143,7 +143,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         #region Commands
 
         public DelegateCommand AddProductCommand { get; private set; }
-        public DelegateCommand<SaleDetail> RemoveProductCommand { get; private set; }
+        public DelegateCommand<BindableSaleDetail> RemoveProductCommand { get; private set; }
         public DelegateCommand MakePaymentCommand { get; private set; }
         public DelegateCommand CancelCommand { get; private set; }
 
@@ -153,9 +153,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
         public List<Product> Products { get; private set; }
         public List<Customer> Customers { get; private set; }
-        public ObservableCollection<SaleDetail> AddedProducts { get; private set; }
+        public ObservableCollection<BindableSaleDetail> AddedProducts { get; private set; }
 
         #endregion
+
+        #region Constructors
 
         public SaleFormViewModel(List<Customer> customers, List<Product> products, IDialogService dialogService)
         {
@@ -163,11 +165,11 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
             Products = products;
             Customers = customers;
-            AddedProducts = new ObservableCollection<SaleDetail>();
+            AddedProducts = new ObservableCollection<BindableSaleDetail>();
             AddedProducts.CollectionChanged += OnSaleDetailChanged;
 
             AddProductCommand = new DelegateCommand(OnAddProduct);
-            RemoveProductCommand = new DelegateCommand<SaleDetail>(OnRemoveProduct);
+            RemoveProductCommand = new DelegateCommand<BindableSaleDetail>(OnRemoveProduct);
             MakePaymentCommand = new DelegateCommand(OnMakePayment);
             CancelCommand = new DelegateCommand(OnCancel);
         }
@@ -190,6 +192,8 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             SetupDetails(sale);
         }
 
+        #endregion
+
         #region Command methods
 
         public async void OnAddProduct()
@@ -208,7 +212,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                     return;
                 }
 
-                var saleDetail = new SaleDetail()
+                var saleDetail = new BindableSaleDetail()
                 {
                     ProductId = SelectedProduct.Id,
                     ProductCode = SelectedProduct.ProductCode,
@@ -229,7 +233,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        public async void OnRemoveProduct(SaleDetail detail)
+        public async void OnRemoveProduct(BindableSaleDetail detail)
         {
             try
             {
@@ -277,18 +281,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        private List<Inventory.Core.Models.SaleDetail> GetSaleDetails() =>
-            AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
-            {
-                Id = x.Id,
-                ProductId = x.ProductId,
-                Discount = x.TotalDiscount,
-                Quantity = x.Quantity,
-                UnitPrice = x.UnitPrice,
-                SaleId = SaleId,
-                TotalDue = x.TotalPrice,
-            }).ToList();
-
         private async void OnCancel()
         {
             var result = await _dialogService.ShowConfirmation("Please, confirm the action.", "Are you sure you want to close the dialog?");
@@ -323,7 +315,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 
             sale.SaleDetails.ForEach(x =>
             {
-                var saleDetail = new SaleDetail()
+                var saleDetail = new BindableSaleDetail()
                 {
                     Id = x.Id,
                     ProductId = x.Product.Id,
@@ -348,123 +340,18 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             DebtAmount = TotalDue - PaymentAmount;
         }
 
+        private List<SaleDetail> GetSaleDetails() =>
+            AddedProducts.Select(x => new Inventory.Core.Models.SaleDetail
+            {
+                Id = x.Id,
+                ProductId = x.ProductId,
+                Discount = x.TotalDiscount,
+                Quantity = x.Quantity,
+                UnitPrice = x.UnitPrice,
+                SaleId = SaleId,
+                TotalDue = x.TotalPrice,
+            }).ToList();
+
         #endregion
-    }
-
-    public class SaleDetail : BindableBase
-    {
-        private bool _unitPriceUpdating;
-        private bool _quantityUpdating;
-        private bool _discountPercentageUpdating;
-
-
-        public int Id { get; set; }
-        public int ProductId { get; set; }
-        public string ProductCode { get; set; }
-
-        public decimal SalePrice { get; set; }
-
-        private decimal _unitPrice;
-        public decimal UnitPrice
-        {
-            get => _unitPrice;
-            set
-            {
-                if (_unitPriceUpdating) return;
-
-                if (value != _unitPrice && value > 0)
-                {
-                    _unitPriceUpdating = true;
-                    SetProperty(ref _unitPrice, value);
-                    UnitPriceUpdated();
-                    _unitPriceUpdating = false;
-                }
-            }
-        }
-
-        private int _quantity;
-        public int Quantity
-        {
-            get => _quantity;
-            set
-            {
-                if (_quantityUpdating) return;
-
-                if (value != _quantity && value > 0)
-                {
-                    _quantityUpdating = true;
-                    SetProperty(ref _quantity, value);
-                    QuantityUpdated();
-                    _quantityUpdating = false;
-                }
-            }
-        }
-
-        private decimal _discountPercentage;
-        public decimal DiscountPercentage
-        {
-            get => _discountPercentage;
-            set
-            {
-                if (_discountPercentageUpdating) return;
-
-                if (value != _discountPercentage && value > 0)
-                {
-                    _discountPercentageUpdating = true;
-                    SetProperty(ref _discountPercentage, value);
-                    DiscountPercentageUpdated();
-                    _discountPercentageUpdating = false;
-                }
-            }
-        }
-
-        private decimal _totalDiscount;
-        public decimal TotalDiscount
-        {
-            get => _totalDiscount;
-            set => SetProperty(ref _totalDiscount, value);
-        }
-
-        private decimal _totalPrice;
-        public decimal TotalPrice
-        {
-            get => _totalPrice;
-            set
-            {
-                if (value != _totalPrice)
-                {
-                    SetProperty(ref _totalPrice, value);
-                }
-            }
-        }
-
-        private void UnitPriceUpdated()
-        {
-            if (UnitPrice < SalePrice)
-            {
-                DiscountPercentage = 100 - (UnitPrice * 100 / SalePrice);
-                TotalDiscount = (SalePrice - UnitPrice) * Quantity;
-            }
-            else
-            {
-                DiscountPercentage = 0;
-                TotalDiscount = 0;
-            }
-
-            TotalPrice = UnitPrice * Quantity;
-        }
-
-        private void QuantityUpdated()
-        {
-            TotalPrice = UnitPrice * Quantity;
-            TotalDiscount = (SalePrice - UnitPrice) * Quantity;
-        }
-
-        private void DiscountPercentageUpdated()
-        {
-            UnitPrice = SalePrice * (1 - (DiscountPercentage / 100));
-            TotalPrice = UnitPrice * Quantity;
-            TotalDiscount = (SalePrice - UnitPrice) * Quantity;
-        }
     }
 }
