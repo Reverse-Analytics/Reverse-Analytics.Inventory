@@ -11,6 +11,15 @@ namespace Inventory.Core.Models
         public string? Reason { get; set; }
         public string? ReceivedBy { get; set; }
 
+        public string Receipt
+        {
+            get => Sale?.Receipt ?? "";
+        }
+        public string Customer
+        {
+            get => Sale?.Customer?.FullName ?? "";
+        }
+
         public int SaleId { get; set; }
         public virtual Sale Sale { get; set; }
 
