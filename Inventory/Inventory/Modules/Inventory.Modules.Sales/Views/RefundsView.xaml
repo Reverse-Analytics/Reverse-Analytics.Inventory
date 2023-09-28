@@ -114,7 +114,7 @@
                         md:ButtonAssist.CornerRadius="3"
                         Background="#1890ff"
                         BorderThickness="0"
-                        Command="{Binding CreateRefundCommand}"
+                        Command="{Binding CreateCommand}"
                         Foreground="White"
                         Style="{StaticResource MaterialDesignRaisedAccentButton}">
                     <StackPanel Orientation="Horizontal">
@@ -132,7 +132,7 @@
                     Grid.ColumnSpan="2"
                     Margin="25"
                     VerticalAlignment="Top">
-            <sf:SfDataGrid x:Name="salesDataGrid"
+            <sf:SfDataGrid x:Name="refundsDataGrid"
                            MaxHeight="570"
                            HorizontalAlignment="Stretch"
                            VerticalAlignment="Stretch"
@@ -197,7 +197,7 @@
                                        ColumnSizer="Star"
                                        HeaderText="Customer"
                                        HorizontalHeaderContentAlignment="Center"
-                                       MappingName="ReceivedBy"
+                                       MappingName="Customer"
                                        TextAlignment="Center" />
                     <sf:GridTextColumn VerticalAlignment="Center"
                                        ColumnSizer="Star"
@@ -230,7 +230,7 @@
                                              Foreground="#2d2e2e"
                                              ToolTip="Options">
                                     <StackPanel Width="133">
-                                        <Button Command="{Binding Path=DataContext.DetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
+                                        <Button Command="{Binding Path=DataContext.ShowDetailsCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
                                                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
                                                 Style="{StaticResource MoreOptionsButton}">
                                             <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
@@ -265,18 +265,6 @@
                                                 <TextBlock Margin="10,0,0,0"
                                                            FontSize="14"
                                                            Text="Print" />
-                                            </StackPanel>
-                                        </Button>
-                                        <Button Command="{Binding Path=DataContext.MakeRefundCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
-                                                CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=DataContext}"
-                                                Style="{StaticResource MoreOptionsButton}">
-                                            <StackPanel Margin="10,0,0,0" Orientation="Horizontal">
-                                                <md:PackIcon Width="16"
-                                                             Height="16"
-                                                             Kind="CashRefund" />
-                                                <TextBlock Margin="10,0,0,0"
-                                                           FontSize="14"
-                                                           Text="Refund" />
                                             </StackPanel>
                                         </Button>
                                         <Button Command="{Binding Path=DataContext.DeleteCommand, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type sf:SfDataGrid}}}"
