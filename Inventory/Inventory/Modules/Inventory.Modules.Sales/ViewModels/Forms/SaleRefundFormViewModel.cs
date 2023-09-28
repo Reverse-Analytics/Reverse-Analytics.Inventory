@@ -1,10 +1,10 @@
 ﻿using Inventory.Core;
 using Inventory.Core.Models;
 using Inventory.Core.Mvvm;
+using Inventory.Modules.Sales.Models;
 using Inventory.Services.Interfaces;
 using MaterialDesignThemes.Wpf;
 using Prism.Commands;
-using Prism.Mvvm;
 using Syncfusion.UI.Xaml.Grid;
 using System;
 using System.Collections.Generic;
@@ -15,16 +15,33 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
 {
     internal class SaleRefundFormViewModel : ViewModelBase
     {
+
+        #region Services
+
         private readonly IDialogService _dialogService;
 
+        #endregion
+
+        #region Collections
+
+        private readonly List<SaleDetail> currentSaleDetails;
         public List<Sale> Sales { get; private set; }
-        private List<Core.Models.SaleDetail> saleDetails;
         public ObservableCollection<Product> RefundableProducts { get; }
         public ObservableCollection<BindableRefundDetail> DetailsToRefund { get; }
 
+        #endregion
+
+        #region Commands
+
         public DelegateCommand AddProductCommand { get; }
+        public DelegateCommand RefundAllCommand { get; }
         public DelegateCommand<BindableRefundDetail> RemoveProductCommand { get; }
         public DelegateCommand CancelCommand { get; }
+        public DelegateCommand SaveCommand { get; }
+
+        #endregion
+
+        #region Properties
 
         private Sale _selectedSale;
         public Sale SelectedSale
@@ -38,8 +55,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 }
 
                 SetProperty(ref _selectedSale, value);
-                SetupCollections(value);
-                SetupSaleDebt(value);
+                SaleUpdated();
             }
         }
 
@@ -64,42 +80,9 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _refundTotalAmount, value);
         }
 
-        private decimal _amountToRefund;
-        public decimal AmountToRefund
-        {
-            get => _amountToRefund;
-            set => SetProperty(ref _amountToRefund, value);
-        }
-
-        private decimal _initialDebtAmount;
-        public decimal InitialDebtAmount
-        {
-            get => _initialDebtAmount;
-            set => SetProperty(ref _initialDebtAmount, value);
-        }
-
-        private decimal _debtAmount;
-        public decimal DebtAmount
-        {
-            get => _debtAmount;
-            set
-            {
-                if (value < 0)
-                {
-                    SetProperty(ref _debtAmount, 0);
-                    return;
-                }
-
-                if (value > _initialDebtAmount)
-                {
-                    SetProperty(ref _debtAmount, _initialDebtAmount);
-                    return;
-                }
-
-                SetProperty(ref _debtAmount, value);
-            }
-        }
-
+        // Inidicates whether another sale can be chosen
+        // to refund, if refund is being created from sale
+        // page, then it shouldn't be allowed to change
         private bool _isSaleSelectionEnabled;
         public bool IsSaleSelectionEnabled
         {
@@ -107,86 +90,107 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _isSaleSelectionEnabled, value);
         }
 
+        #endregion
+
+        #region Constructors
+
         public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales)
         {
-            saleDetails = new List<Core.Models.SaleDetail>();
-            RefundableProducts = new ObservableCollection<Product>();
-            DetailsToRefund = new ObservableCollection<BindableRefundDetail>();
-
             _dialogService = dialogService;
 
-            CancelCommand = new DelegateCommand(OnCancel);
+            currentSaleDetails = new List<SaleDetail>();
+            RefundableProducts = new ObservableCollection<Product>();
+            DetailsToRefund = new ObservableCollection<BindableRefundDetail>();
+            Sales = sales ?? new List<Sale>();
+
             AddProductCommand = new DelegateCommand(OnAddProduct);
-            RemoveProductCommand = new DelegateCommand<BindableRefundDetail>(OnDeleteProduct);
-            Sales = sales;
+            RefundAllCommand = new DelegateCommand(OnRefundAll);
+            RemoveProductCommand = new DelegateCommand<BindableRefundDetail>(OnRemoveProduct);
+            SaveCommand = new DelegateCommand(OnSave);
+            CancelCommand = new DelegateCommand(OnCancel);
+
             IsSaleSelectionEnabled = true;
         }
 
-        public SaleRefundFormViewModel(IDialogService dialogService, Sale sale, List<Sale> sales)
+        public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales, Sale sale)
             : this(dialogService, sales)
         {
-            SetupCollections(sale);
-            SetupSaleDebt(sale);
-
             SelectedSale = sale;
             IsSaleSelectionEnabled = false;
         }
 
-        public void SetupCollections(Sale sale)
+        public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales, Sale sale, Refund refund)
+            : this(dialogService, sales, sale)
         {
-            if (sale == null || sale.SaleDetails == null)
-            {
-                return;
-            }
-
-            var refundableProducts = sale.SaleDetails
-                .Select(sd => sd.Product)
-                .Distinct()
-                .ToList();
-
-            saleDetails.Clear();
-            saleDetails.AddRange(sale.SaleDetails);
-
-            RefundableProducts.Clear();
-            RefundableProducts.AddRange(refundableProducts);
+            SetupInitialValues(refund);
         }
 
-        private void SetupSaleDebt(Sale sale)
-        {
-            if (sale.SaleDebt == null)
-            {
-                return;
-            }
+        #endregion
 
-            InitialDebtAmount = sale.SaleDebt.TotalDue - sale.SaleDebt.TotalPaid;
-            DebtAmount = sale.SaleDebt.TotalDue - sale.SaleDebt.TotalPaid;
-        }
+        #region Command methods
 
         public void OnAddProduct()
         {
-            if (SelectedProduct == null)
-            {
-                return;
-            }
-
-            var saleDetailToRefund = saleDetails.FirstOrDefault(x => x.Product.Id == SelectedProduct.Id);
-
-            if (saleDetailToRefund is null || DetailsToRefund.Any(x => x.ProductId == saleDetailToRefund.ProductId))
+            if (!TryGetSaleDetail(out SaleDetail saleDetailToRefund))
             {
                 return;
             }
 
             var saleDetailToAdd = new BindableRefundDetail
             {
-                UnitPrice = saleDetailToRefund.UnitPrice,
-                ProductCode = SelectedProduct.ProductCode,
-                SaleQuantity = saleDetailToRefund.Quantity,
                 ProductId = saleDetailToRefund.ProductId,
+                ProductCode = SelectedProduct.ProductCode,
+                UnitPrice = saleDetailToRefund.UnitPrice,
+                SaleQuantity = saleDetailToRefund.Quantity,
             };
 
             saleDetailToAdd.PropertyChanged += OnRefundDetailChanged;
 
             DetailsToRefund.Add(saleDetailToAdd);
+        }
+
+        private void OnRefundAll()
+        {
+            if (!currentSaleDetails.Any())
+            {
+                return;
+            }
+
+            List<BindableRefundDetail> detailsToRefund = new List<BindableRefundDetail>();
+            RefundTotalAmount = 0;
+
+            foreach (var detail in currentSaleDetails)
+            {
+                var detailToRefund = new BindableRefundDetail
+                {
+                    ProductId = detail.ProductId,
+                    ProductCode = detail.Product.ProductCode,
+                    UnitPrice = detail.UnitPrice,
+                    SaleQuantity = detail.Quantity,
+                    RefundQuantity = detail.Quantity,
+                };
+                detailToRefund.PropertyChanged += OnRefundDetailChanged;
+                detailsToRefund.Add(detailToRefund);
+
+                RefundTotalAmount += detailToRefund.UnitPrice * detailToRefund.RefundQuantity;
+            }
+
+            DetailsToRefund.Clear();
+            DetailsToRefund.AddRange(detailsToRefund);
+        }
+
+        public void OnRemoveProduct(BindableRefundDetail product)
+        {
+            var productToRemove = DetailsToRefund.FirstOrDefault(x => x.ProductId == product.ProductId);
+
+            if (productToRemove is null)
+            {
+                return;
+            }
+
+            RefundTotalAmount -= productToRemove.UnitPrice * productToRemove.RefundQuantity;
+
+            DetailsToRefund.Remove(productToRemove);
         }
 
         public async void OnCancel()
@@ -199,83 +203,137 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             }
         }
 
-        public void OnDeleteProduct(BindableRefundDetail product)
+        private async void OnSave()
         {
-            var productToRemove = DetailsToRefund.FirstOrDefault(x => x.ProductId == product.ProductId);
-
-            if (productToRemove is null)
+            if (!CanSave())
             {
                 return;
             }
 
-            RefundTotalAmount -= productToRemove.UnitPrice * productToRemove.RefundQuantity;
+            var result = await _dialogService.ShowConfirmation("Please, confirm the action.", "Are you sure you want to save the refund?");
 
-            DebtAmount = InitialDebtAmount - RefundTotalAmount;
-
-            if (InitialDebtAmount == RefundTotalAmount)
+            if (result is true)
             {
-                AmountToRefund = 0;
-            }
+                var refund = GenerateRefund();
 
-            if (DebtAmount <= 0)
-            {
-                AmountToRefund = RefundTotalAmount - InitialDebtAmount;
+                DialogHost.Close(RegionNames.DialogRegion, refund);
             }
-
-            DetailsToRefund.Remove(productToRemove);
         }
+
+        #endregion
+
+        #region Helper methods
 
         private void OnRefundDetailChanged(object sender, EventArgs e)
         {
             RefundTotalAmount = DetailsToRefund.Sum(x => x.UnitPrice * x.RefundQuantity);
+        }
 
-            DebtAmount = InitialDebtAmount - RefundTotalAmount;
-
-            if (DebtAmount <= 0)
+        private void SaleUpdated()
+        {
+            if (SelectedSale is null)
             {
-                AmountToRefund = Math.Abs(RefundTotalAmount - InitialDebtAmount);
+                return;
             }
-            else
+
+            var refundableProducts = SelectedSale.SaleDetails
+                .Select(sd => sd.Product)
+                .Distinct()
+                .ToList();
+
+            RefundableProducts.Clear();
+            RefundableProducts.AddRange(refundableProducts);
+
+            currentSaleDetails.Clear();
+            currentSaleDetails.AddRange(SelectedSale.SaleDetails);
+
+            DetailsToRefund.Clear();
+
+            RefundTotalAmount = 0;
+        }
+
+        private void SetupInitialValues(Refund refund)
+        {
+            foreach (var detail in refund.RefundDetails)
             {
-                AmountToRefund = 0;
-            }
-        }
-    }
+                if (detail is null)
+                {
+                    continue;
+                }
 
-    public class BindableRefundDetail : BindableBase
-    {
-        public int ProductId { get; set; }
-        public string ProductCode { get; set; }
-        public int SaleQuantity { get; set; }
+                var saleDetail = refund.Sale.SaleDetails.FirstOrDefault(x => x.Product.Id == detail.Product.Id);
 
-        private decimal _unitPrice;
-        public decimal UnitPrice
-        {
-            get => _unitPrice;
-            set => SetProperty(ref _unitPrice, value);
-        }
-
-        private decimal _totalPriceAmount;
-        public decimal TotalPriceAmount
-        {
-            get => _totalPriceAmount;
-            set => SetProperty(ref _totalPriceAmount, value);
-        }
-
-        private int _refundQuantity;
-        public int RefundQuantity
-        {
-            get => _refundQuantity;
-            set
-            {
-                if (value > SaleQuantity)
+                if (saleDetail is null)
                 {
                     return;
                 }
 
-                SetProperty(ref _refundQuantity, value);
-                TotalPriceAmount = RefundQuantity * UnitPrice;
+                DetailsToRefund.Add(new BindableRefundDetail()
+                {
+                    Id = detail.Id,
+                    ProductId = detail.ProductId,
+                    ProductCode = detail.Product.ProductCode,
+                    SaleQuantity = saleDetail.Quantity,
+                    UnitPrice = saleDetail.UnitPrice,
+                    RefundQuantity = detail.Quantity,
+                });
             }
         }
+
+        private bool TryGetSaleDetail(out SaleDetail saleDetail)
+        {
+            if (SelectedProduct == null)
+            {
+                saleDetail = null;
+                return false;
+            }
+
+            var saleDetailToRefund = currentSaleDetails.FirstOrDefault(x => x.Product.Id == SelectedProduct.Id);
+
+            if (saleDetailToRefund == null)
+            {
+                saleDetail = null;
+                return false;
+            }
+
+            if (DetailsToRefund.Any(x => x.ProductId == saleDetailToRefund.ProductId))
+            {
+                saleDetail = null;
+                return false;
+            }
+
+            saleDetail = saleDetailToRefund;
+            return true;
+        }
+
+        private bool CanSave()
+        {
+            if (SelectedSale is null)
+            {
+                return false;
+            }
+
+            if (!DetailsToRefund.Any())
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private Refund GenerateRefund() => new()
+        {
+            SaleId = SelectedSale.Id,
+            RefundDate = SelectedDate,
+            TotalAmount = RefundTotalAmount,
+            RefundDetails = DetailsToRefund.Select(x => new RefundDetail
+            {
+                Id = x.Id,
+                ProductId = x.ProductId,
+                Quantity = x.RefundQuantity,
+            }).ToList(),
+        };
+
+        #endregion
     }
 }
