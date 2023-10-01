@@ -51,7 +51,8 @@ namespace Inventory.Modules.Regions.Views
             {
                 salesButton,
                 salesListButton,
-                saleDebtsButton
+                saleDebtsButton,
+                refundsButton,
             });
             navigationButtons.Add(customersButton.Name, new List<Button>
             {

@@ -161,7 +161,7 @@
                                     Command="{Binding NavigateToCommand}"
                                     CommandParameter="{x:Static viewNames:ViewNames.Sales}">
                                 <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Margin="0,0,35,0"
+                                    <TextBlock Margin="0,0,50,0"
                                                FontSize="17"
                                                FontWeight="Medium"
                                                Text="All Sales" />
@@ -172,7 +172,7 @@
                                     Command="{Binding NavigateToCommand}"
                                     CommandParameter="{x:Static viewNames:ViewNames.Debts}">
                                 <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Margin="0,0,55,0"
+                                    <TextBlock Margin="0,0,70,0"
                                                FontSize="17"
                                                FontWeight="Medium"
                                                Text="Debts" />
@@ -183,7 +183,7 @@
                                     Command="{Binding NavigateToCommand}"
                                     CommandParameter="{x:Static viewNames:ViewNames.Refunds}">
                                 <StackPanel Margin="5" Orientation="Horizontal">
-                                    <TextBlock Margin="0,0,55,0"
+                                    <TextBlock Margin="0,0,50,0"
                                                FontSize="17"
                                                FontWeight="Medium"
                                                Text="Refunds" />
