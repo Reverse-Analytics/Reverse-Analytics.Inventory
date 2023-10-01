@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 
 namespace Inventory.Modules.Sales.ViewModels.Forms
 {
@@ -66,6 +67,13 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set => SetProperty(ref _selectedProduct, value);
         }
 
+        private Refund _refund;
+        public Refund Refund
+        {
+            get => _refund;
+            set => SetProperty(ref _refund, value);
+        }
+
         private DateTime _selectedDate = DateTime.Now;
         public DateTime SelectedDate
         {
@@ -77,7 +85,43 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public decimal RefundTotalAmount
         {
             get => _refundTotalAmount;
-            set => SetProperty(ref _refundTotalAmount, value);
+            set
+            {
+                SetProperty(ref _refundTotalAmount, value);
+
+                CalculateTotals();
+            }
+        }
+
+        private decimal _amountToRefund;
+        public decimal AmountToRefund
+        {
+            get => _amountToRefund;
+            set
+            {
+                SetProperty(ref _amountToRefund, value);
+            }
+        }
+
+        private decimal _debtPaymentAmount;
+        public decimal DebtPaymentAmount
+        {
+            get => _debtPaymentAmount;
+            set
+            {
+                SetProperty(ref _debtPaymentAmount, value);
+            }
+        }
+
+        private decimal _debtAmount;
+        public decimal DebtAmount
+        {
+            get => _debtAmount;
+            set
+            {
+                SetProperty(ref _debtAmount, value);
+                DebtText = $"Debt ({value:N2}): ";
+            }
         }
 
         // Inidicates whether another sale can be chosen
@@ -88,6 +132,31 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             get => _isSaleSelectionEnabled;
             set => SetProperty(ref _isSaleSelectionEnabled, value);
+        }
+
+        private string _debtText = $"Debt (0.00): ";
+        public string DebtText
+        {
+            get => _debtText;
+            set => SetProperty(ref _debtText, value);
+        }
+
+        private Visibility _debtPaymentVisibility = Visibility.Collapsed;
+        public Visibility DebtPaymentVisibility
+        {
+            get => _debtPaymentVisibility;
+            set => SetProperty(ref _debtPaymentVisibility, value);
+        }
+
+        private bool _subtractFromDebt;
+        public bool SubtractFromDebt
+        {
+            get => _subtractFromDebt;
+            set
+            {
+                SetProperty(ref _subtractFromDebt, value);
+                CalculateTotals();
+            }
         }
 
         #endregion
@@ -122,6 +191,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales, Sale sale, Refund refund)
             : this(dialogService, sales, sale)
         {
+            Refund = refund;
             SetupInitialValues(refund);
         }
 
@@ -136,8 +206,15 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return;
             }
 
+            int refundId = 0;
+            if (Refund is not null)
+            {
+                refundId = Refund.RefundDetails.FirstOrDefault(x => x.ProductId == saleDetailToRefund.ProductId)?.Id ?? 0;
+            }
+
             var saleDetailToAdd = new BindableRefundDetail
             {
+                Id = refundId,
                 ProductId = saleDetailToRefund.ProductId,
                 ProductCode = SelectedProduct.ProductCode,
                 UnitPrice = saleDetailToRefund.UnitPrice,
@@ -236,6 +313,16 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                 return;
             }
 
+            if (SelectedSale.SaleDebt != null)
+            {
+                DebtAmount = SelectedSale.SaleDebt.TotalDue - SelectedSale.SaleDebt.TotalPaid;
+                DebtPaymentVisibility = Visibility.Visible;
+            }
+            else
+            {
+                DebtPaymentVisibility = Visibility.Collapsed;
+            }
+
             var refundableProducts = SelectedSale.SaleDetails
                 .Select(sd => sd.Product)
                 .Distinct()
@@ -268,7 +355,7 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                     return;
                 }
 
-                DetailsToRefund.Add(new BindableRefundDetail()
+                var saleDetailToAdd = new BindableRefundDetail()
                 {
                     Id = detail.Id,
                     ProductId = detail.ProductId,
@@ -276,8 +363,16 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
                     SaleQuantity = saleDetail.Quantity,
                     UnitPrice = saleDetail.UnitPrice,
                     RefundQuantity = detail.Quantity,
-                });
+                };
+                saleDetailToAdd.PropertyChanged += OnRefundDetailChanged;
+
+                DetailsToRefund.Add(saleDetailToAdd);
             }
+
+            RefundTotalAmount = DetailsToRefund.Sum(x => x.UnitPrice * x.RefundQuantity);
+            DebtPaymentAmount = refund.DebtPaymentAmount;
+            AmountToRefund = refund.RefundAmount;
+            DebtAmount += refund.DebtPaymentAmount;
         }
 
         private bool TryGetSaleDetail(out SaleDetail saleDetail)
@@ -321,16 +416,42 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             return true;
         }
 
+        private void CalculateTotals()
+        {
+            if (!SubtractFromDebt)
+            {
+                AmountToRefund = RefundTotalAmount;
+                DebtPaymentAmount = 0;
+
+                return;
+            }
+
+            if (RefundTotalAmount > DebtAmount)
+            {
+                AmountToRefund = RefundTotalAmount - DebtAmount;
+                DebtPaymentAmount = DebtAmount;
+            }
+            else
+            {
+                AmountToRefund = 0;
+                DebtPaymentAmount = RefundTotalAmount;
+            }
+        }
+
         private Refund GenerateRefund() => new()
         {
+            Id = Refund?.Id ?? 0,
             SaleId = SelectedSale.Id,
             RefundDate = SelectedDate,
             TotalAmount = RefundTotalAmount,
+            DebtPaymentAmount = DebtPaymentAmount,
+            RefundAmount = AmountToRefund,
             RefundDetails = DetailsToRefund.Select(x => new RefundDetail
             {
                 Id = x.Id,
                 ProductId = x.ProductId,
                 Quantity = x.RefundQuantity,
+                RefundId = Refund?.Id ?? 0,
             }).ToList(),
         };
 
