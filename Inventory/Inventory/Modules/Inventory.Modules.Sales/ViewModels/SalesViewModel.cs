@@ -21,10 +21,11 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #region Services
 
+        private readonly IDialogService _dialogService;
         private readonly ISaleService _saleService;
         private readonly ICustomerService _customerService;
         private readonly IProductService _productService;
-        private readonly IDialogService _dialogService;
+        private readonly IRefundService _refundService;
 
         #endregion
 
@@ -77,7 +78,9 @@ namespace Inventory.Modules.Sales.ViewModels
 
         #endregion
 
-        public SalesViewModel(ISaleService service, IProductService productService, ICustomerService customerService, IDialogService dialogService)
+        public SalesViewModel(IDialogService dialogService, ISaleService service,
+            IProductService productService, ICustomerService customerService,
+            IRefundService refundService)
         {
             SelectedDate = DateTime.Now;
 
@@ -85,6 +88,7 @@ namespace Inventory.Modules.Sales.ViewModels
             _productService = productService;
             _customerService = customerService;
             _dialogService = dialogService;
+            _refundService = refundService;
 
             DetailsCommand = new DelegateCommand<Sale>(OnShowDetails);
             AddCommand = new DelegateCommand<Sale>(OnAddSale);
@@ -214,14 +218,14 @@ namespace Inventory.Modules.Sales.ViewModels
 
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
-                if (result is not Sale saleToUpdate)
+                if (result is not Refund refund)
                 {
                     return;
                 }
 
-                await _saleService.UpdateSale(saleToUpdate);
+                var createdRefund = await _refundService.CreateRefundAsync(refund);
 
-                await _dialogService.ShowSuccess();
+                await _dialogService.ShowSuccess($"Refund was created. Id: {createdRefund.Id}");
             }
             catch (Exception ex)
             {
