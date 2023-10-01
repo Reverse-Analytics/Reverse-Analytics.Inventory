@@ -115,21 +115,23 @@ namespace Inventory.Modules.Sales.ViewModels
                 return;
             }
 
+            var sale = Sales.FirstOrDefault(x => x.Id == refund.Sale.Id);
+
             var view = new SaleRefundForm()
             {
-                DataContext = new SaleRefundFormViewModel(_dialogService, Sales, refund.Sale, refund)
+                DataContext = new SaleRefundFormViewModel(_dialogService, Sales, sale, refund)
             };
 
             try
             {
-                IsBusy = true;
-
                 var result = await DialogHost.Show(view, RegionNames.DialogRegion);
 
                 if (result is not Refund refundToUpdate)
                 {
                     return;
                 }
+
+                IsBusy = true;
 
                 await _refundService.UpdateRefundAsync(refundToUpdate);
 
@@ -155,6 +157,9 @@ namespace Inventory.Modules.Sales.ViewModels
             try
             {
                 IsBusy = true;
+
+                refunds.Remove(refund);
+                Refunds.Remove(refund);
 
                 await _refundService.DeleteRefundAsync(refund.Id);
 
