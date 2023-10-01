@@ -71,7 +71,7 @@
                                  Width="250"
                                  Height="25"
                                  Margin="20,2,2,2"
-                                 md:HintAssist.Hint="Search sales"
+                                 md:HintAssist.Hint="Search refunds"
                                  md:TextFieldAssist.HasClearButton="True"
                                  BorderBrush="Transparent"
                                  FontSize="14"
@@ -121,7 +121,7 @@
                         <md:PackIcon Margin="0,0,5,0"
                                      VerticalAlignment="Center"
                                      Kind="Plus" />
-                        <TextBlock Text="Add Sale" />
+                        <TextBlock Text="Add Refund" />
                     </StackPanel>
                 </Button>
             </StackPanel>

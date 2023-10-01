@@ -14,7 +14,7 @@
         <converters:DebtValueToColorConverter x:Key="DebtValueToColorConverter" />
     </UserControl.Resources>
 
-    <Grid Width="900" Height="700">
+    <Grid Width="900" Height="725">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="3*" />
@@ -22,15 +22,15 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="3*" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="2.5*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   Margin="0,50,0,0"
+                   Margin="0,25,0,0"
                    HorizontalAlignment="Center"
                    Style="{StaticResource MaterialDesignHeadline4TextBlock}"
                    Text="Refund Details" />
@@ -38,7 +38,7 @@
         <StackPanel Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="25,50,25,0"
+                    Margin="25,25,25,0"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
             <DatePicker Width="125"
@@ -119,7 +119,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 Margin="25,25,25,0"
-                VerticalAlignment="Top"
+                VerticalAlignment="Stretch"
                 BorderBrush="LightGray"
                 BorderThickness="1">
             <ScrollViewer Height="300" VerticalScrollBarVisibility="Auto">
@@ -264,23 +264,54 @@
             </ScrollViewer>
         </Border>
 
-        <StackPanel Grid.Row="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="25,0,0,25"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Top">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Refund total: " />
-                <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding RefundTotalAmount, StringFormat=N2}" />
-            </StackPanel>
+        <Grid Grid.Row="3"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              Margin="25,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-        </StackPanel>
+            <StackPanel Grid.Column="0"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Total Amount: " />
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding RefundTotalAmount, StringFormat=N2}" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Refund Amount: " />
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding AmountToRefund, StringFormat=N2}" />
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Grid.Column="1"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Visibility="{Binding DebtPaymentVisibility}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Subtract from Debt" />
+                    <CheckBox Margin="10,0,0,0"
+                              md:CheckBoxAssist.CheckBoxSize="22"
+                              IsChecked="{Binding SubtractFromDebt}" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Debt Amount: " />
+                    <TextBlock Foreground="DeepPink"
+                               Style="{StaticResource MaterialDesignHeadline6TextBlock}"
+                               Text="{Binding DebtAmount, StringFormat=N2}" />
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="Debt Payment: " />
+                    <TextBlock Style="{StaticResource MaterialDesignHeadline6TextBlock}" Text="{Binding DebtPaymentAmount, StringFormat=N2}" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
 
         <StackPanel Grid.Row="4"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
-                    Margin="0,25,0,0"
+                    Margin="0,50,0,50"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Top"
                     Orientation="Horizontal">
