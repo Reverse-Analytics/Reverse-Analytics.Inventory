@@ -120,7 +120,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             set
             {
                 SetProperty(ref _debtAmount, value);
-                DebtText = $"Debt ({value:N2}): ";
             }
         }
 
@@ -132,13 +131,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             get => _isSaleSelectionEnabled;
             set => SetProperty(ref _isSaleSelectionEnabled, value);
-        }
-
-        private string _debtText = $"Debt (0.00): ";
-        public string DebtText
-        {
-            get => _debtText;
-            set => SetProperty(ref _debtText, value);
         }
 
         private Visibility _debtPaymentVisibility = Visibility.Collapsed;
@@ -186,13 +178,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
         {
             SelectedSale = sale;
             IsSaleSelectionEnabled = false;
-        }
-
-        public SaleRefundFormViewModel(IDialogService dialogService, List<Sale> sales, Sale sale, Refund refund)
-            : this(dialogService, sales, sale)
-        {
-            Refund = refund;
-            SetupInitialValues(refund);
         }
 
         #endregion
@@ -337,42 +322,6 @@ namespace Inventory.Modules.Sales.ViewModels.Forms
             DetailsToRefund.Clear();
 
             RefundTotalAmount = 0;
-        }
-
-        private void SetupInitialValues(Refund refund)
-        {
-            foreach (var detail in refund.RefundDetails)
-            {
-                if (detail is null)
-                {
-                    continue;
-                }
-
-                var saleDetail = refund.Sale.SaleDetails.FirstOrDefault(x => x.Product.Id == detail.Product.Id);
-
-                if (saleDetail is null)
-                {
-                    return;
-                }
-
-                var saleDetailToAdd = new BindableRefundDetail()
-                {
-                    Id = detail.Id,
-                    ProductId = detail.ProductId,
-                    ProductCode = detail.Product.ProductCode,
-                    SaleQuantity = saleDetail.Quantity,
-                    UnitPrice = saleDetail.UnitPrice,
-                    RefundQuantity = detail.Quantity,
-                };
-                saleDetailToAdd.PropertyChanged += OnRefundDetailChanged;
-
-                DetailsToRefund.Add(saleDetailToAdd);
-            }
-
-            RefundTotalAmount = DetailsToRefund.Sum(x => x.UnitPrice * x.RefundQuantity);
-            DebtPaymentAmount = refund.DebtPaymentAmount;
-            AmountToRefund = refund.RefundAmount;
-            DebtAmount += refund.DebtPaymentAmount;
         }
 
         private bool TryGetSaleDetail(out SaleDetail saleDetail)

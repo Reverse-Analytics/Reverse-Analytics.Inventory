@@ -26,7 +26,6 @@ namespace Inventory.Modules.Sales.ViewModels
         public ObservableCollection<Refund> Refunds { get; private set; }
 
         public DelegateCommand CreateCommand { get; }
-        public DelegateCommand<Refund> UpdateCommand { get; }
         public DelegateCommand<Refund> DeleteCommand { get; }
         public DelegateCommand<Refund> ShowDetailsCommand { get; }
         public DelegateCommand<Refund> PrintReceiptCommand { get; }
@@ -53,7 +52,6 @@ namespace Inventory.Modules.Sales.ViewModels
             _saleService = saleService;
 
             CreateCommand = new DelegateCommand(OnCreateRefund);
-            UpdateCommand = new DelegateCommand<Refund>(OnUpdate);
             DeleteCommand = new DelegateCommand<Refund>(OnDelete);
             ShowDetailsCommand = new DelegateCommand<Refund>(OnShowDetails);
             PrintReceiptCommand = new DelegateCommand<Refund>(OnPrintReceipt);
@@ -70,9 +68,10 @@ namespace Inventory.Modules.Sales.ViewModels
 
         private async void OnCreateRefund()
         {
+            var refundableSales = Sales.Where(s => !Refunds.Any(r => s.Id == r.SaleId)).ToList();
             var view = new SaleRefundForm()
             {
-                DataContext = new SaleRefundFormViewModel(_dialogService, Sales)
+                DataContext = new SaleRefundFormViewModel(_dialogService, refundableSales)
             };
 
             var result = await DialogHost.Show(view, RegionNames.DialogRegion);
@@ -101,45 +100,6 @@ namespace Inventory.Modules.Sales.ViewModels
             catch (Exception ex)
             {
                 await _dialogService.ShowError("Something went wrong", ex.Message);
-            }
-            finally
-            {
-                IsBusy = false;
-            }
-        }
-
-        private async void OnUpdate(Refund refund)
-        {
-            if (refund is null)
-            {
-                return;
-            }
-
-            var sale = Sales.FirstOrDefault(x => x.Id == refund.Sale.Id);
-
-            var view = new SaleRefundForm()
-            {
-                DataContext = new SaleRefundFormViewModel(_dialogService, Sales, sale, refund)
-            };
-
-            try
-            {
-                var result = await DialogHost.Show(view, RegionNames.DialogRegion);
-
-                if (result is not Refund refundToUpdate)
-                {
-                    return;
-                }
-
-                IsBusy = true;
-
-                await _refundService.UpdateRefundAsync(refundToUpdate);
-
-                await _dialogService.ShowSuccess();
-            }
-            catch (Exception ex)
-            {
-                await _dialogService.ShowError("Error opening dialog.", ex.Message);
             }
             finally
             {
@@ -177,26 +137,29 @@ namespace Inventory.Modules.Sales.ViewModels
 
         private async void OnShowDetails(Refund refund)
         {
+            if (refund is null)
+            {
+                return;
+            }
+
+            var view = new RefundDetailsForm()
+            {
+                DataContext = new RefundDetailsFormViewModel(refund)
+            };
+
             try
             {
-
+                await DialogHost.Show(view, RegionNames.DialogRegion);
             }
             catch (Exception ex)
             {
-
+                await _dialogService.ShowError("Error opening refund details.", ex.Message);
             }
         }
 
         private async void OnPrintReceipt(Refund refund)
         {
-            try
-            {
-
-            }
-            catch (Exception ex)
-            {
-
-            }
+            throw new NotImplementedException();
         }
 
         #endregion
