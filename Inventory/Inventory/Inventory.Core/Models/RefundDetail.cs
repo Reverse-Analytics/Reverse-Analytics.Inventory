@@ -4,6 +4,7 @@
     {
         public int Id { get; set; }
         public int Quantity { get; set; }
+        public decimal TotalAmount { get; set; }
 
         public int RefundId { get; set; }
         public virtual Refund Refund { get; set; }

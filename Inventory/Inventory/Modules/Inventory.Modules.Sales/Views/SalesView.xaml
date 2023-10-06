@@ -15,7 +15,8 @@
     <UserControl.Resources>
 
         <Style TargetType="sf:GridCell">
-            <Setter Property="BorderThickness" Value="0,0,0,1" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="Green" />
         </Style>
         <Style TargetType="sf:GridHeaderCellControl">
             <Setter Property="BorderThickness" Value="0,0,0,1" />
